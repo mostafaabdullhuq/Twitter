@@ -18,7 +18,6 @@ module.exports = {
                     love: "#f91880",
                     retweet: "#00ba7c",
                 },
-
                 dim: {
                     50: "#5F99F7",
                     100: "#5F99F7",
