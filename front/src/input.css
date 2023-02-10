@@ -25,3 +25,7 @@
 .tweet-control-item {
     @apply flex flex-row justify-center items-center text-lg text-gray-700;
 }
+
+.sticky-active {
+    @apply text-black after:bottom-0 after:w-[30px] after:content-[""] after:bg-red-400 after:h-1 after:block;
+}
