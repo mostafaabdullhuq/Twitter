@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="output.css" />
+        <link rel="stylesheet" href="/front/dist/output.css" />
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
         <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.css " />
         <title>Twitter</title>
@@ -12,66 +12,71 @@
     <!-- Note : After any Change Run This --) "npm run dev" -->
     <body class="bg-main-white_0 dark:bg-dim-900">
         <!-- -----container----- -->
-        <div class="container mx-auto h-screen flex xl:max-w-[1200px]">
+        <div class="container mx-auto h-full flex xl:max-w-[1200px]">
             <!-- -----left----- -->
-            <div class="xl:w-1/5 w-20 h-full flex flex-col xl:pr-4">
-                <!-- ------logo----- -->
-                <a href="" class="flex justify-center items-center xl:justify-start text-blue-400">
-                    <i class="fa-brands fa-twitter text-4xl"></i>
-                </a>
+            <div class="xl:w-2/5 w-20 flex flex-col justify-between mt-1 border-r">
                 <!-- ------Side navBar---- -->
-                <nav class="mt-5">
-                    <a href="" class="flex justify-center items-center xl:justify-start text-blue-400 mb-8">
-                        <i class="fa-solid fa-house text-xl"></i><span class="hidden xl:ml-4 font-bold xl:block">Home</span>
-                    </a>
-                    <a
-                        href=""
-                        class="flex justify-center items-center xl:justify-start text-gray-800 dark:text-white mb-8 hover:text-blue-400 dark:hover:text-blue-400 transition duration-300 ease-in-out"
-                    >
-                        <i class="fa-solid fa-hashtag text-xl"></i><span class="hidden xl:ml-4 font-bold xl:block">Explore</span>
-                    </a>
-                    <a
-                        href=""
-                        class="flex justify-center items-center xl:justify-start text-gray-800 dark:text-white mb-8 hover:text-blue-400 dark:hover:text-blue-400 transition duration-300 ease-in-out"
-                    >
-                        <i class="fa-solid fa-bell text-xl"></i><span class="hidden xl:ml-4 font-bold xl:block">Notification</span>
-                    </a>
-                    <a
-                        href=""
-                        class="flex justify-center items-center xl:justify-start text-gray-800 dark:text-white mb-8 hover:text-blue-400 dark:hover:text-blue-400 transition duration-300 ease-in-out"
-                    >
-                        <i class="fa-solid fa-envelope text-xl"></i><span class="hidden xl:ml-4 font-bold xl:block">Messages</span>
-                    </a>
-                    <a
-                        href=""
-                        class="flex justify-center items-center xl:justify-start text-gray-800 dark:text-white mb-8 hover:text-blue-400 dark:hover:text-blue-400 transition duration-300 ease-in-out"
-                    >
-                        <i class="fa-solid fa-bookmark text-xl"></i><span class="hidden xl:ml-4 font-bold xl:block">Bookmarks</span>
-                    </a>
-                    <a
-                        href=""
-                        class="flex justify-center items-center xl:justify-start text-gray-800 dark:text-white mb-8 hover:text-blue-400 dark:hover:text-blue-400 transition duration-300 ease-in-out"
-                    >
-                        <i class="fa-solid fa-list-ul text-xl"></i>
-                        <span class="hidden xl:ml-4 font-bold xl:block">Lists</span>
-                    </a>
-                    <a
-                        href=""
-                        class="flex justify-center items-center xl:justify-start text-gray-800 dark:text-white mb-8 hover:text-blue-400 dark:hover:text-blue-400 transition duration-300 ease-in-out"
-                    >
-                        <i class="fa-solid fa-user text-xl"></i><span class="hidden xl:ml-4 font-bold xl:block">Profile</span>
-                    </a>
-                </nav>
-                <!-- ------tweet button ----- -->
-                <div class="w-16 xl:ml-4 flex justify-center items-center">
-                    <a href="" class="mx-full w-11 h-11 xl:w-auto flex justify-center items-center bg-blue-400 rounded-full text-white font-bold">
-                        <i class="fa-solid fa-feather text-xl block xl:hidden max-xl:hidden lg:hidden"></i>
-                        <span class="hidden p-9 font-bold xl:block">Tweet</span>
-                    </a>
-                </div>
+                <nav class="mt-2 text-xl flex flex-col mr-4 gap-2">
+                    <!-- ------logo----- -->
+                    <div class="w-full flex justify-start">
+                        <a href="#" class="text-main-blue rounded-full p-2 ml-1 w-12 h-12 hover:bg-main-blue_0 transition-colors">
+                            <i class="fa-brands fa-twitter text-3xl"></i>
+                        </a>
+                    </div>
 
+                    <div class="nav-active">
+                        <a href="" class="nav-item nav-active"> <i class="fa-solid fa-house text-xl"></i><span class="hidden xl:ml-4 xl:block">Home</span> </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                            <i class="fa-solid fa-hashtag text-2xl"></i><span class="hidden xl:ml-4 xl:block">Explore</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                            <i class="fa-regular fa-bell text-2xl"></i><span class="hidden xl:ml-4 xl:block">Notification</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                            <i class="fa-regular fa-envelope text-2xl"></i><span class="hidden xl:ml-4 xl:block">Messages</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                            <i class="fa-regular fa-bookmark text-2xl"></i><span class="hidden xl:ml-4 xl:block">Bookmarks</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                            <i class="fa-solid fa-list-ul text-2xl"></i>
+                            <span class="hidden xl:ml-4 xl:block">Lists</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                            <i class="fa-regular fa-user text-2xl"></i><span class="hidden xl:ml-4 xl:block">Profile</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                            <i class="fa-solid fa-gear text-2xl"></i><span class="hidden xl:ml-4 xl:block">Settings</span>
+                        </a>
+                    </div>
+                    <!-- ------tweet button ----- -->
+                    <div class="xl:hidden flex justify-start items-center mt-1">
+                        <a href="" class="w-full text-center py-4 px-3 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
+                            <i class="fa-solid fa-feather-pointed"></i>
+                        </a>
+                    </div>
+                    <div class="xl:flex hidden justify-start items-center mt-1">
+                        <a href="" class="w-full text-center py-4 px-3 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
+                            <span class="hidden font-semibold xl:block text-xl"> Tweet </span>
+                        </a>
+                    </div>
+                </nav>
                 <!-- -------User ->  ------ -->
-                <div class="w-16 xl:w-full mx-auto mt-auto flex justify-between mb-2 rounded-full cursor-pointer mr-5 p-2">
+                <div class="mr-4 mt-3 flex justify-between items-center hover:bg-gray-200 transition-colors mb-2 rounded-full cursor-pointer p-2">
                     <!-- ------user profile image---- -->
                     <!-- <img src="../img.jpeg" class="w-12 h-10 rounded-full" alt=""> -->
                     <!-- -----user profile text---- -->
@@ -86,40 +91,146 @@
                         <p class="text-gray-400 text-sm">@Sara_Elbanna</p>
                     </div>
                     <!-- </div> -->
-                    <i class="fa-solid fa-chevron-down text-xs hidden xl:flex items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
+                    <div class="hidden xl:flex">
+                        <i class="fa-solid fa-ellipsis text-xs items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
+                    </div>
                 </div>
             </div>
+
             <!-- ------middle--------- -->
             <div class="w-full xl:1/2 h-screen overflow-y-auto">
                 <!-- -----sticky header---- -->
-                <div class="flex justify-between items-center border px-4 py-3 sticky top-0 bg-white dark:bg-dim-900 border-gray-200 dark:border-gray-700">
+                <div class="flex justify-between items-center border-b px-4 py-10 sticky top-0 bg-white dark:bg-dim-900 border-gray-100 dark:border-gray-700">
                     <h4 class="text-gray-800 dark:text-gray-100 font-bold">Home</h4>
-                    <i class="fa-brands fa-twitter text-lg text-blue-400"></i>
                 </div>
                 <!-- ---------box tweet--- -->
-                <div class="border pb-3 border-gray-200 dark:border-dim-200">
-                    <div class="flex p-4">
-                        <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
-                        <textarea class="p-2 dark:text-white text-gray-900 w-full h-16 bg-transparent focus:outline-none resize-none" name="" id="" placeholder="what is happening?"></textarea>
-                    </div>
-                    <div class="flex p-4 w-full">
-                        <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                            <i class="fa-solid fa-image text-lg"></i>
-                        </a>
-                        <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                            <i class="fa-brands fa-git text-lg"></i>
-                        </a>
-                        <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                            <i class="fa-solid fa-square-poll-horizontal text-lg"></i>
-                        </a>
-                        <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                            <i class="fa-solid fa-face-smile text-lg"></i>
-                        </a>
+                <div class="pb-3 border-b border-gray-100 dark:border-dim-200">
+                    <!-- new tweet section -->
+                    <div class="border-b border-gray-100">
+                        <div class="flex p-4">
+                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
+                            <textarea class="p-2 dark:text-white text-gray-900 w-full h-16 bg-transparent focus:outline-none resize-none" name="" id="" placeholder="what is happening?"></textarea>
+                        </div>
+                        <div class="flex p-4 w-full">
+                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
+                                <i class="fa-solid fa-image text-lg"></i>
+                            </a>
+                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
+                                <i class="fa-brands fa-git text-lg"></i>
+                            </a>
+                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
+                                <i class="fa-solid fa-square-poll-horizontal text-lg"></i>
+                            </a>
+                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
+                                <i class="fa-solid fa-face-smile text-lg"></i>
+                            </a>
+                        </div>
                     </div>
                     <!-- ----show tweets----- -->
-                    <div class="text-center py-4 bg-white dark:bg-dim-900 border border-gray-200 dark:border-dim-200 hover:dark:bg-dim-300 cursor-pointer text-blue-400 text-sm">show 111 tweets</div>
+                    <div class="text-center py-4 hover:bg-gray-100 transition-colors bg-white dark:bg-dim-900 dark:border-dim-200 hover:dark:bg-dim-300 cursor-pointer text-blue-400 text-sm">
+                        show 111 tweets
+                    </div>
                     <!-- ------tweets--------- -->
-                    <div class="border border-gray-200 dark:border-dim-200 cursor-pointer pb-4">
+                    <div class="tweet">
+                        <div class="flex p-4 pb-0">
+                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
+                            <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">
+                                Ahmed
+                                <span class="ml-1 text-sm leading-5 text-gray-400">@ahmed555</span>
+                            </p>
+                        </div>
+                        <!-- ----paragraph----- -->
+                        <div class="pl-8 xl:pl-16 pr-4">
+                            <p class="w-auto font-medium text-gray-800 dark:text-white">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
+                                <a href="" class="text-blue-400">#syria</a>
+                                itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
+                            </p>
+                            <img class="rounded-2xl border border-gray-600 my-3 mr-2" src="../images/photo.jpg" alt="" />
+                            <!-- ----image icons ---- -->
+                            <div class="flex items-center w-full justify-between">
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
+                                    <i class="fa-solid fa-comment mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-green-400 dark:hover:text-green-400">
+                                    <i class="fa-solid fa-retweet mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-red-400 dark:hover:text-red-400">
+                                    <i class="fa-solid fa-heart mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
+                                    <i class="fa-solid fa-share mr-2 text-lg"></i>10.5 k
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tweet">
+                        <div class="flex p-4 pb-0">
+                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
+                            <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">
+                                Ahmed
+                                <span class="ml-1 text-sm leading-5 text-gray-400">@ahmed555</span>
+                            </p>
+                        </div>
+                        <!-- ----paragraph----- -->
+                        <div class="pl-8 xl:pl-16 pr-4">
+                            <p class="w-auto font-medium text-gray-800 dark:text-white">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
+                                <a href="" class="text-blue-400">#syria</a>
+                                itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
+                            </p>
+                            <img class="rounded-2xl border border-gray-600 my-3 mr-2" src="../images/photo.jpg" alt="" />
+                            <!-- ----image icons ---- -->
+                            <div class="flex items-center w-full justify-between">
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
+                                    <i class="fa-solid fa-comment mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-green-400 dark:hover:text-green-400">
+                                    <i class="fa-solid fa-retweet mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-red-400 dark:hover:text-red-400">
+                                    <i class="fa-solid fa-heart mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
+                                    <i class="fa-solid fa-share mr-2 text-lg"></i>10.5 k
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tweet">
+                        <div class="flex p-4 pb-0">
+                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
+                            <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">
+                                Ahmed
+                                <span class="ml-1 text-sm leading-5 text-gray-400">@ahmed555</span>
+                            </p>
+                        </div>
+                        <!-- ----paragraph----- -->
+                        <div class="pl-8 xl:pl-16 pr-4">
+                            <p class="w-auto font-medium text-gray-800 dark:text-white">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
+                                <a href="" class="text-blue-400">#syria</a>
+                                itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
+                            </p>
+                            <img class="rounded-2xl border border-gray-600 my-3 mr-2" src="../images/photo.jpg" alt="" />
+                            <!-- ----image icons ---- -->
+                            <div class="flex items-center w-full justify-between">
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
+                                    <i class="fa-solid fa-comment mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-green-400 dark:hover:text-green-400">
+                                    <i class="fa-solid fa-retweet mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-red-400 dark:hover:text-red-400">
+                                    <i class="fa-solid fa-heart mr-2 text-lg"></i>10.5 k
+                                </div>
+                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
+                                    <i class="fa-solid fa-share mr-2 text-lg"></i>10.5 k
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tweet">
                         <div class="flex p-4 pb-0">
                             <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
                             <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">

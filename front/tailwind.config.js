@@ -4,6 +4,10 @@ module.exports = {
     darkMode: "class",
     theme: {
         extend: {
+            container: {
+                center: true,
+                padding: "1rem",
+            },
             colors: {
                 main: {
                     white_0: "#fff",
@@ -79,11 +83,9 @@ module.exports = {
                 "spin-fast": "spin 0.5s linear infinite",
             },
             fontSize: {
-                main: {
-                    heading: "20px",
-                    normal: "15px",
-                    small: "13px",
-                },
+                large: "20px",
+                medium: "15px",
+                small: "13px",
             },
         },
     },
