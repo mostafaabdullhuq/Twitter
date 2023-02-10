@@ -11,5 +11,21 @@
 }
 
 .tweet {
-    @apply border-t border-b border-gray-100  cursor-pointer pb-4;
+    @apply border-t border-b border-gray-100 flex flex-row px-4 py-2  cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
+}
+
+.icon {
+    @apply w-10 h-10 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0;
+}
+
+.twitter-img {
+    @apply w-14 min-w-[3.5rem] min-h-[3.5rem] h-14 rounded-full cursor-pointer;
+}
+
+.tweet-control-item {
+    @apply flex flex-row justify-center items-center text-lg text-gray-700;
+}
+
+.sticky-active {
+    @apply text-black after:bottom-0 after:w-[30px] after:content-[""] after:bg-red-400 after:h-1 after:block;
 }
