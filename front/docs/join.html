@@ -9,13 +9,13 @@
       rel="stylesheet"
       href="/node_modules/@fortawesome/fontawesome-free/css/all.css"
     />
-    <title>Twitter SignIn</title>
+    <title>Join Twitter</title>
   </head>
   <body class="bg-gray-200">
     <div
       class="m-10 w-[500px] bg-white p-10 absolute rounded shadow-lg rounded-3xl"
     >
-      <div class="flex justify-between">
+      <div class="flex justify-between m-0">
         <a><i class="fa-regular fa-x text-l"></i></a>
       </div>
       <div class="flex justify-center p-0">
@@ -26,7 +26,7 @@
           <i class="fa-brands fa-twitter text-5xl"></i>
         </a>
       </div>
-      <h1 class="text-3xl font-bold text-center">Sign In to Twitter</h1>
+      <h1 class="text-3xl font-bold text-center">Join Twitter today</h1>
 
       <div>
         <button
@@ -36,6 +36,7 @@
           <span class="mx-3"> Sign in with Google </span>
         </button>
       </div>
+
       <div>
         <button
           class="flex w-full rounded-full justify-center border border-2 py-2 px-4 m-4 text-xl hover:bg-black focus:outline-none hover:text-white"
@@ -44,38 +45,33 @@
           <span class="mx-3 mx-3 font-semibold"> Sign in with Apple </span>
         </button>
       </div>
+
       <div class="flex items-center justify-center mb-4">
         <hr class="w-full border-1 mx-4" />
         <h5 class="text-xl mb-4 text-center font-semibold">Or</h5>
         <hr class="w-full border-1 mx-4" />
       </div>
-      <input
-        id="name"
-        name="name"
-        type="name"
-        autocomplete="current-name"
-        required
-        class="relative block w-full appearance-none border text-xl border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
-        placeholder="Phone, email or user name"
-      />
 
       <button
         type="submit"
         id="next"
         class="rounded-full flex w-full justify-center border border-transparent bg-black py-3 px-4 m-4 text-xl text-white hover:bg-blue-600 focus:outline-none focus:ring-offset-2"
       >
-        Next
+        Create account
       </button>
-      <button
-        type="submit"
-        id="next"
-        class="flex w-full justify-center border border-2 py-3 px-4 m-4 text-xl hover:bg-blue-600 hover:text-white focus:outline-none rounded-full focus:ring-offset-2"
-      >
-        Forgot password?
-      </button>
-      <div class="text-lg text-center">
-        Don't have an account?
-        <a href="./signupPop1.html" class="text-blue-400">Sign up</a>
+
+      <div class="flex items-center justify-center mb-4">
+        <p class="text-gray-700">
+          By signing up, you agree to our
+          <a href="#" class="text-blue-500">Terms of Service</a><br />
+          and <a href="#" class="text-blue-500">Privacy Policy ,</a>including
+          <a href="#" class="text-blue-500">Cookie Use.</a>
+        </p>
+      </div>
+
+      <div class="text-lg text-center pb-20">
+        Have an account already?
+        <a href="./signin.html" class="text-blue-500  pb-20">Log in</a>
       </div>
     </div>
   </body>
