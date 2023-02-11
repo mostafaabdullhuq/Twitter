@@ -13,7 +13,7 @@
     <body class="bg-main-white_0 dark:bg-dim-900">
         <!-- -----container----- -->
         <div class="container mx-auto h-full flex xl:max-w-[1250px]">
-            <!-- -----left----- -->
+            <!--! -----left----- -->
             <div class="xl:w-2/5 w-20 flex flex-col justify-between mt-1 border-r">
                 <!-- ------Side navBar---- -->
                 <nav class="mt-2 text-xl flex flex-col mr-4 gap-2">
@@ -85,7 +85,7 @@
                     <p class="text-gray-400">@Sara_Elbanna</p>
                 </div> -->
                     <!-- <div class="flex"> -->
-                    <img src="../images/img.jpeg" class="w-10 h-10 rounded-full" alt="" />
+                    <img src="../images/img.jpeg" class="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] rounded-full" alt="" />
                     <div class="hidden xl:flex flex-col ml-2">
                         <h5 class="text-gray-900 dark:text-white font-bold text-sm">SaRa</h5>
                         <p class="text-gray-400 text-sm">@Sara_Elbanna</p>
@@ -97,168 +97,193 @@
                 </div>
             </div>
 
-            <!-- ------middle--------- -->
-            <div class="w-full xl:1/2 h-screen overflow-y-auto">
+            <!--! ------middle--------- -->
+            <div class="w-full xl:1/2 h-screen overflow-y-auto scrollbar-hide">
                 <!-- -----sticky header---- -->
-                <div class="flex justify-between items-center border-b px-4 py-10 sticky top-0 bg-white dark:bg-dim-900 border-gray-100 dark:border-gray-700">
-                    <h4 class="text-gray-800 dark:text-gray-100 font-bold">Home</h4>
+                <div class="flex flex-col sticky top-0 text-large bg-transparent dark:bg-dim-900 dark:border-gray-700">
+                    <!-- overlay div -->
+                    <div class="absolute w-full border-b border-gray-100 h-full bg-white sticky-nav-scroll -z-100"></div>
+                    <!-- content of fixed nav -->
+                    <div class="content z-0">
+                        <h4 class="text-gray-800 pl-6 py-4 text-2xl dark:text-gray-100 font-bold">Home</h4>
+                        <div class="grid grid-cols-2 w-full">
+                            <div class="w-full sticky-active">
+                                <button class="w-full py-4 font-semibold hover:bg-gray-100 transition-colors">For you</button>
+                            </div>
+                            <div class="w-full relative">
+                                <button class="py-4 w-full font-semibold hover:bg-gray-100 transition-colors text-gray-500">Following</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- ---------box tweet--- -->
-                <div class="pb-3 border-b border-gray-100 dark:border-dim-200">
+                <div class="pb-3 border-gray-100 dark:border-dim-200">
                     <!-- new tweet section -->
-                    <div class="border-b border-gray-100">
+                    <div class="border-b h-fit border-gray-100">
                         <div class="flex p-4">
-                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
-                            <textarea class="p-2 dark:text-white text-gray-900 w-full h-16 bg-transparent focus:outline-none resize-none" name="" id="" placeholder="what is happening?"></textarea>
+                            <img class="twitter-img" src="../images/img.jpeg" alt="" />
+                            <textarea
+                                class="px-3 py-3 text-2xl tracking-tight text-main-black_0 placeholder:text-light-gray_100 dark:text-white h-fit min-h-[100px] w-full bg-transparent focus:outline-none resize-none"
+                                name=""
+                                id=""
+                                placeholder="What's happening?"
+                            ></textarea>
                         </div>
+                        <!-- tweet icons -->
                         <div class="flex p-4 w-full">
-                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                                <i class="fa-solid fa-image text-lg"></i>
+                            <a href="" class="text-main-blue w-10 h-10 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
+                                <i class="w-full fa-solid fa-image text-lg"></i>
                             </a>
-                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                                <i class="fa-brands fa-git text-lg"></i>
+                            <a href="" class="text-main-blue w-10 h-10 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
+                                <i class="w-full fa-brands fa-git text-lg"></i>
                             </a>
-                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                                <i class="fa-solid fa-square-poll-horizontal text-lg"></i>
+                            <a href="" class="text-main-blue w-10 h-10 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
+                                <i class="w-full fa-solid fa-square-poll-horizontal text-lg"></i>
                             </a>
-                            <a href="" class="text-blue-400 hover:bg-gray-600 rounded-full p-2">
-                                <i class="fa-solid fa-face-smile text-lg"></i>
+                            <a href="" class="text-main-blue w-10 h-10 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
+                                <i class="w-full fa-solid fa-face-smile text-lg"></i>
                             </a>
                         </div>
                     </div>
                     <!-- ----show tweets----- -->
-                    <div class="text-center py-4 hover:bg-gray-100 transition-colors bg-white dark:bg-dim-900 dark:border-dim-200 hover:dark:bg-dim-300 cursor-pointer text-blue-400 text-sm">
+                    <div
+                        class="text-center text-md py-4 hover:bg-gray-100 transition-colors bg-white dark:bg-dim-900 dark:border-dim-200 hover:dark:bg-dim-300 capitalize cursor-pointer text-main-blue"
+                    >
                         show 111 tweets
                     </div>
                     <!-- ------tweets--------- -->
                     <div class="tweet">
-                        <div class="flex p-4 pb-0">
-                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
-                            <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">
-                                Ahmed
-                                <span class="ml-1 text-sm leading-5 text-gray-400">@ahmed555</span>
-                            </p>
-                        </div>
-                        <!-- ----paragraph----- -->
-                        <div class="pl-8 xl:pl-16 pr-4">
-                            <p class="w-auto font-medium text-gray-800 dark:text-white">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
-                                <a href="" class="text-blue-400">#syria</a>
-                                itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
-                            </p>
-                            <img class="rounded-2xl border border-gray-600 my-3 mr-2" src="../images/photo.jpg" alt="" />
-                            <!-- ----image icons ---- -->
-                            <div class="flex items-center w-full justify-between">
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-comment mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-green-400 dark:hover:text-green-400">
-                                    <i class="fa-solid fa-retweet mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-red-400 dark:hover:text-red-400">
-                                    <i class="fa-solid fa-heart mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-share mr-2 text-lg"></i>10.5 k
+                        <img
+                            class="twitter-img"
+                            src="https://plus.unsplash.com/premium_photo-1661594613495-d390917b5431?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80"
+                            alt=""
+                        />
+                        <div class="content ml-3 flex flex-col justify-start gap-1 pt-3">
+                            <div class="flex pb-0">
+                                <p class="flex flex-shrink-0 h-4 items-center font-bold text-gray-800 dark:text-white">
+                                    Elon Musk
+                                    <span class="ml-2 text-md leading-5 font-normal text-light-gray_100">@elonmusk</span>
+                                </p>
+                            </div>
+                            <!-- ----paragraph----- -->
+                            <div class="pr-4">
+                                <p class="w-auto font-normal dark:text-white text-xl text-dark-gray_400">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
+                                    <a href="" class="text-blue-400 hover:underline">#syria</a>
+                                    itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
+                                </p>
+                                <img class="rounded-xl my-3 mr-2" src="../images/photo.jpg" alt="" />
+                                <!-- ----controls icons ---- -->
+                                <div class="flex items-center w-full justify-start gap-6">
+                                    <div class="tweet-control-item hover:text-main-blue_100">
+                                        <i class="p-2 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                        10.5K
+                                    </div>
+                                    <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet p-2 rounded-full hover:bg-green-100"></i>5.5K</div>
+                                    <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart p-2 rounded-full hover:bg-pink-200"></i>10.5K</div>
+                                    <div class="tweet-control-item ml-12 hover:text-main-blue_100"><i class="hover:bg-blue-100 p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tweet">
-                        <div class="flex p-4 pb-0">
-                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
-                            <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">
-                                Ahmed
-                                <span class="ml-1 text-sm leading-5 text-gray-400">@ahmed555</span>
-                            </p>
-                        </div>
-                        <!-- ----paragraph----- -->
-                        <div class="pl-8 xl:pl-16 pr-4">
-                            <p class="w-auto font-medium text-gray-800 dark:text-white">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
-                                <a href="" class="text-blue-400">#syria</a>
-                                itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
-                            </p>
-                            <img class="rounded-2xl border border-gray-600 my-3 mr-2" src="../images/photo.jpg" alt="" />
-                            <!-- ----image icons ---- -->
-                            <div class="flex items-center w-full justify-between">
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-comment mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-green-400 dark:hover:text-green-400">
-                                    <i class="fa-solid fa-retweet mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-red-400 dark:hover:text-red-400">
-                                    <i class="fa-solid fa-heart mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-share mr-2 text-lg"></i>10.5 k
+                        <img
+                            class="twitter-img"
+                            src="https://plus.unsplash.com/premium_photo-1661594613495-d390917b5431?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80"
+                            alt=""
+                        />
+                        <div class="content ml-3 flex flex-col justify-start gap-1 pt-3">
+                            <div class="flex pb-0">
+                                <p class="flex flex-shrink-0 h-4 items-center font-bold text-gray-800 dark:text-white">
+                                    Elon Musk
+                                    <span class="ml-2 text-md leading-5 font-normal text-light-gray_100">@elonmusk</span>
+                                </p>
+                            </div>
+                            <!-- ----paragraph----- -->
+                            <div class="pr-4">
+                                <p class="w-auto font-normal dark:text-white text-xl text-dark-gray_400">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
+                                    <a href="" class="text-blue-400 hover:underline">#syria</a>
+                                    itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
+                                </p>
+                                <img class="rounded-xl my-3 mr-2" src="../images/photo.jpg" alt="" />
+                                <!-- ----controls icons ---- -->
+                                <div class="flex items-center w-full justify-start gap-6">
+                                    <div class="tweet-control-item hover:text-main-blue_100">
+                                        <i class="p-2 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                        10.5K
+                                    </div>
+                                    <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet p-2 rounded-full hover:bg-green-100"></i>5.5K</div>
+                                    <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart p-2 rounded-full hover:bg-pink-200"></i>10.5K</div>
+                                    <div class="tweet-control-item ml-12 hover:text-main-blue_100"><i class="hover:bg-blue-100 p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tweet">
-                        <div class="flex p-4 pb-0">
-                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
-                            <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">
-                                Ahmed
-                                <span class="ml-1 text-sm leading-5 text-gray-400">@ahmed555</span>
-                            </p>
-                        </div>
-                        <!-- ----paragraph----- -->
-                        <div class="pl-8 xl:pl-16 pr-4">
-                            <p class="w-auto font-medium text-gray-800 dark:text-white">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
-                                <a href="" class="text-blue-400">#syria</a>
-                                itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
-                            </p>
-                            <img class="rounded-2xl border border-gray-600 my-3 mr-2" src="../images/photo.jpg" alt="" />
-                            <!-- ----image icons ---- -->
-                            <div class="flex items-center w-full justify-between">
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-comment mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-green-400 dark:hover:text-green-400">
-                                    <i class="fa-solid fa-retweet mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-red-400 dark:hover:text-red-400">
-                                    <i class="fa-solid fa-heart mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-share mr-2 text-lg"></i>10.5 k
+                        <img
+                            class="twitter-img"
+                            src="https://plus.unsplash.com/premium_photo-1661594613495-d390917b5431?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80"
+                            alt=""
+                        />
+                        <div class="content ml-3 flex flex-col justify-start gap-1 pt-3">
+                            <div class="flex pb-0">
+                                <p class="flex flex-shrink-0 h-4 items-center font-bold text-gray-800 dark:text-white">
+                                    Elon Musk
+                                    <span class="ml-2 text-md leading-5 font-normal text-light-gray_100">@elonmusk</span>
+                                </p>
+                            </div>
+                            <!-- ----paragraph----- -->
+                            <div class="pr-4">
+                                <p class="w-auto font-normal dark:text-white text-xl text-dark-gray_400">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
+                                    <a href="" class="text-blue-400 hover:underline">#syria</a>
+                                    itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
+                                </p>
+                                <img class="rounded-xl my-3 mr-2" src="../images/photo.jpg" alt="" />
+                                <!-- ----controls icons ---- -->
+                                <div class="flex items-center w-full justify-start gap-6">
+                                    <div class="tweet-control-item hover:text-main-blue_100">
+                                        <i class="p-2 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                        10.5K
+                                    </div>
+                                    <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet p-2 rounded-full hover:bg-green-100"></i>5.5K</div>
+                                    <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart p-2 rounded-full hover:bg-pink-200"></i>10.5K</div>
+                                    <div class="tweet-control-item ml-12 hover:text-main-blue_100"><i class="hover:bg-blue-100 p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tweet">
-                        <div class="flex p-4 pb-0">
-                            <img class="w-10 h-10 rounded-full cursor-pointer" src="../images/img.jpeg" alt="" />
-                            <p class="ml-2 flex flex-shrink-0 items-center font-medium text-gray-800 dark:text-white">
-                                Ahmed
-                                <span class="ml-1 text-sm leading-5 text-gray-400">@ahmed555</span>
-                            </p>
-                        </div>
-                        <!-- ----paragraph----- -->
-                        <div class="pl-8 xl:pl-16 pr-4">
-                            <p class="w-auto font-medium text-gray-800 dark:text-white">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
-                                <a href="" class="text-blue-400">#syria</a>
-                                itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
-                            </p>
-                            <img class="rounded-2xl border border-gray-600 my-3 mr-2" src="../images/photo.jpg" alt="" />
-                            <!-- ----image icons ---- -->
-                            <div class="flex items-center w-full justify-between">
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-comment mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-green-400 dark:hover:text-green-400">
-                                    <i class="fa-solid fa-retweet mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-red-400 dark:hover:text-red-400">
-                                    <i class="fa-solid fa-heart mr-2 text-lg"></i>10.5 k
-                                </div>
-                                <div class="flex items-center dark:text-white text-xs text-gray-400 hover:text-blue-400 dark:hover:text-blue-400">
-                                    <i class="fa-solid fa-share mr-2 text-lg"></i>10.5 k
+                        <img
+                            class="twitter-img"
+                            src="https://plus.unsplash.com/premium_photo-1661594613495-d390917b5431?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80"
+                            alt=""
+                        />
+                        <div class="content ml-3 flex flex-col justify-start gap-1 pt-3">
+                            <div class="flex pb-0">
+                                <p class="flex flex-shrink-0 h-4 items-center font-bold text-gray-800 dark:text-white">
+                                    Elon Musk
+                                    <span class="ml-2 text-md leading-5 font-normal text-light-gray_100">@elonmusk</span>
+                                </p>
+                            </div>
+                            <!-- ----paragraph----- -->
+                            <div class="pr-4">
+                                <p class="w-auto font-normal dark:text-white text-xl text-dark-gray_400">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis sapiente repellat voluptas nisi
+                                    <a href="" class="text-blue-400 hover:underline">#syria</a>
+                                    itaque esse officia alias dolor, perferendis, recusandae asperiores doloribus debitis! Ipsam ducimus incidunt perferendis, suscipit error ratione.
+                                </p>
+                                <img class="rounded-xl my-3 mr-2" src="../images/photo.jpg" alt="" />
+                                <!-- ----controls icons ---- -->
+                                <div class="flex items-center w-full justify-start gap-6">
+                                    <div class="tweet-control-item hover:text-main-blue_100">
+                                        <i class="p-2 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                        10.5K
+                                    </div>
+                                    <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet p-2 rounded-full hover:bg-green-100"></i>5.5K</div>
+                                    <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart p-2 rounded-full hover:bg-pink-200"></i>10.5K</div>
+                                    <div class="tweet-control-item ml-12 hover:text-main-blue_100"><i class="hover:bg-blue-100 p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i></div>
                                 </div>
                             </div>
                         </div>
