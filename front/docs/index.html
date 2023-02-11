@@ -12,9 +12,9 @@
     <!-- Note : After any Change Run This --) "npm run dev" -->
     <body class="bg-main-white_0 dark:bg-dim-900">
         <!-- -----container----- -->
-        <div class="container mx-auto h-full flex xl:max-w-[1250px]">
+        <div class="container mx-auto h-full flex xl:max-w-[1600px]">
             <!--! -----left----- -->
-            <div class="xl:w-2/5 w-20 flex flex-col justify-between mt-1 border-r">
+            <div class="xl:w-2/5 w-20 flex flex-col justify-between mt-1">
                 <!-- ------Side navBar---- -->
                 <nav class="mt-2 text-xl flex flex-col mr-4 gap-2">
                     <!-- ------logo----- -->
@@ -98,7 +98,7 @@
             </div>
 
             <!--! ------middle--------- -->
-            <div class="w-full xl:1/2 h-screen overflow-y-auto scrollbar-hide">
+            <div class="w-full xl:1/2 h-screen overflow-y-auto scrollbar-hide border-x border-gray-100">
                 <!-- -----sticky header---- -->
                 <div class="flex flex-col sticky top-0 text-large bg-transparent dark:bg-dim-900 dark:border-gray-700">
                     <!-- overlay div -->
@@ -292,8 +292,8 @@
                 </div>
             </div>
 
-            <!-- -----------right---------- -->
-            <div class="hidden w-[50%] xl:block border-l-2 border-gray-500">
+            <!--! -----------right---------- -->
+            <div class="hidden w-[50%] xl:block pl-6">
                 <!-- -----search------ -->
                 <div class="relative m-2">
                     <i class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"></i>
@@ -303,7 +303,7 @@
                         placeholder="Search Here"
                     />
                 </div>
-                <!-- ------hashtags---- -->
+                <!--! ------hashtags---- -->
                 <div class="bg-gray-50 dark:bg-dim-700 rounded-2xl m-2">
                     <h3 class="text-gray-900 dark:text-white font-bold p-3 border-b border-gray-200 dark:border-dim-200">What is happenning?</h3>
                     <div class="p-3 border-b border-gray-200 dark:border-dim-200 cursor-pointer hover:dark:bg-gray-700">
