@@ -7,23 +7,23 @@
 }
 
 .nav-item {
-    @apply flex justify-center items-center xl:justify-start dark:text-white w-fit px-4 py-3 rounded-full hover:bg-gray-200 tracking-wide;
+    @apply flex justify-center items-center xl:justify-start dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 p-4 rounded-full hover:bg-gray-200 tracking-wide;
 }
 
 .tweet {
-    @apply border-t border-b border-gray-100 flex flex-row px-4 py-2  cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
+    @apply border-t border-b    border-gray-100 flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
 }
 
 .icon {
     @apply w-10 h-10 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0;
 }
 
-.twitter-img {
-    @apply w-14 min-w-[3.5rem] min-h-[3.5rem] h-14 rounded-full cursor-pointer;
+.twitter-user-img {
+    @apply w-12 min-w-[3.2rem] min-h-[3.2rem] h-12 rounded-full cursor-pointer;
 }
 
 .tweet-control-item {
-    @apply flex flex-row justify-center items-center text-lg text-gray-700;
+    @apply flex flex-row justify-center items-center text-medium text-gray-600;
 }
 
 .sticky-active {
@@ -32,4 +32,12 @@
 
 .sticky-nav-scroll {
     @apply opacity-[.985];
+}
+
+.right-tend {
+    @apply px-4 py-2 cursor-pointer transition-colors hover:bg-gray-200;
+}
+
+.right-follow {
+    @apply px-4 py-2 hover:bg-gray-200 cursor-pointer my-1 transition-colors flex justify-between items-center;
 }
