@@ -23,7 +23,7 @@
 }
 
 .tweet-control-item {
-    @apply flex flex-row justify-center items-center text-medium text-gray-600;
+    @apply flex flex-row justify-start items-center text-medium text-gray-600;
 }
 
 .sticky-active {

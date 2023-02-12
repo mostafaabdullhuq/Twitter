@@ -88,7 +88,27 @@
                     </div>
                 </div>
             </header>
+            <header class="bg-white sm:hidden fixed bottom-0 w-full left-0 right-0 flex justify-between px-4 border-t py-1 border-gray-100">
+                <div class="nav-active">
+                    <a href="" class="nav-item nav-active"> <i class="fa-solid fa-house text-xl"></i> </a>
+                </div>
 
+                <div>
+                    <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                        <i class="fa-solid fa-search text-2xl"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                        <i class="fa-regular fa-bell text-2xl"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                        <i class="fa-regular fa-envelope text-2xl"></i><span class="hidden xl:ml-4 xl:block">Messages</span>
+                    </a>
+                </div>
+            </header>
             <!--! -------main content ------- -->
             <main class="main flex w-full h-screen">
                 <!--! -------middle ------- -->
@@ -99,13 +119,13 @@
                         <div class="absolute w-full border-b border-gray-100 h-full bg-white sticky-nav-scroll -z-100"></div>
                         <!-- content of fixed nav -->
                         <div class="content z-0">
-                            <h4 class="text-gray-800 pl-6 py-4 text-xl dark:text-gray-100 font-bold">Home</h4>
+                            <h4 class="text-gray-800 hidden sm:flex pl-6 py-4 text-xl dark:text-gray-100 font-bold">Home</h4>
                             <div class="grid grid-cols-2 w-full">
                                 <div class="w-full sticky-active">
-                                    <button class="w-full py-4 font-semibold hover:bg-gray-100 transition-colors">For you</button>
+                                    <button class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 transition-colors">For you</button>
                                 </div>
                                 <div class="w-full relative">
-                                    <button class="py-4 w-full font-semibold hover:bg-gray-100 transition-colors text-gray-500">Following</button>
+                                    <button class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 transition-colors text-gray-500">Following</button>
                                 </div>
                             </div>
                         </div>
@@ -122,23 +142,29 @@
                                 placeholder="What's happening?"
                             ></textarea>
                         </div>
-                        <!-- tweet icons -->
-                        <div class="flex p-4 w-full pl-16">
-                            <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="Media">
-                                <i class="w-full fa-regular fa-image text-lg"></i>
-                            </a>
-                            <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="GIF">
-                                <i class="w-full fa-regular fa-file-image"></i>
-                            </a>
-                            <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="Poll">
-                                <i class="w-full fa-solid fa-square-poll-horizontal text-lg"></i>
-                            </a>
-                            <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="Schedule a tweet">
-                                <i class="fa-regular fa-calendar w-full"></i>
-                            </a>
-                            <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
-                                <i class="w-full fa-regular fa-face-smile text-lg"></i>
-                            </a>
+                        <div class="controls w-full grid grid-cols-2">
+                            <!-- tweet icons -->
+                            <div class="flex p-4 sm:pl-16 pl-6">
+                                <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="Media">
+                                    <i class="w-full fa-regular fa-image text-lg"></i>
+                                </a>
+                                <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="GIF">
+                                    <i class="w-full fa-regular fa-file-image"></i>
+                                </a>
+                                <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="Poll">
+                                    <i class="w-full fa-solid fa-square-poll-horizontal text-lg"></i>
+                                </a>
+                                <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="Schedule a tweet">
+                                    <i class="fa-regular fa-calendar w-full"></i>
+                                </a>
+                                <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
+                                    <i class="w-full fa-regular fa-face-smile text-lg"></i>
+                                </a>
+                            </div>
+                            <!-- tweet button -->
+                            <div class="flex py-2 justify-end px-6">
+                                <button class="bg-main-blue_0 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors">Tweet</button>
+                            </div>
                         </div>
                     </div>
                     <!-- ----show tweets----- -->
@@ -148,7 +174,7 @@
                         show 111 tweets
                     </div>
                     <!-- !------tweets--------- -->
-                    <div class="tweets w-full">
+                    <div class="tweets w-full mb-16">
                         <!--! tweet -->
                         <div class="tweet">
                             <!-- user image -->
@@ -188,19 +214,14 @@
                                     </div>
 
                                     <!-- ----controls icons ---- -->
-                                    <div class="flex w-full justify-start sm:gap-6 gap-2">
-                                        <div class="flex sm:w-1/2 items-center justify-between px-4 sm:px-0 w-full">
-                                            <div class="tweet-control-item hover:text-main-blue_100">
-                                                <i class="p-2 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                                                10.5K
-                                            </div>
-                                            <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet p-2 rounded-full hover:bg-green-100"></i>5.5K</div>
-                                            <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart p-2 rounded-full hover:bg-pink-200"></i>10.5K</div>
-                                            <div class="tweet-control-item sm:hidden hover:text-main-blue_100">
-                                                <i class="hover:bg-blue-100 p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-                                            </div>
+                                    <div class="w-full justify-start grid grid-cols-4">
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="p-2 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                            10.5K
                                         </div>
-                                        <div class="sm:flex sm:flex-row sm:justify-center hidden sm:items-center text-medium text-gray-600 sm:w-1/2 hover:text-main-blue_100">
+                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet p-2 rounded-full hover:bg-green-100"></i>5.5K</div>
+                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart p-2 rounded-full hover:bg-pink-200"></i>10.5K</div>
+                                        <div class="tweet-control-item hover:text-main-blue_100">
                                             <i class="hover:bg-blue-100 p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
                                         </div>
                                     </div>
