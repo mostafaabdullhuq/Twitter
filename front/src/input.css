@@ -85,7 +85,10 @@
 }
 
 .twitter-notify-img {
-    @apply w-9 h-9 rounded-full cursor-pointer hover:opacity-90;
+    @apply w-9 h-9 rounded-full cursor-pointer hover:opacity-90 ml-2;
+}
+.sticky-notify-active {
+    @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[15%] after:translate-x-[-30%];
 }
 
 
