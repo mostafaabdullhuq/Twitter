@@ -857,12 +857,12 @@ video {
   width: 75%;
 }
 
-.w-1\/4 {
-  width: 25%;
-}
-
 .w-2\/3 {
   width: 66.666667%;
+}
+
+.w-1\/4 {
+  width: 25%;
 }
 
 .w-5\/6 {
@@ -1762,6 +1762,15 @@ video {
   color: rgb(15 20 25 / var(--tw-text-opacity)) !important;
 }
 
+.hashtag {
+  --tw-text-opacity: 1;
+  color: rgb(29 155 240 / var(--tw-text-opacity));
+}
+
+.hashtag:hover {
+  text-decoration-line: underline;
+}
+
 .placeholder\:text-gray-500::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -1965,6 +1974,10 @@ video {
 @media (min-width: 640px) {
   .sm\:mb-0 {
     margin-bottom: 0px;
+  }
+
+  .sm\:block {
+    display: block;
   }
 
   .sm\:flex {

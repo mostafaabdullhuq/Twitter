@@ -79,3 +79,7 @@
     @apply md:text-xl !important;
     @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
 }
+
+.hashtag {
+    @apply text-main-blue_100 hover:underline;
+}

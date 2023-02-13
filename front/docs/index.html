@@ -185,12 +185,75 @@
                     <div class="tweets w-full flex flex-col mb-16 sm:mb-0">
                         <!--! tweet -->
                         <div class="tweet relative">
-                            <div class="absolute flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0" title="More">
+                            <div class="absolute justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 hidden sm:flex" title="More">
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-white cursor-pointer"></i>
+                            </div>
+                            <!-- user image -->
+                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1477678091619155980/8xY9DAI7_400x400.jpg" alt="" />
+                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+                                <div class="flex overflow-hidden mt-1">
+                                    <!--  name -->
+                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                                        <p class="dotted-text h-6 hover:underline">Mostafa Abdullhuq</p>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="{1.5}"
+                                            stroke="currentColor"
+                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <!-- other user and tweet info -->
+                                    <div class="flex items-center w-auto max-w-[45%]">
+                                        <!-- username -->
+                                        <span class="username ml-1 text-md font-normal dotted-text text-light-gray_100">@mostafaabdullhuq </span>
+                                        <!-- publish date -->
+                                        <p class="mx-1 flex relative bottom-1 font-bold text-light-gray_100">.</p>
+                                        <p class="publish_date text-light-gray_100 dotted-text">Just now</p>
+                                    </div>
+                                </div>
+                                <!-- ----paragraph----- -->
+                                <div class="sm:pr-4">
+                                    <p class="font-normal w-full dark:text-white text-md text-dark-gray_400">
+                                        <span class="hashtag">@Zoza_99</span> <span class="hashtag">@Sara_Elbanna</span> <span class="hashtag">@Mohamed_Abdelkarim</span>
+                                        <span class="hashtag">@Hager_ahmed</span> <br />
+                                        😂😂😂😂
+                                    </p>
+                                    <div class="w-auto max-h-[500px] flex overflow-hidden rounded-xl border border-light-gray my-3 mr-2">
+                                        <img class="object-cover w-full h-full" src="./../images/meme.jpeg" alt="" />
+                                    </div>
+
+                                    <!-- ----controls icons ---- -->
+                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                            7,964
+                                        </div>
+                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
+                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
+                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tweet relative">
+                            <div class="absolute justify-center hidden sm:flex items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0" title="More">
                                 <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-white cursor-pointer"></i>
                             </div>
                             <!-- user image -->
                             <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg" alt="" />
-                            <div class="content ml-3 flex flex-col justify-start gap-1 pt-3 max-w-full overflow-hidden">
+                            <div class="content ml-3 flex flex-col justify-start gap-1 w-full pt-3 max-w-full overflow-hidden">
                                 <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
                                 <div class="flex overflow-hidden mt-1">
                                     <!--  name -->
@@ -217,7 +280,7 @@
                                         <span class="username ml-1 text-md font-normal dotted-text text-light-gray_100">@elonmusk </span>
                                         <!-- publish date -->
                                         <p class="mx-1 flex relative bottom-1 font-bold text-light-gray_100">.</p>
-                                        <p class="publish_date text-light-gray_100">1h</p>
+                                        <p class="publish_date text-light-gray_100 dotted-text">1h</p>
                                     </div>
                                 </div>
                                 <!-- ----paragraph----- -->
@@ -248,12 +311,12 @@
                             </div>
                         </div>
                         <div class="tweet relative">
-                            <div class="absolute flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0" title="More">
+                            <div class="absolute hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0" title="More">
                                 <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-white cursor-pointer"></i>
                             </div>
                             <!-- user image -->
                             <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1333505995566411782/Qd8AZOnm_400x400.jpg" alt="" />
-                            <div class="content ml-3 flex flex-col justify-start gap-1 pt-3 max-w-full overflow-hidden">
+                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
                                 <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
                                 <div class="flex overflow-hidden mt-1">
                                     <!--  name -->
@@ -280,7 +343,7 @@
                                         <span class="username ml-1 text-md font-normal dotted-text text-light-gray_100">@MAstronomers </span>
                                         <!-- publish date -->
                                         <p class="mx-1 flex relative bottom-1 font-bold text-light-gray_100">.</p>
-                                        <p class="publish_date text-light-gray_100">12h</p>
+                                        <p class="publish_date text-light-gray_100 dotted-text">12h</p>
                                     </div>
                                 </div>
                                 <!-- ----paragraph----- -->
@@ -311,12 +374,12 @@
                         </div>
 
                         <div class="tweet relative">
-                            <div class="absolute flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0" title="More">
+                            <div class="absolute hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0" title="More">
                                 <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-white cursor-pointer"></i>
                             </div>
                             <!-- user image -->
                             <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1013797033067581440/lUcwwDZ2_400x400.jpg" alt="" />
-                            <div class="content ml-3 flex flex-col justify-start gap-1 pt-3 max-w-full overflow-hidden">
+                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
                                 <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
                                 <div class="flex overflow-hidden mt-1">
                                     <!--  name -->
@@ -343,7 +406,7 @@
                                         <span class="username ml-1 text-md font-normal dotted-text text-light-gray_100">@WorldAndScience</span>
                                         <!-- publish date -->
                                         <p class="mx-1 flex relative bottom-1 font-bold text-light-gray_100">.</p>
-                                        <p class="publish_date text-light-gray_100">Feb 12</p>
+                                        <p class="publish_date text-light-gray_100 dotted-text">Feb 12</p>
                                     </div>
                                 </div>
                                 <!-- ----paragraph----- -->
@@ -409,54 +472,25 @@
                             <h4 class="font-bold text-gray-700 dark:text-white">Egypt</h4>
                             <p class="text-sm text-gray-600">90K Tweets</p>
                         </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">ITI</h4>
-                            <p class="text-sm text-gray-600">3K Tweets</p>
-                        </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">#Aliens</h4>
-                            <p class="text-sm text-gray-600">1.5K Tweets</p>
-                        </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">البحر الاحمر</h4>
-                            <p class="text-sm text-gray-600">90K Tweets</p>
-                        </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">الأهلي</h4>
-                            <p class="text-sm text-gray-600">90K Tweets</p>
-                        </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">Nasa</h4>
-                            <p class="text-sm text-gray-600">90K Tweets</p>
-                        </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">#Coinbase CEO</h4>
-                            <p class="text-sm text-gray-600">90K Tweets</p>
-                        </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">China</h4>
-                            <p class="text-sm text-gray-600">90K Tweets</p>
-                        </div>
-                        <div class="right-tend">
-                            <h4 class="font-bold text-gray-700 dark:text-white">Overthinking</h4>
-                            <p class="text-sm text-gray-600">90K Tweets</p>
-                        </div>
                         <div class="text-blue-400 p-3 cursor-pointer right-tend">Show more</div>
                     </div>
                     <!--! -------following recommendations ---- -->
                     <div class="bg-light-gray_100 dark:bg-dim-700 rounded-2xl mb-20">
                         <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">Who to follow</h3>
-                        <div class="right-follow">
+                        <div class="right-follow gap-2">
                             <!--! -----user info block ---- -->
-                            <div class="flex items-center w-3/4">
+                            <div class="flex items-center gap-1 w-3/4">
                                 <img src="../images/img.jpeg" class="twitter-user-img" alt="" />
-                                <div class="ml-3 text-md">
-                                    <h5 class="text-gray-800 dark:text-white -mb-1 font-bold">Sara Ahmed</h5>
-                                    <p class="text-gray-500">@Sara_Elbanna</p>
+                                <div class="ml-3 text-md w-2/3">
+                                    <div class="flex max-w-full w-full -mb-1 mt-1">
+                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">Sara Ahmed</h5>
+                                    </div>
+
+                                    <p class="text-gray-500 h-fit dark:text-white max-w-[70%] dotted-text">@Sara_Elbanna</p>
                                 </div>
                             </div>
                             <!-- ! --------follow button ---- -->
-                            <a href="" class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center py-2 rounded-full hover:bg-light-black">Follow</a>
+                            <a href="" class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black">Follow</a>
                         </div>
                         <div class="right-follow gap-2">
                             <!--! -----user info block ---- -->
