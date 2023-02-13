@@ -134,18 +134,23 @@
                     </div>
                     <!-- ---------box tweet--- -->
                     <!-- new tweet section -->
-                    <div class="border-b flex flex-col w-full h-fit border-gray-100">
-                        <div class="flex p-4">
+                    <div class="border-b flex flex-col w-full border border-gray-100">
+                        <div class="flex p-4 h-fit">
                             <img class="twitter-user-img" src="../images/img.jpeg" alt="" />
-                            <textarea
-                                id="emojipicker"
-                                class="px-3 py-3 text-2xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white h-fit min-h-[100px] w-full bg-transparent focus:outline-none resize-none"
+                            <!-- tweet custom textarea -->
+                            <div
+                                contenteditable="true"
+                                data-before="What's happening?"
+                                class="after:hidden md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-md max-w-full tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-auto break-words overflow-x-hidden"
+                            ></div>
+                            <!-- <textarea
+                                class="px-3 py-3 text-2xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible"
                                 name=""
                                 id=""
                                 placeholder="What's happening?"
-                            ></textarea>
+                            ></textarea> -->
                         </div>
-                        <div class="controls w-full grid grid-cols-2">
+                        <div class="controls relative w-full grid grid-cols-2">
                             <!-- tweet icons -->
                             <div class="flex p-4 sm:pl-16 pl-6">
                                 <a href="" class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0" title="Media">
