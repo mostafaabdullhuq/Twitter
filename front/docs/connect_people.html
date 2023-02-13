@@ -114,276 +114,60 @@
                             <h4 class="text-gray-800 hidden sm:flex pl-6 py-3 text-xl dark:text-white font-bold">Connect</h4>
                         </div>
                     </div>
-                    <!-- !------tweets--------- -->
-                    <div class="tweets w-full flex flex-col mb-16 sm:mb-0">
-                        <!-- ! your code here -->
-                        <!--! tweet -->
-                        <div class="tweet relative">
-                            <div
-                                class="absolute justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
-                                title="More"
-                            >
-                                <i class="fa-solid fa-ellipsis text-lg dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
-                            </div>
-                            <!-- user image -->
-                            <div class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
-                                <img class="w-full h-full object-cover" src="./../images/20180703190744-rollsafe-meme.webp" alt="" />
-                            </div>
-                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
-                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
-                                <div class="flex overflow-hidden mt-1">
-                                    <!--  name -->
-                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
-                                        <p class="dotted-text h-6 hover:underline">Mostafa Abdullhuq</p>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="{1.5}"
-                                            stroke="currentColor"
-                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <!-- other user and tweet info -->
-                                    <div class="flex items-center w-auto max-w-[45%]">
-                                        <!-- username -->
-                                        <span class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@mostafaabdullhuq </span>
-                                        <!-- publish date -->
-                                        <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">.</p>
-                                        <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">Just now</p>
-                                    </div>
-                                </div>
-                                <!-- ----paragraph----- -->
-                                <div class="sm:pr-4">
-                                    <p class="font-normal w-full dark:text-white text-md text-dark-gray_400">
-                                        <span class="hashtag">@Zoza_99</span> <span class="hashtag">@Sara_Elbanna</span> <span class="hashtag">@Mohamed_Abdelkarim</span>
-                                        <span class="hashtag">@Hager_ahmed</span> <br />
-                                        😂😂😂😂
-                                    </p>
-                                    <div class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
-                                        <img class="object-cover w-full h-full" src="./../images/meme.jpeg" alt="" />
-                                    </div>
+                    <div class="people min-w-full border border-red-500 w-full flex flex-col mb-16 sm:mb-0">
+                        <h4 class="py-4 px-4 font-extrabold text-xl">Suggested for you</h4>
+                        <div class="people-container">
+                            <div class="right-follow gap-2">
+                                <!--! -----user info block ---- -->
+                                <div class="flex items-center gap-1 w-3/4">
+                                    <img src="../images/img.jpeg" class="twitter-user-img" alt="" />
+                                    <div class="ml-3 text-md w-2/3">
+                                        <div class="flex max-w-full w-full -mb-1 mt-1">
+                                            <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">Sara Ahmed</h5>
+                                        </div>
 
-                                    <!-- ----controls icons ---- -->
-                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                                            7,964
-                                        </div>
-                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
-                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
-                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-                                        </div>
+                                        <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@Sara_Elbanna</p>
                                     </div>
                                 </div>
+                                <!-- ! --------follow button ---- -->
+                                <a
+                                    href=""
+                                    class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
+                                    >Follow</a
+                                >
                             </div>
-                        </div>
-                        <div class="tweet relative">
-                            <div
-                                class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 justify-center hidden sm:flex items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
-                                title="More"
-                            >
-                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
-                            </div>
-                            <!-- user image -->
-                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg" alt="" />
-                            <div class="content ml-3 flex flex-col justify-start gap-1 w-full pt-3 max-w-full overflow-hidden">
-                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
-                                <div class="flex overflow-hidden mt-1">
-                                    <!--  name -->
-                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
-                                        <p class="dotted-text h-6 hover:underline">Elon Musk</p>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="{1.5}"
-                                            stroke="currentColor"
-                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <!-- other user and tweet info -->
-                                    <div class="flex items-center w-auto max-w-[45%]">
-                                        <!-- username -->
-                                        <span class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@elonmusk </span>
-                                        <!-- publish date -->
-                                        <p class="mx-1 flex relative bottom-1 dark:text-dark-gray_300 font-bold text-light-gray_100">.</p>
-                                        <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">1h</p>
-                                    </div>
-                                </div>
-                                <!-- ----paragraph----- -->
-                                <div class="sm:pr-4">
-                                    <p class="font-normal dark:text-white text-md text-dark-gray_400">
-                                        More work team completed over night: <br />
-                                        - Removed height penalty affecting tweets with pics/video <br />
-                                        - increased # of recommended tweets <br />
-                                        - Better tracking of dropped tweets <br />
-                                        - Removed filter causing false negatives <br />
-                                        - Removed penalty if user follows author - Improved reach of retweet
-                                    </p>
+                            <div class="right-follow gap-2">
+                                <!--! -----user info block ---- -->
+                                <div class="flex items-center gap-1 w-3/4">
+                                    <img src="https://pbs.twimg.com/profile_images/1154766291254861824/oAQ7JwWr_400x400.jpg" class="twitter-user-img" alt="" />
+                                    <div class="ml-3 text-md w-2/3">
+                                        <div class="flex max-w-full w-full -mb-1 mt-1">
+                                            <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">CryptoTown</h5>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth="{1.5}"
+                                                stroke="currentColor"
+                                                class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                                />
+                                            </svg>
+                                        </div>
 
-                                    <!-- ----controls icons ---- -->
-                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                                            7,964
-                                        </div>
-                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
-                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
-                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-                                        </div>
+                                        <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@CryptoTownEU</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="tweet relative">
-                            <div
-                                class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
-                                title="More"
-                            >
-                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
-                            </div>
-                            <!-- user image -->
-                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1333505995566411782/Qd8AZOnm_400x400.jpg" alt="" />
-                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
-                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
-                                <div class="flex overflow-hidden mt-1">
-                                    <!--  name -->
-                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
-                                        <p class="dotted-text h-6 hover:underline">Amazing Astronomy</p>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="{1.5}"
-                                            stroke="currentColor"
-                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <!-- other user and tweet info -->
-                                    <div class="flex items-center w-auto max-w-[45%]">
-                                        <!-- username -->
-                                        <span class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@MAstronomers </span>
-                                        <!-- publish date -->
-                                        <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">.</p>
-                                        <p class="publish_date text-light-gray_100 dark:text-dark-gray_300 dotted-text">12h</p>
-                                    </div>
-                                </div>
-                                <!-- ----paragraph----- -->
-                                <div class="sm:pr-4">
-                                    <p class="font-normal dark:text-white text-md text-dark-gray_400">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi, porro rem reprehenderit quod omnis minima molestias perspiciatis, facilis suscipit
-                                        neque minus cumque nobis ratione veniam alias accusamus amet beatae. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi soluta officiis eius,
-                                        corporis odit explicabo ab porro provident possimus reprehenderit eveniet quam? Laboriosam corporis cum deleniti debitis quos porro minima.
-                                    </p>
-                                    <div class="w-auto max-h-[500px] flex dark:border-dark-gray_0 overflow-hidden rounded-xl border border-light-gray my-3 mr-2">
-                                        <img class="object-cover w-full h-full" src="https://pbs.twimg.com/media/Foq2t_9XwAAxPaP?format=jpg&name=medium" alt="" />
-                                    </div>
-                                    <!-- ----controls icons ---- -->
-                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                                            7,964
-                                        </div>
-                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
-                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
-                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tweet relative">
-                            <div
-                                class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
-                                title="More"
-                            >
-                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
-                            </div>
-                            <!-- user image -->
-                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1013797033067581440/lUcwwDZ2_400x400.jpg" alt="" />
-                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
-                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
-                                <div class="flex overflow-hidden mt-1">
-                                    <!--  name -->
-                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
-                                        <p class="dotted-text h-6 hover:underline">World and Science</p>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="{1.5}"
-                                            stroke="currentColor"
-                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <!-- other user and tweet info -->
-                                    <div class="flex items-center w-auto max-w-[45%]">
-                                        <!-- username -->
-                                        <span class="username ml-1 text-md dark:text-dark-gray_300 font-normal dotted-text text-light-gray_100">@WorldAndScience</span>
-                                        <!-- publish date -->
-                                        <p class="mx-1 flex relative dark:text-dark-gray_300 bottom-1 font-bold text-light-gray_100">.</p>
-                                        <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">Feb 12</p>
-                                    </div>
-                                </div>
-                                <!-- ----paragraph----- -->
-                                <div class="sm:pr-4">
-                                    <p class="font-normal dark:text-white text-md text-dark-gray_400">
-                                        Two neutron stars colliding <br />
-                                        (Credit: NASA's Goddard Space Flight Center/CI Lab)
-                                    </p>
-                                    <div class="w-auto max-h-[500px] flex dark:border-dark-gray_0 overflow-hidden rounded-xl border border-light-gray my-3 mr-2">
-                                        <video controls autoplay muted>
-                                            <source src="./../videos/The Sound of Two Neutron Stars Colliding(480p).mp4" type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-
-                                    <!-- ----controls icons ---- -->
-                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                                            7,964
-                                        </div>
-                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
-                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
-                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
-                                        <div class="tweet-control-item hover:text-main-blue_100">
-                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- ! --------follow button ---- -->
+                                <a
+                                    href=""
+                                    class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
+                                    >Follow</a
+                                >
                             </div>
                         </div>
                     </div>
@@ -425,133 +209,6 @@
                             <p class="text-sm text-gray-600 dark:text-dark-gray_300">90K Tweets</p>
                         </div>
                         <div class="text-blue-400 p-3 cursor-pointer right-trend">Show more</div>
-                    </div>
-                    <!--! -------following recommendations ---- -->
-                    <div class="bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 rounded-2xl mb-4">
-                        <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">Who to follow</h3>
-                        <div class="right-follow gap-2">
-                            <!--! -----user info block ---- -->
-                            <div class="flex items-center gap-1 w-3/4">
-                                <img src="../images/img.jpeg" class="twitter-user-img" alt="" />
-                                <div class="ml-3 text-md w-2/3">
-                                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">Sara Ahmed</h5>
-                                    </div>
-
-                                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@Sara_Elbanna</p>
-                                </div>
-                            </div>
-                            <!-- ! --------follow button ---- -->
-                            <a href="" class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
-                                >Follow</a
-                            >
-                        </div>
-                        <div class="right-follow gap-2">
-                            <!--! -----user info block ---- -->
-                            <div class="flex items-center gap-1 w-3/4">
-                                <img src="https://pbs.twimg.com/profile_images/1154766291254861824/oAQ7JwWr_400x400.jpg" class="twitter-user-img" alt="" />
-                                <div class="ml-3 text-md w-2/3">
-                                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">CryptoTown</h5>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="{1.5}"
-                                            stroke="currentColor"
-                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@CryptoTownEU</p>
-                                </div>
-                            </div>
-                            <!-- ! --------follow button ---- -->
-                            <a href="" class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
-                                >Follow</a
-                            >
-                        </div>
-                        <div class="right-follow gap-2">
-                            <!--! -----user info block ---- -->
-                            <div class="flex items-center gap-1 w-3/4">
-                                <img src="https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg" class="twitter-user-img" alt="" />
-                                <div class="ml-3 text-md w-2/3">
-                                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] dotted-text hover:underline">Elon Musk</h5>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="{1.5}"
-                                            stroke="currentColor"
-                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <p class="text-gray-500 dark:text-dark-gray_300">@elonmusk</p>
-                                </div>
-                            </div>
-                            <!-- ! --------follow button ---- -->
-                            <a href="" class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
-                                >Follow</a
-                            >
-                        </div>
-                        <div class="right-follow gap-2">
-                            <!--! -----user info block ---- -->
-                            <div class="flex items-center gap-1 w-3/4">
-                                <img src="https://pbs.twimg.com/profile_images/1591558315254890500/ETIHb4Nl_400x400.jpg" class="twitter-user-img" alt="" />
-                                <div class="ml-3 text-md w-2/3">
-                                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] dotted-text hover:underline">Jeff Bezos</h5>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="{1.5}"
-                                            stroke="currentColor"
-                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <p class="text-gray-500 dark:text-dark-gray_300">@JeffBezos</p>
-                                </div>
-                            </div>
-                            <!-- ! --------follow button ---- -->
-                            <a href="" class="w-1/4 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
-                                >Follow</a
-                            >
-                        </div>
-                        <!-- ----------loader--------- -->
-                        <div class="px-4 py-2">
-                            <div class="flex gap-x-4 animate-pulse">
-                                <!-- ------------ structure like an image---- -->
-                                <div class="rounded-full bg-gray-400 twitter-user-img"></div>
-                                <!-- ---------space-y : make its childs to make margin top & bottom by 0.5 rem -->
-                                <div class="flex-1 w-full space-y-2 py-1">
-                                    <div class="h-4 bg-gray-400 rounded w-5/6"></div>
-                                    <div class="h-4 bg-gray-400 rounded w-3/4"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-blue-400 right-follow rounded-b-2xl mb-2">Show more</div>
                     </div>
 
                     <!-- footer -->
