@@ -7,11 +7,11 @@
 }
 
 .nav-item {
-    @apply flex justify-center items-center xl:justify-start dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 p-4 rounded-full hover:bg-gray-200 tracking-wide;
+    @apply flex justify-center items-center xl:justify-start dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 p-4 rounded-full hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50  tracking-wide;
 }
 
 .tweet {
-    @apply border-t border-b    border-gray-100 flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
+    @apply border-t border-b    border-gray-100 dark:border-dark-gray_0 dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
 }
 
 .icon {
@@ -23,27 +23,27 @@
 }
 
 .tweet-control-item {
-    @apply flex flex-row justify-start items-center text-medium text-gray-600;
+    @apply flex flex-row justify-start items-center text-medium text-gray-600 dark:text-gray-400;
 }
 
 .tweet-control-item-special {
-    @apply hidden sm:flex flex-row justify-start items-center text-medium text-gray-600;
+    @apply hidden sm:flex flex-row justify-start items-center text-medium text-gray-600 dark:text-gray-400;
 }
 
 .sticky-active {
-    @apply text-black after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[25%] after:translate-x-[-50%];
+    @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[25%] after:translate-x-[-50%];
 }
 
 .sticky-nav-scroll {
     @apply opacity-[.985];
 }
 
-.right-tend {
-    @apply px-4 py-2 cursor-pointer transition-colors hover:bg-gray-200;
+.right-trend {
+    @apply px-4 py-2 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 cursor-pointer transition-colors hover:bg-gray-200;
 }
 
 .right-follow {
-    @apply px-4 py-2 hover:bg-gray-200 cursor-pointer my-1 transition-colors flex justify-between items-center;
+    @apply px-4 py-2 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 hover:bg-gray-200 cursor-pointer my-1 transition-colors flex justify-between items-center;
 }
 
 .dotted-text {
