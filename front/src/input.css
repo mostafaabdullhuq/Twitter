@@ -34,6 +34,10 @@
     @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[25%] after:translate-x-[-50%];
 }
 
+.profile-active {
+    @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[60%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[50%] after:translate-x-[-50%];
+}
+
 .sticky-nav-scroll {
     @apply opacity-[.985];
 }
@@ -85,7 +89,7 @@
 }
 
 .twitter-notify-img {
-    @apply w-8 h-8 rounded-full cursor-pointer hover:opacity-90;
+    @apply w-9 h-9 rounded-full cursor-pointer hover:opacity-90 ml-2;
 }
 
 .settings-item {
