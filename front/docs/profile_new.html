@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./../dist/output.css" />
+        <link rel="stylesheet" href="./../../node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+        <style></style>
+        <title>Twitter</title>
+    </head>
+    <body class="bg-main-white_0 dark:bg-black max-h-screen overflow-hidden">
+        <!-- -----container----- -->
+        <div class="container flex xl:max-w-[1300px]">
+            <!--! -----left----- -->
+            <!-- side nav for all screens except xs -->
+            <header class="hidden sm:flex overflow-y-scroll h-screen scrollbar-hide flex-col justify-between w-fit xl:w-1/5 min-w-fit">
+                <!-- ------Side navBar---- -->
+                <nav class="mt-2 text-xl flex flex-col mr-4 gap-2">
+                    <!-- ------logo----- -->
+                    <div class="w-full flex justify-start">
+                        <a href="./index.html" class="text-main-blue rounded-full p-2 ml-1 w-12 h-12 hover:bg-main-blue_0 dark:text-dark-gray_0 dark:hover:bg-gray-400 transition-colors">
+                            <i class="fa-brands fa-twitter text-3xl"></i>
+                        </a>
+                    </div>
+
+                    <div class="nav-active">
+                        <a href="./index.html" class="nav-item nav-active"> <i class="fa-solid fa-house text-xl"></i><span class="hidden xl:ml-4 xl:block">Home</span> </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item transition duration-300 ease-in-out"> <i class="fa-solid fa-hashtag text-2xl"></i><span class="hidden xl:ml-4 xl:block">Explore</span> </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item transition duration-300 ease-in-out"> <i class="fa-regular fa-bell text-2xl"></i><span class="hidden xl:ml-4 xl:block">Notification</span> </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item transition duration-300 ease-in-out"> <i class="fa-regular fa-envelope text-2xl"></i><span class="hidden xl:ml-4 xl:block">Messages</span> </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item transition duration-300 ease-in-out"> <i class="fa-regular fa-bookmark text-2xl"></i><span class="hidden xl:ml-4 xl:block">Bookmarks</span> </a>
+                    </div>
+                    <div>
+                        <a href="" class="nav-item transition duration-300 ease-in-out">
+                            <i class="fa-solid fa-list-ul text-2xl"></i>
+                            <span class="hidden xl:ml-4 xl:block">Lists</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="profile.html" class="nav-item transition duration-300 ease-in-out">
+                            <i class="fa-regular fa-user text-2xl"></i><span class="hidden xl:ml-4 xl:block">Profile</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="./settings.html" class="nav-item transition duration-300 ease-in-out">
+                            <i class="fa-solid fa-gear text-2xl"></i><span class="hidden xl:ml-4 xl:block">Settings</span>
+                        </a>
+                    </div>
+                    <!-- ------tweet button ----- -->
+                    <div class="xl:hidden flex justify-center items-center mt-2 h-14 w-14 overflow-hidden rounded-full">
+                        <a href="" class="w-full text-center py-4 px-3 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
+                            <i class="fa-solid fa-feather-pointed"></i>
+                        </a>
+                    </div>
+                    <div class="xl:flex hidden justify-start items-center mt-4">
+                        <a href="" class="w-full text-center py-3 px-3 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
+                            <span class="hidden font-semibold xl:block text-xl"> Tweet </span>
+                        </a>
+                    </div>
+                </nav>
+                <!-- -------User ------- -->
+                <div class="flex mr-4 mt-8 items-center hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors mb-2 rounded-full cursor-pointer p-2">
+                    <img src="../images/img.jpeg" class="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] rounded-full" alt="" />
+                    <div class="hidden xl:flex flex-col ml-2">
+                        <h5 class="text-gray-900 dark:text-white font-bold text-sm dotted-text">SaRa</h5>
+                        <p class="text-light-gray_100 text-sm dotted-text dark:text-dark-gray_300">@Zoza_99</p>
+                    </div>
+                    <div class="hidden xl:flex">
+                        <i class="fa-solid fa-ellipsis text-xs items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
+                    </div>
+                </div>
+            </header>
+            <!-- bottom nav for xs screens -->
+            <header class="bg-white dark:bg-black sm:hidden fixed bottom-0 w-full z-50 left-0 right-0 flex justify-between px-4 border-t py-1 border-gray-100 dark:border-dark-gray_0">
+                <div class="nav-active">
+                    <a href="" class="nav-item nav-active"> <i class="fa-solid fa-house text-xl"></i> </a>
+                </div>
+
+                <div>
+                    <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                        <i class="fa-solid fa-search text-2xl"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                        <i class="fa-regular fa-bell text-2xl"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+                        <i class="fa-regular fa-envelope text-2xl"></i><span class="hidden xl:ml-4 xl:block">Messages</span>
+                    </a>
+                </div>
+            </header>
+            <!--! -------main content ------- -->
+            <main class="main flex h-screen w-full xl:w-4/5 overflow-hidden">
+                <!--! -------middle ------- -->
+                <div class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+                    <!-- -----sticky header---- -->
+                    <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
+                        <!-- overlay div -->
+                        <div class="absolute w-full border-b border-gray-100 dark:border-dark-gray_0 h-full bg-white dark:bg-black sticky-nav-scroll -z-100"></div>
+                        <!-- content of fixed nav -->
+                        <div class="content z-0 flex items-center py-2">
+                            <div class="py-2 w-8 h-8 flex items-center ml-4 text-xl justify-center dark:text-white rounded-full hover:bg-gray-100 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50">
+                                <a href="./index.html"><i class="fa-solid fa-arrow-left"></i></a>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="flex items-center">
+                                    <h4 class="text-gray-800 pl-6 text-2xl dark:text-white font-bold">Twitter</h4>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="{1.5}"
+                                        stroke="currentColor"
+                                        class="w-6 min-w-[25px] text-white fill-main-blue_100 ml-1"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="dark:text-gray-500 text-gray-600 pl-6 text-sm -mt-1">1.1K Tweets</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
+                    <div class="relative flex flex-col">
+                        <!-- cover photo -->
+                        <div class="w-full overflow-hidden h-48">
+                            <img src="../images/twitter_99mx.jpg" class="object-cover object-center w-full h-full" alt="" srcset="" />
+                        </div>
+                        <!-- profile picture -->
+                        <img src="../images/Twitter_03.jpg" class="absolute top-24 rounded-full w-40 h-40 border-[4px] ml-3 dark:border-black border-white" />
+
+                        <!-- profile controls -->
+                        <div class="flex items-center mt-4 px-4 float-right gap-3 w-full justify-end">
+                            <a
+                                href="#"
+                                class="text-center py-2 px-5 rounded-full transition-colors border dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-10 dark:text-white text-black cursor-pointer hover:bg-gray-200"
+                            >
+                                <span class="font-semibold"> Edit profile </span>
+                            </a>
+                            <a
+                                href="#"
+                                class="text-center py-2 px-5 rounded-full transition-colors border dark:text-white dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-30 text-black cursor-pointer hover:bg-gray-200"
+                            >
+                                <span class="font-semibold"> Follow </span>
+                            </a>
+                        </div>
+                        <!-- profile info -->
+
+                        <!-- name and username -->
+                        <div class="p-2 mx-3 flex flex-col">
+                            <div class="flex">
+                                <span class="text-gray-800 text-2xl clear-both dark:text-gray-100 font-bold">Twitter</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="{1.5}"
+                                    stroke="currentColor"
+                                    class="w-6 min-w-[25px] text-white fill-main-blue_100 ml-1"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                    />
+                                </svg>
+                            </div>
+                            <span class="text-gray-400 -mt-1">@twitter</span>
+                            <!-- user bio -->
+                            <span class="my-3 dark:text-white">I couldn’t help but overhear, probably because I was eavesdropping. </span>
+                            <!-- user profile info -->
+                            <div class="flex gap-6 w-full max-w-full mb-2 text-gray-500 dark:text-gray-400">
+                                <div class="flex gap-2 dotted-text items-center">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span class="dotted-text">Alexandria, Egypt</span>
+                                </div>
+                                <div class="flex gap-2 dotted-text items-center">
+                                    <i class="fa-solid fa-cake-candles"></i>
+                                    <span class="dotted-text">Born November 1, 2004</span>
+                                </div>
+                                <div class="flex gap-2 dotted-text items-center">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                    <span class="dotted-text">Joined February 2023</span>
+                                </div>
+                            </div>
+                            <!-- followers and following number -->
+                            <div class="flex">
+                                <div class="hover:underline cursor-pointer flex gap-1">
+                                    <span class="font-bold dark:text-white">452</span>
+                                    <span class="text-gray-500 dark:text-gray-400 font-normal">Following</span>
+                                </div>
+                                <div class="hover:underline cursor-pointer flex gap-1">
+                                    <span class="ml-6 font-bold dark:text-white">200M</span>
+                                    <span class="text-gray-500 dark:text-gray-400 font-normal">Followers</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- profile views -->
+                        <div class="profile-views">
+                            <div class="flex">
+                                <div class="w-full md:w-1/4 dotted-text px-2 hover:bg-gray-100 transition-colors relative profile-active">
+                                    <button class="w-full py-4 font-semibold dotted-text">Tweets</button>
+                                </div>
+                                <div class="w-full md:w-1/4 dotted-text px-2 hover:bg-gray-100 transition-colors">
+                                    <button class="py-4 w-full font-semibold text-gray-500 dotted-text">Tweets & replies</button>
+                                </div>
+                                <div class="w-full md:w-1/4 dotted-text px-2 hover:bg-gray-100 transition-colors">
+                                    <button class="py-4 w-full font-semibold text-gray-500 dotted-text">Media</button>
+                                </div>
+                                <div class="w-full md:w-1/4 dotted-text px-2 hover:bg-gray-100 transition-colors">
+                                    <button class="py-4 w-full font-semibold text-gray-500 dotted-text">Likes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tweets">
+                        <div class="tweet relative">
+                            <div
+                                class="absolute justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
+                                title="More"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
+                            </div>
+                            <!-- user image -->
+                            <div class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
+                                <img class="w-full h-full object-cover" src="./../images/20180703190744-rollsafe-meme.webp" alt="" />
+                            </div>
+                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+                                <div class="flex overflow-hidden mt-1">
+                                    <!--  name -->
+                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                                        <p class="dotted-text h-6 hover:underline">Mostafa Abdullhuq</p>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="{1.5}"
+                                            stroke="currentColor"
+                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <!-- other user and tweet info -->
+                                    <div class="flex items-center w-auto max-w-[45%]">
+                                        <!-- username -->
+                                        <span class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@mostafaabdullhuq </span>
+                                        <!-- publish date -->
+                                        <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">.</p>
+                                        <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">Just now</p>
+                                    </div>
+                                </div>
+                                <!-- ----paragraph----- -->
+                                <div class="sm:pr-4">
+                                    <p class="font-normal w-full dark:text-white text-md text-dark-gray_400">
+                                        <span class="hashtag">@Zoza_99</span> <span class="hashtag">@Sara_Elbanna</span> <span class="hashtag">@Mohamed_Abdelkarim</span>
+                                        <span class="hashtag">@Hager_ahmed</span> <br />
+                                        😂😂😂😂
+                                    </p>
+                                    <div class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
+                                        <img class="object-cover w-full h-full" src="./../images/meme.jpeg" alt="" />
+                                    </div>
+
+                                    <!-- ----controls icons ---- -->
+                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                            7,964
+                                        </div>
+                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
+                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
+                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tweet relative">
+                            <div
+                                class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 justify-center hidden sm:flex items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
+                                title="More"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
+                            </div>
+                            <!-- user image -->
+                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_400x400.jpg" alt="" />
+                            <div class="content ml-3 flex flex-col justify-start gap-1 w-full pt-3 max-w-full overflow-hidden">
+                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+                                <div class="flex overflow-hidden mt-1">
+                                    <!--  name -->
+                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                                        <p class="dotted-text h-6 hover:underline">Elon Musk</p>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="{1.5}"
+                                            stroke="currentColor"
+                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <!-- other user and tweet info -->
+                                    <div class="flex items-center w-auto max-w-[45%]">
+                                        <!-- username -->
+                                        <span class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@elonmusk </span>
+                                        <!-- publish date -->
+                                        <p class="mx-1 flex relative bottom-1 dark:text-dark-gray_300 font-bold text-light-gray_100">.</p>
+                                        <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">1h</p>
+                                    </div>
+                                </div>
+                                <!-- ----paragraph----- -->
+                                <div class="sm:pr-4">
+                                    <p class="font-normal dark:text-white text-md text-dark-gray_400">
+                                        More work team completed over night: <br />
+                                        - Removed height penalty affecting tweets with pics/video <br />
+                                        - increased # of recommended tweets <br />
+                                        - Better tracking of dropped tweets <br />
+                                        - Removed filter causing false negatives <br />
+                                        - Removed penalty if user follows author - Improved reach of retweet
+                                    </p>
+
+                                    <!-- ----controls icons ---- -->
+                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                            7,964
+                                        </div>
+                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
+                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
+                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tweet relative">
+                            <div
+                                class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
+                                title="More"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
+                            </div>
+                            <!-- user image -->
+                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1333505995566411782/Qd8AZOnm_400x400.jpg" alt="" />
+                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+                                <div class="flex overflow-hidden mt-1">
+                                    <!--  name -->
+                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                                        <p class="dotted-text h-6 hover:underline">Amazing Astronomy</p>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="{1.5}"
+                                            stroke="currentColor"
+                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <!-- other user and tweet info -->
+                                    <div class="flex items-center w-auto max-w-[45%]">
+                                        <!-- username -->
+                                        <span class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@MAstronomers </span>
+                                        <!-- publish date -->
+                                        <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">.</p>
+                                        <p class="publish_date text-light-gray_100 dark:text-dark-gray_300 dotted-text">12h</p>
+                                    </div>
+                                </div>
+                                <!-- ----paragraph----- -->
+                                <div class="sm:pr-4">
+                                    <p class="font-normal dark:text-white text-md text-dark-gray_400">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur nisi, porro rem reprehenderit quod omnis minima molestias perspiciatis, facilis suscipit
+                                        neque minus cumque nobis ratione veniam alias accusamus amet beatae. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi soluta officiis eius,
+                                        corporis odit explicabo ab porro provident possimus reprehenderit eveniet quam? Laboriosam corporis cum deleniti debitis quos porro minima.
+                                    </p>
+                                    <div class="w-auto max-h-[500px] flex dark:border-dark-gray_0 overflow-hidden rounded-xl border border-light-gray my-3 mr-2">
+                                        <img class="object-cover w-full h-full" src="https://pbs.twimg.com/media/Foq2t_9XwAAxPaP?format=jpg&name=medium" alt="" />
+                                    </div>
+                                    <!-- ----controls icons ---- -->
+                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                            7,964
+                                        </div>
+                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
+                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
+                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tweet relative">
+                            <div
+                                class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
+                                title="More"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
+                            </div>
+                            <!-- user image -->
+                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/886593368054222849/ZU_32EZB_400x400.jpg" alt="" />
+                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+                                <div class="flex overflow-hidden mt-1">
+                                    <!--  name -->
+                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                                        <p class="dotted-text h-6 hover:underline">Dr.Sam Youssef Ph.D.,M.Sc.,DPT.</p>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="{1.5}"
+                                            stroke="currentColor"
+                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <!-- other user and tweet info -->
+                                    <div class="flex items-center w-auto max-w-[45%]">
+                                        <!-- username -->
+                                        <span class="username ml-1 text-md dark:text-dark-gray_300 font-normal dotted-text text-light-gray_100">@drhossamsamy65</span>
+                                        <!-- publish date -->
+                                        <p class="mx-1 flex relative dark:text-dark-gray_300 bottom-1 font-bold text-light-gray_100">.</p>
+                                        <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">Feb 12</p>
+                                    </div>
+                                </div>
+                                <!-- ----paragraph----- -->
+                                <div class="sm:pr-4">
+                                    <p class="font-normal dark:text-white text-md text-dark-gray_400">
+                                        ملخص لاحداث الايام الاخيرة للتذكرة وربط الأحداث: أحداث غريبة حصلت في الايام القليلة الماضية: 4 فبراير: إسقاط البالون الصيني. ٦ فبراير: الزلزال التركى.. 10
+                                        فبراير: إسقاط جسم غامض فوق ألاسكا 11 فبراير: إسقاط جسم غامض فوق كندا 12 فبراير: ظهور جسم غامض فوق الصين 12 فبراير: إسقاط جسم غامض فوق بحيرة هورون هل هذه بداية
+                                        لشيء أكبر؟
+                                    </p>
+
+                                    <!-- ----controls icons ---- -->
+                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                            7,964
+                                        </div>
+                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
+                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
+                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tweet relative">
+                            <div
+                                class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
+                                title="More"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
+                            </div>
+                            <!-- user image -->
+                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1013797033067581440/lUcwwDZ2_400x400.jpg" alt="" />
+                            <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+                                <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+                                <div class="flex overflow-hidden mt-1">
+                                    <!--  name -->
+                                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                                        <p class="dotted-text h-6 hover:underline">World and Science</p>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="{1.5}"
+                                            stroke="currentColor"
+                                            class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <!-- other user and tweet info -->
+                                    <div class="flex items-center w-auto max-w-[45%]">
+                                        <!-- username -->
+                                        <span class="username ml-1 text-md dark:text-dark-gray_300 font-normal dotted-text text-light-gray_100">@WorldAndScience</span>
+                                        <!-- publish date -->
+                                        <p class="mx-1 flex relative dark:text-dark-gray_300 bottom-1 font-bold text-light-gray_100">.</p>
+                                        <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">Feb 12</p>
+                                    </div>
+                                </div>
+                                <!-- ----paragraph----- -->
+                                <div class="sm:pr-4">
+                                    <p class="font-normal dark:text-white text-md text-dark-gray_400">
+                                        Two neutron stars colliding <br />
+                                        (Credit: NASA's Goddard Space Flight Center/CI Lab)
+                                    </p>
+                                    <div class="w-auto max-h-[500px] flex dark:border-dark-gray_0 overflow-hidden rounded-xl border border-light-gray my-3 mr-2">
+                                        <video controls autoplay muted>
+                                            <source src="./../videos/The Sound of Two Neutron Stars Colliding(480p).mp4" type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+
+                                    <!-- ----controls icons ---- -->
+                                    <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                            7,964
+                                        </div>
+                                        <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
+                                        <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
+                                        <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
+                                        <div class="tweet-control-item hover:text-main-blue_100">
+                                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
+                </div>
+                <!--! -----------right---------- -->
+                <div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
+                    <!-- !-----search------ -->
+                    <div class="relative mb-4 mt-2">
+                        <i class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                        <input
+                            type="text"
+                            class="w-full bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 p-6 dark:bg-dim-400 focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal h-9 pl-12 text-md rounded-full dark:text-white placeholder:text-gray-500"
+                            placeholder="Search Twitter"
+                        />
+                    </div>
+                    <!--! ------hashtags---- -->
+                    <div class="bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 rounded-2xl mb-4 overflow-hidden">
+                        <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">What’s happening</h3>
+                        <div class="right-trend">
+                            <h4 class="font-bold text-gray-700 dark:text-white">Palestine</h4>
+                            <p class="text-sm text-gray-600 dark:text-dark-gray_300">2.3B Tweets</p>
+                        </div>
+                        <div class="right-trend">
+                            <h4 class="font-bold text-gray-700 dark:text-white">#Syria</h4>
+                            <p class="text-sm text-gray-600 dark:text-dark-gray_300">13.7K Tweets</p>
+                        </div>
+                        <div class="right-trend">
+                            <h4 class="font-bold text-gray-700 dark:text-white">#Coinbase CEO</h4>
+                            <p class="text-sm text-gray-600 dark:text-dark-gray_300">90K Tweets</p>
+                        </div>
+                        <div class="right-trend">
+                            <h4 class="font-bold text-gray-700 dark:text-white">Egypt</h4>
+                            <p class="text-sm text-gray-600 dark:text-dark-gray_300">90K Tweets</p>
+                        </div>
+                        <div class="right-trend">
+                            <h4 class="font-bold text-gray-700 dark:text-white">الأهلي</h4>
+                            <p class="text-sm text-gray-600 dark:text-dark-gray_300">90K Tweets</p>
+                        </div>
+                        <div class="text-blue-400 p-3 cursor-pointer right-trend">Show more</div>
+                    </div>
+
+                    <!-- footer -->
+                    <footer class="flex flex-col mb-20">
+                        <div class="flex gap-2 text-light-gray_100 dark:text-gray-500">
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">Terms of Service</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">Privacy Policy</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">Cookie Policy</p>
+                        </div>
+                        <div class="flex gap-2 text-light-gray_100 dark:text-gray-500">
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">MStV Transparenzangaben</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">Imprint</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">Accessibility</p>
+                        </div>
+                        <div class="flex gap-2 text-light-gray_100 dark:text-gray-500">
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">Ads info</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">More...</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 dark:hover:text-gray-500 cursor-pointer dotted-text">&copy;2023 Twitter, Inc.</p>
+                        </div>
+                    </footer>
+
+                    <!--! messages -->
+                    <!-- # style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px" -->
+                    <div
+                        class="fixed bottom-0 py-2.5 px-4 shadow-[0px_1px_10px_0px_rgba(0,0,0,0.3)] dark:shadow-[0px_1px_10px_0px_rgba(255,255,255,0.5)] rounded-t-2xl right-10 w-30 bg-white dark:bg-black w-1/4 flex justify-between items-center"
+                    >
+                        <p class="text-[1.25rem] font-bold dark:text-white">Messages</p>
+                        <div class="controls text-xl dark:text-white text-gray-800 flex gap-2 justify-center items-center">
+                            <div class="cursor-pointer p-2 rounded-full w-8 h-8 flex items-center justify-center dark:hover:bg-dark-gray_0 hover:bg-gray-100 transition-colors">
+                                <i class="fa-regular fa-envelope" title="New Message"></i>
+                            </div>
+                            <div class="cursor-pointer p-2 rounded-full w-8 h-8 flex items-center justify-center dark:hover:bg-dark-gray_0 hover:bg-gray-100 transition-colors">
+                                <i class="fa-solid fa-angles-up" title="Expand"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
