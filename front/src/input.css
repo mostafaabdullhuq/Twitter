@@ -91,6 +91,9 @@
 .twitter-notify-img {
     @apply w-9 h-9 rounded-full cursor-pointer hover:opacity-90 ml-2;
 }
+.sticky-notify-active {
+    @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[15%] after:translate-x-[-30%];
+}
 
 .settings-item {
     @apply relative flex justify-between items-center p-4 dark:text-dark-gray_100 hover:bg-light-gray_100 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 cursor-pointer;
