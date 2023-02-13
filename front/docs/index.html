@@ -11,7 +11,7 @@
         <title>Twitter</title>
     </head>
     <!-- Note : After any Change Run This --) "npm run dev" -->
-    <body class="bg-main-white_0 dark:bg-dim-900">
+    <body class="bg-main-white_0 dark:bg-dim-900 max-h-screen overflow-hidden">
         <!-- -----container----- -->
         <div class="container flex xl:max-w-[1300px]">
             <!--! -----left----- -->
@@ -81,8 +81,8 @@
                 <div class="flex mr-4 mt-8 items-center hover:bg-gray-200 transition-colors mb-2 rounded-full cursor-pointer p-2">
                     <img src="../images/img.jpeg" class="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] rounded-full" alt="" />
                     <div class="hidden xl:flex flex-col ml-2">
-                        <h5 class="text-gray-900 dark:text-white font-bold text-sm">SaRa</h5>
-                        <p class="text-gray-400 text-sm">@Sara_Elbanna</p>
+                        <h5 class="text-gray-900 dark:text-white font-bold text-sm dotted-text">SaRa</h5>
+                        <p class="text-light-gray_100 text-sm dotted-text">@Zoza_99</p>
                     </div>
                     <div class="hidden xl:flex">
                         <i class="fa-solid fa-ellipsis text-xs items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
@@ -189,7 +189,9 @@
                                 <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-white cursor-pointer"></i>
                             </div>
                             <!-- user image -->
-                            <img class="twitter-user-img relative top-4" src="https://pbs.twimg.com/profile_images/1477678091619155980/8xY9DAI7_400x400.jpg" alt="" />
+                            <div class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
+                                <img class="w-full h-full object-cover" src="./../images/20180703190744-rollsafe-meme.webp" alt="" />
+                            </div>
                             <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
                                 <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
                                 <div class="flex overflow-hidden mt-1">
@@ -475,7 +477,7 @@
                         <div class="text-blue-400 p-3 cursor-pointer right-tend">Show more</div>
                     </div>
                     <!--! -------following recommendations ---- -->
-                    <div class="bg-light-gray_100 dark:bg-dim-700 rounded-2xl mb-20">
+                    <div class="bg-light-gray_100 dark:bg-dim-700 rounded-2xl mb-4">
                         <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">Who to follow</h3>
                         <div class="right-follow gap-2">
                             <!--! -----user info block ---- -->
@@ -593,6 +595,25 @@
                         </div>
                         <div class="text-blue-400 right-follow rounded-b-2xl mb-2">Show more</div>
                     </div>
+
+                    <!-- footer -->
+                    <footer class="flex flex-col mb-20">
+                        <div class="flex gap-2 text-light-gray_100">
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">Terms of Service</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">Privacy Policy</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">Cookie Policy</p>
+                        </div>
+                        <div class="flex gap-2 text-light-gray_100">
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">MStV Transparenzangaben</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">Imprint</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">Accessibility</p>
+                        </div>
+                        <div class="flex gap-2 text-light-gray_100">
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">Ads info</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">More...</p>
+                            <p class="text-sm hover:underline hover:text-main-black_0 cursor-pointer dotted-text">&copy;2023 Twitter, Inc.</p>
+                        </div>
+                    </footer>
 
                     <!--! messages -->
                     <div style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px" class="fixed bottom-0 py-2.5 px-4 rounded-t-2xl right-10 w-30 bg-white w-1/4 flex justify-between items-center">
