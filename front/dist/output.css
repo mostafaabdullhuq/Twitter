@@ -943,43 +943,6 @@ video {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.animate-ping {
-  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8,0,1,1);
-  }
-
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0,0,0.2,1);
-  }
-}
-
-.animate-bounce {
-  animation: bounce 1s infinite;
-}
-
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1497,11 +1460,6 @@ video {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
-.text-red-500 {
-  --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
-}
-
 .placeholder-gray-500::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(107 114 128 / var(--tw-placeholder-opacity));
@@ -1918,22 +1876,6 @@ video {
   display: block;
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8,0,1,1);
-  }
-
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0,0,0.2,1);
-  }
-}
-
-.hover\:animate-bounce:hover {
-  animation: bounce 1s infinite;
-}
-
 .hover\:bg-main-blue_0:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(201 223 242 / var(--tw-bg-opacity));
@@ -2156,14 +2098,14 @@ video {
     background-color: rgb(47 51 54 / var(--tw-bg-opacity));
   }
 
-  .dark\:hover\:bg-main-blue_100:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgb(29 155 240 / var(--tw-bg-opacity));
-  }
-
   .dark\:hover\:bg-main-white_100:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(239 243 244 / var(--tw-bg-opacity));
+  }
+
+  .dark\:hover\:bg-main-blue_100:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(29 155 240 / var(--tw-bg-opacity));
   }
 
   .dark\:hover\:bg-opacity-50:hover {
