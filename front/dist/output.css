@@ -813,6 +813,10 @@ video {
   max-height: 500px;
 }
 
+.max-h-screen {
+  max-height: 100vh;
+}
+
 .min-h-\[100px\] {
   min-height: 100px;
 }
@@ -1396,6 +1400,10 @@ video {
   text-transform: capitalize;
 }
 
+.not-italic {
+  font-style: normal;
+}
+
 .leading-5 {
   line-height: 1.25rem;
 }
@@ -1711,6 +1719,62 @@ video {
   white-space: nowrap;
 }
 
+/* [contenteditable] b {
+    font-weight: normal;
+}
+
+[contenteditable] i {
+    font-style: normal;
+}
+
+[contenteditable] img {
+    display: none;
+}
+
+[contenteditable] {
+    outline: none;
+}
+
+[contenteditable] * {
+    font-style: normal !important;
+    font-weight: normal !important;
+    @apply md:text-xl !important;
+    @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  !important;
+
+} */
+
+[contenteditable] * {
+  font-style: normal !important;
+  font-weight: normal !important;
+}
+
+@media (min-width: 768px) {
+  [contenteditable] * {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+}
+
+[contenteditable] * {
+  overflow-wrap: break-word !important;
+  background-color: transparent !important;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  letter-spacing: -0.025em !important;
+  --tw-text-opacity: 1 !important;
+  color: rgb(15 20 25 / var(--tw-text-opacity)) !important;
+}
+
+.hashtag {
+  --tw-text-opacity: 1;
+  color: rgb(29 155 240 / var(--tw-text-opacity));
+}
+
+.hashtag:hover {
+  text-decoration-line: underline;
+}
+
 .placeholder\:text-gray-500::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -1812,6 +1876,11 @@ video {
 .hover\:bg-pink-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(251 207 232 / var(--tw-bg-opacity));
+}
+
+.hover\:text-main-black_0:hover {
+  --tw-text-opacity: 1;
+  color: rgb(15 20 25 / var(--tw-text-opacity));
 }
 
 .hover\:text-main-blue_100:hover {
