@@ -49,3 +49,33 @@
 .dotted-text {
     @apply overflow-hidden text-ellipsis whitespace-nowrap;
 }
+
+/* [contenteditable] b {
+    font-weight: normal;
+}
+
+[contenteditable] i {
+    font-style: normal;
+}
+
+[contenteditable] img {
+    display: none;
+}
+
+[contenteditable] {
+    outline: none;
+}
+
+[contenteditable] * {
+    font-style: normal !important;
+    font-weight: normal !important;
+    @apply md:text-xl !important;
+    @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  !important;
+
+} */
+[contenteditable] * {
+    font-style: normal !important;
+    font-weight: normal !important;
+    @apply md:text-xl !important;
+    @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
+}
