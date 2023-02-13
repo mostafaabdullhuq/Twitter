@@ -85,7 +85,7 @@
 }
 
 .twitter-notify-img {
-    @apply w-9 h-9 rounded-full cursor-pointer hover:opacity-90;
+    @apply w-9 h-9 rounded-full cursor-pointer hover:opacity-90 ml-2;
 }
 
 

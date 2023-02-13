@@ -1849,6 +1849,7 @@ video {
 }
 
 .twitter-notify-img {
+  margin-left: 0.5rem;
   height: 2.25rem;
   width: 2.25rem;
   cursor: pointer;
