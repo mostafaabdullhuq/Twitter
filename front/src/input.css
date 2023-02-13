@@ -87,3 +87,11 @@
 .twitter-notify-img {
     @apply w-8 h-8 rounded-full cursor-pointer hover:opacity-90;
 }
+
+.settings-item {
+    @apply relative flex justify-between items-center p-4 dark:text-dark-gray_100 hover:bg-light-gray_100 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 cursor-pointer;
+}
+
+.settings-item-active {
+    @apply after:h-full after:absolute after:right-0 after:w-0.5 after:bg-main-blue_100 dark:bg-dark-gray_0 dark:bg-opacity-50 bg-light-gray_100;
+}
