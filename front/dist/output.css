@@ -2098,14 +2098,14 @@ video {
     background-color: rgb(156 163 175 / var(--tw-bg-opacity));
   }
 
-  .dark\:hover\:bg-main-blue_100:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgb(29 155 240 / var(--tw-bg-opacity));
-  }
-
   .dark\:hover\:bg-main-white_100:hover {
     --tw-bg-opacity: 1;
     background-color: rgb(239 243 244 / var(--tw-bg-opacity));
+  }
+
+  .dark\:hover\:bg-main-blue_100:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(29 155 240 / var(--tw-bg-opacity));
   }
 
   .dark\:hover\:bg-opacity-20:hover {
