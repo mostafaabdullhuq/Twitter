@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="./../dist/output.css" />
         <link rel="stylesheet" href="./../../node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
         <style></style>
+        <script defer src="./../js/infinite_scroll.js"></script>
+
         <title>Twitter</title>
     </head>
     <!-- Note : After any Change Run This --) "npm run dev" -->
@@ -105,7 +107,7 @@
             <!--! -------main content ------- -->
             <main class="main flex h-screen w-full xl:w-4/5 overflow-hidden">
                 <!--! -------middle ------- -->
-                <div class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+                <div id="middleRoot" class="pb-20 sm:pb-0 h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
                     <!-- -----sticky header---- -->
                     <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
                         <!-- overlay div -->
@@ -197,7 +199,7 @@
                         show 111 tweets
                     </div>
                     <!-- !------tweets--------- -->
-                    <div class="tweets w-full flex flex-col mb-16 sm:mb-0">
+                    <div id="tweetsContainer" class="tweets w-full flex flex-col">
                         <!--! tweet -->
                         <div class="tweet relative">
                             <div
@@ -530,9 +532,10 @@
                             </div>
                         </div>
                     </div>
+                    <div id="loading" class="hidden text-center py-4 text-xl dark:text-white"><i class="fa-solid fa-spinner animate-spin"></i></div>
+
                     <!-- -----toggler----- -->
                 </div>
-
                 <!--! -----------right---------- -->
                 <div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
                     <!-- !-----search------ -->
