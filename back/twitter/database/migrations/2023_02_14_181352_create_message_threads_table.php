@@ -13,13 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::create('message_threads', function (Blueprint $table) {
             $table->id();
-            $table->morphs('parent');
-            $table->string('media_url');
-            $table->string('media_type');
-            $table->timestamps();
-            
+
+            $table->unsignedBigInteger('participant1_id');
+            $table->foreign('participant1_id')->references('id')->on('users');
+
+
+            $table->unsignedBigInteger('participant2_id');
+            $table->foreign('participant2_id')->references('id')->on('users');
+
+
         });
     }
 
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('message_threads');
     }
 };

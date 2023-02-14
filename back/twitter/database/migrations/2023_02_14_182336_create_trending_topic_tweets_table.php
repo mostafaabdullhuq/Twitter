@@ -13,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::create('trending_topic_tweets', function (Blueprint $table) {
             $table->id();
-            $table->morphs('parent');
-            $table->string('media_url');
-            $table->string('media_type');
+
+            $table->unsignedBigInteger('topic_id');
+            $table->foreign('topic_id')->references('id')->on('trending_topics');
+
+            $table->unsignedBigInteger('tweet_id');
+            $table->foreign('tweet_id')->references('id')->on('tweets');
+
             $table->timestamps();
-            
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('trending_topic_tweets');
     }
 };

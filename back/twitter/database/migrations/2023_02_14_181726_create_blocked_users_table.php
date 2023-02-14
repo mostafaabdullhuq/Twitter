@@ -13,13 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::create('blocked_users', function (Blueprint $table) {
             $table->id();
-            $table->morphs('parent');
-            $table->string('media_url');
-            $table->string('media_type');
+
+            $table->unsignedBigInteger('blocker_id');
+            $table->foreign('blocker_id')->references('id')->on('users');
+
+
+            $table->unsignedBigInteger('blocked_user_id');
+            $table->foreign('blocked_user_id')->references('id')->on('users');
+
             $table->timestamps();
-            
         });
     }
 
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('blocked_users');
     }
 };
