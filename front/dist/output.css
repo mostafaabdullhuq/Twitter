@@ -1263,11 +1263,6 @@ video {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
-.border-red-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
-}
-
 .border-light-gray {
   --tw-border-opacity: 1;
   border-color: rgb(207 217 222 / var(--tw-border-opacity));
@@ -1498,10 +1493,6 @@ video {
 
 .pt-3 {
   padding-top: 0.75rem;
-}
-
-.pb-16 {
-  padding-bottom: 4rem;
 }
 
 .text-center {
