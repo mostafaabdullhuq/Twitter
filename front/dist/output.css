@@ -1053,6 +1053,16 @@ video {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1251,6 +1261,11 @@ video {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .border-light-gray {
@@ -1483,6 +1498,10 @@ video {
 
 .pt-3 {
   padding-top: 0.75rem;
+}
+
+.pb-16 {
+  padding-bottom: 4rem;
 }
 
 .text-center {
@@ -2538,6 +2557,10 @@ video {
 
   .sm\:pr-4 {
     padding-right: 1rem;
+  }
+
+  .sm\:pb-0 {
+    padding-bottom: 0px;
   }
 }
 
