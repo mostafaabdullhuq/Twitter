@@ -14,8 +14,12 @@
     @apply border-t border-b    border-gray-100 dark:border-dark-gray_0 dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
 }
 
+.reply {
+    @apply border-b    border-gray-100 dark:border-dark-gray_0 hover:bg-gray-100 dark:hover:bg-transparent  flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4  transition-colors;
+}
+
 .single-tweet {
-    @apply border-t border-b   border-gray-100 dark:border-dark-gray_0 dark:hover:bg-transparent flex flex-col p-2 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
+    @apply border-t border-b   border-gray-100 dark:border-dark-gray_0   flex flex-col py-3 px-6  pb-4   relative;
 }
 
 .icon {
@@ -27,7 +31,11 @@
 }
 
 .tweet-control-item {
-    @apply flex flex-row justify-start items-center text-medium text-gray-600 dark:text-gray-400;
+    @apply flex flex-row justify-start items-center text-medium text-gray-600 cursor-pointer dark:text-gray-400;
+}
+
+.single-tweet-control-item {
+    @apply flex flex-row justify-center   items-center text-medium text-gray-600 cursor-pointer dark:text-gray-400;
 }
 
 .tweet-control-item-special {
