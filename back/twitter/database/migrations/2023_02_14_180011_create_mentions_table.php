@@ -15,13 +15,9 @@ return new class extends Migration
     {
         Schema::create('mentions', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('tweet_id');
-            $table->foreign('tweet_id')->references('id')->on('tweets');
-
+            $table->morphs('mentionable');
             $table->unsignedBigInteger('mentioned_user_id');
             $table->foreign('mentioned_user_id')->references('id')->on('users');
-
             $table->timestamps();
         });
     }

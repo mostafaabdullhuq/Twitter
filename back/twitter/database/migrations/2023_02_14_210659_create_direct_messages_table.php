@@ -13,16 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('follows', function (Blueprint $table) {
+        Schema::create('direct_messages', function (Blueprint $table) {
             $table->id();
+            $table->string('text',1000)->nullable() ;
 
-            $table->unsignedBigInteger('following_id');
-            $table->foreign('following_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('follower_id');
-            $table->foreign('follower_id')->references('id')->on('users');
+            $table->unsignedBigInteger('sender_id');
+            $table->foreign('sender_id')->references('id')->on('users');
 
-   
+
+            $table->unsignedBigInteger('recipient_id');
+            $table->foreign('recipient_id')->references('id')->on('users');
+
+
             $table->timestamps();
         });
     }
@@ -34,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('follows');
+        Schema::dropIfExists('direct_messages');
     }
 };
