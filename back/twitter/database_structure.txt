@@ -2,7 +2,7 @@ Users
 - id (Primary Key)
 - firstName (required)
 - lastName (required)
-(first name + last name = 20 characters) 
+(first name + last name = 20 characters)
 - username (min 3 max 15 characters) (required, unique)
 - password (min 10 max 24 lowercase, uppercase, special character [_ ! @ # $ % ^ *], number) (required)
 - email (required, unique)
@@ -119,7 +119,7 @@ Message Threads
 - participant2_id (Foreign Key referencing Users)
 
 
-Blocked Users
+Blocked Users 
 - id (Primary Key)
 - blocker_id (Foreign Key referencing Users)
 - blocked_user_id (Foreign Key referencing Users)
