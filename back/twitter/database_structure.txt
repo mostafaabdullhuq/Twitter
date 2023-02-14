@@ -65,9 +65,11 @@ Follows
 
 Replies
 - id (Primary Key)
-- tweet_id (Foreign Key referencing Tweets)
+- repliable_type (tweet or reply)
+- repliable_id (tweet_id or reply_id)
 - user_id (Foreign Key referencing Users)
 - text (optional max 300 character)
+- media_id (optional foriegn key refrencing media)
 - created_at
 - updated_at
 
@@ -86,9 +88,11 @@ Tweet_Hashtags
 
 Mentions
 - id (Primary Key)
-- tweet_id (Foreign Key referencing Tweets)
+- mentionable_type (Tweet or reply)
+- mentionable_id (post id or reply id)
 - mentioned_user_id (Foreign Key referencing Users)
 - created_at
+
 
 
 Notifications
