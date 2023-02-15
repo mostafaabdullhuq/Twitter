@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->morphs('parent');
             // $table->string('type');
-            $table->timestamps('created_at');
+            $table->timestamps('');
             $table->boolean('is_read');
         });
     }
