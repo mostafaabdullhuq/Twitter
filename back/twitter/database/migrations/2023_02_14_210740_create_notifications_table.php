@@ -18,9 +18,10 @@ return new class extends Migration
                         
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-
-            $table->string('type');
-            $table->timestamps();
+            $table->morphs('parent');
+            // $table->string('type');
+            $table->timestamps('created_at');
+            $table->boolean('is_read');
         });
     }
 

@@ -15,22 +15,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name',20)->nullable();
-            $table->string('last_name',20)->nullable();
-            $table->string('username',20)->nullable()->unique();
-            $table->string('password')->nullable();	
-            $table->string('email')->nullable();
-            $table->text('profile_picture');
-            $table->text('cover_picture');
-            $table->text('bio');
-            $table->string('location');
-            $table->string('website');
-            $table->string('google_access_token');
-            $table->string('facebook_access_token');
+            $table->string('first_name',20);
+            $table->string('last_name',20);
+            $table->string('username',20)->unique();
+            $table->string('password');	
+            $table->string('email');
+            $table->text('profile_picture')->nullable();
+            $table->text('cover_picture')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('location')->nullable();
+            $table->string('website')->nullable();
+            $table->string('google_access_token')->nullable();
+            $table->string('facebook_access_token')->nullable();
             $table->date('date_of_birth');
-            $table->boolean('gender');	
+            $table->string('gender',1);	
             $table->string('phone_number');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at');
             $table->timestamps();
             $table->rememberToken();
 

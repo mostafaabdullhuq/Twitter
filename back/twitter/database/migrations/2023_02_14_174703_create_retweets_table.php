@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('retweets', function (Blueprint $table) {
             $table->id();
-            $table->text('text');
+            $table->text('text')->nullable();
 
             $table->unsignedBigInteger('tweet_id');
             $table->foreign('tweet_id')->references('id')->on('tweets');

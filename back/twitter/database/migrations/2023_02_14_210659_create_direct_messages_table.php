@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('direct_messages', function (Blueprint $table) {
             $table->id();
-            $table->string('text',1000)->nullable() ;
+            $table->string('text',1000) ;
 
 
             $table->unsignedBigInteger('sender_id');
