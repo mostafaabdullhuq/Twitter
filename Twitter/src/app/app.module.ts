@@ -19,6 +19,7 @@ import { FooterComponent } from './Components/footer/footer.component';
 import { MessagePopupComponent } from './Components/message-popup/message-popup.component';
 import { StickyHeaderHomeComponent } from './Components/sticky-header-home/sticky-header-home.component';
 import { StickyHeaderPagesComponent } from './Components/sticky-header-pages/sticky-header-pages.component';
+import { TweetComponent } from './Components/tweet/tweet.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { StickyHeaderPagesComponent } from './Components/sticky-header-pages/sti
     FooterComponent,
     MessagePopupComponent,
     StickyHeaderHomeComponent,
-    StickyHeaderPagesComponent
+    StickyHeaderPagesComponent,
+    TweetComponent
   ],
   imports: [
     BrowserModule,
