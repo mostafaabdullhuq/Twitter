@@ -116,3 +116,10 @@
 .settings-item-active {
   @apply after:h-full after:absolute after:right-0 after:w-0.5 after:bg-main-blue_100 dark:bg-dark-gray_0 dark:bg-opacity-50 bg-light-gray_100;
 }
+.ng-invalid:not(form){
+  border-left:5px solid red;
+}
+
+.ng-valid:not(form){
+  border-left:5px solid green;
+}

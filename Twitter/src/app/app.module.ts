@@ -20,6 +20,8 @@ import { MessagePopupComponent } from './Components/message-popup/message-popup.
 import { StickyHeaderHomeComponent } from './Components/sticky-header-home/sticky-header-home.component';
 import { StickyHeaderPagesComponent } from './Components/sticky-header-pages/sticky-header-pages.component';
 import { TweetComponent } from './Components/tweet/tweet.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,10 @@ import { TweetComponent } from './Components/tweet/tweet.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
