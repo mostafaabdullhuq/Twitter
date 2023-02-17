@@ -1,0 +1,135 @@
+{
+  "tweets": [
+    {
+      "id": 1,
+      "created_at": "2015-08-06T20:00:00",
+      "text": "RT @TheRealKev: I'm not a fan of the #GOP, but I'm not a fan of the #DNC either. I'm a fan of #America. #tcot #pjnet #p2 #gopdebate #GOPDebate2015",
+      "replies_count": 24029283,
+      "likes_count": 2924204224,
+      "retweets_count": 29242424,
+      "views_count": 204242424244,
+      "media_url": "./../../../assets/images/meme.jpeg",
+      "media_type": 1,
+      "user": {
+        "id": 14845484515,
+        "name": "John Doe",
+        "screen_name": "JohnDoe",
+        "bio": "lorem ipsum datte alen",
+        "followers_count": 324592333,
+        "following_count": 324592333,
+        "profile_image_url": "./../../../assets/images/20180703190744-rollsafe-meme.webp",
+        "verified": true
+      }
+    },
+    {
+      "id": 2,
+      "created_at": "2022-01-01T12:00:00",
+      "text": "Happy New Year! 🎉🎊 #newyear #2022 #celebration",
+      "replies_count": 1000,
+      "likes_count": 50000,
+      "retweets_count": 2000,
+      "views_count": 100000,
+      "media_url": null,
+      "media_type": 1,
+
+      "user": {
+        "id": 123456789,
+        "name": "Jane Smith",
+        "screen_name": "janesmith",
+        "bio": "Software engineer, coffee lover ☕️",
+        "followers_count": 10000,
+        "following_count": 500,
+        "profile_image_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        "verified": true
+      }
+    },
+    {
+      "id": 3,
+      "created_at": "2022-02-14T08:00:00",
+      "text": "Happy Valentine's Day to all the lovers out there! ❤️ #valentinesday #love",
+      "replies_count": 500,
+      "likes_count": 10000,
+      "retweets_count": 1000,
+      "views_count": 20000,
+      "media_url": "https://images.unsplash.com/photo-1487035242901-d419a42d17af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=854&q=80",
+      "media_type": 1,
+
+      "user": {
+        "id": 987654321,
+        "name": "Michael Brown",
+        "screen_name": "michaelbrown",
+        "bio": "Traveler, foodie, and dog lover 🐶",
+        "followers_count": 20000,
+        "following_count": 1000,
+        "profile_image_url": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+        "verified": false
+      }
+    },
+    {
+      "id": 4,
+      "created_at": "2022-03-17T16:30:00",
+      "text": "More work team completed over night:\n- Removed height penalty affecting tweets with pics/video\n- increased # of recommended tweets\n- Better tracking of dropped tweets\n- Removed filter causing false negatives\n- Removed penalty if user follows author - Improved reach of retweet",
+      "replies_count": 100,
+      "likes_count": 5000,
+      "retweets_count": 500,
+      "views_count": 10000,
+      "media_url": null,
+      "media_type": 1,
+
+      "user": {
+        "id": 2468101214,
+        "name": "Emma Johnson",
+        "screen_name": "emmajohnson",
+        "bio": "Writer, reader, and cat lover 🐱",
+        "followers_count": 5000,
+        "following_count": 1000,
+        "profile_image_url": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
+        "verified": false
+      }
+    },
+    {
+      "id": 5,
+      "created_at": "2022-03-17T16:30:00",
+      "text": "ملخص لاحداث الايام الاخيرة للتذكرة وربط الأحداث: أحداث غريبة حصلت في الايام القليلة الماضية: 4 فبراير: إسقاط البالون الصيني. ٦ فبراير: الزلزال التركى.. 10 فبراير: إسقاط جسم غامض فوق ألاسكا 11 فبراير: إسقاط جسم غامض فوق كندا 12 فبراير: ظهور جسم غامض فوق الصين 12 فبراير: إسقاط جسم غامض فوق بحيرة هورون هل هذه بداية لشيء أكبر؟",
+      "replies_count": 100,
+      "likes_count": 5000,
+      "retweets_count": 500,
+      "views_count": 10000,
+      "media_url": null,
+      "media_type": 1,
+
+      "user": {
+        "id": 2468101214,
+        "name": "Dr.Sam Youssef Ph.D.,M.Sc.,DPT.",
+        "screen_name": "drhossamsamy65",
+        "bio": "Writer, reader, and cat lover 🐱",
+        "followers_count": 5000,
+        "following_count": 1000,
+        "profile_image_url": "https://pbs.twimg.com/profile_images/886593368054222849/ZU_32EZB_400x400.jpg",
+        "verified": true
+      }
+    },
+    {
+      "id": 6,
+      "created_at": "2022-03-17T16:30:00",
+      "text": "Two neutron stars colliding\n(Credit: NASA's Goddard Space Flight Center/CI Lab)",
+      "replies_count": 100,
+      "likes_count": 5000,
+      "retweets_count": 500,
+      "views_count": 10000,
+      "media_url": "./../../../assets/videos/The Sound of Two Neutron Stars Colliding(480p).mp4",
+      "media_type": 2,
+
+      "user": {
+        "id": 2468101214,
+        "name": "World and Science",
+        "screen_name": "WorldAndScience",
+        "bio": "Writer, reader, and cat lover 🐱",
+        "followers_count": 5000,
+        "following_count": 1000,
+        "profile_image_url": "https://pbs.twimg.com/profile_images/1013797033067581440/lUcwwDZ2_400x400.jpg",
+        "verified": true
+      }
+    }
+  ]
+}
