@@ -22,4 +22,4 @@ Route::group([
 
 # php artisan key:generate
 # php artisan jwt:secret
-# jwt-auth secret [v9m6605MEHxcHrgC41BFyJbAOY19UH8Ypa1udnthDFuLN96IUVgD3iDgI2zfLKTa] set successfully.
+# jwt-auth secret [5M5guU5h5DjiOjDVbi9lB4OL2UHMujOgly58r0mnVf4jqytIERVC85RpBSxqnu5C] set successfully..
