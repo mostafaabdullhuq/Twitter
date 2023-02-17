@@ -1,0 +1,143 @@
+/* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-active {
+  @apply font-bold;
+}
+
+.nav-item {
+  @apply flex justify-center items-center xl:justify-start dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 p-4 rounded-full hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50  tracking-wide;
+}
+
+.tweet {
+  @apply border-t border-b    border-gray-100 dark:border-dark-gray_0 dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
+}
+
+.reply {
+  @apply border-b    border-gray-100 dark:border-dark-gray_0 hover:bg-gray-100 dark:hover:bg-transparent  flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4  transition-colors;
+}
+
+.single-tweet {
+  @apply border-t border-b   border-gray-100 dark:border-dark-gray_0   flex flex-col py-3 px-6  pb-4   relative;
+}
+
+.icon {
+  @apply w-10 h-10 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0;
+}
+
+.twitter-user-img {
+  @apply w-12 min-w-[3.2rem] min-h-[3.2rem] h-12 rounded-full cursor-pointer;
+}
+
+.tweet-control-item {
+  @apply flex flex-row justify-start items-center text-medium text-gray-600 cursor-pointer dark:text-gray-400;
+}
+
+.single-tweet-control-item {
+  @apply flex flex-row justify-center   items-center text-medium text-gray-600 cursor-pointer dark:text-gray-400;
+}
+
+.tweet-control-item-special {
+  @apply hidden sm:flex flex-row justify-start items-center text-medium text-gray-600 dark:text-gray-400;
+}
+
+.sticky-active {
+  @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[25%] after:translate-x-[-50%];
+}
+
+.profile-active {
+  @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[60%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[50%] after:translate-x-[-50%];
+}
+
+.sticky-nav-scroll {
+  @apply opacity-[.985];
+}
+
+.right-trend {
+  @apply px-4 py-2 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 cursor-pointer transition-colors hover:bg-gray-200;
+}
+
+.right-follow {
+  @apply px-4 py-2 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 hover:bg-gray-200 cursor-pointer my-1 transition-colors flex justify-between items-center;
+}
+
+.dotted-text {
+  @apply overflow-hidden text-ellipsis whitespace-nowrap;
+}
+
+/* [contenteditable] b {
+    font-weight: normal;
+}
+
+[contenteditable] i {
+    font-style: normal;
+}
+
+[contenteditable] img {
+    display: none;
+}
+
+[contenteditable] {
+    outline: none;
+}
+
+[contenteditable] * {
+    font-style: normal !important;
+    font-weight: normal !important;
+    @apply md:text-xl !important;
+    @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  !important;
+
+} */
+[contenteditable] * {
+  font-style: normal !important;
+  font-weight: normal !important;
+  @apply md:text-xl !important;
+  @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
+}
+
+.hashtag {
+  @apply text-main-blue_100 hover:underline;
+}
+
+.twitter-notify-img {
+  @apply w-9 h-9 rounded-full cursor-pointer hover:opacity-90 ml-2;
+}
+.sticky-notify-active {
+  @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[15%] after:translate-x-[-30%];
+}
+
+.settings-item {
+  @apply relative flex justify-between items-center p-4 dark:text-dark-gray_100 hover:bg-light-gray_100 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 cursor-pointer;
+}
+
+.settings-item-active {
+  @apply after:h-full after:absolute after:right-0 after:w-0.5 after:bg-main-blue_100 dark:bg-dark-gray_0 dark:bg-opacity-50 bg-light-gray_100;
+}
+
+router-outlet + app-home,
+router-outlet + app-profile,
+router-outlet + app-notification,
+router-outlet + app-messages,
+router-outlet + app-bookmarks,
+router-outlet + app-lists,
+router-outlet + app-connect,
+router-outlet + app-explore,
+router-outlet + app-follow-recommendations,
+router-outlet + app-search,
+router-outlet + app-settings,
+router-outlet + app-signin,
+router-outlet + app-signup,
+router-outlet + trends-recommendation {
+  @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid red;
+}
+
+.ng-valid:not(form) {
+  border-left: 5px solid green;
+}
