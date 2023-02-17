@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 import { ConnectComponent } from './Components/connect/connect.component';
 import { ExploreComponent } from './Components/explore/explore.component';
+import { ExploreoutComponent } from './Components/exploreout/exploreout.component';
 import { HomeComponent } from './Components/home/home.component';
 import { MessagesComponent } from './Components/messages/messages.component';
 import { NotificationComponent } from './Components/notification/notification.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
+  { path:'exploreout' , component: ExploreoutComponent},
   { path: 'home', component: HomeComponent },
   { path: 'explore', component: ExploreComponent },
   { path: 'notifications', component: NotificationComponent },

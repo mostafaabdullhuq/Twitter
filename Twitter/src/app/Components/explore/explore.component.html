@@ -1,332 +1,407 @@
-<!--! -------middle ------- -->
-<div
-    class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-    <!-- -----sticky header---- -->
-    <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
-        <!-- overlay div -->
-        <div
-            class="absolute w-full border-b border-gray-100 dark:border-dark-gray_0 h-full bg-white dark:bg-black sticky-nav-scroll -z-100">
-        </div>
-        <!-- content of fixed nav -->
-        <div class="content z-0">
-            <div class="relative mx-3 mt-2 mb-2 w-[85%]">
-                <i class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                <input type="text"
-                    class="w-full bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 p-6 dark:bg-dim-400 focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal h-9 pl-12 text-md rounded-full dark:text-white placeholder:text-gray-500"
-                    placeholder="Search Twitter" />
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i class="fa-solid fa-gear text-black dark:text-white cursor-pointer"></i>
-            </div>
-            <div class="grid grid-cols-5 w-full">
-                <div class="w-full profile-active relative">
-                    <button
-                        class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors">For
-                        you</button>
-                </div>
-                <div class="w-full">
-                    <button
-                        class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
-                        Trending
-                    </button>
-                </div>
+                <!---------middle ---------->
+                <div class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+                    <!-- -----sticky header---- -->
+                    <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
+                        <!-- overlay div -->
+                        <div class="absolute w-full border-b border-gray-100 dark:border-dark-gray_0 h-full bg-white dark:bg-black sticky-nav-scroll -z-100"></div>
+                        <!-- content of fixed nav -->
+                        <div class="content z-0">
+                            <div class="relative mx-3 mt-2 mb-2 w-[85%]">
+                                <i class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                                <input
+                                    type="text"
+                                    class="w-full bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 p-6 dark:bg-dim-400 focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal h-9 pl-12 text-md rounded-full dark:text-white placeholder:text-gray-500"
+                                    placeholder="Search Twitter"
+                                />
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-gear text-black dark:text-white cursor-pointer"></i>
+                            </div>
+                            <div class="grid grid-cols-5 w-full">
+                                <div class="w-full profile-active relative">
+                                    <button class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors">For you</button>
+                                </div>
+                                <div class="w-full">
+                                    <button class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
+                                        Trending
+                                    </button>
+                                </div>
 
-                <div class="w-full">
-                    <button
-                        class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
-                        News
-                    </button>
-                </div>
-                <div class="w-full">
-                    <button
-                        class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
-                        Sports
-                    </button>
-                </div>
-                <div class="w-full">
-                    <button
-                        class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
-                        Entertainment
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--trends and ## -->
-    <div
-        class="text-medium relative flex flex-col w-full border-b border-gray-100 dark:border-dark-gray_0 cursor-pointer hover:bg-gray-200 text-black dark:text-white dark:hover:bg-dark-gray_100 dark:hover:bg-opacity-50 pt-2 pb-3">
-        <!--Trend1-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Sports
-                </span>
-                <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
-                    .</p>
-                <p class="dark:text-dark-gray_300 text-light-gray_100">Trending</p>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#World cup</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">1M Tweets</p>
-            </div>
-        </div>
-        <!--Trend2-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Egypt </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#World cup</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">1M Tweets</p>
-            </div>
-        </div>
-        <!--Trend3-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Egypt </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">ليلي علوي#</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">225k Tweets</p>
-            </div>
-        </div>
-
-        <!--Trend4-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Egypt </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">الشباب ابها#</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">400K Tweets</p>
-            </div>
-        </div>
-        <!--Trend5-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Sports </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#Messi</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">10M Tweets</p>
-            </div>
-        </div>
-        <!--Trend6-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Business </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#Fly India</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">700K Tweets</p>
-            </div>
-        </div>
-        <!--Trend7-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Egypt </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">سعر جرام الدهب#</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">80K Tweets</p>
-            </div>
-        </div>
-        <!--Trend8-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Egypt </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">MineCraft1</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">1M Tweets</p>
-            </div>
-        </div>
-        <!--Trend9-->
-        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
-            <div class="flex items-center mt-2 mx-2">
-                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending
-                    in Gaming </span>
-            </div>
-            <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
-                title="Settings">
-                <i
-                    class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
-            </div>
-            <div>
-                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#BrawlStars</p>
-                <p class="dark:text-dark-gray_300 mx-2 px-2">3,140 Tweets</p>
-            </div>
-        </div>
-    </div>
-    <!--Follow people-->
-    <div
-        class="flex flex-col w-full border-b border-gray-100 dark:border-dark-gray_0 cursor-pointer hover:bg-gray-200 text-black dark:text-white dark:hover:bg-dark-gray_100 dark:hover:bg-opacity-50">
-        <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">Who to
-            follow</h3>
-        <!--follow1-->
-        <div class="right-follow gap-2">
-            <!--! -----user info block ---- -->
-            <div class="flex items-center gap-1 w-3/4">
-                <img src="./../../../assets/images/img.jpeg" class="twitter-user-img" alt="" />
-                <div class="ml-3 text-md w-2/3">
-                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                        <h5
-                            class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
-                            Sara Elbanna</h5>
+                                <div class="w-full">
+                                    <button class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
+                                        News
+                                    </button>
+                                </div>
+                                <div class="w-full">
+                                    <button class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
+                                        Sports
+                                    </button>
+                                </div>
+                                <div class="w-full">
+                                    <button class="w-full font-semibold sm:py-4 py-6 hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors text-gray-500">
+                                        Entertainment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">
-                        @Sara_Elbanna</p>
-                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque
-                        suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
-                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
-                    </p>
-                </div>
-            </div>
-            <!-- ! --------follow button ---- -->
-            <a href=""
-                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black">Follow</a>
-        </div>
-        <!--follow2-->
-        <div class="right-follow gap-2">
-            <!--! -----user info block ---- -->
-            <div class="flex items-center gap-1 w-3/4">
-                <img src="../images/us.jpeg" class="twitter-user-img" alt="" />
-                <div class="ml-3 text-md w-2/3">
-                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                        <h5
-                            class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
-                            Hagar Ahmed</h5>
+                    <!--trends and ## -->
+                    <div
+                        class="text-mediumbg-white relative flex flex-col
+                         w-full border-b
+                         border-gray-100
+                         dark:border-dark-gray_0 cursor-pointer
+                         text-black dark:text-white
+                         dark:hover:bg-opacity-50 pt-2 pb-3  "
+                    >
+                        <!--Trend1-->
+                        <div class="relative h-25 flex flex-col
+                         hover:bg-gray-100 dark:hover:bg-dark-gray_200
+                         dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Sports </span>
+                                <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">.</p>
+                                <p class="dark:text-dark-gray_300 text-light-gray_100">Trending</p>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#World cup</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">1M Tweets</p>
+                            </div>
+                        </div>
+                        <!--Trend2-->
+                        <div class="relative h-25 flex flex-col
+                        hover:bg-gray-100 dark:hover:bg-dark-gray_200
+                         dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Egypt </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#World cup</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">1M Tweets</p>
+                            </div>
+                        </div>
+                        <!--Trend3-->
+                        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Egypt </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">ليلي علوي#</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">225k Tweets</p>
+                            </div>
+                        </div>
+
+                        <!--Trend4-->
+                        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Egypt </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">الشباب ابها#</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">400K Tweets</p>
+                            </div>
+                        </div>
+                        <!--Trend5-->
+                        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Sports </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#Messi</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">10M Tweets</p>
+                            </div>
+                        </div>
+                        <!--Trend6-->
+                        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Business </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#Fly India</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">700K Tweets</p>
+                            </div>
+                        </div>
+                        <!--Trend7-->
+                        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Egypt </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">سعر جرام الدهب#</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">80K Tweets</p>
+                            </div>
+                        </div>
+                        <!--Trend8-->
+                        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Egypt </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">MineCraft1</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">1M Tweets</p>
+                            </div>
+                        </div>
+                        <!--Trend9-->
+                        <div class="relative h-25 flex flex-col hover:bg-gray-100 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-20">
+                            <div class="flex items-center mt-2 mx-2">
+                                <span class="ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">Trending in Gaming </span>
+                            </div>
+                            <div
+                                class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-10 h-10 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-blue-600 dark:hover:bg-opacity-20 right-1 xl:top-2 top-0"
+                                title="Settings"
+                            >
+                                <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold mx-2 dark:text-white text-lg px-2">#BrawlStars</p>
+                                <p class="dark:text-dark-gray_300 mx-2 px-2">3,140 Tweets</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Follow people-->
+                    <div
+                        class="flex flex-col w-full
+                         border-b border-gray-100
+                         dark:border-dark-gray_0
+                         cursor-pointer text-black dark:text-white mt-4
+                    "
+                    >
+                        <h3 class="text-gray-900 dark:text-white
+                        font-extrabold p-4 text-xl
+                        dark:border-dim-200 mb-1 ">
+                        Who to follow</h3>
+                        <!--follow1-->
+                        <div class="right-follow gap-2 hover:bg-gray-100 dark:hover:bg-dark-gray_0  dark:hover:bg-opacity-30 ">
+                            <!--! -----user info block ---- -->
+                            <div class="flex items-center gap-1 w-3/4
+                            ">
+                                <img src="../../../assets/images/img.jpeg" class="twitter-user-img" alt="" />
+                                <div class="ml-3 text-md w-2/3">
+                                    <div class="flex max-w-full w-full -mb-1 mt-1">
+                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">Sara Elbanna</h5>
+                                    </div>
+
+                                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@Sara_Elbanna</p>
+                                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
+                                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- ! --------follow button ---- -->
+                            <a
+                                href=""
+                                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
+                                >Follow</a
+                            >
+                        </div>
+                        <!--follow2-->
+                        <div class="right-follow gap-2 hover:bg-gray-100 dark:hover:bg-dark-gray_0  dark:hover:bg-opacity-30 ">
+                          <!--! -----user info block ---- -->
+                            <div class="flex items-center gap-1 w-3/4">
+                                <img src="../../../assets/images/us.jpeg" class="twitter-user-img" alt="" />
+                                <div class="ml-3 text-md w-2/3">
+                                    <div class="flex max-w-full w-full -mb-1 mt-1">
+                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">Hagar Ahmed</h5>
+                                    </div>
+
+                                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@Hagora_99</p>
+                                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
+                                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- ! --------follow button ---- -->
+                            <a
+                                href=""
+                                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
+                                >Follow</a
+                            >
+                        </div>
+                        <!--follow4-->
+                        <div class="right-follow gap-2 hover:bg-gray-100 dark:hover:bg-dark-gray_0  dark:hover:bg-opacity-30 ">
+                          <!--! -----user info block ---- -->
+                            <div class="flex items-center gap-1 w-3/4">
+                                <img src="../../../assets/images/image.jpeg" class="twitter-user-img" alt="" />
+                                <div class="ml-3 text-md w-2/3">
+                                    <div class="flex max-w-full w-full -mb-1 mt-1">
+                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">mostafaabdullhuq</h5>
+                                    </div>
+
+                                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@7g_Mostafa</p>
+                                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
+                                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- ! --------follow button ---- -->
+                            <a
+                                href=""
+                                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
+                                >Follow</a
+                            >
+                        </div>
+                        <!--follow5-->
+                        <div class="right-follow gap-2 hover:bg-gray-100 dark:hover:bg-dark-gray_0  dark:hover:bg-opacity-30 ">
+                          <!--! -----user info block ---- -->
+                            <div class="flex items-center gap-1 w-3/4">
+                                <img src="../../../assets/images/turtle.jpeg" class="twitter-user-img" alt="" />
+                                <div class="ml-3 text-md w-2/3">
+                                    <div class="flex max-w-full w-full -mb-1 mt-1">
+                                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">Mohammed_AbdElKarim</h5>
+                                    </div>
+
+                                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@WHO</p>
+                                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
+                                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- ! --------follow button ---- -->
+                            <a
+                                href=""
+                                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black"
+                                >Follow</a
+                            >
+                        </div>
+                        <div class="text-blue-400 p-3 cursor-pointer right-trend">
+                            <a href="./connect_people.html">Show more</a>
+                        </div>
                     </div>
 
-                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">
-                        @Hagora_99</p>
-                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque
-                        suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
-                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
-                    </p>
-                </div>
-            </div>
-            <!-- ! --------follow button ---- -->
-            <a href=""
-                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black">Follow</a>
-        </div>
-        <!--follow4-->
-        <div class="right-follow gap-2">
-            <!--! -----user info block ---- -->
-            <div class="flex items-center gap-1 w-3/4">
-                <img src="../images/meme.jpeg" class="twitter-user-img" alt="" />
-                <div class="ml-3 text-md w-2/3">
-                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                        <h5
-                            class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
-                            mostafaabdullhuq</h5>
+                    <!--------------------------posts------------------------->
+                    <div class="tweet relative">
+                        <!--post1-->
+                        <div
+                            class="absolute justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
+                            title="More"
+                        >
+                            <i class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:text-dark-gray_300 dotted-text text-light-gray_100cursor-pointer"></i>
+                        </div>
+                        <!-- user image -->
+                        <div class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
+                            <img class="w-full h-full object-cover" src="../../../assets/images/20180703190744-rollsafe-meme.webp" alt="" />
+                        </div>
+                        <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+                            <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+                            <div class="flex overflow-hidden mt-1">
+                                <!--  name -->
+                                <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                                    <p class="dotted-text h-6 hover:underline">Mostafa Abdullhuq</p>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="{1.5}"
+                                        stroke="currentColor"
+                                        class="w-6 min-w-[25px] text-white fill-main-blue_100"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                        />
+                                    </svg>
+                                </div>
+                                <!-- other user and tweet info -->
+                                <div class="flex items-center w-auto max-w-[45%]">
+                                    <!-- username -->
+                                    <span class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@mostafaabdullhuq </span>
+                                    <!-- publish date -->
+                                    <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">.</p>
+                                    <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">Just now</p>
+                                </div>
+                            </div>
+                            <!-- ----paragraph----- -->
+                            <div class="sm:pr-4">
+                                <p class="font-normal w-full dark:text-white text-md text-dark-gray_400">
+                                    <span class="hashtag">@Zoza_99</span>
+                                    <span class="hashtag">@Sara_Elbanna</span>
+                                    <span class="hashtag">@Mohamed_Abdelkarim</span>
+                                    <span class="hashtag">@Hagar_ahmed</span> <br />
+                                    😂😂😂😂
+                                </p>
+                                <div class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
+                                    <img class="object-cover w-full h-full" src="../../../assets/images/meme.jpeg" alt="" />
+                                </div>
+
+                                <!-- ----controls icons ---- -->
+                                <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                                    <div class="tweet-control-item hover:text-main-blue_100">
+                                        <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                                        7,964
+                                    </div>
+                                    <div class="tweet-control-item hover:text-main-retweet"><i class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>9,247</div>
+                                    <div class="tweet-control-item hover:text-main-love"><i class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>90.6K</div>
+                                    <div class="tweet-control-item-special hover:text-main-blue_100"><i class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>30.7M</div>
+                                    <div class="tweet-control-item hover:text-main-blue_100">
+                                        <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">
-                        @7g_Mostafa</p>
-                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque
-                        suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
-                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
-                    </p>
+                    <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
                 </div>
-            </div>
-            <!-- ! --------follow button ---- -->
-            <a href=""
-                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black">Follow</a>
-        </div>
-        <!--follow5-->
-        <div class="right-follow gap-2">
-            <!--! -----user info block ---- -->
-            <div class="flex items-center gap-1 w-3/4">
-                <img src="../images/pngtree-baby-owl-computer-background-image_724674.jpg" class="twitter-user-img"
-                    alt="" />
-                <div class="ml-3 text-md w-2/3">
-                    <div class="flex max-w-full w-full -mb-1 mt-1">
-                        <h5
-                            class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
-                            Mohammed_AbdElKarim</h5>
-                    </div>
+                <!--! -----------right---------- -->
+                <div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
+                  <app-follow-recommendations></app-follow-recommendations>
+                  <app-footer></app-footer>
+                  <app-message-popup></app-message-popup>
+              </div>
 
-                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@WHO</p>
-                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut possimus doloremque
-                        suscipit ipsam totam molestiae rem repellat odio dolorem alias id, sequi,
-                        quibusdam praesentium illum earum libero omnis, impedit temporibus!
-                    </p>
-                </div>
-            </div>
-            <!-- ! --------follow button ---- -->
-            <a href=""
-                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black">Follow</a>
-        </div>
-        <div class="text-blue-400 p-3 cursor-pointer right-trend">
-            <a href="./connect_people.html">Show more</a>
-        </div>
-    </div>
-
-    <app-tweet></app-tweet>
-    <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
-</div>
-<!--! -----------right---------- -->
-<div class="hidden mt-3 xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
-
-    <app-follow-recommendations></app-follow-recommendations>
-
-    <app-footer></app-footer>
-
-
-    <app-message-popup></app-message-popup>
-
-
-</div>

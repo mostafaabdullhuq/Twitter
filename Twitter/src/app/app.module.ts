@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FollowRecommendationsComponent } from './Components/follow-recommendations/follow-recommendations.component';
@@ -9,6 +8,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { ConnectComponent } from './Components/connect/connect.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { ExploreComponent } from './Components/explore/explore.component';
+import { ExploreoutComponent } from './Components/exploreout/exploreout.component';
 import { NotificationComponent } from './Components/notification/notification.component';
 import { SettingsComponent } from './Components/settings/settings.component';
 import { SigninComponent } from './Components/signin/signin.component';
@@ -35,6 +35,7 @@ import { HumanDatesPipe } from './Pipes/human-dates.pipe';
     ConnectComponent,
     ProfileComponent,
     ExploreComponent,
+    ExploreoutComponent,
     NotificationComponent,
     SettingsComponent,
     SigninComponent,
@@ -55,7 +56,7 @@ import { HumanDatesPipe } from './Pipes/human-dates.pipe';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
