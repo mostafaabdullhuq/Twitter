@@ -13,13 +13,13 @@ export class SigninComponent implements OnInit {
     password: null
   };
   public error:any = null;
-  ;
+  
 
   constructor(
     private http: HttpClient,
   ) { }
   onSubmit() {
-   return this.http.post('http://localhost:8000/api/login', this.form)
+   return this.http.post('http://127.0.0.1:8000/api/auth/login', this.form)
     .subscribe({
       next: (data) => { console.log(data) },
       error: (err) => { this.handleError(err) },
