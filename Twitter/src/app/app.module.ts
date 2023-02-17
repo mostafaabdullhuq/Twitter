@@ -22,7 +22,8 @@ import { TweetComponent } from './Components/tweet/tweet.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
-import { ExploreoutComponent } from './Components/exploreout/exploreout.component';
+import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
+import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ExploreoutComponent } from './Components/exploreout/exploreout.componen
     StickyHeaderPagesComponent,
     TweetComponent,
     BookmarksComponent,
-    ExploreoutComponent
+    HumanNumbersPipe,
+    HumanDatesPipe
   ],
   imports: [
     BrowserModule,

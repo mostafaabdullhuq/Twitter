@@ -1,0 +1,7 @@
+.alert{
+    color: red;
+}
+#next:disabled {
+    background-color: gray;
+  }
+  

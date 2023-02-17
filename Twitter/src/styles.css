@@ -134,10 +134,10 @@ router-outlet + trends-recommendation {
   @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
 }
 
-.ng-invalid:not(form) {
+/* .ng-invalid:not(form) {
   border-left: 5px solid red;
 }
 
 .ng-valid:not(form) {
   border-left: 5px solid green;
-}
+} */
