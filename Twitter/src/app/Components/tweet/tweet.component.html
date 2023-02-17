@@ -30,7 +30,8 @@
                 <!-- publish date -->
                 <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
                     .</p>
-                <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">{{tweet.created_at}}</p>
+                <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">{{tweet.created_at |
+                    humanDates}}</p>
             </div>
         </div>
         <!-- ----paragraph----- -->
@@ -52,16 +53,19 @@
             <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
                 <div class="tweet-control-item hover:text-main-blue_100">
                     <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                    {{tweet.replies_count}}
+                    {{tweet.replies_count | humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item hover:text-main-retweet"><i
-                        class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{tweet.retweets_count}}
+                        class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{tweet.retweets_count
+                    | humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item hover:text-main-love"><i
-                        class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{tweet.likes_count}}
+                        class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{tweet.likes_count |
+                    humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item-special hover:text-main-blue_100"><i
-                        class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{tweet.views_count}}
+                        class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{tweet.views_count
+                    | humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item hover:text-main-blue_100">
                     <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
