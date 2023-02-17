@@ -1,4 +1,3 @@
-<router-outlet></router-outlet>
 <!-- -----container----- -->
 <div class="container flex xl:max-w-[1300px]">
   <!--! -----left start----- -->
@@ -9,45 +8,45 @@
     <nav class="mt-2 text-xl flex flex-col mr-4 gap-2">
       <!-- ------logo----- -->
       <div class="w-full flex justify-start">
-        <a href="./index.html"
+        <a routerLink="/home"
           class="text-main-blue rounded-full p-2 ml-1 w-12 h-12 hover:bg-main-blue_0 dark:text-dark-gray_0 dark:hover:bg-gray-400 transition-colors">
           <i class="fa-brands fa-twitter text-3xl"></i>
         </a>
       </div>
 
       <div class="nav-active">
-        <a href="./index.html" class="nav-item nav-active"> <i class="fa-solid fa-house text-xl"></i><span
+        <a routerLink="/home" class="nav-item nav-active"> <i class="fa-solid fa-house text-xl"></i><span
             class="hidden xl:ml-4 xl:block">Home</span> </a>
       </div>
       <div>
-        <a href="" class="nav-item transition duration-300 ease-in-out"> <i
+        <a routerLink="/explore" class="nav-item transition duration-300 ease-in-out"> <i
             class="fa-solid fa-hashtag text-2xl"></i><span class="hidden xl:ml-4 xl:block">Explore</span> </a>
       </div>
       <div>
-        <a href="" class="nav-item transition duration-300 ease-in-out"> <i
+        <a routerLink="/notifications" class="nav-item transition duration-300 ease-in-out"> <i
             class="fa-regular fa-bell text-2xl"></i><span class="hidden xl:ml-4 xl:block">Notification</span> </a>
       </div>
       <div>
-        <a href="" class="nav-item transition duration-300 ease-in-out"> <i
+        <a routerLink="/messages" class="nav-item transition duration-300 ease-in-out"> <i
             class="fa-regular fa-envelope text-2xl"></i><span class="hidden xl:ml-4 xl:block">Messages</span> </a>
       </div>
       <div>
-        <a href="" class="nav-item transition duration-300 ease-in-out"> <i
+        <a routerLink="/bookmarks" class="nav-item transition duration-300 ease-in-out"> <i
             class="fa-regular fa-bookmark text-2xl"></i><span class="hidden xl:ml-4 xl:block">Bookmarks</span> </a>
       </div>
       <div>
-        <a href="" class="nav-item transition duration-300 ease-in-out">
+        <a routerLink="/lists" class="nav-item transition duration-300 ease-in-out">
           <i class="fa-solid fa-list-ul text-2xl"></i>
           <span class="hidden xl:ml-4 xl:block">Lists</span>
         </a>
       </div>
       <div>
-        <a href="profile.html" class="nav-item transition duration-300 ease-in-out">
+        <a routerLink="/5" class="nav-item transition duration-300 ease-in-out">
           <i class="fa-regular fa-user text-2xl"></i><span class="hidden xl:ml-4 xl:block">Profile</span>
         </a>
       </div>
       <div>
-        <a href="./settings.html" class="nav-item transition duration-300 ease-in-out">
+        <a routerLink="/settings/account" class="nav-item transition duration-300 ease-in-out">
           <i class="fa-solid fa-gear text-2xl"></i><span class="hidden xl:ml-4 xl:block">Settings</span>
         </a>
       </div>
@@ -104,5 +103,6 @@
   </header>
   <!--! -----left end----- -->
   <!--! -------main content ------- -->
-  <app-profile class="main flex h-screen w-full xl:w-4/5 overflow-hidden"></app-profile>
+  <router-outlet></router-outlet>
+  <!-- <app-profile class="main flex h-screen w-full xl:w-4/5 overflow-hidden"></app-profile> -->
 </div>

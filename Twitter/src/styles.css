@@ -116,10 +116,28 @@
 .settings-item-active {
   @apply after:h-full after:absolute after:right-0 after:w-0.5 after:bg-main-blue_100 dark:bg-dark-gray_0 dark:bg-opacity-50 bg-light-gray_100;
 }
-.ng-invalid:not(form){
-  border-left:5px solid red;
+
+router-outlet + app-home,
+router-outlet + app-profile,
+router-outlet + app-notification,
+router-outlet + app-messages,
+router-outlet + app-bookmarks,
+router-outlet + app-lists,
+router-outlet + app-connect,
+router-outlet + app-explore,
+router-outlet + app-follow-recommendations,
+router-outlet + app-search,
+router-outlet + app-settings,
+router-outlet + app-signin,
+router-outlet + app-signup,
+router-outlet + trends-recommendation {
+  @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
 }
 
-.ng-valid:not(form){
-  border-left:5px solid green;
+.ng-invalid:not(form) {
+  border-left: 5px solid red;
+}
+
+.ng-valid:not(form) {
+  border-left: 5px solid green;
 }

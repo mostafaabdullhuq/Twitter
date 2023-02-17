@@ -22,6 +22,7 @@ import { StickyHeaderPagesComponent } from './Components/sticky-header-pages/sti
 import { TweetComponent } from './Components/tweet/tweet.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     MessagePopupComponent,
     StickyHeaderHomeComponent,
     StickyHeaderPagesComponent,
-    TweetComponent
+    TweetComponent,
+    BookmarksComponent
   ],
   imports: [
     BrowserModule,
