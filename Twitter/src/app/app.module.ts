@@ -23,6 +23,8 @@ import { TweetComponent } from './Components/tweet/tweet.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
+import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
+import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
     StickyHeaderHomeComponent,
     StickyHeaderPagesComponent,
     TweetComponent,
-    BookmarksComponent
+    BookmarksComponent,
+    HumanNumbersPipe,
+    HumanDatesPipe
   ],
   imports: [
     BrowserModule,
