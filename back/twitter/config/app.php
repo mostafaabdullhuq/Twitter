@@ -195,6 +195,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // not sure if this is needed
+        // Tymon\JWTAuth\Providers\LumenServiceProvider::class
     ],
 
     /*
