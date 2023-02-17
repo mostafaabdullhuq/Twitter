@@ -1,0 +1,101 @@
+<div
+    class="h-full w-5/6 hidden lg:flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-l border-gray-100">
+    <h4 class="text-gray-800 mb-4 py-3 text-xl px-4 dark:text-white font-extrabold mt-1">Settings</h4>
+    <div class="settings-item settings-item-active">
+        <p>Your account</p>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="settings-item">
+        <p>Security and account access</p>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="settings-item">
+        <p>Privacy and safety</p>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="settings-item">
+        <p>Notifications</p>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="settings-item">
+        <p>Accessibility, display, and languages</p>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="settings-item">
+        <p>Additional resources</p>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+</div>
+<!--! -----------right---------- -->
+<div
+    class="w-full h-full dark:border-dark-gray_0 border-x md:border-r border-gray-100 overflow-y-scroll scrollbar-hide block relative">
+    <!-- -----sticky header---- -->
+    <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
+        <!-- overlay div -->
+        <div
+            class="absolute w-full border-b border-gray-100 dark:border-dark-gray_0 h-full bg-white dark:bg-black sticky-nav-scroll -z-100">
+        </div>
+        <!-- content of fixed nav -->
+        <div class="content z-0 flex items-center py-2">
+            <div
+                class="lg:hidden py-2 w-8 h-8 flex items-center text-xl justify-center dark:text-white rounded-full hover:bg-gray-100 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 pl-4">
+                <a href="./index.html"><i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+            <h4 class="text-gray-800 pl-6 lg:pl-3 py-3 text-xl dark:text-white font-bold">Your Account</h4>
+        </div>
+        <p class="z-0 text-gray-600 text-sm px-3 pb-4 lg:text-md dark:text-dark-gray_300">
+            See information about your account, download an archive of your data, or learn about your
+            account deactivation options
+        </p>
+    </div>
+    <div class="settings-item">
+        <div class="flex items-center gap-5">
+            <i class="fa-regular fa-user text-xl text-gray-600 dark:text-dark-gray_300"></i>
+            <div>
+                <p>Account information</p>
+                <p class="text-xs text-gray-600 dark:text-dark-gray_300">See your account information like
+                    your phone number and email address.</p>
+            </div>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="settings-item">
+        <div class="flex items-center gap-5">
+            <i class="fa-solid fa-key text-gray-600 text-xl dark:text-dark-gray_300"></i>
+            <div>
+                <p>Change your password</p>
+                <p class="text-xs text-gray-600 dark:text-dark-gray_300">Change your password at any time.
+                </p>
+            </div>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="settings-item">
+        <div class="flex items-center gap-5">
+            <i class="fa-solid fa-heart-crack text-gray-600 text-xl dark:text-dark-gray_300"></i>
+            <div>
+                <p>Deactivate your account</p>
+                <p class="text-xs text-gray-600 dark:text-dark-gray_300">Find out how you can deactivate
+                    your account.</p>
+            </div>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+
+    <!--! messages -->
+    <!-- # style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px" -->
+    <div
+        class="hidden lg:flex fixed bottom-0 py-2.5 px-4 shadow-[0px_1px_10px_0px_rgba(0,0,0,0.3)] dark:shadow-[0px_1px_10px_0px_rgba(255,255,255,0.5)] rounded-t-2xl right-10 w-30 bg-white dark:bg-black w-1/4 justify-between items-center">
+        <p class="text-[1.25rem] font-bold dark:text-white">Messages</p>
+        <div class="controls text-xl dark:text-white text-gray-800 flex gap-2 justify-center items-center">
+            <div
+                class="cursor-pointer p-2 rounded-full w-8 h-8 flex items-center justify-center dark:hover:bg-dark-gray_0 hover:bg-gray-100 transition-colors">
+                <i class="fa-regular fa-envelope" title="New Message"></i>
+            </div>
+            <div
+                class="cursor-pointer p-2 rounded-full w-8 h-8 flex items-center justify-center dark:hover:bg-dark-gray_0 hover:bg-gray-100 transition-colors">
+                <i class="fa-solid fa-angles-up" title="Expand"></i>
+            </div>
+        </div>
+    </div>
+</div>
