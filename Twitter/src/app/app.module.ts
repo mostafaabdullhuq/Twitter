@@ -30,8 +30,6 @@ import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { HashtagPipe } from './Pipes/hashtag.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -58,7 +56,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     HumanNumbersPipe,
     HumanDatesPipe,
     HashtagPipe,
-    SideComponent
+    SideComponent,
+    NewMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,18 +65,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatDialogModule,
-
   ],
-  providers: [  AuthService,],
-  bootstrap: [AppComponent]
+  providers: [AuthService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
-
-
-// for popup animation
-// -BrowserAnimationsModule
-// -MatButtonModule
-// -MatDialogModule
+export class AppModule {}
