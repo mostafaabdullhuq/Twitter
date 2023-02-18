@@ -26,6 +26,9 @@ import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -58,9 +61,19 @@ import { NewMessageComponent } from './Components/new-message/new-message.compon
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
 
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
+// for popup animation
+// -BrowserAnimationsModule
+// -MatButtonModule
+// -MatDialogModule
