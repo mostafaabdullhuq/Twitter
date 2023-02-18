@@ -11,7 +11,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { SettingsComponent } from './Components/settings/settings.component';
 import { SigninComponent } from './Components/signin/signin.component';
 import { SignupComponent } from './Components/signup/signup.component';
-
+import { NewMessageComponent } from './Components/new-message/new-message.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: SigninComponent },
@@ -20,11 +20,12 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'explore', component: ExploreComponent },
   { path: 'notifications', component: NotificationComponent },
-  { path: 'messages', component: MessagesComponent },
+  // { path: 'messages', component: MessagesComponent },
   { path: 'bookmarks', component: BookmarksComponent },
   { path: 'settings/account', component: SettingsComponent },
   { path: 'connect', component: ConnectComponent },
   { path: ':user', component: ProfileComponent },
+  { path: 'newmessage', component: NewMessageComponent},
 ];
 
 @NgModule({

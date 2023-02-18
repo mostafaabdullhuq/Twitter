@@ -27,6 +27,7 @@ import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { HashtagPipe } from './Pipes/hashtag.pipe';
+import { NewMessageComponent } from './Components/new-message/new-message.component';
 
 @NgModule({
   declarations: [
