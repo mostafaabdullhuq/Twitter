@@ -24,7 +24,7 @@ constructor(
 
 ngOnInit(): void {
     this.Logged.authStatus.subscribe(value => this.loggedIn=value);
-    
+
   }
 
   logout(event: MouseEvent){
@@ -32,6 +32,6 @@ ngOnInit(): void {
    this.Token.remove();
    this.Logged.changeAuthStatus(false);
    this.router.navigateByUrl('/login');
-  }  
+  }
 
 }
