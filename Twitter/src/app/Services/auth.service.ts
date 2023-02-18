@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,4 +15,7 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, data)
 
   }
+
+  public loggedIn$ = new BehaviorSubject<boolean>(false);
+
 }

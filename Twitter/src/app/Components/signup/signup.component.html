@@ -31,12 +31,6 @@ id="popup"  *ngIf="isDiv1Visible">
       </div>
     </div>
  
-    <div class="col-span-1 form-group">
-      <input id="username" name="username" type="text"  required class="relative block w-full appearance-none border text-xl
-                 border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                  focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-                  [(ngModel)]="form.username" placeholder="User name">
-    </div>
 
       <div class="form-group">
         <input id="email-address" name="email" type="email" autocomplete="current-email" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
@@ -59,23 +53,12 @@ id="popup"  *ngIf="isDiv1Visible">
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Confirm password" [(ngModel)]="form.password_confirmation">
       </div>
+
       <div>
-        <label for="gender" class="text-lg">Gender</label>
-        <br>
-        <input type="radio" name="gender" value="male" [(ngModel)]="form.gender"> Male <br>
-        <input type="radio" name="gender" value="female" [(ngModel)]="form.gender"> Female
-      </div>
-      <div>
-        <h5>Date of birth</h5>
-        <div class="form-group">
-          <input id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
-                    text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                    focus:outline-none focus:ring-indigo-500 text-xl" placeholder="1999-09-09" [(ngModel)]="form.date_of_birth">
-        </div> <br>
+
         <p class="text-gray-400 mb-2">This will not be shown publicly. Confirm your own age, even if
           <br> this account is for a business, a pet, or something else.
         </p>
-
       </div>
 
       <!-- <div class="grid grid-cols-3 mb-2">

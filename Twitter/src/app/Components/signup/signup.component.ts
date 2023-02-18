@@ -17,10 +17,6 @@ export class SignupComponent implements OnInit {
     last_name: null,
     password: null,
     password_confirmation: null,
-    username: null,
-    gender: null,
-    phone_number: null,
-    date_of_birth: null,
   };
   public error: any= [];
   constructor(private Auth: AuthService,
