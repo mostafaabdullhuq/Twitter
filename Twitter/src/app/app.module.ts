@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-// import { HashtagMentionColLibModule } from 'hashtag-mention-colorizer';
 import { BrowserModule } from '@angular/platform-browser';
+import { AuthService } from './Services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FollowRecommendationsComponent } from './Components/follow-recommendations/follow-recommendations.component';
@@ -28,6 +28,7 @@ import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { HashtagPipe } from './Pipes/hashtag.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
+import { SideComponent } from './Components/side/side.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { NewMessageComponent } from './Components/new-message/new-message.compon
     HumanNumbersPipe,
     HumanDatesPipe,
     HashtagPipe,
+    SideComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,7 @@ import { NewMessageComponent } from './Components/new-message/new-message.compon
     HttpClientModule,
 
   ],
-  providers: [],
+  providers: [  AuthService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
