@@ -12,8 +12,8 @@ export class TweetComponent {
   formatTweetText(text: string): SafeHtml {
     const hashtagRegex = /#[a-zA-Z0-9_]+/g;
     const mentionRegex = /@[a-zA-Z0-9_]+/g;
-    const hashtagTemplate = '<a href="#" class="text-blue-300">$&</a>';
-    const mentionTemplate = '<a href="#" class="text-blue-300">$&</a>';
+    const hashtagTemplate = '<a href="#" class="text-blue-400">$&</a>';
+    const mentionTemplate = '<a href="#" class="text-blue-400">$&</a>';
 
     const formattedText = text
       .replace(hashtagRegex, hashtagTemplate)
