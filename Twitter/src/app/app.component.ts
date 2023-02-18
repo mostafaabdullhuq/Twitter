@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   // constructor(@Inject(AuthService) private authService: AuthService) {}
 
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
 
   title = 'Twitter';
 }
