@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
+import { NewMessageComponent } from './Components/new-message/new-message.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { HumanDatesPipe } from './Pipes/human-dates.pipe';
     TweetComponent,
     BookmarksComponent,
     HumanNumbersPipe,
-    HumanDatesPipe
+    HumanDatesPipe,
+    NewMessageComponent
   ],
   imports: [
     BrowserModule,
