@@ -27,9 +27,9 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->string('google_access_token')->nullable();
             $table->string('facebook_access_token')->nullable();
-            $table->date('date_of_birth');
-            $table->string('gender',1);	
-            $table->string('phone_number');
+            $table->date('date_of_birth')->nullable();
+            $table->string('gender',1)->nullable();	
+            $table->string('phone_number')->nullable();
             $table->timestamp('email_verified_at');
             $table->timestamps();
             $table->rememberToken();

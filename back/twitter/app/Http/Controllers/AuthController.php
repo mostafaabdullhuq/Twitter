@@ -38,7 +38,15 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {
-        User::create($request->all());
+    $username = (explode('@',$request->email)[0]) . rand(100000, 9999999);
+        $user = User::create(
+            [
+                'email' => $request->email,
+                'password' =>  $request->password,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'username' => $username,
+            ]);
         return $this->login($request);
     }
 
