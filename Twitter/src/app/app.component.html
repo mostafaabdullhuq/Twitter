@@ -1,6 +1,6 @@
 <!-- -----container----- -->
 <!-- *ngIf="isLoggedIn" -->
-<div class="container flex xl:max-w-[1300px]" >
+<div class="container flex xl:max-w-[1300px]" *ngIf="isLoggedIn;else loginBlock">
   <!--! -----left start----- -->
   <!-- side nav for all screens except xs -->
   <header
@@ -114,9 +114,6 @@
   <router-outlet></router-outlet>
   <!-- <app-profile class="main flex h-screen w-full xl:w-4/5 overflow-hidden"></app-profile> -->
 </div>
-
-
-
 
 <ng-template #loginBlock>
   <div class="container flex xl:max-w-[1300px]">
