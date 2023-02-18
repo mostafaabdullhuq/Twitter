@@ -1,3 +1,4 @@
+import { SideComponent } from './Components/side/side.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from './Services/auth.service';
@@ -28,7 +29,9 @@ import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { HashtagPipe } from './Pipes/hashtag.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
-import { SideComponent } from './Components/side/side.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -55,16 +58,26 @@ import { SideComponent } from './Components/side/side.component';
     HumanNumbersPipe,
     HumanDatesPipe,
     HashtagPipe,
-    SideComponent,
+    SideComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
 
   ],
   providers: [  AuthService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
+// for popup animation
+// -BrowserAnimationsModule
+// -MatButtonModule
+// -MatDialogModule
