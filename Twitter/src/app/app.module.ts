@@ -29,10 +29,9 @@ import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { HashtagPipe } from './Pipes/hashtag.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-
+import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
+import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,26 +57,25 @@ import { MatDialogModule } from '@angular/material/dialog';
     HumanNumbersPipe,
     HumanDatesPipe,
     HashtagPipe,
-    SideComponent
+    SideComponent,
+    RequestResetComponent,
+    ResponseResetComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatDialogModule,
+    SnotifyModule,
 
   ],
-  providers: [  AuthService,],
+  providers: [ 
+    AuthService, 
+    SnotifyService,
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
 
-
-// for popup animation
-// -BrowserAnimationsModule
-// -MatButtonModule
-// -MatDialogModule

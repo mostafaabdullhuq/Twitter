@@ -2,7 +2,6 @@ import { AuthService } from './../../Services/auth.service';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/Services/token.service';
 import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
