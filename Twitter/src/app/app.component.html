@@ -25,7 +25,7 @@
       </div>
       <div>
         <a routerLink="/notifications" class="nav-item transition duration-300 ease-in-out" title="Notification"> <i
-            class="fa-regular fa-bell text-2xl" ></i><span class="hidden xl:ml-4 xl:block">Notification</span> </a>
+            class="fa-regular fa-bell text-2xl"></i><span class="hidden xl:ml-4 xl:block">Notification</span> </a>
       </div>
       <div>
         <a routerLink="/messages" class="nav-item transition duration-300 ease-in-out" title="Messages"> <i
@@ -114,3 +114,95 @@
   <router-outlet></router-outlet>
   <!-- <app-profile class="main flex h-screen w-full xl:w-4/5 overflow-hidden"></app-profile> -->
 </div>
+
+
+
+
+<ng-template #loginBlock>
+  <div class="container flex xl:max-w-[1300px]">
+    <!--! -----left start----- -->
+    <!-- side nav for all screens except xs -->
+    <header
+      class="hidden sm:flex overflow-y-scroll h-screen scrollbar-hide flex-col justify-between w-fit xl:w-1/5 min-w-fit">
+      <!-- ------Side navBar---- -->
+      <nav class="mt-2 text-xl flex flex-col mr-4 gap-2">
+        <!-- ------logo----- -->
+        <div class="w-full flex justify-start">
+          <a routerLink="/home"
+            class="text-main-blue rounded-full p-2 ml-1 w-12 h-12 hover:bg-main-blue_0 dark:text-dark-gray_0 dark:hover:bg-gray-400 transition-colors">
+            <i class="fa-brands fa-twitter text-3xl"></i>
+          </a>
+        </div>
+
+        <div class="nav-active">
+          <a routerLink="/home" class="nav-item nav-active" title="Home"> <i class="fa-solid fa-house text-xl"></i><span
+              class="hidden xl:ml-4 xl:block">Home</span> </a>
+        </div>
+        <div>
+          <a routerLink="/explore" class="nav-item transition duration-300 ease-in-out" title="Explore"> <i
+              class="fa-solid fa-hashtag text-2xl"></i><span class="hidden xl:ml-4 xl:block">Explore</span> </a>
+        </div>
+
+      </nav>
+    </header>
+    <!-- bottom nav for xs screens -->
+    <header
+      class="bg-white dark:bg-black sm:hidden fixed bottom-0 w-full z-50 left-0 right-0 flex justify-between px-4 border-t py-1 border-gray-100 dark:border-dark-gray_0">
+      <div class="nav-active">
+        <a href="" class="nav-item nav-active"> <i class="fa-solid fa-house text-xl"></i> </a>
+      </div>
+
+      <div>
+        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+          <i class="fa-solid fa-search text-2xl"></i>
+        </a>
+      </div>
+      <div>
+        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+          <i class="fa-regular fa-bell text-2xl"></i>
+        </a>
+      </div>
+      <div>
+        <a href="" class="nav-item dark:hover:text-blue-400 transition duration-300 ease-in-out">
+          <i class="fa-regular fa-envelope text-2xl"></i><span class="hidden xl:ml-4 xl:block">Messages</span>
+        </a>
+      </div>
+    </header>
+    <!--! -----left end----- -->
+    <app-exploreout class="flex h-screen w-full xl:w-4/5 overflow-hidden"></app-exploreout>
+    <!--! -------main content ------- -->
+    <!-- <app-profile class="main flex h-screen w-full xl:w-4/5 overflow-hidden"></app-profile> -->
+  </div>
+  <!-- footer -->
+  <div class="w-full fixed  xl:grid sm:hidden grid-cols-2  bottom-0 h-[73px] bg-blue-600 dark:bg-blue-600">
+    <div class="flex flex-col items-end pr-5">
+      <div class=" w-[48%]">
+        <p class="text-2xl font-bold dark:text-white md:text-xl ">Don't miss what's happening</p>
+      </div>
+      <div class=" w-[48%]">
+
+        <p class="text-md dark:text-white">People on Twitter are the first to know</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 justify-end px-6">
+      <div>
+
+      </div>
+      <div class=" grid grid-cols-2 ">
+        <button> <a href="" class="w-3/4 text-lg font-bold dark:hover:bg-main-white_100 bg-black text-white
+              items-center flex justify-center py-2 px-4 md:py-2 md:mb-2 rounded-full hover:bg-light-black
+              dark:bg-blue-600 dark:text-white dark:border">Log in </a>
+        </button>
+
+        <button> <a href="" class="w-3/4 text-lg font-bold dark:hover:bg-main-white_100
+             bg-black text-white items-center flex justify-center px-4 md:py-2 md:mb-2 py-3
+             rounded-full hover:bg-light-black dark:bg-white dark:text-black">Sign up </a>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-template>

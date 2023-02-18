@@ -19,4 +19,6 @@ export class AppComponent {
   //     this.isLoggedIn = loggedIn;
   //   });
   // }
+  title = 'Twitter';
+  public isLoggedin = true;
 }
