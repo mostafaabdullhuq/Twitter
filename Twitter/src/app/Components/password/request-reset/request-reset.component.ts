@@ -1,4 +1,3 @@
-import { SnotifyService } from 'ng-snotify';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 
@@ -11,8 +10,7 @@ export class RequestResetComponent implements OnInit {
   public form = {
     email: null,
  }
- constructor(private Auth: AuthService,
- private notify: SnotifyService) { }
+ constructor(private Auth: AuthService) { }
  
 
   onSubmit(){
@@ -23,7 +21,7 @@ export class RequestResetComponent implements OnInit {
 ngOnInit(): void {
   this.Auth.sendPasswordResetLink(this.form).subscribe({
     next: (data) => { this.handleResponse(data) },
-    error: (error) => { this.notify.error(error.error.error) }
+    error: (error) => {  }
   });
 }
 

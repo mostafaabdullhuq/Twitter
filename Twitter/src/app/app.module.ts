@@ -31,7 +31,6 @@ import { HashtagPipe } from './Pipes/hashtag.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
-import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,13 +65,11 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SnotifyModule,
+ 
 
   ],
   providers: [ 
     AuthService, 
-    SnotifyService,
-    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
     ],
   bootstrap: [AppComponent]
 })
