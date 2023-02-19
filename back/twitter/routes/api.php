@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResetPasswordController;
+
+
 
 
 Route::group([
@@ -14,6 +17,8 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::post('sendPasswordResetLink', [ResetPasswordController::class,'sendEmail']);
+    // Route::post('resetPassword', [ChangePasswordController::class,'process']);
 });
 
 
