@@ -32,8 +32,8 @@ Route::group([
 ], function () {
 
     Route::get('me', [TweetController::class, 'me']);
-    Route::post('create', [TweetController::class, 'create']);
     Route::get('home', [TweetController::class, 'home']);
+    Route::post('create', [TweetController::class, 'create']);
     Route::get('details/{id}', [TweetController::class, 'details']);
     Route::post('edit/{id}', [TweetController::class, 'edit']);
     Route::post('delete/{id}', [TweetController::class, 'delete']);

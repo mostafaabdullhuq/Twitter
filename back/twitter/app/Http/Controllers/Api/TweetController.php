@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\CreateTweetRequest;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class TweetController extends Controller
     // get logged in user tweets
     public function me()
     {
-        return auth()->user()->tweets()->cursorPaginate(20);
+        return auth()->user()->tweets()->latest()->cursorPaginate(20);
     }
 
     // get logged in user home tweets (followings tweets and user tweets ordered from newest to oldest)
@@ -26,17 +27,20 @@ class TweetController extends Controller
         return auth()->user()->home()->cursorPaginate(20);
     }
 
-
-
     // ----------------- in progress ----------------------
 
 
-    // public function create(Request $request)
-    // {
-    //     $tweetText = $request->text;
-    //     $tweet = auth()->user()->tweets->create();
-    //     return $tweet;
-    // }
+    public function create(CreateTweetRequest $request)
+    {
+        $tweetText = $request->text;
+        $tweet = auth()->user()->tweets()->create(
+            [
+                'text' => $tweetText,
+                'schedule_date_time' => $request->schedule_date_time ?? now(),
+            ]
+        );
+        return $tweet;
+    }
 
     // public function details($id)
     // {
