@@ -108,10 +108,11 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $ttl = JWTAuth::factory()->getTTL();
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => JWTAuth::factory()->getTTL(),
+            'expires_in' => Carbon::now()->addMinutes($ttl),
             'user' => JWTAuth::user()
         ]);
     }

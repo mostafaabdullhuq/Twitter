@@ -7,6 +7,7 @@ use App\Http\Requests\Api\CreateTweetRequest;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use JWTAuth;
 
 class TweetController extends Controller
 {
@@ -18,22 +19,25 @@ class TweetController extends Controller
     // get logged in user tweets
     public function me()
     {
+
+        $tweets = JWTAuth::user()->tweets;
+        return $tweets;
         // return auth()->user()->tweets()->latest()->cursorPaginate(20);
-        return auth()->user()->tweets()->latest();
+        return JWTAuth::user()->tweets()->latest();
     }
 
 
     // get logged in user home tweets (followings tweets and user tweets ordered from newest to oldest)
     public function home()
     {
-        return auth()->user()->home()->cursorPaginate(20);
+        return JWTAuth::user()->home()->get();
     }
 
     // ----------------- in progress ----------------------
     public function create(CreateTweetRequest $request)
     {
         $tweetText = $request->text;
-        $tweet = auth()->user()->tweets()->create(
+        $tweet = JWTAuth::user()->tweets()->create(
             [
                 'text' => $tweetText,
                 'schedule_date_time' => $request->schedule_date_time ?? now(),
