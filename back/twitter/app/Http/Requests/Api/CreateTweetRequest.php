@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SignupRequest extends FormRequest
+class CreateTweetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class SignupRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|max:30',
-            'last_name' => 'required|max:30',
-            'email' => 'required|email|unique:users|max:50',
-            'password' => 'required|min:8|confirmed|max:24',
-            'password_confirmation' => 'required|same:password|max:24',
+            'text' => 'required|string|max:500',
+            'schedule_date_time' => 'date',
+            // 'media' => ''
         ];
     }
 }

@@ -41,7 +41,7 @@ return [
             'provider' => 'users',
         ],
     ],
- 
+
     'guards' => [
         'api' => [
             'driver' => 'jwt',

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use App\Models\User;
+use Carbon\Carbon;
+use JWTAuth;
 
 class AuthController extends Controller
 {
+
     /**
      * Create a new AuthController instance.
      *
@@ -26,9 +28,16 @@ class AuthController extends Controller
      */
     public function login()
     {
-        // dd(request()->all());
         $credentials = request(['email', 'password']);
-        if (!$token = auth()->attempt($credentials)) {
+
+        // set token expiration date
+        $minutes = 60;
+        $hours = 24;
+        $days = 7;
+        JWTAuth::factory()->setTTL($minutes * $hours * $days);
+
+        // attempt to login to account
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Email or Password doesn\'t exist'], 401);
         }
 
@@ -38,7 +47,14 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {
-    $username = (explode('@',$request->email)[0]) . rand(100000, 9999999);
+        // take the email address identifier and remove domain, and get the leading 12 characters of them
+        $username = substr((explode('@', $request->email)[0]), 0, 12);
+
+        // check if there's usernames like the current username already exists in database and get the number of dupplications
+        $duplicationNum = (User::where('username', 'like', '%' . $username . '%')->count());
+
+        // if there's no duplication, then the username will be the same as the email address identifier, else add 1 to the dupplication number and append it to the username
+        $username = $username . ($duplicationNum ? $duplicationNum + 1 : '');
         $user = User::create(
             [
                 'email' => $request->email,
@@ -46,7 +62,8 @@ class AuthController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'username' => $username,
-            ]);
+            ]
+        );
         return $this->login($request);
     }
 
@@ -57,7 +74,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(JWTAuth::user());
     }
 
     /**
@@ -67,7 +84,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        JWTAuth::logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -79,7 +96,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(JWTAuth::refresh());
     }
 
     /**
@@ -91,11 +108,12 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $ttl = JWTAuth::factory()->getTTL();
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'expires_in' => Carbon::now()->addMinutes($ttl),
+            'user' => JWTAuth::user()
         ]);
     }
 }
