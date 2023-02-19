@@ -14,9 +14,12 @@ import { SigninComponent } from './Components/signin/signin.component';
 import { SignupComponent } from './Components/signup/signup.component';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
 import { AfterLoginService } from './Services/after-login.service';
+import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
+import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 const routes: Routes = [
   { path: '', component: ExploreoutComponent,
   canActivate: [BeforeLoginService],},
+
   { path: 'login', component: SigninComponent,
   canActivate: [BeforeLoginService],},
 
@@ -46,25 +49,22 @@ const routes: Routes = [
 
   { path: 'connect', component: ConnectComponent,
   canActivate: [AfterLoginService] },
+
   { path: ':user', component: ProfileComponent,
   canActivate: [AfterLoginService] },
+
   { path: 'newmessage', component: NewMessageComponent,
   canActivate: [AfterLoginService]},
+  {
+    path: 'request-password-reset', component: RequestResetComponent,
+    canActivate: [BeforeLoginService]
+  },
+  {
+    path: 'response-password-reset', component: ResponseResetComponent,
+    canActivate: [BeforeLoginService]
+  },
 ];
-// const routes: Routes = [
-//   { path: '', component: HomeComponent, data: { showNavbar: false } },
-//   { path: 'login', component: SigninComponent, data: { showNavbar: false } },
-//   { path: 'signup', component: SignupComponent, data: { showNavbar: false } },
-//   { path: 'exploreout', component: ExploreoutComponent, data: { showNavbar: true } },
-//   { path: 'home', component: HomeComponent, data: { showNavbar: true } },
-//   { path: 'explore', component: ExploreComponent, data: { showNavbar: true } },
-//   { path: 'notifications', component: NotificationComponent, data: { showNavbar: true } },
-//   { path: 'bookmarks', component: BookmarksComponent, data: { showNavbar: true } },
-//   { path: 'settings/account', component: SettingsComponent, data: { showNavbar: true } },
-//   { path: 'connect', component: ConnectComponent, data: { showNavbar: true } },
-//   { path: ':user', component: ProfileComponent, data: { showNavbar: true } },
-//   { path: 'newmessage', component: NewMessageComponent, data: { showNavbar: true } },
-// ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
