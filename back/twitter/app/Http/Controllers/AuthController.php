@@ -26,7 +26,6 @@ class AuthController extends Controller
      */
     public function login()
     {
-        // dd(request()->all());
         $credentials = request(['email', 'password']);
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or Password doesn\'t exist'], 401);
@@ -38,7 +37,14 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {
-    $username = (explode('@',$request->email)[0]) . rand(100000, 9999999);
+        // take the email address identifier and remove domain, and get the leading 12 characters of them
+        $username = substr((explode('@', $request->email)[0]), 0, 12);
+
+        // check if there's usernames like the current username already exists in database and get the number of dupplications
+        $duplicationNum = (User::where('username', 'like', '%' . $username . '%')->count());
+
+        // if there's no duplication, then the username will be the same as the email address identifier, else add 1 to the dupplication number and append it to the username
+        $username = $username . ($duplicationNum ? $duplicationNum + 1 : '');
         $user = User::create(
             [
                 'email' => $request->email,
@@ -46,7 +52,8 @@ class AuthController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'username' => $username,
-            ]);
+            ]
+        );
         return $this->login($request);
     }
 
