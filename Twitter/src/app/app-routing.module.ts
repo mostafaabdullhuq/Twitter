@@ -24,11 +24,11 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'explore', component: ExploreComponent },
   { path: 'notifications', component: NotificationComponent },
+  { path: 'newmessage', component: NewMessageComponent},
   { path: 'messages', component: MessagesComponent },
   { path: 'bookmarks', component: BookmarksComponent },
   { path: 'settings/account', component: SettingsComponent },
   { path: 'connect', component: ConnectComponent },
-  { path: 'newmessage', component: NewMessageComponent},
   { path: ':user', component: ProfileComponent },
   {
     path: '',
