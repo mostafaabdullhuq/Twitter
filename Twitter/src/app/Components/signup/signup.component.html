@@ -1,21 +1,21 @@
-<div class="bg-white p-6 absolute rounded shadow-lg overflow-y-auto" style="height: 30rem;"
-id="popup"  *ngIf="isDiv1Visible">
-    <div class="flex justify-between">
-      <span>Step 1 of 5 </span>
-      <a id="close-popup"><i class="fa-regular fa-x"></i></a>
-    </div>
+<div class="bg-white p-6 absolute rounded shadow-lg overflow-y-auto" style="height: 30rem;" id="popup"
+  *ngIf="isDiv1Visible">
+  <div mat-dialog-actions class="flex justify-between">
+    <span>Step 1 of 5 </span>
+    <a id="close-popup"><i class="fa-regular fa-x"></i></a>
+  </div>
 
-    <div>
-      <h1 class="mt-6 text-2xl">Create your account</h1>
-    </div>
-    <form class="mt-8 space-y-6" #signupForm=ngForm (ngSubmit)="onSubmit()">
-      <input type="hidden" name="remember" value="true">
-      <div class="grid grid-cols-2 mb-2">
+  <div>
+    <h1 class="mt-6 text-2xl">Create your account</h1>
+  </div>
+  <form class="mt-8 space-y-6" #signupForm=ngForm (ngSubmit)="onSubmit()">
+    <input type="hidden" name="remember" value="true">
+    <div class="grid grid-cols-2 mb-2">
       <div class="col-span-1 form-group">
         <input id="first_name" name="first_name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" 
-                    [(ngModel)]="form.first_name" placeholder="First name">
+                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" [(ngModel)]="form.first_name"
+          placeholder="First name">
       </div>
       <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.first_name">
         {{error.first_name}}
@@ -23,62 +23,46 @@ id="popup"  *ngIf="isDiv1Visible">
       <div class="col-span-1 form-group">
         <input id="last_name" name="last_name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-                    [(ngModel)]="form.last_name" placeholder="Last name">
+                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" [(ngModel)]="form.last_name"
+          placeholder="Last name">
       </div>
       <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.last_name">
         {{error.last_name}}
       </div>
     </div>
- 
-    <div class="col-span-1 form-group">
-      <input id="username" name="username" type="text"  required class="relative block w-full appearance-none border text-xl
-                 border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                  focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
-                  [(ngModel)]="form.username" placeholder="User name">
-    </div>
 
-      <div class="form-group">
-        <input id="email-address" name="email" type="email" autocomplete="current-email" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+
+    <div class="form-group">
+      <input id="email-address" name="email" type="email" autocomplete="current-email" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Email" [(ngModel)]="form.email">
-      </div>
-      <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.email">
-        {{error.email}}
-      </div>
-      <div class="form-group">
-        <input id="password" name="password" type="password"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+    </div>
+    <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.email">
+      {{error.email}}
+    </div>
+    <div class="form-group">
+      <input id="password" name="password" type="password" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Password" [(ngModel)]="form.password">
-      </div>
-      <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.password">
-        {{error.password}}
-      </div>
-      <div class="form-group">
-        <input id="password_confirmation" name="password_confirmation" type="password"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+    </div>
+    <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.password">
+      {{error.password}}
+    </div>
+    <div class="form-group">
+      <input id="password_confirmation" name="password_confirmation" type="password" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Confirm password" [(ngModel)]="form.password_confirmation">
-      </div>
-      <div>
-        <label for="gender" class="text-lg">Gender</label>
-        <br>
-        <input type="radio" name="gender" value="male" [(ngModel)]="form.gender"> Male <br>
-        <input type="radio" name="gender" value="female" [(ngModel)]="form.gender"> Female
-      </div>
-      <div>
-        <h5>Date of birth</h5>
-        <div class="form-group">
-          <input id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
-                    text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                    focus:outline-none focus:ring-indigo-500 text-xl" placeholder="1999-09-09" [(ngModel)]="form.date_of_birth">
-        </div> <br>
-        <p class="text-gray-400 mb-2">This will not be shown publicly. Confirm your own age, even if
-          <br> this account is for a business, a pet, or something else.
-        </p>
+                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Confirm password"
+        [(ngModel)]="form.password_confirmation">
+    </div>
 
-      </div>
+    <div>
 
-      <!-- <div class="grid grid-cols-3 mb-2">
+      <p class="text-gray-400 mb-2">This will not be shown publicly. Confirm your own age, even if
+        <br> this account is for a business, a pet, or something else.
+      </p>
+    </div>
+
+    <!-- <div class="grid grid-cols-3 mb-2">
         <div class="col-span-1 border form-group" >
           <select id="Month" name="month" class="bg-inherit p-3 rounded-lg" [(ngModel)]="form.month">
             <option>Month</option>
@@ -222,14 +206,13 @@ id="popup"  *ngIf="isDiv1Visible">
           </select>
         </div>
       </div> -->
-      <button  [disabled]="!signupForm.valid" 
-       type="submit" id="next" class="flex w-full justify-center border border-transparent bg-blue-600 py-2 px-4 
+    <button [disabled]="!signupForm.valid" type="submit" id="next" class="flex w-full justify-center border border-transparent bg-blue-600 py-2 px-4 
                   text-xl text-white focus:outline-none focus:ring-2
                    focus:ring-indigo-500 rounded-full focus:ring-offset-2">
-        Next
-      </button>
-    </form>
-  </div>
+      Next
+    </button>
+  </form>
+</div>
 
 
 
@@ -238,46 +221,46 @@ id="popup"  *ngIf="isDiv1Visible">
 
 
 <!-- Next step -->
-<div class="bg-white p-6 absolute rounded shadow-lg"  id="popup2" *ngIf="!isDiv1Visible">
+<div class="bg-white p-6 absolute rounded shadow-lg" id="popup2" *ngIf="!isDiv1Visible">
   <div>
-      <a  (click)="isDiv1Visible = true"><i class="fa-solid fa-arrow-left mx-1"></i></a>
-      <span>Step 2 of 5 </span>
+    <a (click)="isDiv1Visible = true"><i class="fa-solid fa-arrow-left mx-1"></i></a>
+    <span>Step 2 of 5 </span>
   </div>
 
   <div>
-      <h1 class="mt-6 text-2xl">Customize your experience</h1>
+    <h1 class="mt-6 text-2xl">Customize your experience</h1>
   </div><br>
   <div>
-      <h1 class="text-xl">
-          Track where you see Twitter content across the web
-      </h1>
+    <h1 class="text-xl">
+      Track where you see Twitter content across the web
+    </h1>
   </div>
   <br>
   <div class="flex">
-      <div>
-          <h3>Twitter uses this data to personalize your experience.
-              This <br>
-              web browsing history will never be stored with your name,<br>
-              email, or phone number.</h3>
-      </div>
-      <div>
-          <input type="checkbox">
-      </div>
+    <div>
+      <h3>Twitter uses this data to personalize your experience.
+        This <br>
+        web browsing history will never be stored with your name,<br>
+        email, or phone number.</h3>
+    </div>
+    <div>
+      <input type="checkbox">
+    </div>
   </div><br>
   <div class="mb-2">
-      <p class="text-gray-500">
-          By signing up, you agree to our <span style="color: rgb(105, 105, 232);"><a href="#">Terms</a></span>,
-          <span><a style="color: rgb(105, 105, 232);" href="#">Privacy Policy</a></span>, and <br>
-          <span style="color: rgb(105, 105, 232);"><a href="#">Cookie Use</a></span>.
-          Twitter may use your contact information,
-          including <br> your email address and phone number for purposes outlined in <br>
-          our Privacy Policy. <span style="color: rgb(105, 105, 232);"><a href="#">Learn more</a></span>
-      </p>
+    <p class="text-gray-500">
+      By signing up, you agree to our <span style="color: rgb(105, 105, 232);"><a href="#">Terms</a></span>,
+      <span><a style="color: rgb(105, 105, 232);" href="#">Privacy Policy</a></span>, and <br>
+      <span style="color: rgb(105, 105, 232);"><a href="#">Cookie Use</a></span>.
+      Twitter may use your contact information,
+      including <br> your email address and phone number for purposes outlined in <br>
+      our Privacy Policy. <span style="color: rgb(105, 105, 232);"><a href="#">Learn more</a></span>
+    </p>
   </div><br><br><br>
 
-  <button type="submit"  class="flex w-full justify-center border border-transparent bg-gray-400 py-2 px-4 
+  <button type="submit" class="flex w-full justify-center border border-transparent bg-gray-400 py-2 px-4 
             text-xl text-white hover:bg-blue-600 focus:outline-none focus:ring-2
              focus:ring-indigo-500 rounded-full focus:ring-offset-2">
-      Next
+    Next
   </button>
 </div>

@@ -1,9 +1,11 @@
+import { AuthService } from './../../Services/auth.service';
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { TokenService } from 'src/app/Services/token.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
   public isDiv1Visible = true;
@@ -14,28 +16,34 @@ export class SignupComponent implements OnInit {
     last_name: null,
     password: null,
     password_confirmation: null,
-    username: null,
-    gender: null,
-    phone_number: null,
-    date_of_birth: null,
-    // month: null,
-    // day: null,
-    // year: null
   };
-  public error: any= [];
+  public error: any = [];
   constructor(
-    private http: HttpClient,
-  ) { }
-  onSubmit(){
-    return this.http.post('http://127.0.0.1:8000/api/auth/signup', this.form)
-    .subscribe({
-      next: (data) => { console.log(data) },
-      error: (err) => { this.handleError(err)},
+    private Auth: AuthService,
+    private Token: TokenService,
+    private router: Router
+  ) {}
+  onSubmit() {
+    this.Auth.signup(this.form).subscribe({
+      next: (data) => {
+        this.handelResponse(data);
+      },
+      error: (err) => {
+        this.handleError(err);
+      },
     });
   }
-  handleError(error:any) {
+  handelResponse(data: any) {
+    this.Token.handel(data.access_token);
+    this.router.navigateByUrl('/explore');
+  }
+
+  handleError(error: any) {
     this.error = error.error.errors;
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
+  // close(): void {
+  //   this.dialogRef.close();
+  // }
 }

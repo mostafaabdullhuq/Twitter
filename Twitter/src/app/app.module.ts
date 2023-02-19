@@ -1,5 +1,7 @@
+import { SideComponent } from './Components/side/side.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { AuthService } from './Services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FollowRecommendationsComponent } from './Components/follow-recommendations/follow-recommendations.component';
@@ -25,10 +27,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
+import { HashtagPipe } from './Pipes/hashtag.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './Components/modal/modal.component';
+import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
+import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +60,12 @@ import { ModalComponent } from './Components/modal/modal.component';
     HumanNumbersPipe,
     HumanDatesPipe,
     NewMessageComponent,
-    ModalComponent
+    ModalComponent,
+    HashtagPipe,
+    SideComponent,
+    NewMessageComponent,
+    RequestResetComponent,
+    ResponseResetComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +75,7 @@ import { ModalComponent } from './Components/modal/modal.component';
     BrowserAnimationsModule,
     MatDialogModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
