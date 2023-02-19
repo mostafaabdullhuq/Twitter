@@ -17,51 +17,87 @@ import { AfterLoginService } from './Services/after-login.service';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 const routes: Routes = [
-  { path: '', component: ExploreoutComponent,
-  canActivate: [BeforeLoginService],},
-
-  { path: 'login', component: SigninComponent,
-  canActivate: [BeforeLoginService],},
-
-  { path: 'signup', component: SignupComponent,
-  canActivate: [BeforeLoginService],},
-
-  { path:'exploreout' , component: ExploreoutComponent,
-  canActivate: [BeforeLoginService]},
-
-  { path: 'home', component: HomeComponent,
-  canActivate: [AfterLoginService]},
-
-  { path: 'explore', component: ExploreComponent,
-  canActivate: [AfterLoginService] },
-
-  { path: 'notifications', component: NotificationComponent,
-  canActivate: [AfterLoginService] },
-
-  { path: 'messages', component: MessagesComponent,
-  canActivate: [AfterLoginService] },
-
-  { path: 'bookmarks', component: BookmarksComponent,
-  canActivate: [AfterLoginService] },
-
-  { path: 'settings/account', component: SettingsComponent,
-  canActivate: [AfterLoginService] },
-
-  { path: 'connect', component: ConnectComponent,
-  canActivate: [AfterLoginService] },
-
-  { path: ':user', component: ProfileComponent,
-  canActivate: [AfterLoginService] },
-
-  { path: 'newmessage', component: NewMessageComponent,
-  canActivate: [AfterLoginService]},
   {
-    path: 'request-password-reset', component: RequestResetComponent,
-    canActivate: [BeforeLoginService]
+    path: '',
+    component: ExploreoutComponent,
+    canActivate: [BeforeLoginService],
+  },
+
+  {
+    path: 'login',
+    component: SigninComponent,
+    canActivate: [BeforeLoginService],
+  },
+
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canActivate: [BeforeLoginService],
+  },
+
+  {
+    path: 'exploreout',
+    component: ExploreoutComponent,
+    canActivate: [BeforeLoginService],
+  },
+
+  { path: 'home', component: HomeComponent, canActivate: [AfterLoginService] },
+
+  {
+    path: 'explore',
+    component: ExploreComponent,
+    canActivate: [AfterLoginService],
+  },
+
+  {
+    path: 'notifications',
+    component: NotificationComponent,
+    canActivate: [AfterLoginService],
+  },
+
+  {
+    path: 'messages',
+    component: MessagesComponent,
+    canActivate: [AfterLoginService],
+  },
+
+  {
+    path: 'bookmarks',
+    component: BookmarksComponent,
+    canActivate: [AfterLoginService],
+  },
+
+  {
+    path: 'settings/account',
+    component: SettingsComponent,
+    canActivate: [AfterLoginService],
+  },
+
+  {
+    path: 'connect',
+    component: ConnectComponent,
+    canActivate: [AfterLoginService],
+  },
+
+  {
+    path: 'newmessage',
+    component: NewMessageComponent,
+    canActivate: [AfterLoginService],
   },
   {
-    path: 'response-password-reset', component: ResponseResetComponent,
-    canActivate: [BeforeLoginService]
+    path: 'request-password-reset',
+    component: RequestResetComponent,
+    canActivate: [BeforeLoginService],
+  },
+  {
+    path: 'response-password-reset',
+    component: ResponseResetComponent,
+    canActivate: [BeforeLoginService],
+  },
+  {
+    path: ':user',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
   },
 ];
 

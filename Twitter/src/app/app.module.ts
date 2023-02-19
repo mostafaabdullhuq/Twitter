@@ -30,6 +30,8 @@ import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { HashtagPipe } from './Pipes/hashtag.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
+import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HashtagPipe,
     SideComponent,
     NewMessageComponent,
+    RequestResetComponent,
+    ResponseResetComponent,
   ],
   imports: [
     BrowserModule,
