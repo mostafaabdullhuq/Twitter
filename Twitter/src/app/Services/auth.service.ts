@@ -18,9 +18,8 @@ export class AuthService {
   }
 
   public loggedIn$ = new BehaviorSubject<boolean>(false);
-  
+
   sendPasswordResetLink(data: any) {
-   return this.http.post(`${this.baseUrl}/SendPasswordResetLink`, data);
-   
+    return this.http.post(`${this.baseUrl}/SendPasswordResetLink`, data);
   }
 }

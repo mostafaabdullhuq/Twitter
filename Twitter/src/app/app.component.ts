@@ -9,27 +9,23 @@ import { TokenService } from './Services/token.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-
   title = 'Twitter';
-  public loggedIn: boolean= true;
+  public loggedIn: boolean = true;
 
-constructor(
-  private Logged: LoggedService,
-  private router: Router,
-  private Token: TokenService,
+  constructor(
+    private Logged: LoggedService,
+    private router: Router,
+    private Token: TokenService
+  ) {}
 
-  ) { }
-
-ngOnInit(): void {
-    this.Logged.authStatus.subscribe(value => this.loggedIn=value);
-
+  ngOnInit(): void {
+    this.Logged.authStatus.subscribe((value) => (this.loggedIn = value));
   }
 
-  logout(event: MouseEvent){
-   event.preventDefault();
-   this.Token.remove();
-   this.Logged.changeAuthStatus(false);
-   this.router.navigateByUrl('/login');
+  logout(event: MouseEvent) {
+    event.preventDefault();
+    this.Token.remove();
+    this.Logged.changeAuthStatus(false);
+    this.router.navigateByUrl('/login');
   }
-
 }

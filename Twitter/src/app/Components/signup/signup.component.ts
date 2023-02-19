@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
   public isDiv1Visible = true;
@@ -17,28 +17,31 @@ export class SignupComponent implements OnInit {
     password: null,
     password_confirmation: null,
   };
-  public error: any= [];
-  constructor(private Auth: AuthService,
+  public error: any = [];
+  constructor(
+    private Auth: AuthService,
     private Token: TokenService,
-    private router: Router,
-
-    ) { }
-  onSubmit(){
+    private router: Router
+  ) {}
+  onSubmit() {
     this.Auth.signup(this.form).subscribe({
-      next: (data) => { this.handelResponse(data) },
-      error: (err) => { this.handleError(err)},
+      next: (data) => {
+        this.handelResponse(data);
+      },
+      error: (err) => {
+        this.handleError(err);
+      },
     });
   }
-  handelResponse(data:any){
+  handelResponse(data: any) {
     this.Token.handel(data.access_token);
     this.router.navigateByUrl('/explore');
-   }
+  }
 
-  handleError(error:any) {
+  handleError(error: any) {
     this.error = error.error.errors;
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // close(): void {
   //   this.dialogRef.close();
