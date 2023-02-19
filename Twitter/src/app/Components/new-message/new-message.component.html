@@ -15,7 +15,6 @@
           </div>
       </div>
   </div>
-  <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
   <div class=" dark:text-white flex flex-col justify-center items-center mt-9 w-3/5 lg:w-4/5 m-auto">
       <h1 class="text-3xl font-bold ">Welcome to your inbox!</h1>
       <p class="mt-1 text-light-gray_100 dark:text-gray-500 ">Drop a line, share Tweets and more with private conversations between you and others on Twitter.</p>
@@ -37,12 +36,13 @@
 
   </div>
   <div class=" mt-11 w-3/6  m-auto">
-      <a href="" class=" text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
+      <a (click)="toggleModal()" class=" text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
           <span class="font-semibold text-lg"> New message </span>
       </a>
   </div>
 </div>
 
+<!-- -------------POPUP------------------------ -->
 
 <div *ngIf="showModal" class="mt-10  w-4/5 lg:w-2/5 m-auto overflow-x-hidden overflow-y-auto fixed inset-0 z-50 ">
   <div class="flex-col h-full justify-between">
@@ -59,7 +59,7 @@
           </h4>
         </div>
         <a
-            href=""
+            routerLink="/messages"
             class="dark:hover:bg-main-white_100  bg-black text-white items-center flex justify-center py-1  px-3 rounded-full hover:bg-light-black dark:bg-gray-500 dark:text-black"
             >Next</a
         >

@@ -11,7 +11,10 @@ import { TokenService } from './Services/token.service';
 export class AppComponent implements OnInit {
   title = 'Twitter';
   public loggedIn: boolean = true;
-
+  public isInLogin: boolean = false;
+  public isInSignup: boolean = false;
+  public isInRequestReset: boolean = false;
+  public isInResponseReset: boolean = false;
   constructor(
     private Logged: LoggedService,
     private router: Router,
@@ -20,6 +23,36 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.Logged.authStatus.subscribe((value) => (this.loggedIn = value));
+    this.router.events.subscribe((value) => {
+      this.isInLogin = false;
+      this.isInSignup = false;
+      this.isInRequestReset = false;
+      this.isInResponseReset = false;
+
+      if (!this.loggedIn) {
+        if (this.router.url === '/login') {
+          this.isInLogin = true;
+          this.isInSignup = false;
+          this.isInRequestReset = false;
+          this.isInResponseReset = false;
+        } else if (this.router.url === '/signup') {
+          this.isInSignup = true;
+          this.isInLogin = false;
+          this.isInRequestReset = false;
+          this.isInResponseReset = false;
+        } else if (this.router.url === '/request-password-reset') {
+          this.isInRequestReset = true;
+          this.isInLogin = false;
+          this.isInSignup = false;
+          this.isInResponseReset = false;
+        } else if (this.router.url === '/response-password-reset') {
+          this.isInResponseReset = true;
+          this.isInLogin = false;
+          this.isInSignup = false;
+          this.isInRequestReset = false;
+        }
+      }
+    });
   }
 
   logout(event: MouseEvent) {
