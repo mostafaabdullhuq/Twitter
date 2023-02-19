@@ -135,8 +135,9 @@ router-outlet + app-settings,
 router-outlet + app-signin,
 router-outlet + app-signup,
 router-outlet + trends-recommendation,
-router-outlet + app-new-message 
-router-outlet + * {
+router-outlet + app-new-message
+/* router-outlet + * */
+{
   @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
 }
 
