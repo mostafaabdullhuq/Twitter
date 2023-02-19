@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-  
+  // check if the email is valid
   public function sendEmail(Request $request)
   {
       if (!$this->validateEmail($request->email)) {
@@ -22,18 +22,13 @@ class ResetPasswordController extends Controller
       return $this->successResponse();
   }
 
-
+// send reset password mail to mailtrap with token
   public function send($email){
    $token = $this->createToken($email);
     Mail::to($email)->send(new ResetPasswordMail($token));
   }
 
-  // public function createToken($email){
-  // $oldToken = DB::table('password_resets')->where('email', $email)->first();
-  // $token = Str::random(60);
-  // $this->saveToken($token,$email);
-  // return $token;
-  // }
+// generate  a token
   public function createToken($email)
   {
       $oldToken = DB::table('password_resets')->where('email', $email)->first();
@@ -46,7 +41,7 @@ class ResetPasswordController extends Controller
       $this->saveToken($token, $email);
       return $token;
   }
-
+// save data to database
   public function saveToken($token,$email){
     DB::table('password_resets')->insert([
       'email' => $email,
@@ -54,7 +49,7 @@ class ResetPasswordController extends Controller
       'created_at' => Carbon::now(),
     ]);
   }
-
+// check if the email is valid and exists in the database
   public function validateEmail($email)
   {
       return !!User::where('email', $email)->first();
