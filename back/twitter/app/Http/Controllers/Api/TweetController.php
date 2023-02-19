@@ -18,8 +18,10 @@ class TweetController extends Controller
     // get logged in user tweets
     public function me()
     {
-        return auth()->user()->tweets()->latest()->cursorPaginate(20);
+        // return auth()->user()->tweets()->latest()->cursorPaginate(20);
+        return auth()->user()->tweets()->latest();
     }
+
 
     // get logged in user home tweets (followings tweets and user tweets ordered from newest to oldest)
     public function home()
@@ -28,8 +30,6 @@ class TweetController extends Controller
     }
 
     // ----------------- in progress ----------------------
-
-
     public function create(CreateTweetRequest $request)
     {
         $tweetText = $request->text;
@@ -44,7 +44,7 @@ class TweetController extends Controller
 
     // public function details($id)
     // {
-    //     return auth()->user()->tweets->findOrFail($id);
+    //     return auth()->user()->tweets()->findOrFail($id);
     // }
 
     // public function edit(Request $request, $id)
