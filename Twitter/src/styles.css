@@ -134,7 +134,8 @@ router-outlet + app-search,
 router-outlet + app-settings,
 router-outlet + app-signin,
 router-outlet + app-signup,
-router-outlet + trends-recommendation {
+router-outlet + trends-recommendation,
+router-outlet + app-new-message {
   @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
 }
 
@@ -146,3 +147,6 @@ router-outlet + trends-recommendation {
   border-left: 5px solid green;
 } */
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

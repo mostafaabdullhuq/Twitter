@@ -26,7 +26,9 @@ import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
 import { HumanDatesPipe } from './Pipes/human-dates.pipe';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalComponent } from './Components/modal/modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,14 +53,16 @@ import { NewMessageComponent } from './Components/new-message/new-message.compon
     BookmarksComponent,
     HumanNumbersPipe,
     HumanDatesPipe,
-    NewMessageComponent
+    NewMessageComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

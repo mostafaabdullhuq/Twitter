@@ -1,11 +1,8 @@
-<!-- <p>new-message works!</p> -->
 <!--! -------middle ------- -->
 <div class="relative h-full w-full xl:w-2/5 overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
   <!-- -----sticky header---- -->
   <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
-      <!-- overlay div -->
-      <!-- <div class="absolute w-full border-b border-gray-100 dark:border-dark-gray_0 h-full bg-white dark:bg-black sticky-nav-scroll -z-100"></div> -->
-      <!-- content of fixed nav -->
+    <!-- content of fixed nav -->
       <div class="z-0 flex py-2">
           <h4 class="text-gray-800 pl-6 py-1 text-xl dark:text-white font-bold">Messages</h4>
           <!-- ----Setting icon ---- -->
@@ -25,14 +22,15 @@
 
   </div>
   <div class="lg:flex  justify-center items-center mt-11 w-3/5 lg:w-4/5 lg:ml-0 m-auto">
-      <a href="" class=" text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
+      <button (click)="toggleModal()" class=" text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white"
+      >
           <span class="font-semibold text-lg"> Write a message </span>
-      </a>
+  </button>
+
   </div>
-  <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
 </div>
 <!--! -----------right---------- -->
-<div class="hidden w-full lg:w-4/6 h-full lg:block  dark:border-dark-gray_0 border-x border-gray-100">
+<div class="hidden w-full lg:w-2/3 h-full lg:block  dark:border-dark-gray_0 border-x border-gray-100">
   <div class=" dark:text-white  justify-center items-center mt-72 w-3/6   m-auto">
       <h1 class="text-3xl font-bold ">Select a message</h1>
       <p class="mt-1 text-light-gray_100 dark:text-gray-500 ">Choose from your existing conversations, start a new one, or just keep swimming.</p>
@@ -44,3 +42,126 @@
       </a>
   </div>
 </div>
+
+
+<div *ngIf="showModal" class="mt-10  w-4/5 lg:w-2/5 m-auto overflow-x-hidden overflow-y-auto fixed inset-0 z-50 ">
+  <div class="flex-col h-full justify-between">
+    <!--content-->
+    <div class="border-0 rounded-lg  relative flex flex-col w-full bg-white  dark:bg-black dark:text-white">
+      <!--header-->
+      <div class="flex justify-between items-center px-4 py-2 pt-2 ">
+        <div class="flex items-center gap-1 w-3/4">
+          <a class=" px-4 py-2 " type="button" (click)="toggleModal()" title="close">
+            <i class="fa-solid fa-xmark text-xl"></i>
+          </a>
+          <h4 class="text-xl ">
+            New Message
+          </h4>
+        </div>
+        <a
+            href=""
+            class="dark:hover:bg-main-white_100  bg-black text-white items-center flex justify-center py-1  px-3 rounded-full hover:bg-light-black dark:bg-gray-500 dark:text-black"
+            >Next</a
+        >
+      </div>
+      <div class="relative mb-4 ml-4">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-main-blue_100"></i>
+        <input
+            type="text"
+            class="w-full h-7 pl-12  p-6  dark:bg-black focus:outline-none font-normal  text-md text-black dark:text-white placeholder:text-gray-500 border-b border-gray-500 dark:border-dark-gray_0"
+            placeholder="Search people"
+        />
+      </div>
+
+      <!-- -----------Finding Input Result Searching-------->
+  <div class="flex-grow flex-col  justify-between">
+    <div class="">
+        <div class="px-4 py-4  dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 hover:bg-gray-100 cursor-pointer ">
+          <div class="flex items-center gap-1 w-3/4">
+              <img src="../../../assets/images/img.jpeg" class="twitter-msg-img" alt="" />
+              <div class="ml-3 text-md w-2/3">
+                  <div class="flex max-w-full w-full ">
+                      <h5 class="text-gray-800 dark:text-white">Group2</h5>
+                  </div>
+                  <p class="text-gray-500 dark:text-dark-gray_300">@group__2</p>
+
+              </div>
+          </div>
+        </div>
+      <div class="px-4 py-4  dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 hover:bg-gray-100 cursor-pointer ">
+        <div class="flex items-center gap-1 w-3/4">
+            <img src="../../../assets/images/photo.jpg" class="twitter-msg-img" alt="" />
+            <div class="ml-3 text-md w-2/3">
+                <div class="flex max-w-full w-full ">
+                    <h5 class="text-gray-800 dark:text-white">Picanto</h5>
+                </div>
+                <p class="text-gray-500 dark:text-dark-gray_300">@KiaCom</p>
+
+            </div>
+        </div>
+      </div>
+      <div class="px-4 py-4  dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 hover:bg-gray-100 cursor-pointer ">
+        <div class="flex items-center gap-1 w-3/4">
+            <img src="../../../assets/images/img.jpeg" class="twitter-msg-img" alt="" />
+            <div class="ml-3 text-md w-2/3">
+                <div class="flex max-w-full w-full ">
+                    <h5 class="text-gray-800 dark:text-white">YesLa</h5>
+                </div>
+                <p class="text-gray-500 dark:text-dark-gray_300">@Tesla</p>
+
+            </div>
+        </div>
+      </div>
+      <div class="px-4 py-4  dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 hover:bg-gray-100 cursor-pointer ">
+        <div class="flex items-center gap-1 w-3/4">
+            <img src="../../../assets/images/image.jpeg" class="twitter-msg-img" alt="" />
+            <div class="ml-3 text-md w-2/3">
+                <div class="flex max-w-full w-full ">
+                    <h5 class="text-gray-800 dark:text-white">Dummy</h5>
+                </div>
+                <p class="text-gray-500 dark:text-dark-gray_300">@Dummydummy</p>
+
+            </div>
+        </div>
+      </div>
+      <div class="px-4 py-4  dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 hover:bg-gray-100 cursor-pointer ">
+        <div class="flex items-center gap-1 w-3/4">
+            <img src="../../../assets/images/img.jpeg" class="twitter-msg-img" alt="" />
+            <div class="ml-3 text-md w-2/3">
+                <div class="flex max-w-full w-full ">
+                    <h5 class="text-gray-800 dark:text-white">JoeBla</h5>
+                </div>
+                <p class="text-gray-500 dark:text-dark-gray_300">@BlaBla</p>
+
+            </div>
+        </div>
+      </div>
+      <!-- <div class="flex-grow h-screen px-4 py-4 cursor-pointer">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- ============================================= -->
+  </div>
+
+</div>
+
+<div *ngIf="showModal" class="bg-opacity-50 fixed inset-0 z-40 bg-gray-700"></div>
+
+
+<!-- <jw-modal id="modal-1">
+    <h1>A custom modal popup</h1>
+    <p>Home page text: <input type="text" [(ngModel)]="bodyText" /></p>
+    <button (click)="modalService.close();">Close</button>
+  </jw-modal> -->
+
+<!-- <ng-template #dialogRef let-mydata>
+  <div class="relative h-full w-full xl:w-2/5 overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+
+  <h5>I am Template POPUP</h5>
+  <button mat-button mat-dialog-close="closeig ">close</button>
+</div>
+</ng-template>  -->
+
+
