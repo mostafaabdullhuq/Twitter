@@ -48,12 +48,6 @@ class ResetPasswordMail extends Mailable
         );
     }
 
-    // public function build()
-    // {
-    //     return $this->markdown('Email.passwordReset')->with([
-    //         'token' => $this->token
-    //     ]);
-    // }
     /**
      * Get the attachments for the message.
      *
