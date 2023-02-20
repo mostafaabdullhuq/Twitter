@@ -15,8 +15,8 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    Route::post('sendPasswordResetLink', [ResetPasswordController::class,'sendEmail']);
-    Route::post('resetPassword', [ChangePasswordController::class,'process']);
+    Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
+    Route::post('resetPassword', [ChangePasswordController::class, 'process']);
 });
 
 Route::group([
@@ -35,7 +35,8 @@ Route::group([
 ], function () {
 
     Route::get('me', [TweetController::class, 'me']);
-    Route::get('home', [TweetController::class, 'home']);
+    Route::get('foryou', [TweetController::class, 'homeforyou']);
+    Route::get('following', [TweetController::class, 'homefollowing']);
     Route::post('create', [TweetController::class, 'create']);
     Route::get('details/{id}', [TweetController::class, 'details']);
     Route::post('edit/{id}', [TweetController::class, 'edit']);
