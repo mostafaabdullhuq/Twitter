@@ -25,6 +25,7 @@
     "angular-material": "^1.2.5",
     "fortawesome": "^0.0.1-security",
     "rxjs": "~7.8.0",
+    "satellizer": "^0.15.5",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
