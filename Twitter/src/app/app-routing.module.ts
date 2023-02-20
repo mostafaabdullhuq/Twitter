@@ -42,25 +42,12 @@ const routes: Routes = [
   },
   
   {
-    path: 'request-password-reset',
-    component: RequestResetComponent,
-    canActivate: [BeforeLoginService],
-  },
-  {
-    path: 'response-password-reset',
-    component: ResponseResetComponent,
-    canActivate: [BeforeLoginService],
-  },
-  {
-    path: 'response-password-reset',
-    component: ResponseResetComponent,
-    canActivate: [AfterLoginService],
-  },
-  {
     path: 'exploreout',
     component: ExploreoutComponent,
     canActivate: [BeforeLoginService],
   },
+
+
   // {
   //   path: 'home?type=1',
   //   component: HomeComponent,
@@ -124,7 +111,17 @@ const routes: Routes = [
     component: NewMessageComponent,
     canActivate: [AfterLoginService],
   },
-
+  
+  {
+    path: 'request-password-reset',
+    component: RequestResetComponent,
+    canActivate: [BeforeLoginService],
+  },
+  {
+    path: 'response-password-reset',
+    component: ResponseResetComponent,
+    canActivate: [BeforeLoginService],
+  }, 
   {
     path: ':user',
     component: ProfileComponent,
