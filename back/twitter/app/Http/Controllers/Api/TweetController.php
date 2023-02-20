@@ -20,10 +20,29 @@ class TweetController extends Controller
     public function me()
     {
 
-        $tweets = JWTAuth::user()->tweets;
-        return $tweets;
-        // return auth()->user()->tweets()->latest()->cursorPaginate(20);
-        return JWTAuth::user()->tweets()->latest();
+        $tweets = JWTAuth::user()->tweets()->latest()->get();
+        $user = JWTAuth::user();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+
+        foreach ($tweets as $value) {
+            $value->user;
+            unset($value->user->google_access_token);
+            unset($value->user->facebook_access_token);
+            unset($value->user->email_verified_at);
+            unset($value->user->updated_at);
+            unset($value->user_id);
+
+
+            $value->user->followers_count = $value->user->followers()->count();
+            $value->user->followings_count = $value->user->followings()->count();
+            $value->user->tweets_count = $value->user->tweets()->count();
+        }
+        return [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
     }
 
 

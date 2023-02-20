@@ -15,4 +15,11 @@ class Tweet extends Model
         'schedule_date_time',
         'user_id',
     ];
+
+
+    public function user()
+    {
+
+        return $this->belongsTo(User::class);
+    }
 }

@@ -123,4 +123,9 @@ class User extends Authenticatable implements JWTSubject
             ->orWhere('user_id', $this->id)
             ->latest();
     }
+
+    public function verificationStatus()
+    {
+        return $this->hasOne(VerificationStatus::class);
+    }
 }
