@@ -37,6 +37,7 @@ export class SignupComponent implements OnInit {
   }
   handelResponse(data: any) {
     this.Token.handel(data.access_token);
+    this.Token.setUser(data.user);
     this.Logged.changeAuthStatus(true);
     this.router.navigateByUrl('/explore');
   }
