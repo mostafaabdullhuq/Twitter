@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\UserController;
-
+use App\Http\Controllers\GoogleController;
 
 Route::group([
     'middleware' => 'api',
@@ -14,7 +14,10 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::get('/auth/google', [GoogleController::class, 'redirectGoogle']);
+    Route::get('/auth/google/callback', [GoogleController::class, 'callbackGoogle']);
 });
+
 
 Route::group([
     'middleware' => 'api',
