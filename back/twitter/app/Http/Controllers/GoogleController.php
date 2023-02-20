@@ -26,11 +26,11 @@ class GoogleController extends Controller
 
                     ]);
                     Auth::login($new_user);
-                    return redirect()->intended('home');
+                    // return redirect()->intended('home');
             }
             else {
                 Auth::login($user);
-                return redirect()->intended('home');
+                // return redirect()->intended('home');
 
             }
         }
