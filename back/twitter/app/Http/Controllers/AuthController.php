@@ -108,6 +108,16 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+
+        $user = JWTAuth::user();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        unset($user->facebook_access_token);
+        unset($user->email_verified_at);
+        unset($user->updated_at);
+        unset($user->google_access_token);
+
         $ttl = JWTAuth::factory()->getTTL();
         return response()->json([
             'access_token' => $token,
