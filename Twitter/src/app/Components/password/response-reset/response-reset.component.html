@@ -9,26 +9,37 @@ bg-white p-5 absolute shadow-lg rounded-2xl">
       <i class="fa-brands fa-twitter text-5xl dark:text-white"></i>
     </a>
   </div>
-  <h1 class="text-3xl font-bold dark:text-white mb-5">Find your Twitter account</h1>
-  <p class="text-gray-600 mb-4">Enter the email, phone number, or username associated with your account to change your
-    password.</p>
-  <form >
+  <h1 class="text-3xl font-bold dark:text-white mb-5">Reset password</h1>
+
+  <form #resetPasswordForm=ngForm (ngSubmit)="onSubmit()">
+    {{error}}
     <div class="mb-3">
-      <input  name="email" required class="relative rounded block w-full h-[60px] appearance-none border border-gray-300  dark:border-gray-500 px-3 py-2 
+      <input [(ngModel)]="form.email"  name="email" required class="relative rounded block w-full h-[60px] appearance-none border border-gray-300  dark:border-gray-500 px-3 py-2 
             text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-100
             focus:outline-none focus:ring-indigo-500 text-xl dark:bg-black dark:focus:border-blue-400  "
         placeholder="Email">
     </div>
-
+    <div class="mb-3">
+        <input name="password" type="password" required class="relative rounded block w-full h-[60px] appearance-none border border-gray-300  dark:border-gray-500 px-3 py-2 
+                text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-100
+                focus:outline-none focus:ring-indigo-500 text-xl dark:bg-black dark:focus:border-blue-400  "
+          [(ngModel)]="form.password" placeholder="password">
+      </div>
+      <div>
+        <input name="confirm_password" type="password" required class="relative rounded block w-full h-[60px] appearance-none border border-gray-300  dark:border-gray-500 px-3 py-2 
+                text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-100
+                focus:outline-none focus:ring-indigo-500 text-xl dark:bg-black dark:focus:border-blue-400  "
+          [(ngModel)]="form.password_confirmation" placeholder="Confirm password">
+      </div>
  
-    <button  type="submit" id="next" class="rounded-full flex mt-[50px] font-bold dark:bg-opacity-60
+    <button [disabled]="!resetPasswordForm.valid"  type="submit" id="next" class="rounded-full flex mt-[50px] font-bold dark:bg-opacity-60
   w-full justify-center border border-transparent 
   bg-black py-3 px-4 text-xl text-white
   dark:bg-white dark:text-black
   dark:hover:bg-white
   hover:bg-blue-600 focus:outline-none
   focus:ring-offset-2">
-      Send Password Reset Email
+      Change password
     </button>
   </form>
 

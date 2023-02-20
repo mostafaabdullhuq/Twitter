@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public isInSignup: boolean = false;
   public isInRequestReset: boolean = false;
   public isInResponseReset: boolean = false;
+  public isConfirmed: boolean = false;
   public popup = false;
   public user: any;
   constructor(
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
       this.isInSignup = false;
       this.isInRequestReset = false;
       this.isInResponseReset = false;
+      this.isConfirmed = false;
 
       if (!this.loggedIn) {
         if (this.router.url === '/login') {
@@ -37,18 +39,28 @@ export class AppComponent implements OnInit {
           this.isInSignup = false;
           this.isInRequestReset = false;
           this.isInResponseReset = false;
+          this.isConfirmed = false;
         } else if (this.router.url === '/signup') {
           this.isInSignup = true;
           this.isInLogin = false;
           this.isInRequestReset = false;
           this.isInResponseReset = false;
+          this.isConfirmed = false;
         } else if (this.router.url === '/request-password-reset') {
           this.isInRequestReset = true;
           this.isInLogin = false;
           this.isInSignup = false;
           this.isInResponseReset = false;
+          this.isConfirmed = false;
         } else if (this.router.url === '/response-password-reset') {
           this.isInResponseReset = true;
+          this.isInLogin = false;
+          this.isInSignup = false;
+          this.isInRequestReset = false;
+          this.isConfirmed = false;
+        } else if (this.router.url === '/confirm') {
+          this.isConfirmed = true;;
+          this.isInResponseReset = false;;
           this.isInLogin = false;
           this.isInSignup = false;
           this.isInRequestReset = false;

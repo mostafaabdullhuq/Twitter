@@ -25,12 +25,8 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     this.Auth.login(this.form).subscribe({
-      next: (data) => {
-        this.handelResponse(data);
-      },
-      error: (err) => {
-        this.handleError(err);
-      },
+      next: (data) => {this.handelResponse(data);},
+      error: (err) => {this.handleError(err);},
     });
   }
 

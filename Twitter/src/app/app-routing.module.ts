@@ -16,6 +16,7 @@ import { NewMessageComponent } from './Components/new-message/new-message.compon
 import { AfterLoginService } from './Services/after-login.service';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
+import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
 const routes: Routes = [
   {
     path: '',
@@ -120,6 +121,11 @@ const routes: Routes = [
   {
     path: 'response-password-reset',
     component: ResponseResetComponent,
+    canActivate: [BeforeLoginService],
+  }, 
+  {
+    path: 'confirm',
+    component: ConfirmPasswordComponent,
     canActivate: [BeforeLoginService],
   }, 
   {
