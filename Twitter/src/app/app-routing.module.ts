@@ -46,16 +46,6 @@ const routes: Routes = [
     component: ExploreoutComponent,
     canActivate: [BeforeLoginService],
   },
-  // {
-  //   path: 'home?type=1',
-  //   component: HomeComponent,
-  //   canActivate: [AfterLoginService],
-  // },
-  // {
-  //   path: 'home?type=2',
-  //   component: HomeComponent,
-  //   canActivate: [AfterLoginService],
-  // },
 
   {
     path: 'home',

@@ -99,7 +99,7 @@
 }
 
 .hashtag {
-  @apply text-main-blue_100 hover:underline;
+  @apply text-main-blue_100 hover:underline cursor-pointer;
 }
 
 .twitter-notify-img {
