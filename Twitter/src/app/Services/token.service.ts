@@ -31,12 +31,12 @@ isValid(){
   if(token){
     const payload = this.payload(token);
     if(payload){
-    return Object.values(this.iss).indexOf(payload.iss)>-1 ? true : false;
+    return Object.values(this.iss).indexOf(payload.iss)> -1 ? true : false;
     }
   }
   return false;
 }
-
+// split token 
 payload(token: any){
 const payload= token.split('.')[1];
 return this.decode(payload);
