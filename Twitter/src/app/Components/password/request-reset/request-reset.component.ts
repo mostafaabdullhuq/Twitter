@@ -10,25 +10,19 @@ export class RequestResetComponent implements OnInit {
   public form = {
     email: null,
  }
- constructor(private Auth: AuthService,
-) { }
+ constructor(private Auth: AuthService,) { }
  
 
-  onSubmit(){
+ngOnInit(): void {
+}
 
+onSubmit(){
+    this.Auth.sendPasswordResetLink(this.form).subscribe({
+      next: (data) => {this.handleResponse(data)},
+      error: (error) => {console.log(error)},
+    });
  }
 
-
-  ngOnInit(): void {
-    this.Auth.sendPasswordResetLink(this.form).subscribe({
-      next: (data) => {
-        this.handleResponse(data);
-      },
-      error: (error) => {
-        console.log(error.error.error);
-      },
-    });
-  }
 
   handleResponse(res: any) {
     this.form.email = null;

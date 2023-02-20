@@ -17,19 +17,6 @@ import { AfterLoginService } from './Services/after-login.service';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 const routes: Routes = [
-  // { path: '', component: HomeComponent },
-  // { path: 'login', component: SigninComponent },
-  // { path: 'signup', component: SignupComponent },
-  // { path:'exploreout' , component: ExploreoutComponent},
-  // { path: 'home', component: HomeComponent },
-  // { path: 'explore', component: ExploreComponent },
-  // { path: 'notifications', component: NotificationComponent },
-  // { path: 'messages', component: MessagesComponent },
-  // { path: 'bookmarks', component: BookmarksComponent },
-  // { path: 'settings/account', component: SettingsComponent },
-  // { path: 'connect', component: ConnectComponent },
-  // { path: 'newmessage', component: NewMessageComponent},
-  // { path: ':user', component: ProfileComponent },
 
   {
     path: '',
