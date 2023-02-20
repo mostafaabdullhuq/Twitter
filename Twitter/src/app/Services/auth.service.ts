@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
-});
+})
 export class AuthService {
   constructor(private http: HttpClient) {}
   private baseUrl = 'http://127.0.0.1:8000/api/auth';
@@ -22,5 +22,4 @@ export class AuthService {
   sendPasswordResetLink(data: any) {
     return this.http.post(`${this.baseUrl}/sendPasswordResetLink`, data);
   }
-
 }
