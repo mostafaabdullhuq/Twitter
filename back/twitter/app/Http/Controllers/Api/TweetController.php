@@ -7,6 +7,7 @@ use App\Http\Requests\Api\CreateTweetRequest;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use JWTAuth;
 
 class TweetController extends Controller
 {
@@ -18,22 +19,44 @@ class TweetController extends Controller
     // get logged in user tweets
     public function me()
     {
-        return auth()->user()->tweets()->latest()->cursorPaginate(20);
+
+        $tweets = JWTAuth::user()->tweets()->latest()->get();
+        $user = JWTAuth::user();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+
+        foreach ($tweets as $value) {
+            $value->user;
+            unset($value->user->google_access_token);
+            unset($value->user->facebook_access_token);
+            unset($value->user->email_verified_at);
+            unset($value->user->updated_at);
+            unset($value->user_id);
+
+
+            $value->user->followers_count = $value->user->followers()->count();
+            $value->user->followings_count = $value->user->followings()->count();
+            $value->user->tweets_count = $value->user->tweets()->count();
+        }
+        return [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
     }
+
 
     // get logged in user home tweets (followings tweets and user tweets ordered from newest to oldest)
     public function home()
     {
-        return auth()->user()->home()->cursorPaginate(20);
+        return JWTAuth::user()->home()->get();
     }
 
     // ----------------- in progress ----------------------
-
-
     public function create(CreateTweetRequest $request)
     {
         $tweetText = $request->text;
-        $tweet = auth()->user()->tweets()->create(
+        $tweet = JWTAuth::user()->tweets()->create(
             [
                 'text' => $tweetText,
                 'schedule_date_time' => $request->schedule_date_time ?? now(),
@@ -44,7 +67,7 @@ class TweetController extends Controller
 
     // public function details($id)
     // {
-    //     return auth()->user()->tweets->findOrFail($id);
+    //     return auth()->user()->tweets()->findOrFail($id);
     // }
 
     // public function edit(Request $request, $id)

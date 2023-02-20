@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function tweets()
     {
-        return $this->hasMany(Tweet::class);
+        return  $this->hasMany(Tweet::class);
     }
 
     public function likes()
@@ -122,5 +122,10 @@ class User extends Authenticatable implements JWTSubject
         return Tweet::whereIn('user_id', $this->followings()->pluck('following_id'))
             ->orWhere('user_id', $this->id)
             ->latest();
+    }
+
+    public function verificationStatus()
+    {
+        return $this->hasOne(VerificationStatus::class);
     }
 }
