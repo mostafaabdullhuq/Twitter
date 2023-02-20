@@ -19,42 +19,21 @@ class ResetPasswordMail extends Mailable
      *
      * @return void
      */
-    public function __construct($token)
-    {
-        $this->token = $token;
-    }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
-    {
-        return new Envelope(
-            subject: 'Reset Password Mail',
-        );
-    }
+public function __construct($token)
+{
+    $this->token = $token;
+}
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            markdown: '=Email.passwordReset',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    public function attachments()
-    {
-        return [];
-    }
+/**
+ * Build the message.
+ *
+ * @return $this
+ */
+public function build()
+{
+    return $this->markdown('=Email.passwordReset')->with([
+        'token' => $this->token
+    ]);
+}
 }

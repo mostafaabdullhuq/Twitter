@@ -26,19 +26,9 @@ class TweetController extends Controller
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->tweets()->count();
 
-        foreach ($tweets as $value) {
-            $value->user;
-            unset($value->user->google_access_token);
-            unset($value->user->facebook_access_token);
-            unset($value->user->email_verified_at);
-            unset($value->user->updated_at);
-            unset($value->user_id);
+        $tweets = $this->formatTweets($tweets);
 
 
-            $value->user->followers_count = $value->user->followers()->count();
-            $value->user->followings_count = $value->user->followings()->count();
-            $value->user->tweets_count = $value->user->tweets()->count();
-        }
         return [
             'user' => $user,
             'tweets' => $tweets
@@ -46,10 +36,21 @@ class TweetController extends Controller
     }
 
 
-    // get logged in user home tweets (followings tweets and user tweets ordered from newest to oldest)
-    public function home()
+
+
+    // get logged in user for you tweets (tweets of followings of the followings of the user)
+    public function homeforyou()
     {
-        return JWTAuth::user()->home()->get();
+        $tweets = $this->formatTweets(JWTAuth::user()->hforyou()->get());
+        return $tweets;
+    }
+
+    // get logged in user for you tweets (followings tweets and user tweets ordered from newest to oldest)
+    public function homefollowing()
+    {
+        $tweets = JWTAuth::user()->hfollowing()->get();
+        $tweets = $this->formatTweets($tweets);
+        return $tweets;
     }
 
     // ----------------- in progress ----------------------
@@ -153,4 +154,21 @@ class TweetController extends Controller
     //     $tweet->shares()->where('user_id', auth()->id())->delete();
     //     return $tweet;
     // }
+
+
+    public function formatTweets($tweets)
+    {
+        foreach ($tweets as $value) {
+            $value->user;
+            unset($value->user->google_access_token);
+            unset($value->user->facebook_access_token);
+            unset($value->user->email_verified_at);
+            unset($value->user->updated_at);
+            unset($value->user_id);
+            $value->user->followers_count = $value->user->followers()->count();
+            $value->user->followings_count = $value->user->followings()->count();
+            $value->user->tweets_count = $value->user->tweets()->count();
+        }
+        return $tweets;
+    }
 }

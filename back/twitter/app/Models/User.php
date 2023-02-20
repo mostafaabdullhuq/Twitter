@@ -117,13 +117,36 @@ class User extends Authenticatable implements JWTSubject
     }
 
     // get all following people tweets and user tweets also, ordered from newest to oldest
-    public function home()
+    public function hforyou()
     {
-        return Tweet::whereIn('user_id', $this->followings()->pluck('following_id'))
-            ->orWhere('user_id', $this->id)
+        // get the users who the current user follow
+        $followingUsers = $this->followings()->get();
+
+        // get the ids of the users who the current user follow
+        $totalUsers = $followingUsers->pluck("id")->toArray();
+
+        // get the ids of the users who the users who the current user follow follow
+        foreach ($followingUsers as  $value) {
+            $currentFollowingFollowings = $value->followings()->pluck("following_id");
+            $totalUsers = array_merge($totalUsers, $currentFollowingFollowings->toArray());
+        }
+
+        // remove duplicate ids
+        $totalUsers = array_unique($totalUsers);
+
+        // remove the current user id
+        unset($totalUsers[array_search($this->id, $totalUsers)]);
+
+        // get the tweets of the users who the current user follow and the users who the users who the current user follow follow
+        return Tweet::whereIn('user_id', $totalUsers)
             ->latest();
     }
 
+    public function hfollowing()
+    {
+        return Tweet::whereIn('user_id', $this->followings()->pluck('following_id'))
+            ->latest();
+    }
     public function verificationStatus()
     {
         return $this->hasOne(VerificationStatus::class);
