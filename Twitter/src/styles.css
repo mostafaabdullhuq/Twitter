@@ -156,3 +156,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.invalid-input {
+  @apply border-red-500  placeholder-red-500 placeholder:text-medium;
+}
