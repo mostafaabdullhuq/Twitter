@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.httpClient.getTweets().subscribe({
       next: (data: any) => {
-        this.tweets = data;
+        this.tweets = data.data;
         console.log(this.tweets);
       },
       error: (err) => {

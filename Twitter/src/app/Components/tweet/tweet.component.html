@@ -6,14 +6,15 @@
     </div>
     <!-- user image -->
     <div class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
-        <img class="w-full h-full object-cover" src="{{tweet.user.profile_image_url}}" alt="" />
+        <img class="w-full h-full object-cover"
+            src="{{tweet.user.profile_image_url || './../../../assets/images/default_profile.png'}}" alt="" />
     </div>
     <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
         <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
         <div class="flex overflow-hidden mt-1">
             <!--  name -->
             <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
-                <p class="dotted-text h-6 hover:underline">{{tweet.user.name}}</p>
+                <p class="dotted-text h-6 hover:underline">{{tweet.user.first_name + ' ' + tweet.user.last_name}}</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
                     *ngIf="tweet.user.verified" stroke="currentColor"
                     class="w-6 min-w-[25px] text-white fill-main-blue_100">
@@ -25,7 +26,7 @@
             <div class="flex items-center w-auto max-w-[45%]">
                 <!-- username -->
                 <span
-                    class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{tweet.user.screen_name}}
+                    class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{tweet.user.username}}
                 </span>
                 <!-- publish date -->
                 <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
@@ -37,8 +38,8 @@
         <!-- ----paragraph----- -->
 
         <div class="sm:pr-4">
-            <p class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words"
-            dir="auto" ><span [innerHTML]="formatTweetText(tweet.text)"></span>
+            <p class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto"><span
+                    [innerHTML]="formatTweetText(tweet.text)"></span>
             </p>
             <div *ngIf="tweet.media_url"
                 class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
@@ -54,18 +55,21 @@
             <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
                 <div class="tweet-control-item hover:text-main-blue_100">
                     <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                    {{tweet.replies_count | humanNumbers: 2}}
+                    {{tweet.replies_count || '0' | humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item hover:text-main-retweet"><i
                         class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{tweet.retweets_count
+                    || '0'
                     | humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item hover:text-main-love"><i
-                        class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{tweet.likes_count |
+                        class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{tweet.likes_count ||
+                    '0' |
                     humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item-special hover:text-main-blue_100"><i
                         class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{tweet.views_count
+                    || '0'
                     | humanNumbers: 2}}
                 </div>
                 <div class="tweet-control-item hover:text-main-blue_100">

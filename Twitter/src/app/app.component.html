@@ -41,7 +41,7 @@
         </a>
       </div> -->
       <div>
-        <a routerLink="/5" class="nav-item transition duration-300 ease-in-out" title="Profile">
+        <a routerLink="/{{user.username}}" class="nav-item transition duration-300 ease-in-out" title="Profile">
           <i class="fa-regular fa-user text-2xl"></i><span class="hidden xl:ml-4 xl:block">Profile</span>
         </a>
       </div>
@@ -213,8 +213,6 @@
   </div>
 
 
-
-
   <!-- footer -->
   <div class="w-full fixed  xl:grid sm:hidden grid-cols-2  bottom-0 h-[73px] bg-blue-600 dark:bg-blue-600">
     <div class="flex flex-col items-end pr-5">
@@ -255,7 +253,6 @@
   
   1. when user logged in and navigate to /login or /signup or /request-password-reset or /response-password-reset. the right side of the container is empty
 
-  2. when user register successfully, he must refresh the page to redirect to the home
 
   
 -->

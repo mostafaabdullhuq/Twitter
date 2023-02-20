@@ -15,14 +15,17 @@
             </div>
             <div class="flex flex-col">
                 <div class="flex items-center">
-                    <h4 class="text-gray-800 pl-6 text-2xl dark:text-white font-bold">Twitter</h4>
+                    <h4 class="text-gray-800 pl-6 text-2xl dark:text-white font-bold">{{user ? user.first_name + ' ' +
+                        user.last_name :
+                        'Loading...'}}</h4>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
-                        stroke="currentColor" class="w-6 min-w-[25px] text-white fill-main-blue_100 ml-1">
+                        stroke="currentColor" class="w-6 min-w-[25px] text-white fill-main-blue_100 ml-1"
+                        *ngIf="user.verified">
                         <path strokeLinecap="round" strokeLinejoin="round"
                             d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                     </svg>
                 </div>
-                <p class="dark:text-gray-500 text-gray-600 pl-6 text-sm -mt-1">1.1K Tweets</p>
+                <p class="dark:text-gray-500 text-gray-600 pl-6 text-sm -mt-1">{{tweetsCount|humanNumbers}} Tweets</p>
             </div>
         </div>
     </div>
@@ -32,13 +35,13 @@
     <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
     <div class="relative flex flex-col">
         <!-- cover photo -->
-        <div class="w-full overflow-hidden h-48">
-            <img src="./../../../assets/images/twitter_99mx.jpg" class="object-cover object-center w-full h-full" alt=""
-                srcset="" />
+        <div class="w-full overflow-hidden h-48 bg-slate-300">
+            <img *ngIf="user.cover_picture" src="./../../../assets/images/twitter_99mx.jpg"
+                class="object-cover object-center w-full h-full" alt="" srcset="" />
         </div>
         <!-- profile picture -->
-        <img src="./../../../assets/images/Twitter_03.jpg"
-            class="absolute top-24 rounded-full w-40 h-40 border-[4px] ml-3 dark:border-black border-white" />
+        <img src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+            class="absolute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />
 
         <!-- profile controls -->
         <div class="flex items-center mt-4 px-4 float-right gap-3 w-full justify-end">
@@ -54,41 +57,47 @@
         <!-- profile info -->
 
         <!-- name and username -->
-        <div class="p-2 mx-3 flex flex-col">
+        <div class="p-2 mx-3 flex flex-col -mt-2">
             <div class="flex">
-                <span class="text-gray-800 text-2xl clear-both dark:text-gray-100 font-bold">Twitter</span>
+                <span class="text-gray-800 text-2xl clear-both dark:text-gray-100 font-bold">{{user? user.first_name + '
+                    ' + user.last_name : "Loading..."}}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
-                    stroke="currentColor" class="w-6 min-w-[25px] text-white fill-main-blue_100 ml-1">
+                    *ngIf="user.verified" stroke="currentColor"
+                    class="w-6 min-w-[25px] text-white fill-main-blue_100 ml-1">
                     <path strokeLinecap="round" strokeLinejoin="round"
                         d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                 </svg>
             </div>
-            <span class="text-gray-400 -mt-1">@twitter</span>
+            <span class="text-gray-400 -mt-1">@{{user? user.username : "Loading..."}}</span>
             <!-- user bio -->
-            <span class="my-3 dark:text-white">Head in the clouds but my gravity's centered. </span>
+            <span class="my-3 dark:text-white">{{user? user.bio ? user.bio : '' : "Loading..."}}</span>
             <!-- user profile info -->
             <div class="flex gap-6 w-full max-w-full mb-2 text-gray-500 dark:text-gray-400">
                 <div class="flex gap-2 dotted-text items-center">
                     <i class="fa-solid fa-location-dot"></i>
-                    <span class="dotted-text">Alexandria, Egypt</span>
+                    <span class="dotted-text">{{user ? user.location ? user.location : 'N/A' : 'Loading'}}</span>
                 </div>
                 <div class="flex gap-2 dotted-text items-center">
                     <i class="fa-solid fa-cake-candles"></i>
-                    <span class="dotted-text">Born November 1, 2004</span>
+                    <span class="dotted-text">Born {{user ? user.date_of_birth ? [user.date_of_birth|date:'mediumDate']
+                        : 'N/A' :
+                        "Loading..."}}</span>
                 </div>
                 <div class="flex gap-2 dotted-text items-center">
                     <i class="fa-regular fa-calendar-days"></i>
-                    <span class="dotted-text">Joined February 2023</span>
+                    <span class="dotted-text">Joined {{user ? [user.created_at|date:'mediumDate'] :
+                        'Loading...'}}</span>
                 </div>
             </div>
             <!-- followers and following number -->
             <div class="flex">
                 <div class="hover:underline cursor-pointer flex gap-1">
-                    <span class="font-bold dark:text-white">452</span>
+                    <span class="font-bold dark:text-white">{{user ? [user.followings_count|humanNumbers] : "0"}}</span>
                     <span class="text-gray-500 dark:text-gray-400 font-normal">Following</span>
                 </div>
                 <div class="hover:underline cursor-pointer flex gap-1">
-                    <span class="ml-6 font-bold dark:text-white">200M</span>
+                    <span class="ml-6 font-bold dark:text-white">{{user ? [user.followers_count|humanNumbers] :
+                        "0"}}</span>
                     <span class="text-gray-500 dark:text-gray-400 font-normal">Followers</span>
                 </div>
             </div>
