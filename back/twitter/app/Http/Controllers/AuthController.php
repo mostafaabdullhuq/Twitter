@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use App\Models\User;
+use Carbon\Carbon;
+use JWTAuth;
 
 class AuthController extends Controller
 {
@@ -27,7 +29,15 @@ class AuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-        if (!$token = auth()->attempt($credentials)) {
+
+        // set token expiration date
+        $minutes = 60;
+        $hours = 24;
+        $days = 7;
+        JWTAuth::factory()->setTTL($minutes * $hours * $days);
+
+        // attempt to login to account
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Email or Password doesn\'t exist'], 401);
         }
 
@@ -64,7 +74,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(JWTAuth::user());
     }
 
     /**
@@ -74,7 +84,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        JWTAuth::logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -86,7 +96,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(JWTAuth::refresh());
     }
 
     /**
@@ -98,11 +108,22 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+
+        $user = JWTAuth::user();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        unset($user->facebook_access_token);
+        unset($user->email_verified_at);
+        unset($user->updated_at);
+        unset($user->google_access_token);
+
+        $ttl = JWTAuth::factory()->getTTL();
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'expires_in' => Carbon::now()->addMinutes($ttl),
+            'user' => JWTAuth::user()
         ]);
     }
 }

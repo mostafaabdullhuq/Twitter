@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GoogleController;
 
@@ -16,6 +17,8 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
     Route::get('/auth/google', [GoogleController::class, 'redirectGoogle']);
     Route::get('/auth/google/callback', [GoogleController::class, 'callbackGoogle']);
+    Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
+    Route::post('resetPassword', [ChangePasswordController::class, 'process']);
 });
 
 
@@ -35,7 +38,8 @@ Route::group([
 ], function () {
 
     Route::get('me', [TweetController::class, 'me']);
-    Route::get('home', [TweetController::class, 'home']);
+    Route::get('foryou', [TweetController::class, 'homeforyou']);
+    Route::get('following', [TweetController::class, 'homefollowing']);
     Route::post('create', [TweetController::class, 'create']);
     Route::get('details/{id}', [TweetController::class, 'details']);
     Route::post('edit/{id}', [TweetController::class, 'edit']);
