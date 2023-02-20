@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
@@ -10,7 +11,9 @@ export class RequestResetComponent implements OnInit {
   public form = {
     email: null,
  }
- constructor(private Auth: AuthService,) { }
+ public error:any = null;
+ constructor(private Auth: AuthService,
+  private router: Router) { }
  
 
 ngOnInit(): void {
@@ -19,12 +22,18 @@ ngOnInit(): void {
 onSubmit(){
     this.Auth.sendPasswordResetLink(this.form).subscribe({
       next: (data) => {this.handleResponse(data)},
-      error: (error) => {console.log(error)},
+      error: (error) => {this.handleError(error)},
     });
  }
 
 
   handleResponse(res: any) {
-    this.form.email = null;
+    // this.form.email = null;
+    this.router.navigate(['/confirm']);
   }
+
+  handleError(error: any) {
+    this.error = error.error.error;
+  }
+
 }
