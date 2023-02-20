@@ -8,9 +8,9 @@ import { BehaviorSubject } from 'rxjs';
 }) ;
 
 export class GoogleService {
-  constructor(private http: HttpClient) { };
-  private baseUrl = 'http://127.0.0.1:8000/api/auth';
-  authenticateWithGoogle() {
-    return this.http.post(`${this.baseUrl}/google`);
-  }
+  // constructor(private http: HttpClient) { };
+  // private baseUrl = 'http://127.0.0.1:8000/api/auth';
+  // authenticateWithGoogle() {
+  //   return this.http.post(`${this.baseUrl}/google`);
+  // }
 }
