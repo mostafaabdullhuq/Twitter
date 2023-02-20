@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './Components/modal/modal.component';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
+import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
 import { WebsitePipe } from './Pipes/website.pipe';
 
 @NgModule({
@@ -67,6 +68,7 @@ import { WebsitePipe } from './Pipes/website.pipe';
     NewMessageComponent,
     RequestResetComponent,
     ResponseResetComponent,
+    ConfirmPasswordComponent,
     WebsitePipe,
   ],
   imports: [
