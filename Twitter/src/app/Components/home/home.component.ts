@@ -11,10 +11,9 @@ export class HomeComponent implements OnInit {
   constructor(myRoute: ActivatedRoute, public httpClient: TweetsService) {}
   public tweets = [];
   ngOnInit(): void {
-    this.httpClient.getTweets().subscribe({
+    this.httpClient.getForYouTweets().subscribe({
       next: (data: any) => {
-        this.tweets = data.data;
-        console.log(this.tweets);
+        this.tweets = data;
       },
       error: (err) => {
         console.log(err);

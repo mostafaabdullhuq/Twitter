@@ -41,7 +41,8 @@
         </a>
       </div> -->
       <div>
-        <a routerLink="/{{user.username}}" class="nav-item transition duration-300 ease-in-out" title="Profile">
+        <a *ngIf="user" routerLink="/{{user.username}}" class="nav-item transition duration-300 ease-in-out"
+          title="Profile">
           <i class="fa-regular fa-user text-2xl"></i><span class="hidden xl:ml-4 xl:block">Profile</span>
         </a>
       </div>

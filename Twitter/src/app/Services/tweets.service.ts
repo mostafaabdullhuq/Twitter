@@ -11,10 +11,10 @@ export class TweetsService {
 
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 
-  getTweets() {
+  getForYouTweets() {
     const accessToken = this.token.get();
 
-    return this.httpClient.get(this.BASE_URL + '/home', {
+    return this.httpClient.get(this.BASE_URL + '/foryou', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
