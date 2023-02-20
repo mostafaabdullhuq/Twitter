@@ -123,6 +123,12 @@ const routes: Routes = [
   },
 ];
 
+angular.module('MyApp', ['satellizer'])
+  .config(function($authProvider) {
+    $authProvider.google({
+      clientId: '1032393167493-djg4gqrnejak3b4nope9rol5r7j26h97.apps.googleusercontent.com'
+    });
+  });
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
