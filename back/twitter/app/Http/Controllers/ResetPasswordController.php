@@ -28,7 +28,7 @@ class ResetPasswordController extends Controller
     Mail::to($email)->send(new ResetPasswordMail($token));
   }
 
-// generate  a token
+// generate  a token and save it i password_resets table
   public function createToken($email)
   {
       $oldToken = DB::table('password_resets')->where('email', $email)->first();
