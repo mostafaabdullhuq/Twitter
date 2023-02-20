@@ -3,8 +3,9 @@
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Api\UserController;
-
+use App\Http\Controllers\GoogleController;
 
 Route::group([
     'middleware' => 'api',
@@ -15,9 +16,12 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    Route::get('/redirect/google', [GoogleController::class, 'redirectGoogle']);
+    Route::get('/callback/google', [GoogleController::class, 'callbackGoogle']);
     Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
     Route::post('resetPassword', [ChangePasswordController::class, 'process']);
 });
+
 
 Route::group([
     'middleware' => 'api',
