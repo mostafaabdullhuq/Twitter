@@ -74,7 +74,7 @@
         class="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] rounded-full" alt="" />
       <div class="hidden xl:flex flex-col ml-2 dotted-text">
         <h5 *ngIf="user" class="text-gray-900 dark:text-white font-bold text-sm dotted-text">{{user.first_name + ' ' +
-          user.last_name + 'waawfawfawawfwa'}}</h5>
+          user.last_name}}</h5>
         <p *ngIf="user" class="text-light-gray_100 text-sm dotted-text dark:text-dark-gray_300">@{{user.username}}</p>
       </div>
       <div class="hidden xl:flex" (click)="logoutPopup()">

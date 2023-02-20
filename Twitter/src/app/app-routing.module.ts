@@ -41,24 +41,12 @@ const routes: Routes = [
     component: SignupComponent,
     canActivate: [BeforeLoginService],
   },
-  
+
   {
     path: 'exploreout',
     component: ExploreoutComponent,
     canActivate: [BeforeLoginService],
   },
-
-
-  // {
-  //   path: 'home?type=1',
-  //   component: HomeComponent,
-  //   canActivate: [AfterLoginService],
-  // },
-  // {
-  //   path: 'home?type=2',
-  //   component: HomeComponent,
-  //   canActivate: [AfterLoginService],
-  // },
 
   {
     path: 'home',
@@ -112,7 +100,7 @@ const routes: Routes = [
     component: NewMessageComponent,
     canActivate: [AfterLoginService],
   },
-  
+
   {
     path: 'request-password-reset',
     component: RequestResetComponent,
@@ -122,7 +110,7 @@ const routes: Routes = [
     path: 'response-password-reset',
     component: ResponseResetComponent,
     canActivate: [BeforeLoginService],
-  }, 
+  },
   {
     path: 'confirm',
     component: ConfirmPasswordComponent,
