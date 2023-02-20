@@ -14,7 +14,9 @@
         <div class="flex overflow-hidden mt-1">
             <!--  name -->
             <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
-                <p class="dotted-text h-6 hover:underline">{{tweet.user.first_name + ' ' + tweet.user.last_name}}</p>
+                <p routerLink="/{{tweet.user.username}}" class="dotted-text h-6 hover:underline">
+                    {{tweet.user.first_name + ' ' + tweet.user.last_name}}
+                </p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
                     *ngIf="tweet.user.verified" stroke="currentColor"
                     class="w-6 min-w-[25px] text-white fill-main-blue_100">

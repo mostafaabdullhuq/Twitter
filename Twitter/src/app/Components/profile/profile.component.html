@@ -36,11 +36,11 @@
     <div class="relative flex flex-col">
         <!-- cover photo -->
         <div class="w-full overflow-hidden h-48 bg-slate-300">
-            <img *ngIf="user.cover_picture" src="./../../../assets/images/twitter_99mx.jpg"
+            <img *ngIf="user?.cover_picture" src="./../../../assets/images/twitter_99mx.jpg"
                 class="object-cover object-center w-full h-full" alt="" srcset="" />
         </div>
         <!-- profile picture -->
-        <img src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+        <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
             class="absolute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />
 
         <!-- profile controls -->
@@ -59,10 +59,11 @@
         <!-- name and username -->
         <div class="p-2 mx-3 flex flex-col -mt-2">
             <div class="flex">
-                <span class="text-gray-800 text-2xl clear-both dark:text-gray-100 font-bold">{{user? user.first_name + '
+                <span class="text-gray-800 text-2xl clear-both dark:text-gray-100 font-bold">{{user?
+                    user.first_name + '
                     ' + user.last_name : "Loading..."}}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
-                    *ngIf="user.verified" stroke="currentColor"
+                    *ngIf="user?.verified" stroke="currentColor"
                     class="w-6 min-w-[25px] text-white fill-main-blue_100 ml-1">
                     <path strokeLinecap="round" strokeLinejoin="round"
                         d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />

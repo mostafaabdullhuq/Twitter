@@ -47,7 +47,6 @@
         </a>
       </div>
 
-
       <div>
         <a routerLink="/settings/account" class="nav-item transition duration-300 ease-in-out">
           <i class="fa-solid fa-gear text-2xl"></i><span class="hidden xl:ml-4 xl:block">Settings</span>
@@ -61,7 +60,7 @@
           <i class="fa-solid fa-feather-pointed"></i>
         </a>
       </div>
-      <div class="xl:flex hidden justify-start items-center mt-4">
+      <div class="xl:flex max-w-[225px] hidden justify-start items-center mt-4">
         <a href=""
           class="w-full text-center py-3 px-3 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
           <span class="hidden font-semibold xl:block text-xl"> Tweet </span>
@@ -70,31 +69,27 @@
     </nav>
     <!-- -------User ------- -->
     <div
-      class="flex mr-4 mt-8 items-center hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors mb-2 rounded-full cursor-pointer p-2">
-      <img src="./../../../assets/images/img.jpeg" class="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] rounded-full"
-        alt="" />
-      <div class="hidden xl:flex flex-col ml-2">
-        <h5 class="text-gray-900 dark:text-white font-bold text-sm dotted-text">Twitter</h5>
-        <p class="text-light-gray_100 text-sm dotted-text dark:text-dark-gray_300">@twitter</p>
+      class="relative flex mr-4 max-w-[225px]   mt-8 items-center hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors mb-2 rounded-full cursor-pointer p-2">
+      <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+        class="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] rounded-full" alt="" />
+      <div class="hidden xl:flex flex-col ml-2 dotted-text">
+        <h5 *ngIf="user" class="text-gray-900 dark:text-white font-bold text-sm dotted-text">{{user.first_name + ' ' +
+          user.last_name + 'waawfawfawawfwa'}}</h5>
+        <p *ngIf="user" class="text-light-gray_100 text-sm dotted-text dark:text-dark-gray_300">@{{user.username}}</p>
       </div>
-      <div class="hidden xl:flex">
+      <div class="hidden xl:flex" (click)="logoutPopup()">
         <i class="fa-solid fa-ellipsis text-xs items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
+      </div>
+      <div *ngIf="popup"
+        class="absolute flex -top-16 dark:bg-black  dark:border-dark-gray_0 dark:text-white bg-white shadow-[0px_0px_2px_0px_rgba(0,0,0,0.3)] dark:shadow-[0px_0px_0px_0px_rgba(255,255,255,0.5)] border border-gray-50 z-10 left-0 text-center  rounded-md right-0">
+        <a href="#" (click)="logout($event)"
+          class="dotted-text w-full text-center py-4 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 hover:bg-gray-100">
+          <span class="font-semibold  dotted-text w-full px-4"> Log out @{{user.username}}</span>
+        </a>
       </div>
     </div>
 
-    <!-- logout testing -->
-    <div class="xl:flex hidden justify-start items-center mt-4">
-      <a href="#" (click)="logout($event)"
-        class="w-full text-center py-3 px-3 rounded-full bg-main-black_100 hover:bg-main-blue_200 transition-colors text-white">
-        <span class="hidden font-semibold xl:block text-xl"> Logout </span>
-      </a>
-    </div>
-    <!-- <div class="xl:flex hidden justify-start items-center mt-4">
-      <a href="" routerLink="/login"
-        class="w-full text-center py-3 px-3 rounded-full bg-main-black_100 hover:bg-main-blue_200 transition-colors text-white">
-        <span class="hidden font-semibold xl:block text-xl"> LogIn </span>
-      </a>
-    </div> -->
+
   </header>
   <!-- bottom nav for xs screens -->
   <header

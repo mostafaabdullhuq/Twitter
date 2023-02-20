@@ -21,6 +21,15 @@ export class TweetsService {
     });
   }
 
+  getFollowingTweets() {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + '/following', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
   getAuthedTweets() {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + '/me', {

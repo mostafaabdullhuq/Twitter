@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public isInSignup: boolean = false;
   public isInRequestReset: boolean = false;
   public isInResponseReset: boolean = false;
+  public popup = false;
   public user: any;
   constructor(
     private Logged: LoggedService,
@@ -63,5 +64,9 @@ export class AppComponent implements OnInit {
     this.Token.remove();
     this.Logged.changeAuthStatus(false);
     this.router.navigateByUrl('/login');
+  }
+
+  logoutPopup() {
+    this.popup ? (this.popup = false) : (this.popup = true);
   }
 }

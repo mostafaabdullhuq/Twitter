@@ -18,9 +18,6 @@ export class ProfileComponent implements OnInit {
         this.tweets = data.tweets;
         this.user = data.user;
         this.tweetsCount = this.tweets.length;
-        console.log(this.user);
-        console.log(this.tweets);
-        console.log(this.tweetsCount);
       },
       error: (err) => {
         console.log(err);
