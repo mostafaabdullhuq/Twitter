@@ -99,6 +99,7 @@ const routes: Routes = [
     component: NewMessageComponent,
     canActivate: [AfterLoginService],
   },
+
   {
     path: 'request-password-reset',
     component: RequestResetComponent,

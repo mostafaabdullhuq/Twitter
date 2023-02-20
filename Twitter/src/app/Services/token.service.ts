@@ -55,5 +55,5 @@ export class TokenService {
 
   loggedIn() {
     return this.isValid();
-  }
+  }
 }
