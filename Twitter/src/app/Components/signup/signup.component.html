@@ -1,116 +1,72 @@
-<div class="bg-white p-6 absolute rounded shadow-lg" style="height: 30rem;" id="popup" *ngIf="isDiv1Visible">
-  <div mat-dialog-actions class="flex justify-between">
-    <span>Step 1 of 5 </span>
-    <a routerLink="/exploreout" id="close-popup"><i class="fa-regular fa-x"></i></a>
+<div class="w-[90%] max-w-[600px] sm:gap-4  gap-2 min-w-[300px] dark:bg-black 
+  bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl flex flex-col">
+  <!-- close popup -->
+  <div class="flex justify-end cursor-pointer w-full dark:text-white">
+    <a routerLink="/exploreout"
+      class="w-8 h-8  dark:hover:bg-dark-gray_0 hover:bg-main-blue_0  transition-colors dark:hover:bg-opacity-50 rounded-full flex items-center justify-center"><i
+        class="fa-regular fa-x"></i></a>
+  </div>
+  <!-- twitter logo -->
+  <div class="flex justify-center   w-full py-2">
+    <a
+      class="text-main-blue w-16 cursor-pointer dark:hover:bg-gray-50 dark:hover:bg-opacity-10 dark:text-gray-300 h-16 flex items-center justify-center  rounded-full  hover:bg-main-blue_0 transition-colors">
+      <i class="fa-brands fa-twitter text-5xl"></i>
+    </a>
   </div>
 
-  <div>
-    <h1 class="mt-6 text-2xl">Create your account</h1>
-  </div>
-  <form class="mt-8 space-y-6" #signupForm=ngForm (ngSubmit)="onSubmit()">
+  <!-- Sign in heading -->
+  <h1 class="text-3xl font-bold text-center  flex items-center justify-center w-full dark:text-gray-100 ">Join Twitter
+    today</h1>
+
+
+
+  <!-- sign in form -->
+  <form class="flex flex-col sm:gap-4  gap-2  w-full items-center mb-3" #signupForm=ngForm (ngSubmit)="onSubmit()">
     <input type="hidden" name="remember" value="true">
-    <div class="grid grid-cols-2 mb-2">
-      <div class="col-span-1 form-group">
-        <input id="first_name" name="first_name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
-                   border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" [(ngModel)]="form.first_name"
-          placeholder="First name">
-      </div>
-      <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.first_name">
-        {{error.first_name}}
-      </div>
-      <div class="col-span-1 form-group">
-        <input id="last_name" name="last_name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
-                   border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" [(ngModel)]="form.last_name"
-          placeholder="Last name">
-      </div>
-      <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.last_name">
-        {{error.last_name}}
-      </div>
+
+    <!-- <div [hidden]="!error" class="text-red-600 text-lg">
+      {{error}}
+    </div> -->
+
+    <div class="w-full grid grid-cols-2 sm:gap-4  gap-2">
+      <!-- first name input -->
+      <input [(ngModel)]="form.first_name" type="text" name="first_name"
+        [ngClass]="error.first_name ? 'invalid-input' : ''"
+        class="w-full appearance-none   dark:bg-black dark:border-dark-gray_0 dark:text-white dark:placeholder:text-gray-500 border text-lg rounded-lg border-gray-300 py-3 px-6  text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
+        placeholder="{{error.first_name ? error.first_name : 'First name'}}" />
+
+      <!-- last name input -->
+      <input [(ngModel)]="form.last_name" type="text" name="last_name"
+        [ngClass]="error.last_name ? 'invalid-input' : ''"
+        class="w-full appearance-none  dark:bg-black dark:border-dark-gray_0 dark:text-white dark:placeholder:text-gray-500 border text-lg rounded-lg border-gray-300 py-3 px-6  text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
+        placeholder="{{error.last_name ? error.last_name : 'Last name'}}" />
     </div>
 
+    <!-- email input -->
+    <input [(ngModel)]="form.email" type="email" name="email" [ngClass]="error.email ? 'invalid-input' : ''"
+      class="w-full appearance-none  dark:bg-black dark:border-dark-gray_0 dark:text-white dark:placeholder:text-gray-500 border text-lg rounded-lg border-gray-300 py-3 px-6  text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
+      placeholder="{{error.email ? error.email : 'Email address'}}" />
 
-    <div class="form-group">
-      <input id="email-address" name="email" type="email" autocomplete="current-email" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
-                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Email" [(ngModel)]="form.email">
-    </div>
-    <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.email">
-      {{error.email}}
-    </div>
-    <div class="form-group">
-      <input id="password" name="password" type="password" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
-                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Password" [(ngModel)]="form.password">
-    </div>
-    <div div *ngIf="error" class="alert alert-danger" [hidden]="!error.password">
-      {{error.password}}
-    </div>
-    <div class="form-group">
-      <input id="password_confirmation" name="password_confirmation" type="password" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
-                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
-                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Confirm password"
-        [(ngModel)]="form.password_confirmation">
-    </div>
+    <!-- password input -->
+    <input [(ngModel)]="form.password" type="password" name="password" [ngClass]="error.password ? 'invalid-input' : ''"
+      class="w-full appearance-none  dark:bg-black dark:border-dark-gray_0 dark:text-white dark:placeholder:text-gray-500 border text-lg rounded-lg border-gray-300 py-3 px-6  text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
+      placeholder="{{error.password ? error.password : 'Password'}}" />
 
-    <div>
-    </div>
-    <button [disabled]="!signupForm.valid" type="submit" id="next" class="flex w-full justify-center border border-transparent bg-blue-600 py-2 px-4 
-                  text-xl text-white focus:outline-none focus:ring-2
-                   focus:ring-indigo-500 rounded-full focus:ring-offset-2">
-      Next
-    </button>
+    <!-- password confirmation input -->
+    <input [(ngModel)]="form.password_confirmation" type="password" name="password_confirmation"
+      [ngClass]="error.password_confirmation? 'invalid-input' : ''"
+      class="w-full appearance-none  dark:bg-black dark:border-dark-gray_0 dark:text-white dark:placeholder:text-gray-500 border text-lg rounded-lg border-gray-300 py-3 px-6  text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
+      placeholder="{{error.password_confirmation ? error.password_confirmation : 'Password Confirmation'}}" />
+
+    <!-- sign up button -->
+    <input type="submit" value="Create Account" [disabled]="!signupForm.valid"
+      class="rounded-full  flex w-full dark:bg-white dark:text-black dark:hover:bg-gray-200 justify-center items-center cursor-pointer border-2 border-transparent bg-black py-3 px-4 font-semibold  text-xl text-white hover:bg-main-blue_100 transition-colors focus:outline-none focus:ring-offset-2">
   </form>
-</div>
 
 
-
-
-
-
-
-<!-- Next step -->
-<div class="bg-white p-6 absolute rounded shadow-lg" id="popup2" *ngIf="!isDiv1Visible">
-  <div>
-    <a (click)="isDiv1Visible = true"><i class="fa-solid fa-arrow-left mx-1"></i></a>
-    <span>Step 2 of 5 </span>
+  <!-- sign in -->
+  <div class="text-lg text-center dark:text-gray-100">
+    Already have an account?
+    <a routerLink="/login" class="hashtag">Log in</a>
   </div>
-
-  <div>
-    <h1 class="mt-6 text-2xl">Customize your experience</h1>
-  </div><br>
-  <div>
-    <h1 class="text-xl">
-      Track where you see Twitter content across the web
-    </h1>
-  </div>
-  <br>
-  <div class="flex">
-    <div>
-      <h3>Twitter uses this data to personalize your experience.
-        This <br>
-        web browsing history will never be stored with your name,<br>
-        email, or phone number.</h3>
-    </div>
-    <div>
-      <input type="checkbox">
-    </div>
-  </div><br>
-  <div class="mb-2">
-    <p class="text-gray-500">
-      By signing up, you agree to our <span style="color: rgb(105, 105, 232);"><a href="#">Terms</a></span>,
-      <span><a style="color: rgb(105, 105, 232);" href="#">Privacy Policy</a></span>, and <br>
-      <span style="color: rgb(105, 105, 232);"><a href="#">Cookie Use</a></span>.
-      Twitter may use your contact information,
-      including <br> your email address and phone number for purposes outlined in <br>
-      our Privacy Policy. <span style="color: rgb(105, 105, 232);"><a href="#">Learn more</a></span>
-    </p>
-  </div><br><br><br>
-
-  <button type="submit" class="flex w-full justify-center border border-transparent bg-gray-400 py-2 px-4 
-            text-xl text-white hover:bg-blue-600 focus:outline-none focus:ring-2
-             focus:ring-indigo-500 rounded-full focus:ring-offset-2">
-    Next
-  </button>
 </div>
