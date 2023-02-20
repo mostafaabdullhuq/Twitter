@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   public isInSignup: boolean = false;
   public isInRequestReset: boolean = false;
   public isInResponseReset: boolean = false;
+  public popup = false;
+  public user: any;
   constructor(
     private Logged: LoggedService,
     private router: Router,
@@ -51,6 +53,8 @@ export class AppComponent implements OnInit {
           this.isInSignup = false;
           this.isInRequestReset = false;
         }
+      } else {
+        this.user = this.Token.getUser();
       }
     });
   }
@@ -60,5 +64,9 @@ export class AppComponent implements OnInit {
     this.Token.remove();
     this.Logged.changeAuthStatus(false);
     this.router.navigateByUrl('/login');
+  }
+
+  logoutPopup() {
+    this.popup ? (this.popup = false) : (this.popup = true);
   }
 }

@@ -45,7 +45,7 @@
 }
 
 .sticky-active {
-  @apply text-black dark:text-white after:bottom-0 after:absolute after:w-[10%]  after:content-[""] after:bg-main-blue_100 after:rounded-full after:h-1 after:block after:left-[25%] after:translate-x-[-50%];
+  @apply relative text-black dark:text-white after:bottom-0 after:bg-main-blue_100 after:rounded-full after:h-1 after:block   after:absolute after:left-[0] after:translate-x-[50%] after:w-[50%] after:right-[0];
 }
 
 .profile-active {
@@ -136,8 +136,7 @@ router-outlet + app-signin,
 router-outlet + app-signup,
 router-outlet + trends-recommendation,
 router-outlet + app-new-message
-/* router-outlet + * */
-{
+/* router-outlet + * */ {
   @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
 }
 
@@ -149,6 +148,11 @@ router-outlet + app-new-message
   border-left: 5px solid green;
 } */
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

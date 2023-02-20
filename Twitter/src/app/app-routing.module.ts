@@ -17,7 +17,6 @@ import { AfterLoginService } from './Services/after-login.service';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 const routes: Routes = [
-
   {
     path: '',
     component: HomeComponent,
@@ -62,9 +61,27 @@ const routes: Routes = [
     component: ExploreoutComponent,
     canActivate: [BeforeLoginService],
   },
+  // {
+  //   path: 'home?type=1',
+  //   component: HomeComponent,
+  //   canActivate: [AfterLoginService],
+  // },
+  // {
+  //   path: 'home?type=2',
+  //   component: HomeComponent,
+  //   canActivate: [AfterLoginService],
+  // },
 
-  { path: 'home', component: HomeComponent,
-   canActivate: [AfterLoginService] },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: 'home/:type',
+    component: HomeComponent,
+    canActivate: [AfterLoginService],
+  },
 
   {
     path: 'explore',

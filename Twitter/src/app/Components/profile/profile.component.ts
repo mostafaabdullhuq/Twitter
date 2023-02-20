@@ -8,13 +8,16 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(myRoute: ActivatedRoute, public httpClient: TweetsService) {}
+  constructor(myRoute: ActivatedRoute, public tweetsClient: TweetsService) {}
   public tweets = [];
+  public tweetsCount = 0;
+  public user: any;
   ngOnInit(): void {
-    this.httpClient.getTweets().subscribe({
+    this.tweetsClient.getAuthedTweets().subscribe({
       next: (data: any) => {
-        this.tweets = data;
-        console.log(this.tweets);
+        this.tweets = data.tweets;
+        this.user = data.user;
+        this.tweetsCount = this.tweets.length;
       },
       error: (err) => {
         console.log(err);

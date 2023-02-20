@@ -36,6 +36,7 @@ export class SigninComponent implements OnInit {
 
   handelResponse(data: any) {
     this.Token.handel(data.access_token);
+    this.Token.setUser(data.user);
     this.Logged.changeAuthStatus(true);
     this.router.navigateByUrl('/home');
   }

@@ -1,16 +1,42 @@
 import { HttpClient } from '@angular/common/http';
+import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TweetsService {
-  private BASE_URL = 'http://localhost:3000/tweets';
+  private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, public token: TokenService) {}
 
-  getTweets() {
-    return this.httpClient.get(this.BASE_URL);
+  getForYouTweets() {
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL + '/foryou', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
+  getFollowingTweets() {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + '/following', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
+  getAuthedTweets() {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + '/me', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 
   getTweetById(id: any) {
