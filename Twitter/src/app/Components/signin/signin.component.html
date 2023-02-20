@@ -1,53 +1,75 @@
-<div class="   w-[90%] max-w-[600px] min-w-[400px] dark:bg-black dark:bg-opacity-90
-  bg-white p-5 absolute shadow-lg rounded-2xl">
-  <div class="cursor-pointer  flex justify-end  ">
-    <a routerLink="/exploreout"><i class="fa-regular fa-x text-l dark:text-white"></i>
+<div class="w-[90%] max-w-[600px] sm:gap-4  gap-2 min-w-[300px] dark:bg-black 
+  bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl flex flex-col">
+  <!-- close popup -->
+  <div class="flex justify-end cursor-pointer w-full dark:text-white">
+    <a routerLink="/exploreout"
+      class="w-8 h-8  dark:hover:bg-dark-gray_0 hover:bg-main-blue_0  transition-colors dark:hover:bg-opacity-50 rounded-full flex items-center justify-center"><i
+        class="fa-regular fa-x"></i></a>
+  </div>
+  <!-- twitter logo -->
+  <div class="flex justify-center   w-full py-2">
+    <a
+      class="text-main-blue w-16 cursor-pointer dark:hover:bg-gray-50 dark:hover:bg-opacity-10 dark:text-gray-300 h-16 flex items-center justify-center  rounded-full  hover:bg-main-blue_0 transition-colors">
+      <i class="fa-brands fa-twitter text-5xl"></i>
     </a>
   </div>
-  <div class="flex justify-center p-0">
-    <a href="#" class="text-main-blue rounded-full ml-1 pt-1 m-3 hover:bg-main-blue_0 transition-colors">
-      <i class="fa-brands fa-twitter text-5xl dark:text-white"></i>
-    </a>
+
+  <!-- Sign in heading -->
+  <h1 class="text-3xl font-bold text-center  flex items-center justify-center w-full dark:text-gray-100 ">Sign In to
+    Twitter
+  </h1>
+
+  <!-- Sign in with google and facebook -->
+  <div class=" flex w-full items-center justify-center">
+    <button
+      class="flex w-full rounded-full justify-center transition-colors dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 dark:border-dark-gray_0  border-2 py-2  text-xl dark:text-gray-100 hover:bg-black focus:outline-none hover:text-white">
+      <img src="./../../../assets/images/google.png" class="w-7" />
+      <span class="mx-3 font-semibold">Sign in with Google</span>
+    </button>
   </div>
-  <!-- <h1 class="text-3xl font-bold border text-center dark:text-white mb-5">Enter your password</h1> -->
-  <form #loginForm=ngForm (ngSubmit)="onSubmit()">
-    <div [hidden]="!error">
+  <div class="flex items-center justify-center w-full ">
+    <button
+      class="flex w-full rounded-full justify-center transition-colors dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 dark:border-dark-gray_0  border-2 py-2 text-xl dark:text-gray-100 hover:bg-black focus:outline-none hover:text-white">
+      <img src="./../../../assets/images/Facebook-logo.png" class="w-12" />
+      <span class=" mx-3 font-semibold"> Sign in with Facebook </span>
+    </button>
+  </div>
+
+  <!-- Or -->
+  <div class="flex items-center w-full justify-center dark:text-gray-100">
+    <hr class="w-full border-1 dark:border-dark-gray_0" />
+    <h5 class="text-xl text-center mx-4 font-semibold">OR</h5>
+    <hr class="w-full border-1 dark:border-dark-gray_0" />
+  </div>
+
+  <!-- sign in form -->
+  <form class="flex flex-col gap-4  w-full items-center mb-3" #loginForm=ngForm (ngSubmit)="onSubmit()">
+    <div [hidden]="!error" class="text-red-600 text-lg">
       {{error}}
     </div>
-    <div class="mb-3">
-      <input name="email" required class="relative rounded block w-full h-[60px] appearance-none border border-gray-300  dark:border-gray-500 px-3 py-2 
-              text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-100
-              focus:outline-none focus:ring-indigo-500 text-xl dark:bg-black dark:focus:border-blue-400  "
-        [(ngModel)]="form.email" placeholder="Email">
-    </div>
 
-    <div>
-      <input name="password" type="password" required class="relative rounded block w-full h-[60px] appearance-none border border-gray-300  dark:border-gray-500 px-3 py-2 
-              text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-100
-              focus:outline-none focus:ring-indigo-500 text-xl dark:bg-black dark:focus:border-blue-400  "
-        [(ngModel)]="form.password" placeholder="password">
+    <input [(ngModel)]="form.email" type="text" name="email"
+      class="w-full appearance-none dark:bg-black dark:border-dark-gray_0 dark:text-white dark:placeholder:text-gray-500 border text-lg rounded-full border-gray-300 py-3 px-6  text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
+      placeholder="Phone, email or user name" />
 
-    </div>
-    <div>
-      <p class="text-gray-700 dark:text-gray-500">
-        <a routerLink="/request-password-reset" class="text-blue-600 dark:text-blue-800 dark:hover:text-blue-400">Forgot
-          password?</a>
-      </p>
-    </div>
-    <button [disabled]="!loginForm.valid" type="submit" id="next" class="rounded-full flex mt-[50px] font-bold dark:bg-opacity-60
-    w-full justify-center border border-transparent 
-    bg-black py-3 px-4 text-xl text-white
-    dark:bg-white dark:text-black
-    dark:hover:bg-white
-    hover:bg-blue-600 focus:outline-none
-    focus:ring-offset-2">
-      Log In
-    </button>
+    <input [(ngModel)]="form.password" type="password" name="password"
+      class="w-full appearance-none dark:bg-black dark:border-dark-gray_0 dark:text-white dark:placeholder:text-gray-500 border text-lg rounded-full border-gray-300 py-3 px-6  text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none"
+      placeholder="Password" />
+
+    <!-- login button -->
+    <input type="submit" value="Sign in" [disabled]="!loginForm.valid"
+      class="rounded-full  flex w-full dark:bg-white dark:text-black dark:hover:bg-gray-200 justify-center items-center cursor-pointer border-2 border-transparent bg-black py-3 px-4 font-semibold  text-xl text-white hover:bg-main-blue_100 transition-colors focus:outline-none focus:ring-offset-2">
   </form>
-  <div class="flex items-center justify-center">
-    <p class="text-gray-700 dark:text-gray-500">
-      Don't have an account? <a routerLink="/signup"
-        class="text-blue-600  dark:text-blue-800 dark:hover:text-blue-400">Sign up</a>
-    </p>
+
+  <!-- forgot password -->
+  <button routerLink="/request-password-reset"
+    class="flex w-full justify-center dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50 dark:text-gray-100 dark:border-dark-gray_0 transition-colors  border-2 py-3 px-4  text-xl  hover:bg-main-blue_100 hover:border-transparent hover:text-white focus:outline-none rounded-full font-semibold focus:ring-offset-2">
+    Forgot password?
+  </button>
+
+  <!-- sign up -->
+  <div class="text-lg text-center dark:text-gray-100">
+    Don't have an account?
+    <a routerLink="/signup" class="hashtag">Sign up</a>
   </div>
 </div>

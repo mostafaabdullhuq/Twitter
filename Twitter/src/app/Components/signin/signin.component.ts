@@ -24,14 +24,23 @@ export class SigninComponent implements OnInit {
   ) {}
 
   onSubmit() {
-    this.Auth.login(this.form).subscribe({
-      next: (data) => {
-        this.handelResponse(data);
-      },
-      error: (err) => {
-        this.handleError(err);
-      },
-    });
+    const postData = {
+      email: this.form.email,
+      password: this.form.password,
+    };
+
+    if (postData.email && postData.password) {
+      this.Auth.login(postData).subscribe({
+        next: (data) => {
+          this.handelResponse(data);
+        },
+        error: (err) => {
+          this.handleError(err);
+        },
+      });
+    } else {
+      this.error = 'Please fill all fields.';
+    }
   }
 
   handelResponse(data: any) {
