@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GoogleController;
 
