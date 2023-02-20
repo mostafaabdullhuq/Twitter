@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
       this.httpClient.getForYouTweets().subscribe({
         next: (data: any) => {
           this.tweets = data;
-          console.log(this.tweets);
         },
         error: (err) => {
           console.log(err);
