@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateTweetRequest;
+use Apuse App\Models\Reply;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,10 +85,18 @@ class TweetController extends Controller
         return $tweet;
     }
 
-    // public function details($id)
-    // {
-    //     return auth()->user()->tweets()->findOrFail($id);
-    // }
+    public function details($id)
+    {
+        $tweet = Tweet::findOrFail($id);
+        $replies = $tweet->replies;
+        $tweet = $this->formatTweet($tweet);
+
+        foreach ($replies as $reply) {
+            $reply->user = $reply->user;
+        }
+
+        return $tweet;
+    }
 
     // public function edit(Request $request, $id)
     // {
@@ -174,6 +183,24 @@ class TweetController extends Controller
     // }
 
 
+    public function formatTweet($tweet)
+    {
+        $tweet->user;
+        unset($tweet->user->google_access_token);
+        unset($tweet->user->facebook_access_token);
+        unset($tweet->user->email_verified_at);
+        unset($tweet->user->updated_at);
+        unset($tweet->user_id);
+        $tweet->media;
+        unset($tweet->media[0]['parent_id']);
+        unset($tweet->media[0]['parent_type']);
+        $tweet->user->followers_count = $tweet->user->followers()->count();
+        $tweet->user->followings_count = $tweet->user->followings()->count();
+        $tweet->user->tweets_count = $tweet->user->tweets()->count();
+        return $tweet;
+    }
+
+
     public function formatTweets($tweets)
     {
         foreach ($tweets as $value) {
@@ -183,10 +210,6 @@ class TweetController extends Controller
             unset($value->user->email_verified_at);
             unset($value->user->updated_at);
             unset($value->user_id);
-            $value->user->followers_count = $value->user->followers()->count();
-            $value->user->followings_count = $value->user->followings()->count();
-            $value->user->tweets_count = $value->user->tweets()->count();
-        }
-        return $tweets;
-    }
-}
+            $value->media;
+            unset($value->media->parent_type);
+            unset($value->media->parent_id);

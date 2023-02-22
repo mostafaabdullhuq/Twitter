@@ -6,6 +6,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\FacebookController;
 
 Route::group([
     'middleware' => 'api',
@@ -18,6 +19,8 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
     Route::get('/redirect/google', [GoogleController::class, 'redirectGoogle']);
     Route::get('/callback/google', [GoogleController::class, 'callbackGoogle']);
+    Route::get('/redirect/facebook', [FacebookController::class, 'redirectFacebook']);
+    Route::post('/callback/facebook', [FacebookController::class, 'callbackFacebook']);
     Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
     Route::post('resetPassword', [ChangePasswordController::class, 'process']);
 });
@@ -42,7 +45,6 @@ Route::group([
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
     Route::post('create', [TweetController::class, 'create']);
-    Route::get('details/{id}', [TweetController::class, 'details']);
     Route::post('edit/{id}', [TweetController::class, 'edit']);
     Route::post('delete/{id}', [TweetController::class, 'delete']);
     Route::post('like/{id}', [TweetController::class, 'like']);
@@ -55,6 +57,7 @@ Route::group([
     Route::post('{tweet_id}/like', [TweetController::class, 'like']);
     Route::delete('{tweet_id}/unlike', [TweetController::class, 'unlike']);
 
+    Route::get('{id}', [TweetController::class, 'details']);
 });
 
 // Route::post('tweet', [TweetController::class, 'store']);
