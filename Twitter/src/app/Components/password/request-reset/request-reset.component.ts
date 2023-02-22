@@ -28,7 +28,6 @@ onSubmit(){
 
 
   handleResponse(res: any) {
-    // this.form.email = null;
     this.router.navigate(['/confirm']);
   }
 

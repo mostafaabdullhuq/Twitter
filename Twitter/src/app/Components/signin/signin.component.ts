@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit {
     private Auth: AuthService,
     private Token: TokenService,
     private router: Router,
-    private Logged: LoggedService
+    private Logged: LoggedService,
   ) {}
 
   onSubmit() {
