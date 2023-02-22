@@ -32,8 +32,6 @@ public function __construct($token)
  */
 public function build()
 {
-    return $this->markdown('=Email.passwordReset')->with([
-        'token' => $this->token
-    ]);
+    return $this->markdown('=Email.passwordReset')->with(['token', $this->token]);
 }
 }
