@@ -48,9 +48,16 @@ Route::group([
     Route::post('like/{id}', [TweetController::class, 'like']);
     Route::post('unlike/{id}', [TweetController::class, 'unlike']);
     Route::post('retweet/{id}', [TweetController::class, 'retweet']);
+
+    Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
+    Route::get('{tweet_id}/replies', [TweetController::class, 'replies']);
+    Route::get('{tweet_id}/reply' ,[TweetController::class, 'reply']);
+    Route::post('{tweet_id}/like', [TweetController::class, 'like']);
+    Route::delete('{tweet_id}/unlike', [TweetController::class, 'unlike']);
+
 });
 
-
+// Route::post('tweet', [TweetController::class, 'store']);
 
 
 

@@ -35,6 +35,24 @@ class TweetController extends Controller
         ];
     }
 
+    public function get_User_Retweets()
+    {
+
+        $retweets = JWTAuth::user()->retweets()->latest()->get();
+        $user = JWTAuth::user();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->retweets()->count();
+
+        $retweets = $this->formatTweets($retweets);
+
+
+        return [
+            'user' => $user,
+            'retweets' => $retweets
+        ];
+    }
+
 
 
 
