@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
 import { Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
