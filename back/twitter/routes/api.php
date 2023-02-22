@@ -20,7 +20,7 @@ Route::group([
     Route::get('/redirect/google', [GoogleController::class, 'redirectGoogle']);
     Route::get('/callback/google', [GoogleController::class, 'callbackGoogle']);
     Route::get('/redirect/facebook', [FacebookController::class, 'redirectFacebook']);
-    Route::get('/callback/facebook', [FacebookController::class, 'callbackFacebook']);
+    Route::post('/callback/facebook', [FacebookController::class, 'callbackFacebook']);
     Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
     Route::post('resetPassword', [ChangePasswordController::class, 'process']);
 });
@@ -50,7 +50,7 @@ Route::group([
     Route::post('like/{id}', [TweetController::class, 'like']);
     Route::post('unlike/{id}', [TweetController::class, 'unlike']);
     Route::post('retweet/{id}', [TweetController::class, 'retweet']);
-    Route::get('details/{id}', [TweetController::class, 'details']);
+    Route::get('{id}', [TweetController::class, 'details']);
 });
 
 

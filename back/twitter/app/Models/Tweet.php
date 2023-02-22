@@ -31,4 +31,13 @@ class Tweet extends Model
             'repliable'
         );
     }
+
+
+    public function media()
+    {
+        return $this->morphMany(
+            Media::class,
+            'parent'
+        );
+    }
 }
