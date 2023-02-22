@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Reply;
 
-class Tweet extends Model
+class Reply extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         'text',
-        'schedule_date_time',
         'user_id',
+        'repliable_id',
+        'repliable_type'
     ];
+
 
 
     public function user()
@@ -24,11 +24,15 @@ class Tweet extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public function repliable()
     {
-        return $this->morphMany(
-            Reply::class,
-            'repliable'
-        );
+        return $this->morphTo();
     }
+
+    // public function replies()
+    // {
+    //     return $this->hasMany(Reply::class);
+    // }
+
+
 }

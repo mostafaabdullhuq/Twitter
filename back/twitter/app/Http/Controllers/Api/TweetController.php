@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateTweetRequest;
+use App\Models\Reply;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,10 +67,17 @@ class TweetController extends Controller
         return $tweet;
     }
 
-    // public function details($id)
-    // {
-    //     return auth()->user()->tweets()->findOrFail($id);
-    // }
+    public function details($id)
+    {
+        $tweet = [
+            'tweet' => Tweet::findOrFail($id),
+            'user' => Tweet::findOrFail($id)->user,
+            'replies' => Tweet::findOrFail($id)->replies,
+        ];
+
+
+        return $tweet;
+    }
 
     // public function edit(Request $request, $id)
     // {

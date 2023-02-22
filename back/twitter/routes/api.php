@@ -41,12 +41,12 @@ Route::group([
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
     Route::post('create', [TweetController::class, 'create']);
-    Route::get('details/{id}', [TweetController::class, 'details']);
     Route::post('edit/{id}', [TweetController::class, 'edit']);
     Route::post('delete/{id}', [TweetController::class, 'delete']);
     Route::post('like/{id}', [TweetController::class, 'like']);
     Route::post('unlike/{id}', [TweetController::class, 'unlike']);
     Route::post('retweet/{id}', [TweetController::class, 'retweet']);
+    Route::get('details/{id}', [TweetController::class, 'details']);
 });
 
 
