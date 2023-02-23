@@ -58,12 +58,31 @@ class TweetController extends Controller
     public function create(CreateTweetRequest $request)
     {
         $tweetText = $request->text;
+        $tweetMedia = $request->media ?? null;
+        $tweetScheduleDateTime = $request->schedule_date_time ?? null;
+        $mediaType = $tweetMedia->getClientMimeType();
+        $mediaType = explode('/', $mediaType)[0];
+        if ($mediaType === 'image') {
+            $mediaType = 1;
+        }
+        if ($mediaType === 'video') {
+            $mediaType = 2;
+        }
         $tweet = JWTAuth::user()->tweets()->create(
             [
                 'text' => $tweetText,
-                'schedule_date_time' => $request->schedule_date_time ?? now(),
+                'schedule_date_time' => $tweetScheduleDateTime ?? now(),
+                'user_id' => JWTAuth::user()->id
             ]
         );
+        if ($tweetMedia) {
+            $tweetMedia = $this->uploadTweetMedia($tweetMedia);
+            $tweet->media()->create([
+                'media_url' => $tweetMedia,
+                'media_type' => $mediaType
+            ]);
+        }
+
         return $tweet;
     }
 
@@ -83,6 +102,80 @@ class TweetController extends Controller
             return response()->json(['error' => $e->getMessage(), 'code' => 2], 500);
         }
     }
+
+
+    public function formatTweet($tweet)
+    {
+        $tweet->user;
+        unset($tweet->user->google_access_token);
+        unset($tweet->user->facebook_access_token);
+        unset($tweet->user->email_verified_at);
+        unset($tweet->user->updated_at);
+        unset($tweet->user_id);
+        $media = $tweet->media;
+        if ($media->count()) {
+            foreach ($media as $key => $value) {
+                unset($value['parent_id']);
+                unset($value['parent_type']);
+            }
+        }
+        $replies = $tweet->replies;
+        foreach ($replies as $reply) {
+            $reply->user = $reply->user;
+            unset($reply->repliable_type);
+            unset($reply->repliable_id);
+            unset($reply->user->google_access_token);
+            unset($reply->user->facebook_access_token);
+            unset($reply->user->email_verified_at);
+            unset($reply->user->updated_at);
+            $replyMedia = $reply->media;
+            foreach ($replyMedia as $key => $value) {
+                unset($value->parent_type);
+                unset($value->parent_id);
+                unset($value->updated_at);
+            }
+            $reply->media = $replyMedia;
+            $reply->replies_count = random_int(0, 999999999);
+            $reply->likes_count = random_int(0, 999999999);
+            $reply->retweets_count = random_int(0, 999999999);
+            $reply->views_count = random_int(0, 999999999);
+            // $reply->replies_count =$reply->replies()->count();
+            // $reply->likes_count = $reply->likes()->count();
+            // $reply->retweets_count = $reply->retweets()->count();
+            // $reply->views_count = $reply->views()->count();
+        }
+        $tweet->replies = $replies;
+        $tweet->user->followers_count = $tweet->user->followers()->count();
+        $tweet->user->followings_count = $tweet->user->followings()->count();
+        $tweet->user->tweets_count = $tweet->user->tweets()->count();
+        return $tweet;
+    }
+
+
+    public function formatTweets($tweets)
+    {
+        foreach ($tweets as $value) {
+            $value->user;
+            unset($value->user->google_access_token);
+            unset($value->user->facebook_access_token);
+            unset($value->user->email_verified_at);
+            unset($value->user->updated_at);
+            unset($value->user_id);
+            $value->media;
+            unset($value->media->parent_type);
+            unset($value->media->parent_id);
+            $value->user->followers_count = $value->user->followers()->count();
+            $value->user->followings_count = $value->user->followings()->count();
+            $value->user->tweets_count = $value->user->tweets()->count();
+        }
+        return $tweets;
+    }
+}
+
+
+
+
+
 
     // public function edit(Request $request, $id)
     // {
@@ -167,72 +260,3 @@ class TweetController extends Controller
     //     $tweet->shares()->where('user_id', auth()->id())->delete();
     //     return $tweet;
     // }
-
-
-    public function formatTweet($tweet)
-    {
-        $tweet->user;
-        unset($tweet->user->google_access_token);
-        unset($tweet->user->facebook_access_token);
-        unset($tweet->user->email_verified_at);
-        unset($tweet->user->updated_at);
-        unset($tweet->user_id);
-        $media = $tweet->media;
-        if ($media->count()) {
-            foreach ($media as $key => $value) {
-                unset($value['parent_id']);
-                unset($value['parent_type']);
-            }
-        }
-        $replies = $tweet->replies;
-        foreach ($replies as $reply) {
-            $reply->user = $reply->user;
-            unset($reply->repliable_type);
-            unset($reply->repliable_id);
-            unset($reply->user->google_access_token);
-            unset($reply->user->facebook_access_token);
-            unset($reply->user->email_verified_at);
-            unset($reply->user->updated_at);
-            $replyMedia = $reply->media;
-            foreach ($replyMedia as $key => $value) {
-                unset($value->parent_type);
-                unset($value->parent_id);
-                unset($value->updated_at);
-            }
-            $reply->media = $replyMedia;
-            $reply->replies_count = random_int(0, 999999999);
-            $reply->likes_count = random_int(0, 999999999);
-            $reply->retweets_count = random_int(0, 999999999);
-            $reply->views_count = random_int(0, 999999999);
-            // $reply->replies_count =$reply->replies()->count();
-            // $reply->likes_count = $reply->likes()->count();
-            // $reply->retweets_count = $reply->retweets()->count();
-            // $reply->views_count = $reply->views()->count();
-        }
-        $tweet->replies = $replies;
-        $tweet->user->followers_count = $tweet->user->followers()->count();
-        $tweet->user->followings_count = $tweet->user->followings()->count();
-        $tweet->user->tweets_count = $tweet->user->tweets()->count();
-        return $tweet;
-    }
-
-
-    public function formatTweets($tweets)
-    {
-        foreach ($tweets as $value) {
-            $value->user;
-            unset($value->user->google_access_token);
-            unset($value->user->facebook_access_token);
-            unset($value->user->email_verified_at);
-            unset($value->user->updated_at);
-            unset($value->user_id);
-            $value->media;
-            unset($value->media->parent_type);
-            unset($value->media->parent_id);
-            $value->user->followers_count = $value->user->followers()->count();
-            $value->user->followings_count = $value->user->followings()->count();
-            $value->user->tweets_count = $value->user->tweets()->count();
-        }
-        return $tweets;
-    }
-}
