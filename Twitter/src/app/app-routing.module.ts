@@ -35,6 +35,12 @@ const routes: Routes = [
     component: SigninComponent,
     canActivate: [BeforeLoginService],
   },
+  
+  // {
+  //   path: 'redirect/facebook',
+  //   component: SigninComponent,
+  //   canActivate: [BeforeLoginService],
+  // },
 
   {
     path: 'signup',

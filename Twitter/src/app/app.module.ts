@@ -94,12 +94,12 @@ import {
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              'clientId'
+              '1032393167493-djg4gqrnejak3b4nope9rol5r7j26h97.apps.googleusercontent.com'
             )
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
+            provider: new FacebookLoginProvider('1249243529000381')
           }
         ],
         onError: (err) => {
