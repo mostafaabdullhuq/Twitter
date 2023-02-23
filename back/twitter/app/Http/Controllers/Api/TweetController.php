@@ -213,3 +213,6 @@ class TweetController extends Controller
             $value->media;
             unset($value->media->parent_type);
             unset($value->media->parent_id);
+        }
+        return $tweets;
+    }
