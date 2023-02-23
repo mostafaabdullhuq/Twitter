@@ -9,21 +9,26 @@
         <div class="flex p-4 h-fit">
             <img class="twitter-user-img"
                 src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
-            <textarea
-                class="px-3 py-3 text-2xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
-                name="" id="" placeholder="What's happening?"></textarea>
+            <form [formGroup]="tweetForm">
+                <textarea formControlName="text"
+                    class="px-3 py-3 text-2xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
+                    name="" id="" placeholder="What's happening?"></textarea>
+            </form>
         </div>
         <div class="controls relative w-full grid grid-cols-2">
             <!-- tweet icons -->
             <div class="flex p-4 sm:pl-16 pl-6">
-                <a href=""
-                    class="text-main-blue w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20"
+                <a class="text-main-blue cursor-pointer  relative overflow-hidden  w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20"
                     title="Media">
+                    <!-- media upload -->
+                    <input type="file" accept="image/*,video/*"
+                        class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
                     <i class="w-full fa-regular fa-image text-lg"></i>
                 </a>
-                <a href=""
-                    class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
+                <a class="text-main-blue relative dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
                     title="GIF">
+                    <!-- gif upload -->
+                    <input type="file" accept="image/gif" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
                     <i class="w-full fa-regular fa-file-image"></i>
                 </a>
                 <a href=""

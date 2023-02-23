@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
@@ -9,6 +10,13 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  public tweets = [];
+  public user: any;
+  public tweetForm = new FormGroup({
+    text: new FormControl(null, [Validators.max(1000)]),
+    // media: new FormControl(null, [Validators.required]),
+  });
+
   constructor(
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService,
@@ -16,8 +24,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.user = this.Token.getUser();
   }
-  public tweets = [];
-  public user: any;
 
   ngOnInit(): void {
     if (this.myRoute.snapshot?.url[1]?.path === 'following') {
