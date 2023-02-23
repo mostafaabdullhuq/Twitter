@@ -58,129 +58,111 @@ class TweetController extends Controller
     public function create(CreateTweetRequest $request)
     {
         $tweetText = $request->text;
+        $tweetMedia = $request->media ?? null;
+        $tweetScheduleDateTime = $request->schedule_date_time ?? null;
+        $mediaType = $tweetMedia->getClientMimeType();
+        $mediaType = explode('/', $mediaType)[0];
+        if ($mediaType === 'image') {
+            $mediaType = 1;
+        }
+        if ($mediaType === 'video') {
+            $mediaType = 2;
+        }
+
+        $tweetMedia = $tweetMedia ? $tweetMedia->store('public/media') : null;
+        $mediaName = explode('/', $tweetMedia)[2];
+        // $tweetMedia = $tweetMedia ? asset('storage/media/') : null;
+        // dd($tweetMedia);
+
         $tweet = JWTAuth::user()->tweets()->create(
             [
                 'text' => $tweetText,
-                'schedule_date_time' => $request->schedule_date_time ?? now(),
+                'schedule_date_time' => $tweetScheduleDateTime ?? now(),
+                'user_id' => JWTAuth::user()->id
             ]
         );
+        if ($tweetMedia) {
+            $tweet->media()->create([
+                'media_url' => $mediaName,
+                'media_type' => $mediaType
+            ]);
+        }
         return $tweet;
     }
 
     public function details($id)
     {
-        $tweet = Tweet::findOrFail($id);
-        $replies = $tweet->replies;
-        $tweet = $this->formatTweet($tweet);
-
-        foreach ($replies as $reply) {
-            $reply->user = $reply->user;
+        try {
+            $tweet = Tweet::findOrFail($id);
+            $tweet = $this->formatTweet($tweet);
+            return $tweet;
+        } catch (
+            \Illuminate\Database\Eloquent\ModelNotFoundException $e
+        ) {
+            return response()->json(['error' => 'Tweet not found.', 'code' => 1], 404);
+        } catch (
+            \Exception $e
+        ) {
+            return response()->json(['error' => $e->getMessage(), 'code' => 2], 500);
         }
-
-        return $tweet;
     }
-
-    // public function edit(Request $request, $id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->update($request->all());
-    //     return $tweet;
-    // }
-
-    // public function delete($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->delete();
-    //     return response()->json(null, 204);
-    // }
-
-    // public function like($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->likes()->create(['user_id' => auth()->id()]);
-    //     return $tweet;
-    // }
-
-    // public function unlike($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->likes()->where('user_id', auth()->id())->delete();
-    //     return $tweet;
-    // }
-
-    // public function retweet($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->retweets()->create(['user_id' => auth()->id()]);
-    //     return $tweet;
-    // }
-
-    // public function unretweet($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->retweets()->where('user_id', auth()->id())->delete();
-    //     return $tweet;
-    // }
-
-    // public function reply(Request $request, $id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->replies()->create($request->all());
-    //     return $tweet;
-    // }
-
-    // public function unreply($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->replies()->where('user_id', auth()->id())->delete();
-    //     return $tweet;
-    // }
-
-    // public function bookmark($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->bookmarks()->create(['user_id' => auth()->id()]);
-    //     return $tweet;
-    // }
-
-    // public function unbookmark($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->bookmarks()->where('user_id', auth()->id())->delete();
-    //     return $tweet;
-    // }
-
-    // public function share($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->shares()->create(['user_id' => auth()->id()]);
-    //     return $tweet;
-    // }
-
-    // public function unshare($id)
-    // {
-    //     $tweet = auth()->user()->tweets->findOrFail($id);
-    //     $tweet->shares()->where('user_id', auth()->id())->delete();
-    //     return $tweet;
-    // }
 
 
     public function formatTweet($tweet)
     {
+        // add user object to the tweet object and delete security sensitive information
         $tweet->user;
         unset($tweet->user->google_access_token);
         unset($tweet->user->facebook_access_token);
         unset($tweet->user->email_verified_at);
         unset($tweet->user->updated_at);
         unset($tweet->user_id);
-        $tweet->media;
-        unset($tweet->media[0]['parent_id']);
-        unset($tweet->media[0]['parent_type']);
+
+
+
+
+        // get the media of the tweet and update it's url values and remove security sensitive info
+        $media = $tweet->media;
+        if ($media->count()) {
+            foreach ($media as $key => $value) {
+                unset($value['parent_id']);
+                unset($value['parent_type']);
+                unset($value['updated_at']);
+                $value->media_url = asset('storage/media/' . $value->media_url);
+            }
+        }
+        $replies = $tweet->replies;
+
+        foreach ($replies as $reply) {
+            $reply->user = $reply->user;
+            unset($reply->repliable_type);
+            unset($reply->repliable_id);
+            unset($reply->user->google_access_token);
+            unset($reply->user->facebook_access_token);
+            unset($reply->user->email_verified_at);
+            unset($reply->user->updated_at);
+            $replyMedia = $reply->media;
+            foreach ($replyMedia as $key => $value) {
+                unset($value->parent_type);
+                unset($value->parent_id);
+                unset($value->updated_at);
+            }
+            $reply->media = $replyMedia;
+            $reply->replies_count = random_int(0, 999999999);
+            $reply->likes_count = random_int(0, 999999999);
+            $reply->retweets_count = random_int(0, 999999999);
+            $reply->views_count = random_int(0, 999999999);
+        }
+        $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         return $tweet;
     }
+
+
+
+
 
 
     public function formatTweets($tweets)
@@ -198,7 +180,14 @@ class TweetController extends Controller
             $value->user->followers_count = $value->user->followers()->count();
             $value->user->followings_count = $value->user->followings()->count();
             $value->user->tweets_count = $value->user->tweets()->count();
+            foreach ($value->media as $media_key => $media_value) {
+                $media_value->media_url = $media_value->media_url ? asset('storage/media/' . $media_value->media_url) : null;
+                unset($media_value['parent_id']);
+                unset($media_value['parent_type']);
+                unset($media_value['updated_at']);
+            }
         }
+
         return $tweets;
     }
 }

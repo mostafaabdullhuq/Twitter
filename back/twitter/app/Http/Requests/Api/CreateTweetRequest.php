@@ -24,9 +24,10 @@ class CreateTweetRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required|string|max:500',
+            'text' => 'string|max:500|required_without:media',
             'schedule_date_time' => 'date',
-            // 'media' => ''
+            'media' => "file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,m4v,avi,flv,mov|max:50000|required_without:text",
+            // 'media' => "file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,video/quicktime,video/avi,video/mpeg|max:50000|required_without:text",
         ];
     }
 }

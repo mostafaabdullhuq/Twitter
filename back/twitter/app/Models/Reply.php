@@ -29,10 +29,12 @@ class Reply extends Model
         return $this->morphTo();
     }
 
-    // public function replies()
-    // {
-    //     return $this->hasMany(Reply::class);
-    // }
 
-
+    public function media()
+    {
+        return $this->morphMany(
+            Media::class,
+            'parent'
+        );
+    }
 }
