@@ -17,6 +17,7 @@ import { AfterLoginService } from './Services/after-login.service';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
+import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 const routes: Routes = [
   {
     path: '',
@@ -64,7 +65,11 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AfterLoginService],
   },
-
+  {
+    path: 'status/:id',
+    component: TweetDetailsComponent,
+    canActivate: [AfterLoginService],
+  },
   {
     path: 'explore',
     component: ExploreComponent,
@@ -133,5 +138,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-
 export class AppRoutingModule {}

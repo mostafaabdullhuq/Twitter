@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .nav-active {
-  @apply font-bold;
+  @apply font-extrabold;
 }
 
 .nav-item {
@@ -17,7 +17,7 @@
 }
 
 .reply {
-  @apply border-b    border-gray-100 dark:border-dark-gray_0 hover:bg-gray-100 dark:hover:bg-transparent  flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4  transition-colors;
+  @apply border-b pr-6    border-gray-100 dark:border-dark-gray_0 hover:bg-gray-100 dark:hover:bg-transparent  flex flex-row sm:px-4 px-2 py-1  pb-4  transition-colors;
 }
 
 .single-tweet {
@@ -67,35 +67,19 @@
 .dotted-text {
   @apply overflow-hidden text-ellipsis whitespace-nowrap;
 }
-
-/* [contenteditable] b {
-    font-weight: normal;
-}
-
-[contenteditable] i {
-    font-style: normal;
-}
-
-[contenteditable] img {
-    display: none;
-}
-
 [contenteditable] {
-    outline: none;
+  @apply relative;
 }
 
-[contenteditable] * {
-    font-style: normal !important;
-    font-weight: normal !important;
-    @apply md:text-xl !important;
-    @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  !important;
-
-} */
 [contenteditable] * {
   font-style: normal !important;
   font-weight: normal !important;
   @apply md:text-xl !important;
   @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
+}
+
+[contenteditable] img {
+  @apply object-cover !important;
 }
 
 .hashtag {
@@ -121,6 +105,23 @@
   @apply w-11 h-11 rounded-full cursor-pointer hover:opacity-90 ml-2;
 }
 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.invalid-input {
+  @apply border-red-500  placeholder-red-500 placeholder:text-medium;
+}
+
+::-webkit-file-upload-button {
+  @apply cursor-pointer;
+}
+
 router-outlet + app-home,
 router-outlet + app-profile,
 router-outlet + app-notification,
@@ -135,28 +136,13 @@ router-outlet + app-settings,
 router-outlet + app-signin,
 router-outlet + app-signup,
 router-outlet + trends-recommendation,
-router-outlet + app-new-message
+router-outlet + app-new-message,
+router-outlet + app-tweet-details,
+router-outlet + *
 /* router-outlet + * */ {
   @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
 }
 
-/* .ng-invalid:not(form) {
-  border-left: 5px solid red;
-}
-
-.ng-valid:not(form) {
-  border-left: 5px solid green;
-} */
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.invalid-input {
-  @apply border-red-500  placeholder-red-500 placeholder:text-medium;
+.create_tweet:disabled {
+  @apply bg-main-blue_0;
 }
