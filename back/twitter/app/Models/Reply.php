@@ -34,5 +34,35 @@ class Reply extends Model
     //     return $this->hasMany(Reply::class);
     // }
 
+    public function media()
+    {
+        return $this->morphMany(
+            Media::class,
+            'parent'
+        );
+    }
 
+    // public function likes()
+    // {
+    //     return $this->morphMany(
+    //         Like::class,
+    //         'likeable'
+    //     );
+    // }
+
+    // public function retweets()
+    // {
+    //     return $this->morphMany(
+    //         Retweet::class,
+    //         'retweetable'
+    //     );
+    // }
+
+    // public function views()
+    // {
+    //     return $this->morphMany(
+    //         View::class,
+    //         'viewable'
+    //     );
+    // }
 }

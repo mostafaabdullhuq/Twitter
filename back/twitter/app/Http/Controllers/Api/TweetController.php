@@ -87,15 +87,19 @@ class TweetController extends Controller
 
     public function details($id)
     {
-        $tweet = Tweet::findOrFail($id);
-        $replies = $tweet->replies;
-        $tweet = $this->formatTweet($tweet);
-
-        foreach ($replies as $reply) {
-            $reply->user = $reply->user;
+        try {
+            $tweet = Tweet::findOrFail($id);
+            $tweet = $this->formatTweet($tweet);
+            return $tweet;
+        } catch (
+            \Illuminate\Database\Eloquent\ModelNotFoundException $e
+        ) {
+            return response()->json(['error' => 'Tweet not found.', 'code' => 1], 404);
+        } catch (
+            \Exception $e
+        ) {
+            return response()->json(['error' => $e->getMessage(), 'code' => 2], 500);
         }
-
-        return $tweet;
     }
 
     // public function edit(Request $request, $id)
@@ -191,9 +195,39 @@ class TweetController extends Controller
         unset($tweet->user->email_verified_at);
         unset($tweet->user->updated_at);
         unset($tweet->user_id);
-        $tweet->media;
-        unset($tweet->media[0]['parent_id']);
-        unset($tweet->media[0]['parent_type']);
+        $media = $tweet->media;
+        if ($media->count()) {
+            foreach ($media as $key => $value) {
+                unset($value['parent_id']);
+                unset($value['parent_type']);
+            }
+        }
+        $replies = $tweet->replies;
+        foreach ($replies as $reply) {
+            $reply->user = $reply->user;
+            unset($reply->repliable_type);
+            unset($reply->repliable_id);
+            unset($reply->user->google_access_token);
+            unset($reply->user->facebook_access_token);
+            unset($reply->user->email_verified_at);
+            unset($reply->user->updated_at);
+            $replyMedia = $reply->media;
+            foreach ($replyMedia as $key => $value) {
+                unset($value->parent_type);
+                unset($value->parent_id);
+                unset($value->updated_at);
+            }
+            $reply->media = $replyMedia;
+            $reply->replies_count = random_int(0, 999999999);
+            $reply->likes_count = random_int(0, 999999999);
+            $reply->retweets_count = random_int(0, 999999999);
+            $reply->views_count = random_int(0, 999999999);
+            // $reply->replies_count =$reply->replies()->count();
+            // $reply->likes_count = $reply->likes()->count();
+            // $reply->retweets_count = $reply->retweets()->count();
+            // $reply->views_count = $reply->views()->count();
+        }
+        $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
