@@ -25,11 +25,13 @@ class FacebookController extends Controller
                 $new_user = User::create([
                     'email' => $facebook_user->getEmail(),
                     'facebook_access_token' => $facebook_user->getId(),
-
                 ]);
                 Auth::login($new_user);
+                // return redirect('/home');
             } else {
                 Auth::login($user);
+                // return redirect('/home');
+
             }
         } catch (\Throwable $th) {
             dd('Error ', $th->getMessage());
