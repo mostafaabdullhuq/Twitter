@@ -52,12 +52,3 @@ Route::group([
     Route::post('retweet/{id}', [TweetController::class, 'retweet']);
     Route::get('{id}', [TweetController::class, 'details']);
 });
-
-
-
-
-
-
-# php artisan key:generate
-# php artisan jwt:secret
-# jwt-auth secret [5M5guU5h5DjiOjDVbi9lB4OL2UHMujOgly58r0mnVf4jqytIERVC85RpBSxqnu5C] set successfully..
