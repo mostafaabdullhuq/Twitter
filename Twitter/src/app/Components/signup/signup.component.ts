@@ -46,8 +46,4 @@ export class SignupComponent implements OnInit {
     this.error = error.error.errors;
   }
   ngOnInit(): void {}
-
-  // close(): void {
-  //   this.dialogRef.close();
-  // }
 }
