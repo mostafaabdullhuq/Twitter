@@ -106,10 +106,10 @@ export class SigninComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(user => {
-        //redirect to home?
+        this.router.navigateByUrl('/home');
       })
       .catch(err => {
-        //unsuccessful log in error?
+        console.log(err);
       });
 
   }
@@ -117,8 +117,12 @@ export class SigninComponent implements OnInit {
   signInWithFacebook(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then(user => {
+        this.router.navigateByUrl('/home');
+
       })
-      .catch(err => {
+     .catch(err => {
+        console.log(err);
+
       });
 
   }
