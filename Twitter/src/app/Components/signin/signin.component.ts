@@ -111,17 +111,21 @@ export class SigninComponent implements OnInit {
     this.authService
       .signIn(GoogleLoginProvider.PROVIDER_ID)
       .then((user) => {
-        //redirect to home?
+        this.router.navigateByUrl('/home');
       })
       .catch((err) => {
-        //unsuccessful log in error?
+        console.log(err);
       });
   }
 
   signInWithFacebook(): void {
     this.authService
       .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((user) => {})
-      .catch((err) => {});
+      .then((user) => {
+        this.router.navigateByUrl('/home');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
