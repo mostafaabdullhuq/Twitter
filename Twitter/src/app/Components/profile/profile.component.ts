@@ -9,7 +9,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 })
 export class ProfileComponent implements OnInit {
   constructor(myRoute: ActivatedRoute, public tweetsClient: TweetsService) {}
-  public tweets = [];
+  public tweets: any;
   public tweetsCount = 0;
   public user: any;
   ngOnInit(): void {

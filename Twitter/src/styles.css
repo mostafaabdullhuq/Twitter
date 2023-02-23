@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .nav-active {
-  @apply font-bold;
+  @apply font-extrabold;
 }
 
 .nav-item {

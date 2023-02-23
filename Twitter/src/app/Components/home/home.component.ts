@@ -16,7 +16,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  public tweets = [];
+  public tweets: any;
   public user: any;
   public tweetForm = new FormGroup({
     text: new FormControl(null, [Validators.max(1000)]),
@@ -102,5 +102,6 @@ export class HomeComponent implements OnInit {
 
   removeMedia() {
     this.tweetMedia = null;
+    this.tweetForm.patchValue({ media: null });
   }
 }

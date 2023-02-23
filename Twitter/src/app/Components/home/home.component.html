@@ -1,7 +1,5 @@
 <!-- ! -------middle start ------- -->
-
-
-<div id="middleRoot"
+<div id="middleRoot" *ngIf="user;else loadingBlock"
     class="pb-20 sm:pb-0 h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
     <app-sticky-header-home></app-sticky-header-home>
     <!-- new tweet section -->
@@ -11,18 +9,13 @@
                 <img class="twitter-user-img"
                     src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
 
-                <!-- write tweet box -->
-                <!-- <div #tweetBox contenteditable="true" data-before="What's happening?"
-                    class="after:hidden md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-md max-w-full tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-auto break-words overflow-x-hidden">
-                    <br>
-                </div> -->
                 <textarea formControlName="text"
                     class="px-3 py-3 text-xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
                     name="" id="" placeholder="What's happening?"></textarea>
             </div>
             <!-- new tweet media -->
-            <div *ngIf="tweetMedia"
-                class="media border relative border-light-gray dark:border-dark-gray_0 flex w-[90%] mb-3 max-h-[300px] mt-2 rounded-xl m-auto overflow-hidden">
+            <div *ngIf="tweetMedia "
+                class="media border bg-white relative border-light-gray dark:border-dark-gray_0 flex w-[90%] mb-3 max-h-[300px] mt-2 rounded-xl m-auto overflow-hidden">
                 <img #mediaPreview src="{{tweetMedia}}" class="object-cover w-full object-center" alt="">
 
                 <div class="absolute hover:bg-dark-black_100 transition-opacity
@@ -65,7 +58,7 @@
                 </div>
                 <!-- tweet button -->
                 <div class="flex py-2.5 justify-end px-6">
-                    <input type="submit" value="Tweet" [disabled]="!this.tweetForm.valid"
+                    <input type="submit" value="Tweet"
                         class="bg-main-blue_100 cursor-pointer create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_200 dark:opacity-50">
                 </div>
             </div>
@@ -98,3 +91,14 @@
     <app-message-popup></app-message-popup>
 </div>
 <!--! -----------right end---------- -->
+
+
+<ng-template #loadingBlock>
+    <div
+        class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+        <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
+            <i class="fa-solid fa-spinner text-2xl animate-spin"></i>
+        </div>
+
+    </div>
+</ng-template>
