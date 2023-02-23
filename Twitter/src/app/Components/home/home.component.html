@@ -5,56 +5,74 @@
     class="pb-20 sm:pb-0 h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
     <app-sticky-header-home></app-sticky-header-home>
     <!-- new tweet section -->
-    <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
-        <div class="flex p-4 h-fit">
-            <img class="twitter-user-img"
-                src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
-            <form [formGroup]="tweetForm">
+    <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()">
+        <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
+            <div class="flex p-4 h-fit">
+                <img class="twitter-user-img"
+                    src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
+
+                <!-- write tweet box -->
+                <!-- <div #tweetBox contenteditable="true" data-before="What's happening?"
+                    class="after:hidden md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-md max-w-full tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-auto break-words overflow-x-hidden">
+                    <br>
+                </div> -->
                 <textarea formControlName="text"
-                    class="px-3 py-3 text-2xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
+                    class="px-3 py-3 text-xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
                     name="" id="" placeholder="What's happening?"></textarea>
-            </form>
-        </div>
-        <div class="controls relative w-full grid grid-cols-2">
-            <!-- tweet icons -->
-            <div class="flex p-4 sm:pl-16 pl-6">
-                <a class="text-main-blue cursor-pointer  relative overflow-hidden  w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20"
-                    title="Media">
-                    <!-- media upload -->
-                    <input type="file" accept="image/*,video/*"
-                        class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
-                    <i class="w-full fa-regular fa-image text-lg"></i>
-                </a>
-                <a class="text-main-blue relative dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
-                    title="GIF">
-                    <!-- gif upload -->
-                    <input type="file" accept="image/gif" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
-                    <i class="w-full fa-regular fa-file-image"></i>
-                </a>
-                <a href=""
-                    class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
-                    title="Poll">
-                    <i class="fa-solid fa-list-ul w-full text-lg"></i>
-                </a>
-                <a href=""
-                    class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
-                    title="Schedule a tweet">
-                    <i class="fa-regular fa-calendar w-full"></i>
-                </a>
-                <a href="" title="Emojis"
-                    class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
-                    <i class="w-full fa-regular fa-face-smile text-lg"></i>
-                </a>
             </div>
-            <!-- tweet button -->
-            <div class="flex py-2.5 justify-end px-6">
-                <button
-                    class="bg-main-blue_0 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_200 dark:opacity-50">
-                    Tweet
-                </button>
+            <!-- new tweet media -->
+            <div *ngIf="tweetMedia"
+                class="media border relative border-light-gray dark:border-dark-gray_0 flex w-[90%] mb-3 max-h-[300px] mt-2 rounded-xl m-auto overflow-hidden">
+                <img #mediaPreview src="{{tweetMedia}}" class="object-cover w-full object-center" alt="">
+
+                <div class="absolute hover:bg-dark-black_100 transition-opacity
+                  top-2 left-2 p-2 cursor-pointer rounded-full w-8 h-8 items-center justify-center text-white bg-black bg-opacity-90    flex"
+                    (click)="removeMedia()">
+                    <i class="fa-solid fa-times"></i>
+                </div>
             </div>
+
+            <div class="controls relative w-full grid grid-cols-2">
+                <!-- tweet icons -->
+                <div class="flex p-4 sm:pl-16 pl-6">
+                    <a class="text-main-blue cursor-pointer  relative overflow-hidden  w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20"
+                        title="Media">
+                        <!-- media upload -->
+                        <input type="file" (change)="inputChange($event)" accept="image/*,video/*"
+                            formControlName="media" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
+                        <i class="w-full fa-regular fa-image text-lg"></i>
+                    </a>
+                    <a class="text-main-blue relative dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
+                        title="GIF">
+                        <!-- gif upload -->
+                        <input type="file" accept="image/gif" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
+                        <i class="w-full fa-regular fa-file-image"></i>
+                    </a>
+                    <a href=""
+                        class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
+                        title="Poll">
+                        <i class="fa-solid fa-list-ul w-full text-lg"></i>
+                    </a>
+                    <a href=""
+                        class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
+                        title="Schedule a tweet">
+                        <i class="fa-regular fa-calendar w-full"></i>
+                    </a>
+                    <a href="" title="Emojis"
+                        class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
+                        <i class="w-full fa-regular fa-face-smile text-lg"></i>
+                    </a>
+                </div>
+                <!-- tweet button -->
+                <div class="flex py-2.5 justify-end px-6">
+                    <input type="submit" value="Tweet" [disabled]="!this.tweetForm.valid"
+                        class="bg-main-blue_100 cursor-pointer create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_200 dark:opacity-50">
+                </div>
+            </div>
+            <!-- <p class="p-4">No Media.</p> -->
         </div>
-    </div>
+    </form>
+
     <!-- ----show tweets----- -->
     <!-- <div
         class="text-center text-md py-4 hover:bg-gray-100 transition-colors dark:bg-black bg-white capitalize cursor-pointer text-main-blue dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-60">
