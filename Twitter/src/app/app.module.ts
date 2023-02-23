@@ -22,7 +22,7 @@ import { MessagePopupComponent } from './Components/message-popup/message-popup.
 import { StickyHeaderHomeComponent } from './Components/sticky-header-home/sticky-header-home.component';
 import { StickyHeaderPagesComponent } from './Components/sticky-header-pages/sticky-header-pages.component';
 import { TweetComponent } from './Components/tweet/tweet.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BookmarksComponent } from './Components/bookmarks/bookmarks.component';
 import { HumanNumbersPipe } from './Pipes/human-numbers.pipe';
@@ -36,11 +36,16 @@ import { RequestResetComponent } from './Components/password/request-reset/reque
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
 import { WebsitePipe } from './Pipes/website.pipe';
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from '@abacritt/angularx-social-login';
 import {
   GoogleLoginProvider,
-  FacebookLoginProvider
+  FacebookLoginProvider,
 } from '@abacritt/angularx-social-login';
+import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
+import { ReplyComponent } from './Components/reply/reply.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +80,8 @@ import {
     ResponseResetComponent,
     ConfirmPasswordComponent,
     WebsitePipe,
+    TweetDetailsComponent,
+    ReplyComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,8 +91,10 @@ import {
     BrowserAnimationsModule,
     MatDialogModule,
     SocialLoginModule,
+    ReactiveFormsModule,
   ],
-  providers: [AuthService,
+  providers: [
+    AuthService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -93,20 +102,19 @@ import {
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              'clientId'
-            )
+            provider: new GoogleLoginProvider('clientId'),
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
-          }
+            provider: new FacebookLoginProvider('clientId'),
+          },
         ],
         onError: (err) => {
           console.error(err);
-        }
+        },
       } as SocialAuthServiceConfig,
-    }],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

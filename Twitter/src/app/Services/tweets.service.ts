@@ -40,7 +40,13 @@ export class TweetsService {
   }
 
   getTweetById(id: any) {
-    return this.httpClient.get(`${this.BASE_URL}/${id}`);
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(`${this.BASE_URL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 
   addTweet(tweet: any) {
