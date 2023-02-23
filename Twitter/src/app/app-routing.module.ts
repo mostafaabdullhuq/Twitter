@@ -22,6 +22,8 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    // redirectTo: '/home',
+    // pathMatch: 'full',
     canActivate: [AfterLoginService],
   },
 
@@ -29,6 +31,8 @@ const routes: Routes = [
     path: '',
     component: ExploreoutComponent,
     canActivate: [BeforeLoginService],
+    // redirectTo: '/home',
+    //  pathMatch: 'full'
   },
 
   {
@@ -36,7 +40,7 @@ const routes: Routes = [
     component: SigninComponent,
     canActivate: [BeforeLoginService],
   },
-  
+
   // {
   //   path: 'redirect/facebook',
   //   component: SigninComponent,

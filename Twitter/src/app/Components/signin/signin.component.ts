@@ -4,10 +4,12 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { Router } from '@angular/router';
 import { LoggedService } from 'src/app/Services/logged.service';
-import { SocialUser } from "@abacritt/angularx-social-login";
-import { GoogleLoginProvider, SocialAuthService } from "@abacritt/angularx-social-login";
-import { FacebookLoginProvider } from "@abacritt/angularx-social-login";
-
+import { SocialUser } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  SocialAuthService,
+} from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-signin',
@@ -20,7 +22,7 @@ export class SigninComponent implements OnInit {
     password: null,
   };
   public error: any = null;
-  user: SocialUser = new SocialUser;
+  user: SocialUser = new SocialUser();
   loggedIn: boolean = false;
 
   constructor(
@@ -75,7 +77,9 @@ export class SigninComponent implements OnInit {
   //google
   private accessToken = '';
   getAccessToken(): void {
-    this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(accessToken => this.accessToken = accessToken);
+    this.authService
+      .getAccessToken(GoogleLoginProvider.PROVIDER_ID)
+      .then((accessToken) => (this.accessToken = accessToken));
   }
 
   getGoogleCalendarData(): void {
@@ -98,34 +102,30 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = (user != null);
+      this.loggedIn = user != null;
     });
   }
 
   //signing in events
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then(user => {
+    this.authService
+      .signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then((user) => {
         this.router.navigateByUrl('/home');
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
-
   }
 
   signInWithFacebook(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then(user => {
+    this.authService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((user) => {
         this.router.navigateByUrl('/home');
-
       })
-     .catch(err => {
+      .catch((err) => {
         console.log(err);
-
       });
-
   }
-
-
 }
