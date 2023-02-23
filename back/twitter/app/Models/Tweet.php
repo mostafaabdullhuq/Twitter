@@ -32,7 +32,6 @@ class Tweet extends Model
         );
     }
 
-
     public function media()
     {
         return $this->morphMany(

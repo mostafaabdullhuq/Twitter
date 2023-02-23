@@ -108,7 +108,6 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-
         $user = JWTAuth::user();
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();

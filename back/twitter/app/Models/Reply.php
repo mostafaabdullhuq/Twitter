@@ -29,10 +29,6 @@ class Reply extends Model
         return $this->morphTo();
     }
 
-    // public function replies()
-    // {
-    //     return $this->hasMany(Reply::class);
-    // }
 
     public function media()
     {
@@ -41,28 +37,4 @@ class Reply extends Model
             'parent'
         );
     }
-
-    // public function likes()
-    // {
-    //     return $this->morphMany(
-    //         Like::class,
-    //         'likeable'
-    //     );
-    // }
-
-    // public function retweets()
-    // {
-    //     return $this->morphMany(
-    //         Retweet::class,
-    //         'retweetable'
-    //     );
-    // }
-
-    // public function views()
-    // {
-    //     return $this->morphMany(
-    //         View::class,
-    //         'viewable'
-    //     );
-    // }
 }
