@@ -23,6 +23,8 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    // redirectTo: '/home',
+    // pathMatch: 'full',
     canActivate: [AfterLoginService],
   },
 
@@ -30,6 +32,8 @@ const routes: Routes = [
     path: '',
     component: ExploreoutComponent,
     canActivate: [BeforeLoginService],
+    // redirectTo: '/home',
+    //  pathMatch: 'full'
   },
 
   {
@@ -37,7 +41,7 @@ const routes: Routes = [
     component: SigninComponent,
     canActivate: [BeforeLoginService],
   },
-  
+
   // {
   //   path: 'redirect/facebook',
   //   component: SigninComponent,
@@ -135,6 +139,21 @@ const routes: Routes = [
   },
   {
     path: ':user',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/with_replies',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/media',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/likes',
     component: ProfileComponent,
     canActivate: [AfterLoginService],
   },
