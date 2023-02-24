@@ -3,10 +3,10 @@
     class="pb-20 sm:pb-0 h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
     <app-sticky-header-home></app-sticky-header-home>
     <!-- new tweet section -->
-    <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()">
+    <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()" enctype="multipart/form-data">
         <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
             <div class="flex p-4 h-fit">
-                <img class="twitter-user-img"
+                <img class="twitter-user-img" routerLink="/{{user.username}}"
                     src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
 
                 <textarea formControlName="text"
@@ -14,7 +14,7 @@
                     name="" id="" placeholder="What's happening?"></textarea>
             </div>
             <!-- new tweet media -->
-            <div *ngIf="tweetMedia "
+            <div *ngIf="tweetMedia"
                 class="media border bg-white relative border-light-gray dark:border-dark-gray_0 flex w-[90%] mb-3 max-h-[300px] mt-2 rounded-xl m-auto overflow-hidden">
                 <img #mediaPreview src="{{tweetMedia}}" class="object-cover w-full object-center" alt="">
 
