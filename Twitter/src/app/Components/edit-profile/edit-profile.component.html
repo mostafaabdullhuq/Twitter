@@ -6,11 +6,8 @@
                 <a href="#" id="close-popup" class="mr-4 mt-2"><i class="fa-regular fa-x"></i></a>
                 <h1 class="text-3xl ">Edit profile</h1>
             </div>
-            <button type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4 
-    text-xl text-white hover:bg-gray-200 focus:outline-none focus:ring-2
-     focus:ring-indigo-500 rounded-full focus:ring-offset-2">
-                Save
-            </button>
+            <!-- <form> -->
+ 
         </div>
         <!-- cover & photo -->
         <div class="relative">
@@ -52,7 +49,7 @@
                 </div>
         
 
-        <form class="mt-12 space-y-6" method="POST">
+        <form class="mt-12 space-y-6" #userForm="ngForm" (ngSubmit)="updateUser()">
             <input type="hidden" name="remember" value="true">
             <div>
                 <input  value="{{ user ? (user.first_name && user.last_name ? user.first_name + ' ' + user.last_name : '') : 'Loading...' }}" id="name" name="name" type="name" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
@@ -60,9 +57,14 @@
                     focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="Name">
             </div>
             <div>
-                <input  value="{{ user ? (user.bio ? user.bio : '') : 'Bio' }}" id="bio" name="bio" type="bio" autocomplete="bio" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input  value="{{ user ? (user.bio ? user.bio : '') : 'Bio' }}" id="bio" name="bio"  autocomplete="bio" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Bio" >
+            </div>
+            <div>
+                <input   value="{{ user ? (user.phone_number? user.phone_number : '') : 'Phone_number' }}" id="phone_number" name="phone_number"  autocomplete="phone_number" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
+                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Phone number" >
             </div>
             <div>
                 <input value="{{ user ? (user.location ? user.location: '') : 'Location' }}" id="location" name="location" type="location" autocomplete="location" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
@@ -80,6 +82,11 @@
                 {{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}
                </h1>
             </div>
+            <button type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4 
+            text-xl text-white hover:bg-gray-200 focus:outline-none focus:ring-2
+             focus:ring-indigo-500 rounded-full focus:ring-offset-2">
+                        Save
+                    </button>
             <div class="flex py-3 justify-between hover:bg-gray-100">
               <h1 class="text-2xl">Switch to professional</h1>
               <i class="fa-solid fa-chevron-right text-2xl mr-4 mt-1"></i>
