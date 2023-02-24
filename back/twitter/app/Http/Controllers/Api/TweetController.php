@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateTweetRequest;
-use App\Models\Reply;
+// use Apuse App\Models\Reply;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +32,32 @@ class TweetController extends Controller
             'tweets' => $tweets
         ];
     }
+
+    public function get_User_Retweets()
+    {
+
+        $retweets = JWTAuth::user()->retweets()->get();
+        $user = JWTAuth::user();
+
+        return [
+            'user' => $user,
+            'retweets' => $retweets
+        ];
+    }
+    public function get_User_Replies()
+    {
+
+        $replies = JWTAuth::user()->tweets()->replies()->get();
+        $user = JWTAuth::user();
+
+        return [
+            'user' => $user,
+            'replies' => $replies
+        ];
+    }
+
+
+
 
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()
@@ -179,5 +205,5 @@ class TweetController extends Controller
         return $tweets;
     }
 
-  
+
 }
