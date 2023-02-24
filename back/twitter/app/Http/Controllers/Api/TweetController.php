@@ -26,10 +26,7 @@ class TweetController extends Controller
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->tweets()->count();
-
         $tweets = $this->formatTweets($tweets);
-
-
         return [
             'user' => $user,
             'tweets' => $tweets
@@ -159,11 +156,6 @@ class TweetController extends Controller
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         return $tweet;
     }
-
-
-
-
-
 
     public function formatTweets($tweets)
     {
