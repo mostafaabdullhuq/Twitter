@@ -11,6 +11,7 @@ import { NotificationComponent } from './Components/notification/notification.co
 import { ProfileComponent } from './Components/profile/profile.component';
 import { SettingsComponent } from './Components/settings/settings.component';
 import { SigninComponent } from './Components/signin/signin.component';
+import { ReplyComponent } from './Components/reply/reply.component';
 import { SignupComponent } from './Components/signup/signup.component';
 import { NewMessageComponent } from './Components/new-message/new-message.component';
 import { AfterLoginService } from './Services/after-login.service';
@@ -64,6 +65,7 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AfterLoginService],
   },
+  
   {
     path: 'home/:type',
     component: HomeComponent,

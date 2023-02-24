@@ -116,4 +116,15 @@ export class TweetsService {
   getFollowingUsersTweets(id: any) {
     return this.httpClient.get(`${this.BASE_URL}/following/${id}`);
   }
+//like
+//   likeTweet(tweetId: number) {
+//     this.http.post('/api/like', { tweetId }).subscribe(
+//       (response) => {
+//         console.log('Tweet liked!');
+//       },
+//       (error) => {
+//         console.error('Error liking tweet:', error);
+//       }
+//     );
+// }
 }
