@@ -7,6 +7,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\FollowingController;
 
 Route::group([
     'middleware' => 'api',
@@ -35,6 +36,8 @@ Route::group([
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
     Route::post('destroy', [UserController::class, 'destroy']);
+
+    Route::post('follow-unfollow', [FollowingController::class, 'store']);
 });
 
 Route::group([
@@ -51,5 +54,13 @@ Route::group([
     Route::post('like/{id}', [TweetController::class, 'like']);
     Route::post('unlike/{id}', [TweetController::class, 'unlike']);
     Route::post('retweet/{id}', [TweetController::class, 'retweet']);
+
+    // Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
+    Route::get('replies', [TweetController::class, 'get_User_Replies']);
+    // Route::get('{tweet_id}/replies', [TweetController::class, 'get_User_Replies']);
+    Route::get('{tweet_id}/reply' ,[TweetController::class, 'reply']);
+    Route::post('{tweet_id}/like', [TweetController::class, 'like']);
+    Route::delete('{tweet_id}/unlike', [TweetController::class, 'unlike']);
+
     Route::get('{id}', [TweetController::class, 'details']);
 });

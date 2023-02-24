@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateTweetRequest;
-use App\Models\Reply;
+// use Apuse App\Models\Reply;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,13 +26,33 @@ class TweetController extends Controller
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->tweets()->count();
-
         $tweets = $this->formatTweets($tweets);
-
-
         return [
             'user' => $user,
             'tweets' => $tweets
+        ];
+    }
+
+    public function get_User_Retweets()
+    {
+
+        $retweets = JWTAuth::user()->retweets()->get();
+        $user = JWTAuth::user();
+
+        return [
+            'user' => $user,
+            'retweets' => $retweets
+        ];
+    }
+    public function get_User_Replies()
+    {
+
+        $replies = JWTAuth::user()->tweets()->replies()->get();
+        $user = JWTAuth::user();
+
+        return [
+            'user' => $user,
+            'replies' => $replies
         ];
     }
 
@@ -159,11 +179,6 @@ class TweetController extends Controller
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         return $tweet;
     }
-
-
-
-
-
 
     public function formatTweets($tweets)
     {
