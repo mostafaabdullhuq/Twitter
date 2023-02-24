@@ -53,10 +53,23 @@ Route::group([
     Route::post('like/{id}', [TweetController::class, 'like']);
     Route::post('unlike/{id}', [TweetController::class, 'unlike']);
     Route::post('retweet/{id}', [TweetController::class, 'retweet']);
+
+    // Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
+    Route::get('replies', [TweetController::class, 'get_User_Replies']);
+    // Route::get('{tweet_id}/replies', [TweetController::class, 'get_User_Replies']);
+    Route::get('{tweet_id}/reply' ,[TweetController::class, 'reply']);
+    Route::post('{tweet_id}/like', [TweetController::class, 'like']);
+    Route::delete('{tweet_id}/unlike', [TweetController::class, 'unlike']);
+
     Route::get('{id}', [TweetController::class, 'details']);
 });
+Route::group([
+    'middleware' => 'api',
+], function () {
 
-
+    Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
+});
+// Route::post('tweet', [TweetController::class, 'store']);
 
 
 
