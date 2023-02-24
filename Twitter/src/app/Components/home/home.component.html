@@ -14,15 +14,20 @@
                     name="" id="" placeholder="What's happening?"></textarea>
             </div>
             <!-- new tweet media -->
-            <div *ngIf="tweetMedia"
-                class="media border bg-white relative border-light-gray dark:border-dark-gray_0 flex w-[90%] mb-3 max-h-[300px] mt-2 rounded-xl m-auto overflow-hidden">
-                <img #mediaPreview src="{{tweetMedia}}" class="object-cover w-full object-center" alt="">
-
-                <div class="absolute hover:bg-dark-black_100 transition-opacity
-                  top-2 left-2 p-2 cursor-pointer rounded-full w-8 h-8 items-center justify-center text-white bg-black bg-opacity-90    flex"
-                    (click)="removeMedia()">
-                    <i class="fa-solid fa-times"></i>
+            <div *ngIf="tweetMedia">
+                <div
+                    class="media border flex flex-wrap bg-white relative border-light-gray dark:border-dark-gray_0  w-[90%] mb-3 max-h-[300px] mt-2 rounded-xl m-auto overflow-hidden">
+                    <div class="flex col-span-1 overflow-hidden  h-full" *ngFor="let media of tweetMedia">
+                        <img #mediaPreview src="{{media}}"
+                            class="border border-red-500 w-full object-cover object-center" alt="">
+                    </div>
+                    <div class="absolute hover:bg-dark-black_100 transition-opacity
+                              top-2 left-2 p-2 cursor-pointer rounded-full w-8 h-8 items-center justify-center text-white bg-black bg-opacity-90    flex"
+                        (click)="removeMedia()">
+                        <i class="fa-solid fa-times"></i>
+                    </div>
                 </div>
+
             </div>
 
             <div class="controls relative w-full grid grid-cols-2">
@@ -31,7 +36,7 @@
                     <a class="text-main-blue cursor-pointer  relative overflow-hidden  w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20"
                         title="Media">
                         <!-- media upload -->
-                        <input type="file" (change)="inputChange($event)" accept="image/*,video/*"
+                        <input type="file" multiple (change)="inputChange($event)" accept="image/*,video/*"
                             formControlName="media" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
                         <i class="w-full fa-regular fa-image text-lg"></i>
                     </a>
@@ -59,7 +64,8 @@
                 <!-- tweet button -->
                 <div class="flex py-2.5 justify-end px-6">
                     <input type="submit" value="Tweet"
-                        class="bg-main-blue_100 cursor-pointer create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_200 dark:opacity-50">
+                        [disabled]="!this.tweetForm.value.text && !this.tweetForm.value.media"
+                        class="bg-main-blue_100 cursor-pointer disabled:bg-opacity-60  disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100 ">
                 </div>
             </div>
             <!-- <p class="p-4">No Media.</p> -->

@@ -49,8 +49,14 @@ export class TweetsService {
     });
   }
 
-  addTweet(tweet: any) {
-    return this.httpClient.post(this.BASE_URL, tweet);
+  createTweet(tweet: any) {
+    const accessToken = this.token.get();
+
+    return this.httpClient.post(this.BASE_URL, tweet, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 
   updateTweet(id: any, newTweet: any) {
