@@ -20,8 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             
-            $table->unsignedBigInteger('media_id')->nullable();
-            $table->foreign('media_id')->references('id')->on('media');
+            // $table->unsignedBigInteger('media_id')->nullable();
+            // $table->foreign('media_id')->references('id')->on('media');
             
             $table->text('text')->nullable();
             $table->timestamps();

@@ -30,4 +30,6 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+
+
 }
