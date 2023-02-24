@@ -9,12 +9,12 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 })
 export class ProfileComponent implements OnInit {
   constructor(public myRoute: ActivatedRoute, public tweetsClient: TweetsService) {}
-  public tweets = [];
+  public tweets :any;
   public tweetsCount = 0;
   public user: any;
   ngOnInit(): void {
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies'){
-      this.tweetsClient.getAuthedRetweets().subscribe({
+      this.tweetsClient.getReplies().subscribe({
         next: (data: any) => {
           this.tweets = data;
         },
@@ -52,5 +52,16 @@ export class ProfileComponent implements OnInit {
   // showTweets()
   // {
   //   this.show = !this.show;
+  // }
+
+  // if (this.myRoute.snapshot?.url[1]?.path === 'retweets'){
+  //   this.tweetsClient.getAuthedRetweets().subscribe({
+  //     next: (data: any) => {
+  //       this.tweets = data;
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //   });
   // }
 }
