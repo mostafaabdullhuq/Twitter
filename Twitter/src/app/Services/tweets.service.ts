@@ -8,7 +8,7 @@ import { TokenService } from './token.service';
 })
 export class TweetsService {
   private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
-
+  private Retweet_URL = 'http://127.0.0.1:8000/api';
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 
   getForYouTweets() {
@@ -115,5 +115,23 @@ export class TweetsService {
 
   getFollowingUsersTweets(id: any) {
     return this.httpClient.get(`${this.BASE_URL}/following/${id}`);
+  }
+
+  getRetweets() {
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.Retweet_URL + '/retweets', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+  getAuthedRetweets() {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.Retweet_URL + '/retweets', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 }

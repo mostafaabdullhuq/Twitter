@@ -126,6 +126,21 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AfterLoginService],
   },
+  {
+    path: ':user/with_replies',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/media',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/likes',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
 ];
 
 @NgModule({
