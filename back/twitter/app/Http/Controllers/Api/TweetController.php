@@ -33,9 +33,6 @@ class TweetController extends Controller
         ];
     }
 
-
-
-
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()
     {
@@ -179,7 +176,8 @@ class TweetController extends Controller
                 unset($media_value['updated_at']);
             }
         }
-
         return $tweets;
     }
+
+  
 }
