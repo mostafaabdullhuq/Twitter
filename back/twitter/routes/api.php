@@ -41,10 +41,10 @@ Route::group([
     'prefix' => 'tweet'
 ], function () {
 
+    Route::post('', [TweetController::class, 'create']);
     Route::get('me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
-    Route::post('create', [TweetController::class, 'create']);
     Route::post('edit/{id}', [TweetController::class, 'edit']);
     Route::post('delete/{id}', [TweetController::class, 'delete']);
     Route::post('like/{id}', [TweetController::class, 'like']);
