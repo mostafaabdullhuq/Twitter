@@ -46,6 +46,7 @@ import {
 } from '@abacritt/angularx-social-login';
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 import { ReplyComponent } from './Components/reply/reply.component';
+import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,9 @@ import { ReplyComponent } from './Components/reply/reply.component';
     WebsitePipe,
     TweetDetailsComponent,
     ReplyComponent,
+    EditProfileComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
