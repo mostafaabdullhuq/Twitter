@@ -72,7 +72,7 @@ class ResetPasswordController extends Controller
 
 
 // ---------------- Note --------------------------------
-  // ----used mailtrap to send reset password email-------
+  // ------used mailtrap to send reset password email-------
   //  in .env file:
 //   MAIL_MAILER=smtp
 // MAIL_HOST=sandbox.smtp.mailtrap.io
@@ -81,7 +81,7 @@ class ResetPasswordController extends Controller
 // MAIL_PASSWORD= your mailer password
 // MAIL_ENCRYPTION=
 // MAIL_FROM_ADDRESS="cb5f05002c-dfc03e@inbox.mailtrap.io"
-// MAIL_FROM_NAME="MYy App Name"
+// MAIL_FROM_NAME="App Name"
 
   // website for maitrap (https://mailtrap.io)
   // make sure that you sign in in maitrap then go to inbox 
