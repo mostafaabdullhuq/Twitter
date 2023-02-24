@@ -47,6 +47,17 @@ class TweetController extends Controller
             'retweets' => $retweets
         ];
     }
+    public function get_User_Replies()
+    {
+
+        $replies = JWTAuth::user()->tweets()->replies()->get();
+        $user = JWTAuth::user();
+
+        return [
+            'user' => $user,
+            'replies' => $replies
+        ];
+    }
 
 
 
