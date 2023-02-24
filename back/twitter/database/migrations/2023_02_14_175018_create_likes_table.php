@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('tweet_id');
-            $table->foreign('tweet_id')->references('id')->on('tweets');
+            // $table->unsignedBigInteger('tweet_id');
+            // $table->foreign('tweet_id')->references('id')->on('tweets');
+
+            $table->morphs('liked');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
