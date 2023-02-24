@@ -49,7 +49,7 @@
                 </div>
         
 
-        <form class="mt-12 space-y-6" #userForm="ngForm" (ngSubmit)="updateUser()">
+        <form class="mt-12 space-y-6" #userForm="ngForm" >
             <input type="hidden" name="remember" value="true">
             <div>
                 <input  value="{{ user ? (user.first_name && user.last_name ? user.first_name + ' ' + user.last_name : '') : 'Loading...' }}" id="name" name="name" type="name" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
