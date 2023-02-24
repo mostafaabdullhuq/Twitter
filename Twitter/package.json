@@ -23,9 +23,14 @@
     "@angular/router": "^15.1.0",
     "@fortawesome/angular-fontawesome": "^0.12.1",
     "@fortawesome/fontawesome-free": "^6.3.0",
+<<<<<<< HEAD
     "angular": "^1.6.10",
     "angular-material": "^1.1.24",
     "angular-screenfull": "^1.0.0",
+=======
+    "angular": "^1.8.3",
+    "angular-material": "^1.2.5",
+>>>>>>> e7cdc44a5ae498e75fa407e4d625b31dc5623795
     "fortawesome": "^0.0.1-security",
     "rxjs": "~7.8.0",
     "satellizer": "^0.15.5",

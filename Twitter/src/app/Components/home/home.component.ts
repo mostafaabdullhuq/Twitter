@@ -16,7 +16,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  public tweets = [];
+  public tweets: any;
   public user: any;
   public tweetForm = new FormGroup({
     text: new FormControl(null, [Validators.max(1000)]),
@@ -66,8 +66,22 @@ export class HomeComponent implements OnInit {
   tweetSubmit() {
     const media = this.tweetForm.value.media;
     const text = this.tweetForm.value.text;
+    console.log(this.tweetForm);
+
     if (media || text) {
-      console.log(this.tweetForm);
+      // let tweet = {
+      //   text: text,
+      //   media_url: media,
+      // }
+      // this.httpClient.addTweet().subscribe({
+      //   next: (data: any) => {
+      //     this.tweets.unshift(data);
+      //     this.tweetForm.reset();
+      //   },
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      // });
     } else {
       this.tweetForm.setErrors({ invalid: true });
     }
@@ -102,5 +116,6 @@ export class HomeComponent implements OnInit {
 
   removeMedia() {
     this.tweetMedia = null;
+    this.tweetForm.patchValue({ media: null });
   }
 }
