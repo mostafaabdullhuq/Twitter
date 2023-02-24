@@ -19,6 +19,7 @@ import { RequestResetComponent } from './Components/password/request-reset/reque
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
+import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
 const routes: Routes = [
   {
     path: '',
@@ -129,12 +130,32 @@ const routes: Routes = [
     canActivate: [BeforeLoginService],
   },
   {
+    path: 'edit-profile',
+    component: EditProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
     path: 'confirm',
     component: ConfirmPasswordComponent,
     canActivate: [BeforeLoginService],
   },
   {
     path: ':user',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/with_replies',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/media',
+    component: ProfileComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/likes',
     component: ProfileComponent,
     canActivate: [AfterLoginService],
   },

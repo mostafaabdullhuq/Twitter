@@ -8,7 +8,7 @@ import { TokenService } from './token.service';
 })
 export class TweetsService {
   private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
-
+  // private Retweet_URL = 'http://127.0.0.1:8000/api';
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 
   getForYouTweets() {
@@ -49,8 +49,14 @@ export class TweetsService {
     });
   }
 
-  addTweet(tweet: any) {
-    return this.httpClient.post(this.BASE_URL, tweet);
+  createTweet(tweet: any) {
+    const accessToken = this.token.get();
+
+    return this.httpClient.post(this.BASE_URL, tweet, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 
   updateTweet(id: any, newTweet: any) {
@@ -116,15 +122,30 @@ export class TweetsService {
   getFollowingUsersTweets(id: any) {
     return this.httpClient.get(`${this.BASE_URL}/following/${id}`);
   }
-//like
-//   likeTweet(tweetId: number) {
-//     this.http.post('/api/like', { tweetId }).subscribe(
-//       (response) => {
-//         console.log('Tweet liked!');
-//       },
-//       (error) => {
-//         console.error('Error liking tweet:', error);
-//       }
-//     );
-// }
+
+  // getRetweets() {
+  //   const accessToken = this.token.get();
+
+  //   return this.httpClient.get(this.Retweet_URL + '/retweets', {
+  //     headers: {
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+  // }
+  // getAuthedRetweets() {
+  //   const accessToken = this.token.get();
+  //   return this.httpClient.get(this.Retweet_URL + '/retweets', {
+  //     headers: {
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+  // }
+  getReplies() {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + '/replies', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
 }
