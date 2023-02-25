@@ -24,17 +24,12 @@ class UserController extends Controller
         return $user;
     }
 
+
+
     public function destroy(Request $request)
     {
-        //$user = auth()->user();
+        $request->user()->delete();
 
-        $user= $request->user();
-        // dd($user->id,$request->d);
-        $deleted = User::findOrFail($request->d);
-        //dd($deleted);
-        $deleted->delete();
-        return response()->json(null, 204);
+        return response()->json(['message'=>'user permanently deleted '], 500);        
     }
-
-
 }
