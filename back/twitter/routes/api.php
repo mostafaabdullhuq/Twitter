@@ -39,7 +39,9 @@ Route::group([
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
-    Route::post('block-user', [BlockController::class, 'store']);    
+    Route::post('block-user', [BlockController::class, 'store']);   
+    Route::post('get-followers', [FollowingController::class, 'get_followers']);
+
 });
 
 Route::group([
