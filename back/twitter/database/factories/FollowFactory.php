@@ -18,8 +18,8 @@ class FollowFactory extends Factory
     {
         return [
             // 'following_id' => 51,
-            'following_id' => $this->faker->numberBetween(1, 51),
-            'follower_id' => $this->faker->numberBetween(1, 51),
+            'following_id' => $this->faker->numberBetween(1, 50),
+            'follower_id' => $this->faker->numberBetween(1, 50),
         ];
     }
 }
