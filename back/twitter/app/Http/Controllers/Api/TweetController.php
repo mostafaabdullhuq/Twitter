@@ -46,14 +46,18 @@ class TweetController extends Controller
     }
     public function get_User_Replies()
     {
-
-        $replies = JWTAuth::user()->replies()->get();
         $user = JWTAuth::user();
-
-        return [
+        $tweets = [];
+        $replies = $user->replies()->get();
+        foreach ($replies as $key => $reply) {
+            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
+            $tweets[] = $tweet;
+        }
+        $response = [
             'user' => $user,
-            'replies' => $replies
+            'tweets' => $tweets
         ];
+        return $response;
     }
 
 
@@ -131,7 +135,7 @@ class TweetController extends Controller
     }
 
 
-    public function formatTweet($tweet)
+    public function formatTweet($tweet, $userID = 0)
     {
         // add user object to the tweet object and delete security sensitive information
         $tweet->user;
@@ -151,8 +155,7 @@ class TweetController extends Controller
                 $value->media_url = asset('storage/media/' . $value->media_url);
             }
         }
-        $replies = $tweet->replies;
-
+        $replies = $userID ? $tweet->replyWithUserID($userID) : $tweet->replies;
         foreach ($replies as $reply) {
             $reply->user = $reply->user;
             unset($reply->repliable_type);
