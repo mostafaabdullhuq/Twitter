@@ -18,7 +18,7 @@ return new class extends Migration
             $table->morphs('repliable');
 
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             // $table->unsignedBigInteger('media_id')->nullable();
             // $table->foreign('media_id')->references('id')->on('media');
