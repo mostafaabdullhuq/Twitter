@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tweet-details',
@@ -9,6 +11,29 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./tweet-details.component.css'],
 })
 export class TweetDetailsComponent implements OnInit {
+  public tweetID = this.activatedRouter.snapshot.params['id'];
+
+  public replyForm= new FormGroup({
+    text:new FormControl(null,[Validators.required, Validators.maxLength(500)])
+  });
+
+  replySubmit(){
+    let reply = {
+      text: this.replyForm.value.text,
+    }
+    this.httpClient.createReply(reply, this.tweetID, ).subscribe({
+      next: (data) => {
+        this.tweet.replies.unshift(data);
+        console.log(data);
+        console.log(this.tweet);
+
+
+      },
+      error: (err) => {
+        this.error = err;
+      },
+    })
+  };
   constructor(
     private httpClient: TweetsService,
     private activatedRouter: ActivatedRoute,
@@ -33,4 +58,9 @@ export class TweetDetailsComponent implements OnInit {
       },
     });
   }
-}
+
+
+  }
+
+
+
