@@ -1,0 +1,97 @@
+<div class="bg-white min-w-[300px] sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl
+ p-6 w-[90%] max-w-[600px] scale flex flex-col scale-[.95] overflow-y-auto "
+     style="height:35rem;" id="popup">
+        <div class="flex justify-between">
+            <div class="flex">
+                <a href="#" id="close-popup" class="mr-4 mt-2"><i class="fa-regular fa-x"></i></a>
+                <h1 class="text-3xl ">Edit profile</h1>
+            </div>
+            <!-- <form> -->
+ 
+        </div>
+        <!-- cover & photo -->
+        <div class="relative">
+            <div class="w-full mt-3 flex text-center justify-center"
+                style="background-size: cover; background-position: center; height: 13rem; background-image: url('./../../../assets/images/twitter_99mx.jpg')">
+                <div class="flex" style="margin-top:15%;">
+                    <a href="#"
+                        class="rounded-full p-2 bg-black  hover:bg-gray-200 text-center justify-center flex mr-4"
+                        style="width: 3rem; height: 3rem; opacity: 0.3;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-camera"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                            <path
+                                d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                        </svg>
+                    </a>
+                    <div class="rounded-full hover:bg-gray-200 p-2 bg-black text-center justify-center flex"
+                        style="width: 3rem; height: 3rem; opacity: 0.3;">
+                        <a href="#" id="close-popup" class=" text-white text-2xl"><i class="fa-regular fa-x"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative p-3" style="bottom: 6rem;">
+                <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+                class="absolute rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />           
+                     <a href="#" class="rounded-full p-2 bg-black   hover:bg-gray-200 text-center justify-center flex"
+                    style="width: 3rem; height: 3rem; opacity: 0.3; position: absolute; left: 15%; top: 4rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                     width="30" height="30" fill="white" class="bi bi-camera"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+                        <path
+                            d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+                    </svg>
+                </a>
+                </div>
+        
+
+        <form class="mt-12 space-y-6" #userForm="ngForm" >
+            <input type="hidden" name="remember" value="true">
+            <div>
+                <input  value="{{ user ? (user.first_name && user.last_name ? user.first_name + ' ' + user.last_name : '') : 'Loading...' }}" id="name" name="name" type="name" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                   border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
+                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="Name">
+            </div>
+            <div>
+                <input  value="{{ user ? (user.bio ? user.bio : '') : 'Bio' }}" id="bio" name="bio"  autocomplete="bio" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
+                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Bio" >
+            </div>
+            <div>
+                <input   value="{{ user ? (user.phone_number? user.phone_number : '') : 'Phone_number' }}" id="phone_number" name="phone_number"  autocomplete="phone_number" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
+                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Phone number" >
+            </div>
+            <div>
+                <input value="{{ user ? (user.location ? user.location: '') : 'Location' }}" id="location" name="location" type="location" autocomplete="location" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
+                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Location">
+            </div>
+            <div>
+                <input value="{{ user ? (user.website? user.website: '') : 'Website' }}" id="website" name="website" type="website" autocomplete="website" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                  text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
+                  focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Website">
+            </div>
+            <div>
+                <h5 class="text-gray-400">Birth date. <span><a href="#" style="text-decoration: underline;" class="text-blue-400">Edit</a></span></h5>
+               <h1 class="text-2xl">
+                {{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}
+               </h1>
+            </div>
+            <button type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4 
+            text-xl text-white hover:bg-gray-200 focus:outline-none focus:ring-2
+             focus:ring-indigo-500 rounded-full focus:ring-offset-2">
+                        Save
+                    </button>
+            <div class="flex py-3 justify-between hover:bg-gray-100">
+              <h1 class="text-2xl">Switch to professional</h1>
+              <i class="fa-solid fa-chevron-right text-2xl mr-4 mt-1"></i>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- </div> -->

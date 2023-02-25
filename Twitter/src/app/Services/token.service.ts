@@ -31,6 +31,7 @@ export class TokenService {
 
   remove() {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
   }
   // check token and return true or false
   isValid() {
@@ -55,5 +56,5 @@ export class TokenService {
 
   loggedIn() {
     return this.isValid();
-  }
+  }
 }

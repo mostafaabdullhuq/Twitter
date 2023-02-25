@@ -8,20 +8,65 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  constructor(myRoute: ActivatedRoute, public tweetsClient: TweetsService) {}
+  constructor(
+    public myRoute: ActivatedRoute,
+    public tweetsClient: TweetsService
+  ) {}
   public tweets: any;
   public tweetsCount = 0;
   public user: any;
+  public viewType = 1;
   ngOnInit(): void {
-    this.tweetsClient.getAuthedTweets().subscribe({
-      next: (data: any) => {
-        this.tweets = data.tweets;
-        this.user = data.user;
-        this.tweetsCount = this.tweets.length;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
+      this.tweetsClient.getReplies().subscribe({
+        next: (data: any) => {
+          this.tweets = data.tweets;
+          this.user = data.user;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+    // else if(this.myRoute.snapshot?.url[1].path === 'likes'){
+
+    // }
+    // else if (this.myRoute.snapshot?.url[1].path === 'media'){
+
+    // }
+    else {
+      this.tweetsClient.getAuthedTweets().subscribe({
+        next: (data: any) => {
+          this.tweets = data.tweets;
+          this.user = data.user;
+          this.tweetsCount = this.tweets.length;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
+
+  // showReplies = false;
+  // show = false;
+  // showTogether()
+  // {
+  //   this.show = !this.show;
+  // }
+  // showTweets()
+  // {
+  //   this.show = !this.show;
+  // }
+
+  // if (this.myRoute.snapshot?.url[1]?.path === 'retweets'){
+  //   this.tweetsClient.getAuthedRetweets().subscribe({
+  //     next: (data: any) => {
+  //       this.tweets = data;
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //   });
+  // }
 }

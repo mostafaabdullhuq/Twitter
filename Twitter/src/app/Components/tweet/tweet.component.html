@@ -1,14 +1,17 @@
 <div *ngIf="tweets && tweets.length  > 0;else noTweetBlock">
-    <div class="tweet  relative" *ngFor="let tweet of tweets">
-        <div routerLink="/status/{{tweet.id}}" class=" absolute top-0 left-0 right-0 bottom-0 -z-10"></div>
 
+
+
+    <div class="tweet  relative" *ngFor="let tweet of tweets">
+        <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0 -z-10"></div>
         <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
             title="More">
             <i
                 class="fa-solid fa-ellipsis text-lg dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
         </div>
         <!-- user image -->
-        <div class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
+        <div routerLink="/{{tweet.user.username}}"
+            class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
             <img class="w-full h-full object-cover"
                 src="{{tweet.user.profile_image_url || './../../../assets/images/default_profile.png'}}" alt="" />
         </div>
@@ -30,20 +33,24 @@
                 <!-- other user and tweet info -->
                 <div class="flex items-center w-auto max-w-[45%]">
                     <!-- username -->
-                    <span
+                    <span routerLink="/{{tweet.user.username}}"
                         class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{tweet.user.username}}
                     </span>
                     <!-- publish date -->
                     <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
                         .</p>
-                    <p class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">{{tweet.created_at |
+                    <p routerLink="/status/{{tweet.id}}"
+                        class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">{{tweet.created_at
+                        |
                         humanDates}}</p>
                 </div>
             </div>
+
             <!-- ----paragraph----- -->
 
             <div class="sm:pr-4">
-                <p class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
+                <p routerLink="/status/{{tweet.id}}"
+                    class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
                     <span [innerHTML]="formatTweetText(tweet.text)"></span>
                 </p>
                 <div *ngIf="tweet.media_url"

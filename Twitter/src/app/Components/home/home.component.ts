@@ -22,13 +22,13 @@ export class HomeComponent implements OnInit {
     text: new FormControl(null, [Validators.max(1000)]),
     media: new FormControl(null, []),
   });
-  public tweetMedia: any;
-
+  public tweetMedia: any = [];
+  public tweetMediaFiles: [] = [];
   @ViewChild('tweetBox') tweetBox!: ElementRef;
 
   constructor(
     public myRoute: ActivatedRoute,
-    public httpClient: TweetsService,
+    public tweetClient: TweetsService,
     private Token: TokenService
   ) {
     this.user = this.Token.getUser();
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.myRoute.snapshot?.url[1]?.path === 'following') {
-      this.httpClient.getFollowingTweets().subscribe({
+      this.tweetClient.getFollowingTweets().subscribe({
         next: (data: any) => {
           this.tweets = data;
         },
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
         },
       });
     } else {
-      this.httpClient.getForYouTweets().subscribe({
+      this.tweetClient.getForYouTweets().subscribe({
         next: (data: any) => {
           this.tweets = data;
         },
@@ -67,24 +67,34 @@ export class HomeComponent implements OnInit {
     const media = this.tweetForm.value.media;
     const text = this.tweetForm.value.text;
     if (media || text) {
-      console.log(this.tweetForm);
+      let postData = new FormData();
+      // Object.keys(this.tweetMediaFiles).forEach((key: any) => {
+      //   postData.append(
+      //     'media',
+      //     this.tweetMediaFiles[0],
+      //     'media_rand' + parseInt((Math.random() * 100000).toString())
+      //   );
+      // });
+
+      console.log(postData);
+
+      // text ? postData.append('text', text) : '';
+      // console.log(postData);
+
+      // this.tweetClient.createTweet(tweet).subscribe({
+      //   next: (data: any) => {
+      //     console.log(data);
+
+      //     this.tweets.unshift(data);
+      //     this.tweetForm.reset();
+      //   },
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      // });
     } else {
       this.tweetForm.setErrors({ invalid: true });
     }
-
-    // if (this.tweetForm.valid) {
-    //   this.httpClient
-    //     .postTweet(this.tweetForm.value.text, this.tweetForm.value.media)
-    //     .subscribe({
-    //       next: (data: any) => {
-    //         this.tweets.unshift(data);
-    //         this.tweetForm.reset();
-    //       },
-    //       error: (err) => {
-    //         console.log(err);
-    //       },
-    //     });
-    // }
   }
 
   handleEditor(event: any) {
@@ -92,16 +102,21 @@ export class HomeComponent implements OnInit {
   }
 
   inputChange(data: any) {
-    let file = data.target.files ? data.target.files[0] : null;
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      this.tweetMedia = e.target?.result;
-    };
+    this.tweetMediaFiles = data.target.files ? data.target.files : null;
+    Object.keys(this.tweetMediaFiles).forEach((key: any) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(this.tweetMediaFiles[key]);
+      reader.onload = (e) => {
+        this.tweetMedia.push(e.target?.result);
+      };
+    });
   }
 
   removeMedia() {
-    this.tweetMedia = null;
+    this.tweetMedia = [];
+    this.tweetMediaFiles = [];
+    console.log(this.tweetMedia);
+
     this.tweetForm.patchValue({ media: null });
   }
 }

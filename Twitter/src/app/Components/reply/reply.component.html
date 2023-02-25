@@ -7,7 +7,7 @@
     <!-- user image -->
     <img class="twitter-user-img relative top-4"
         src="{{reply.user.profile_picture ? reply.user.profile_picture: './../../../../assets/images/default_profile.png'}}"
-        alt="" />
+        alt=""/>
     <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
         <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
         <div class="flex flex-col overflow-hidden mt-1">
@@ -64,6 +64,7 @@
                         class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{reply.retweets_count|humanNumbers:2}}
                 </div>
                 <div class="tweet-control-item hover:text-main-love"><i
+                  
                         class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{reply.likes_count|humanNumbers:2}}
                 </div>
                 <div class="tweet-control-item-special hover:text-main-blue_100"><i
