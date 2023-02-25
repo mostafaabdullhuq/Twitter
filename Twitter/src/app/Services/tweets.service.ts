@@ -75,6 +75,17 @@ export class TweetsService {
     return this.httpClient.get(`${this.BASE_URL}/hashtag/${hashtag}`);
   }
 
+  createReply(reply:any, tweetID:any){
+    const accessToken = this.token.get();
+
+    return this.httpClient.post(`${this.BASE_URL}/${tweetID}/reply`,reply, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+  }
+
   getTweetsByMention(mention: any) {
     return this.httpClient.get(`${this.BASE_URL}/mention/${mention}`);
   }
