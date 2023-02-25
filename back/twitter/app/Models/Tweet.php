@@ -27,9 +27,7 @@ class Tweet extends Model
     public function replies()
     {
         return $this->morphMany(
-            Reply::class,
-            'repliable'
-        );
+            Reply::class, 'repliable');
     }
 
     public function media()

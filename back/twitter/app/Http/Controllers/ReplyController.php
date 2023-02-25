@@ -19,6 +19,9 @@ class ReplyController extends Controller
                     'user_id' => JWTAuth::user()->id,
                 ]
             );
+
+            $reply->replies_count = $reply->replies->count();
+
             unset($reply->repliable_type);
             unset($reply->repliable_id);
             unset($reply->updated_at);
@@ -26,7 +29,6 @@ class ReplyController extends Controller
             unset($reply->user->facebook_access_token);
             unset($reply->user->email_verified_at);
             unset($reply->user->updated_at);
-            $reply->replies_count = random_int(0, 999999999);
             $reply->likes_count = random_int(0, 999999999);
             $reply->retweets_count = random_int(0, 999999999);
             $reply->views_count = random_int(0, 999999999);

@@ -167,8 +167,11 @@ class TweetController extends Controller
                 unset($value->parent_id);
                 unset($value->updated_at);
             }
+            $reply->replies;
             $reply->media = $replyMedia;
-            $reply->replies_count = random_int(0, 999999999);
+            $reply->replies_count = $reply->replies->count();
+
+            // $reply->replies_count = random_int(0, 999999999);
             $reply->likes_count = random_int(0, 999999999);
             $reply->retweets_count = random_int(0, 999999999);
             $reply->views_count = random_int(0, 999999999);
@@ -177,6 +180,7 @@ class TweetController extends Controller
         $tweet->user->followers_count = $tweet->user->followers()->count();
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
+        $tweet->replies_count = $tweet->replies->count();
         return $tweet;
     }
 
@@ -195,6 +199,8 @@ class TweetController extends Controller
             $value->user->followers_count = $value->user->followers()->count();
             $value->user->followings_count = $value->user->followings()->count();
             $value->user->tweets_count = $value->user->tweets()->count();
+            $value->replies_count = $value->replies->count();
+
             foreach ($value->media as $media_key => $media_value) {
                 $media_value->media_url = $media_value->media_url ? asset('storage/media/' . $media_value->media_url) : null;
                 unset($media_value['parent_id']);
