@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use App\Models\User;
 class verify extends Command
 {
     /**
@@ -11,7 +11,7 @@ class verify extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'verify {use}';
 
     /**
      * The console command description.
@@ -27,6 +27,6 @@ class verify extends Command
      */
     public function handle()
     {
-        return Command::SUCCESS;
+        User::find($this->argument('user'));
     }
 }
