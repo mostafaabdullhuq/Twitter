@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.tweetsClient.getReplies().subscribe({
         next: (data: any) => {
-          this.tweets = data.replies;
+          this.tweets = data.tweets;
           this.user = data.user;
         },
         error: (err) => {
