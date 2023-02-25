@@ -80,7 +80,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function replies()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Reply::class);
     }
 
     // get the users who follow the current user

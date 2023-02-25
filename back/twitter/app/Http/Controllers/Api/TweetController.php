@@ -47,7 +47,7 @@ class TweetController extends Controller
     public function get_User_Replies()
     {
 
-        $replies = JWTAuth::user()->tweets()->replies()->get();
+        $replies = JWTAuth::user()->replies()->get();
         $user = JWTAuth::user();
 
         return [
@@ -112,6 +112,7 @@ class TweetController extends Controller
 
     public function details($id)
     {
+
         try {
             // Find the tweet with the given ID.
             $tweet = Tweet::findOrFail($id);
