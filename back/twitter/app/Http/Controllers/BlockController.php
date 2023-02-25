@@ -9,12 +9,12 @@ class BlockController extends Controller
 {
     public function store(){
         $request->validate([
-            'following_id' => 'required',
+            'blocked_user_id' => 'required',
         ]);
 
         $user = $request->user();
 
-        $following = Follow::where('following_id', $request->following_id)
+        $following = Blocked_user::where('following_id', $request->following_id)
                             ->where('follower_id',$user->id)
                             ->first();
         if(!$following){
