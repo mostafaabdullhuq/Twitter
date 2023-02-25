@@ -92,7 +92,18 @@
                     <span class="dotted-text">Joined {{user.created_at|date:'mediumDate'}}</span>
                 </div>
             </div>
-X
+            <!-- followers and following number -->
+            <div class="flex">
+                <div class="hover:underline cursor-pointer flex gap-1">
+                    <span class="font-bold dark:text-white">{{user ? [user.followings_count|humanNumbers] : "0"}}</span>
+                    <span class="text-gray-500 dark:text-gray-400 font-normal">Following</span>
+                </div>
+                <div class="hover:underline cursor-pointer flex gap-1">
+                    <span class="ml-6 font-bold dark:text-white">{{user ? [user.followers_count|humanNumbers] :
+                        "0"}}</span>
+                    <span class="text-gray-500 dark:text-gray-400 font-normal">Followers</span>
+                </div>
+            </div>
         </div>
         <!-- profile views -->
         <div class="profile-views">
