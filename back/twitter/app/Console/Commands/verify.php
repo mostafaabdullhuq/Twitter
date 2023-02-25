@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\User;
+use App\Models\Verified_user;
 class verify extends Command
 {
     /**
@@ -11,7 +12,7 @@ class verify extends Command
      *
      * @var string
      */
-    protected $signature = 'verify {use}';
+    protected $signature = 'verify {user}';
 
     /**
      * The console command description.
@@ -27,6 +28,12 @@ class verify extends Command
      */
     public function handle()
     {
-        User::find($this->argument('user'));
+        // $user = User::find($this->argument('user'));
+        $user =$this->argument('user');
+        $Verified_user = Verified_user::where('user_id',$user);
+        if(!$Verified_user){
+            $Verified_user = new Verified_user();
+            $Verified_user->user_id = $user;
+        }
     }
 }
