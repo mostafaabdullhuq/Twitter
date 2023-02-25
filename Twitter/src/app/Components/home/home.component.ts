@@ -68,7 +68,6 @@ export class HomeComponent implements OnInit {
     const text = this.tweetForm.value.text;
     if (media || text) {
       let postData = new FormData();
-
       // Object.keys(this.tweetMediaFiles).forEach((key: any) => {
       //   postData.append(
       //     'media',
