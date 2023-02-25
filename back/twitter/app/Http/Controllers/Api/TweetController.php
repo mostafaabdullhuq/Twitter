@@ -49,10 +49,12 @@ class TweetController extends Controller
         $user = JWTAuth::user();
         $tweets = [];
         $replies = $user->replies()->get();
+        
         foreach ($replies as $key => $reply) {
             $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
             $tweets[] = $tweet;
         }
+
         $response = [
             'user' => $user,
             'tweets' => $tweets
