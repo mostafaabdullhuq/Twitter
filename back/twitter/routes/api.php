@@ -34,7 +34,7 @@ Route::group([
 
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
-    Route::post('destroy', [UserController::class, 'destroy']);
+    Route::delete('delete', [UserController::class, 'destroy']);
 
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
 });
