@@ -56,7 +56,7 @@ class FollowingController extends Controller
 
         $user = $request->user();
 
-        $following = Follow::select('follower_id')->where('follower_id', $user->id)->get();
+        $following = Follow::select('follower_id')->where('following_id', $user->id)->get();
 
             if($following){
                 return response()->json(
@@ -87,7 +87,7 @@ class FollowingController extends Controller
                     ,200);
             } else{
                 return response()->json(
-                    ["message' => 'user doesn't have any followers"]
+                    ["message' => 'user doesn't have any followings"]
                             ,500);
             }
 
