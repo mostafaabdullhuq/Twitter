@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public isInRequestReset: boolean = false;
   public isInResponseReset: boolean = false;
   public isConfirmed: boolean = false;
+  public edit:boolean = false;
   public popup = false;
   public user: any;
   constructor(
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
       this.isInRequestReset = false;
       this.isInResponseReset = false;
       this.isConfirmed = false;
+      this.edit = false;
 
       if (!this.loggedIn) {
         if (this.router.url === '/login') {
@@ -58,8 +60,15 @@ export class AppComponent implements OnInit {
           this.isInRequestReset = false;
           this.isConfirmed = false;
         } else if (this.router.url === '/confirm') {
-          this.isConfirmed = true;;
-          this.isInResponseReset = false;;
+          this.isConfirmed = true;
+          this.isInResponseReset = false;
+          this.isInLogin = false;
+          this.isInSignup = false;
+          this.isInRequestReset = false;
+        } else if (this.router.url === '/edit-profile') {
+          this.edit = true;
+          this.isConfirmed = false;
+          this.isInResponseReset = false;
           this.isInLogin = false;
           this.isInSignup = false;
           this.isInRequestReset = false;

@@ -27,8 +27,8 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/resetPassword`, data);
   }
 
-  updateUser(id: any, user: any) {
-    return this.http.put(`${this.baseUrl}/${id}`, user);
+  updateUser(data: any) {
+    return this.http.post(`${this.baseUrl}/updateUser`,data);
   }
   
 }
