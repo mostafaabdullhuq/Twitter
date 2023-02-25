@@ -7,35 +7,35 @@ use Illuminate\Http\Request;
 
 class BlockController extends Controller
 {
-    public function store(){
+    public function store(Request $request){
         $request->validate([
             'blocked_user_id' => 'required',
         ]);
 
         $user = $request->user();
 
-        $following = Blocked_user::where('following_id', $request->following_id)
-                            ->where('follower_id',$user->id)
+        $blocking = Blocked_user::where('blocked_user_id', $request->blocked_user_id)
+                            ->where('blocker_id',$user->id)
                             ->first();
-        if(!$following){
-            $following = new Follow();
-            $following->following_id = $request->following_id;
-            $following->follower_id = $user->id;
+        if(!$blocking){
+            $blocking = new Blocked_user();
+            $blocking->blocked_user_id = $request->blocked_user_id;
+            $blocking->blocker_id = $user->id;
             
-            if($following->save()){
+            if($blocking->save()){
                 return response()->json(
-                            ['message' => 'now you are following this user']
+                            ['message' => 'user blocked']
                             ,200);
             } else{
                 return response()->json(
-                    ['message' => 'Something went wrong following this user, try again']
+                    ['message' => 'Something went wrong blocking this user, try again']
                             ,500);
             }
 
         } else{
-            if($following->delete()){
+            if($blocking->delete()){
                 return response()->json(
-                    ['message' => "you have unfollowed this user"]
+                    ['message' => "you have unblocked this user"]
                     ,200);
             }  else{
                 return response()->json(
@@ -45,5 +45,6 @@ class BlockController extends Controller
         }
 
     }
-    }
+
 }
+
