@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('following_id');
-            $table->foreign('following_id')->references('id')->on('users');
+            $table->foreign('following_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('follower_id');
-            $table->foreign('follower_id')->references('id')->on('users');
+            $table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
 
    
             $table->timestamps();

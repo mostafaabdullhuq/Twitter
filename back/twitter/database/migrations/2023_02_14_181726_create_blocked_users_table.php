@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('blocker_id');
-            $table->foreign('blocker_id')->references('id')->on('users');
+            $table->foreign('blocker_id')->references('id')->on('users')->onDelete('cascade');
 
 
             $table->unsignedBigInteger('blocked_user_id');
-            $table->foreign('blocked_user_id')->references('id')->on('users');
+            $table->foreign('blocked_user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

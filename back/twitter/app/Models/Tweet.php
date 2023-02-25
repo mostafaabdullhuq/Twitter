@@ -30,6 +30,16 @@ class Tweet extends Model
             Reply::class, 'repliable');
     }
 
+    public function replyWithUserID($userID)
+    {
+
+        return $this->morphMany(
+            Reply::class,
+            'repliable'
+        )->get()->where('user_id', $userID);
+    }
+
+
     public function media()
     {
         return $this->morphMany(

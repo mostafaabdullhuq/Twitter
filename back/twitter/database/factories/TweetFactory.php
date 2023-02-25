@@ -19,7 +19,7 @@ class TweetFactory extends Factory
     {
         return [
             'text' => $this->faker->sentence,
-            'user_id' => $this->faker->numberBetween(1, 51),
+            'user_id' => $this->faker->numberBetween(1, 50),
             'schedule_date_time' => now(),
         ];
     }

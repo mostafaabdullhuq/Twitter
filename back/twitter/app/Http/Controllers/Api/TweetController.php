@@ -36,7 +36,7 @@ class TweetController extends Controller
     public function get_User_Retweets()
     {
 
-        $retweets = JWTAuth::user()->retweets()->get();
+        $retweets = JWTAuth::user()->retweets()->latest()->get();
         $user = JWTAuth::user();
 
         return [
@@ -46,14 +46,18 @@ class TweetController extends Controller
     }
     public function get_User_Replies()
     {
-
-        $replies = JWTAuth::user()->tweets()->replies()->get();
         $user = JWTAuth::user();
-
-        return [
+        $tweets = [];
+        $replies = $user->replies()->get();
+        foreach ($replies as $key => $reply) {
+            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
+            $tweets[] = $tweet;
+        }
+        $response = [
             'user' => $user,
-            'replies' => $replies
+            'tweets' => $tweets
         ];
+        return $response;
     }
 
 
@@ -80,20 +84,6 @@ class TweetController extends Controller
         $tweetText = $request->text;
         $tweetMedia = $request->media ?? null;
         $tweetScheduleDateTime = $request->schedule_date_time ?? null;
-        $mediaType = $tweetMedia->getClientMimeType();
-        $mediaType = explode('/', $mediaType)[0];
-        if ($mediaType === 'image') {
-            $mediaType = 1;
-        }
-        if ($mediaType === 'video') {
-            $mediaType = 2;
-        }
-
-        $tweetMedia = $tweetMedia ? $tweetMedia->store('public/media') : null;
-        $mediaName = explode('/', $tweetMedia)[2];
-        // $tweetMedia = $tweetMedia ? asset('storage/media/') : null;
-        // dd($tweetMedia);
-
         $tweet = JWTAuth::user()->tweets()->create(
             [
                 'text' => $tweetText,
@@ -101,19 +91,36 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id
             ]
         );
+
         if ($tweetMedia) {
+            $mediaType = $tweetMedia?->getClientMimeType();
+            $mediaType = explode('/', $mediaType)[0];
+            if ($mediaType === 'image') {
+                $mediaType = 1;
+            }
+            if ($mediaType === 'video') {
+                $mediaType = 2;
+            }
+
+            $tweetMedia = $tweetMedia ? $tweetMedia->store('public/media') : null;
+            $mediaName = explode('/', $tweetMedia)[2];
             $tweet->media()->create([
                 'media_url' => $mediaName,
                 'media_type' => $mediaType
             ]);
         }
+
+        $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
 
     public function details($id)
     {
+
         try {
+            // Find the tweet with the given ID.
             $tweet = Tweet::findOrFail($id);
+            // Format the tweet.
             $tweet = $this->formatTweet($tweet);
             return $tweet;
         } catch (
@@ -128,7 +135,7 @@ class TweetController extends Controller
     }
 
 
-    public function formatTweet($tweet)
+    public function formatTweet($tweet, $userID = 0)
     {
         // add user object to the tweet object and delete security sensitive information
         $tweet->user;
@@ -137,9 +144,6 @@ class TweetController extends Controller
         unset($tweet->user->email_verified_at);
         unset($tweet->user->updated_at);
         unset($tweet->user_id);
-
-
-
 
         // get the media of the tweet and update it's url values and remove security sensitive info
         $media = $tweet->media;
@@ -151,8 +155,7 @@ class TweetController extends Controller
                 $value->media_url = asset('storage/media/' . $value->media_url);
             }
         }
-        $replies = $tweet->replies;
-
+        $replies = $userID ? $tweet->replyWithUserID($userID) : $tweet->replies;
         foreach ($replies as $reply) {
             $reply->user = $reply->user;
             unset($reply->repliable_type);
@@ -206,10 +209,32 @@ class TweetController extends Controller
                 unset($media_value['parent_id']);
                 unset($media_value['parent_type']);
                 unset($media_value['updated_at']);
+        foreach ($tweets as $tweet) {
+            // Get the user associated with this tweet
+            $tweet->user;
+            // Remove sensitive information from the user object
+            unset($tweet->user->google_access_token);
+            unset($tweet->user->facebook_access_token);
+            unset($tweet->user->email_verified_at);
+            unset($tweet->user->updated_at);
+            unset($tweet->user_id);
+            // Get the media associated with this tweet
+            $tweet->media;
+            // Remove sensitive information from the media objects
+            foreach ($tweet->media as $media) {
+                unset($media['parent_id']);
+                unset($media['parent_type']);
+                unset($media['updated_at']);
+            }
+            // Add some additional information to the user object
+            $tweet->user->followers_count = $tweet->user->followers()->count();
+            $tweet->user->followings_count = $tweet->user->followings()->count();
+            $tweet->user->tweets_count = $tweet->user->tweets()->count();
+            // Add the full URL to the media objects
+            foreach ($tweet->media as $media) {
+                $media->media_url = $media->media_url ? asset('storage/media/' . $media->media_url) : null;
             }
         }
         return $tweets;
     }
-
-
 }
