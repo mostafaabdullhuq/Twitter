@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\User;
 class UserController extends Controller
 {
     public function __construct()
@@ -24,12 +24,12 @@ class UserController extends Controller
         return $user;
     }
 
-    public function destroy()
+
+
+    public function destroy(Request $request)
     {
-        $user = auth()->user();
-        $user->delete();
-        return response()->json(null, 204);
+        $request->user()->delete();
+
+        return response()->json(['message'=>'user permanently deleted '], 500);        
     }
-
-
 }

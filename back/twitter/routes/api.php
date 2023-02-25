@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\FollowingController;
+use App\Http\Controllers\BlockController;
 
 Route::group([
     'middleware' => 'api',
@@ -36,9 +37,9 @@ Route::group([
 
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
-    Route::post('destroy', [UserController::class, 'destroy']);
-
+    Route::delete('delete', [UserController::class, 'destroy']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
+    Route::post('block-user', [BlockController::class, 'store']);    
 });
 
 Route::group([

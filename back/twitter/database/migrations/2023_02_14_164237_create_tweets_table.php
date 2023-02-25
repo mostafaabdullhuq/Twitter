@@ -17,12 +17,11 @@ return new class extends Migration
             $table->id();
             $table->text('text')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('schedule_date_time');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
