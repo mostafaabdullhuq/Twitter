@@ -191,6 +191,9 @@ class TweetController extends Controller
         unset($tweet->user->updated_at);
         unset($tweet->user_id);
 
+        //zienab
+        $tweet->liked_by_user = JWTAuth::user()->likes->where()   ;
+
         // get the media of the tweet and update it's url values and remove security sensitive info
         $media = $tweet->media;
         if ($media->count()) {
