@@ -21,7 +21,11 @@ export class ProfileComponent implements OnInit {
       this.tweetsClient.getReplies().subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
+          console.log(this.tweets);
+
           this.user = data.user;
+          console.log(this.user);
+
         },
         error: (err) => {
           console.log(err);
