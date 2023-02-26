@@ -51,9 +51,28 @@ class TweetController extends Controller
     // ----------------- in progress ----------------------
     public function create(CreateTweetRequest $request)
     {
-        $tweetText = $request->text;
-        $tweetMedia = $request->media ?? null;
+        $response = [];
+
+        $files = $request->allFiles();
+        foreach ($files as $key => $value) {
+            $response[] = [
+                'key' => $key,
+                'name' => $value->getClientOriginalName(),
+                'type' => $value->getClientMimeType(),
+                'size' => $value->getSize(),
+                'path' => $value->getRealPath(),
+                'extension' => $value->getClientOriginalExtension(),
+            ];
+        }
+
+        return $response;
+
+
+
+        $tweetText = $request->text ?? null;
+        $tweetMedia = $request->files ?? null;
         $tweetScheduleDateTime = $request->schedule_date_time ?? null;
+
         $tweet = JWTAuth::user()->tweets()->create(
             [
                 'text' => $tweetText,
@@ -61,23 +80,30 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id
             ]
         );
-
         if ($tweetMedia) {
-            $mediaType = $tweetMedia?->getClientMimeType();
-            $mediaType = explode('/', $mediaType)[0];
-            if ($mediaType === 'image') {
-                $mediaType = 1;
-            }
-            if ($mediaType === 'video') {
-                $mediaType = 2;
-            }
 
-            $tweetMedia = $tweetMedia ? $tweetMedia->store('public/media') : null;
-            $mediaName = explode('/', $tweetMedia)[2];
-            $tweet->media()->create([
-                'media_url' => $mediaName,
-                'media_type' => $mediaType
-            ]);
+            foreach ($tweetMedia as $key => $media) {
+                $mediaType = $media?->getClientMimeType();
+                $mediaType = explode('/', $mediaType)[0];
+                if ($mediaType === 'image') {
+                    $mediaType = 1;
+                }
+                if ($mediaType === 'video') {
+                    $mediaType = 2;
+                }
+
+                dd($media);
+
+                $media = $media ? $media->store('public/media') : null;
+                $mediaName = explode('/', $media)[2];
+
+                // $tweetMedia = $tweetMedia ? $tweetMedia->store('public/media') : null;
+                // $mediaName = explode('/', $tweetMedia)[2];
+                $tweet->media()->create([
+                    'media_url' => $mediaName,
+                    'media_type' => $mediaType
+                ]);
+            }
         }
 
         $tweet = $this->formatTweet($tweet);

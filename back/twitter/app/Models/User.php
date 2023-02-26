@@ -133,11 +133,13 @@ class User extends Authenticatable implements JWTSubject
 
         // remove duplicate ids
         $totalUsers = array_unique($totalUsers);
-
         // remove the current user id
         unset($totalUsers[array_search($this->id, $totalUsers)]);
 
+        $totalUsers[] = $this->id;
+
         // get the tweets of the users who the current user follow and the users who the users who the current user follow follow
+
         return Tweet::whereIn('user_id', $totalUsers)
             ->latest();
     }
