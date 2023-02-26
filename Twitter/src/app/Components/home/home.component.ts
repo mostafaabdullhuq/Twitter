@@ -64,19 +64,35 @@ export class HomeComponent implements OnInit {
   // }
 
   tweetSubmit() {
-    const media = this.tweetForm.value.media;
-    const text = this.tweetForm.value.text;
-    if (media || text) {
+    const media: any = this.tweetForm.value.media ?? null;
+    const text: any = this.tweetForm.value.text ?? null;
+
+    if (this.tweetMediaFiles || text) {
       let postData = new FormData();
-      // Object.keys(this.tweetMediaFiles).forEach((key: any) => {
-      //   postData.append(
-      //     'media',
-      //     this.tweetMediaFiles[0],
-      //     'media_rand' + parseInt((Math.random() * 100000).toString())
-      //   );
+      Object.keys(this.tweetMediaFiles).forEach((key: any) => {
+        postData.append('media_', text);
+      });
+
+      text ? postData.append('text', text) : false;
+      // this.tweetClient.createTweet(postData).subscribe({
+      //   next: (data: any) => {
+      //     console.log(data);
+
+      //     this.tweets.unshift(data);
+      //     this.tweetForm.reset();
+      //   },
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
       // });
 
-      console.log(postData);
+      // console.log(this.tweetMediaFiles);
+
+      // Object.keys(this.tweetMediaFiles).forEach((key: any) => {
+      //   console.log(this.tweetMediaFiles[key]);
+      //   postData.append('text', text);
+      // });
+      // console.log(postData);
 
       // text ? postData.append('text', text) : '';
       // console.log(postData);
