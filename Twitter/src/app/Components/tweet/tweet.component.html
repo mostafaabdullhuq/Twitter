@@ -53,14 +53,18 @@
                     class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
                     <span [innerHTML]="formatTweetText(tweet.text)"></span>
                 </p>
-                <div *ngIf="tweet.media_url"
+                <div *ngIf="tweet.media.length"
                     class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
-                    <img class="object-cover w-full h-full" src="{{tweet.media_url}}" *ngIf="tweet.media_type === 1" />
-                    <video controls *ngIf="tweet.media_type === 2">
-                        <source src="./../../../assets/videos/The Sound of Two Neutron Stars Colliding(480p).mp4"
-                            type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
+                    <div *ngFor="let media of tweet.media">
+                        <img class="object-cover w-full h-full" src="{{media.media_url}}"
+                            *ngIf="media.media_type == 1" />
+                        <video controls *ngIf="media.media_type == 2">
+                            <source src="./../../../assets/videos/The Sound of Two Neutron Stars Colliding(480p).mp4"
+                                type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+
+                    </div>
                 </div>
 
                 <!-- ----controls icons ---- -->
