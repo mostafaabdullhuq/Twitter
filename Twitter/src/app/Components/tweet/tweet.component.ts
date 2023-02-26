@@ -15,7 +15,7 @@ import { RouterModule , RouterLink, ActivatedRoute } from '@angular/router';
 export class TweetComponent {
   constructor(private sanitizer: DomSanitizer
     ,public myRoute: ActivatedRoute,
-     public httpClient:TweetsService,) {}
+    public httpClient:TweetsService,) {}
   formatTweetText(text: string): SafeHtml {
     if (text) {
       const hashtagRegex = /#[a-zA-Z0-9_]+/g;
