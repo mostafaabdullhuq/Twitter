@@ -26,6 +26,10 @@ export class ChangePasswordComponent implements OnInit {
       this.tweetsClient.getAuthedTweets().subscribe({
         next: (data: any) => {
           this.user = data.user;
+          this.form = {
+            email: this.user.email || '',
+            password: this.user.password || null,
+            password_confirmation: this.user.password_confirmation || null,}
         },
         error: (err) => {
           console.log(err);
