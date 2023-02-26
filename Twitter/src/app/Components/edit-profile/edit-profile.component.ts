@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 
@@ -9,9 +9,21 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
-
+  public error: any = null;
+  public form = {
+  email: null,
+  first_name: null,
+  last_name: null,
+  bio: null,
+  date_of_birth: null,
+  phone_number: null,
+  location: null,
+  website: null,
+}
   constructor( public tweetsClient: TweetsService,
-    public myActivate:ActivatedRoute, public myservice:AuthService) {}
+  public myActivate:ActivatedRoute, 
+   private Auth: AuthService,
+   private router: Router) {}
   public user: any;
   ngOnInit(): void {
     this.tweetsClient.getAuthedTweets().subscribe({
@@ -24,7 +36,19 @@ export class EditProfileComponent implements OnInit {
       },
     });
   }
-  // updateUser(){
-  // this.myservice.updateUser(this.id,this.user).subscribe({});
-  // }
+
+   onSubmit(){
+this.Auth.updateUser(this.form).subscribe({
+  next: (data) => {this.handleResponse(data)},
+  error: (err) => {this.handleError(err);},
+})
+ }
+ handleResponse(res: any) {
+  this.router.navigate(['/profile']);
+  
+}
+
+handleError(error: any) {
+  this.error = error.error.error;
+}
 }
