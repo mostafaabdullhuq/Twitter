@@ -24,14 +24,19 @@ class changePasswordSettingController extends Controller
     private function changePassword($request)
     {
         $user = User::whereEmail($request->email)->first();
+        $oldEmail = $user->email;
         if ($request->email !== null) {
             $user->email = $request->email;
         }
         if ($request->password !== null) {
             $user->password = $request->password;
         }
-        $user->save();     
-        return response()->json(['data'=>'Password Successfully Changed'],Response::HTTP_CREATED);        
-    }    
+        $user->save();   
+        if ($user->email !== $oldEmail){  
+        return response()->json(['data'=>'done'],Response::HTTP_CREATED);        
+    } else{
+        return response()->json(['data' => 'Password Successfully Changed'], Response::HTTP_OK);
+
+    }   }
 }
 
