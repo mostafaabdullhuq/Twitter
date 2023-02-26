@@ -16,8 +16,6 @@ class ReplyController extends Controller
         $this->middleware('auth:api');
     }
 
-
-
     public function reply($id, Request $request)
     {
         $request->validate([
@@ -42,28 +40,12 @@ class ReplyController extends Controller
         unset($reply->user->facebook_access_token);
         unset($reply->user->email_verified_at);
         unset($reply->user->updated_at);
+        $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
         $reply->likes_count = $reply->likes->count();
         $reply->retweets_count = random_int(0, 999999999);
         $reply->views_count = random_int(0, 999999999);
         $reply->user;
         $reply->media;
-        return $reply;
-    }
-
-    public function likeToggle($id)
-    {
-        $user = JWTAuth::user();
-        $reply = Reply::find($id);
-        $like = $reply->likes()->where('user_id', $user->id)->first();
-        if ($like) {
-            $like->delete();
-        } else {
-            $reply->likes()->create(
-                [
-                    'user_id' => $user->id,
-                ]
-            );
-        }
         return $reply;
     }
 }
