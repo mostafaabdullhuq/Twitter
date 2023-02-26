@@ -75,19 +75,20 @@ export class TweetsService {
     return this.httpClient.get(`${this.BASE_URL}/hashtag/${hashtag}`);
   }
 
+//replies
   createReply(reply:any, tweetID:any){
     const accessToken = this.token.get();
-
     return this.httpClient.post(`${this.BASE_URL}/${tweetID}/reply`,reply, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-
-  getLikesCount(tweetID:any){
+  
+  //likes
+  getLikesCount(id: any){
     const accessToken = this.token.get();
-    return this.httpClient.get(`${this.BASE_URL}/${tweetID}/like` ,{
+    return this.httpClient.get(`${this.BASE_URL}/${id}/like` ,{
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -159,6 +160,7 @@ export class TweetsService {
   //     },
   //   });
   // }
+
   getReplies() {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + '/replies', {

@@ -12,16 +12,17 @@ export class ReplyComponent {
     public myRoute: ActivatedRoute,
      public httpClient:TweetsService,) {}
 
-     likesCount(tweetID:any){
-      this.httpClient.getLikesCount( tweetID ).subscribe({
+     //like
+  isLiked: boolean = false;
+     likesCount(replyID:any){
+      this.httpClient.getLikesCount( replyID ).subscribe({
         next: (data:any) => {
-          console.log(data);
+          this.isLiked = data.likes_count >= 1;
+          // console.log(data);
           console.log("liked a reply");
-
         },
         error: (err) => {
           console.log(err);
-
         },
       });
     }
