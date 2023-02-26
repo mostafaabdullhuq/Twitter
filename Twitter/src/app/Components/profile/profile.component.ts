@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   public tweetsCount = 0;
   public user: any;
   public viewType = 1;
-  
+
   ngOnInit(): void {
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.tweetsClient.getReplies().subscribe({
@@ -26,14 +26,12 @@ export class ProfileComponent implements OnInit {
 
           this.user = data.user;
           console.log(this.user);
-
         },
         error: (err) => {
           console.log(err);
         },
       });
-    }
-    else {
+    } else {
       this.tweetsClient.getAuthedTweets().subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;

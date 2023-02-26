@@ -66,25 +66,30 @@ export class HomeComponent implements OnInit {
   tweetSubmit() {
     const media: any = this.tweetForm.value.media ?? null;
     const text: any = this.tweetForm.value.text ?? null;
-
+    // let files: any = [];
+    let tweet: any = {};
     if (this.tweetMediaFiles || text) {
       let postData = new FormData();
       Object.keys(this.tweetMediaFiles).forEach((key: any) => {
-        postData.append('media_', text);
+        postData.append('files[]', this.tweetMediaFiles[key]);
+        // files.push(postData);
       });
-
       text ? postData.append('text', text) : false;
-      // this.tweetClient.createTweet(postData).subscribe({
-      //   next: (data: any) => {
-      //     console.log(data);
+      // files.length ? (tweet.files = files) : false;
 
-      //     this.tweets.unshift(data);
-      //     this.tweetForm.reset();
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //   },
-      // });
+      // text ? postData.append('text', text) : false;
+
+      this.tweetClient.createTweet(postData).subscribe({
+        next: (data: any) => {
+          console.log(data);
+
+          // this.tweets.unshift(data);
+          // this.tweetForm.reset();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
 
       // console.log(this.tweetMediaFiles);
 
@@ -131,8 +136,6 @@ export class HomeComponent implements OnInit {
   removeMedia() {
     this.tweetMedia = [];
     this.tweetMediaFiles = [];
-    console.log(this.tweetMedia);
-
     this.tweetForm.patchValue({ media: null });
   }
 }
