@@ -45,8 +45,8 @@ class LikeController extends Controller
                     'like'=> $like
                 ],500);
             }
-
         }
+        // $like->likes_count = $like->likes->count();
 
     }
 }

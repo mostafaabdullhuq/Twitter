@@ -28,18 +28,22 @@ class Reply extends Model
     {
         return $this->morphTo();
     }
-    
+
     public function replies()
     {
         return $this->morphMany(
             Reply::class, 'repliable');
     }
 
-    public function media()
+    // public function media()
+    // {
+    //     return $this->morphMany(
+    //         Media::class,
+    //         'parent'
+    //     );
+    // }
+    public function likes()
     {
-        return $this->morphMany(
-            Media::class,
-            'parent'
-        );
+        return $this->morphMany(Like::class, 'liked');
     }
 }

@@ -45,9 +45,8 @@ Route::group([
     Route::post('block-user', [BlockController::class, 'store']);
     Route::post('get-followers', [FollowingController::class, 'get_followers']);
     Route::post('get-followings', [FollowingController::class, 'get_followings']);
-    Route::post('like', [LikeController::class, '']);
-
 });
+Route::post('api/like', [LikeController::class, 'like']);
 
 Route::group([
     'middleware' => 'api',
