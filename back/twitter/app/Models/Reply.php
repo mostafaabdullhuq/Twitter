@@ -28,11 +28,13 @@ class Reply extends Model
     {
         return $this->morphTo();
     }
-    
+
     public function replies()
     {
         return $this->morphMany(
-            Reply::class, 'repliable');
+            Reply::class,
+            'repliable'
+        );
     }
 
     public function media()
@@ -41,5 +43,19 @@ class Reply extends Model
             Media::class,
             'parent'
         );
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'liked');
+    }
+
+    public function replyWithUserID($userID)
+    {
+
+        return $this->morphMany(
+            Reply::class,
+            'repliable'
+        )->get()->where('user_id', $userID);
     }
 }
