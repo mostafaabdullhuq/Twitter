@@ -56,63 +56,28 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // ngAfterViewInit(): void {
-  //   let tweetBox = this.tweetBox.nativeElement;
-  //   tweetBox.addEventListener('input', () => {
-  //     console.log('input');
-  //   });
-  // }
-
   tweetSubmit() {
     const media: any = this.tweetForm.value.media ?? null;
     const text: any = this.tweetForm.value.text ?? null;
-    // let files: any = [];
     let tweet: any = {};
     if (this.tweetMediaFiles || text) {
       let postData = new FormData();
       Object.keys(this.tweetMediaFiles).forEach((key: any) => {
         postData.append('files[]', this.tweetMediaFiles[key]);
-        // files.push(postData);
       });
       text ? postData.append('text', text) : false;
-      // files.length ? (tweet.files = files) : false;
-
-      // text ? postData.append('text', text) : false;
 
       this.tweetClient.createTweet(postData).subscribe({
         next: (data: any) => {
-          console.log(data);
-
-          // this.tweets.unshift(data);
-          // this.tweetForm.reset();
+          this.tweets.unshift(data);
+          this.tweetForm.reset();
+          this.tweetMedia = [];
+          this.tweetMediaFiles = [];
         },
         error: (err) => {
           console.log(err);
         },
       });
-
-      // console.log(this.tweetMediaFiles);
-
-      // Object.keys(this.tweetMediaFiles).forEach((key: any) => {
-      //   console.log(this.tweetMediaFiles[key]);
-      //   postData.append('text', text);
-      // });
-      // console.log(postData);
-
-      // text ? postData.append('text', text) : '';
-      // console.log(postData);
-
-      // this.tweetClient.createTweet(tweet).subscribe({
-      //   next: (data: any) => {
-      //     console.log(data);
-
-      //     this.tweets.unshift(data);
-      //     this.tweetForm.reset();
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //   },
-      // });
     } else {
       this.tweetForm.setErrors({ invalid: true });
     }
