@@ -13,27 +13,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class TweetDetailsComponent implements OnInit {
   public tweetID = this.activatedRouter.snapshot.params['id'];
 
-  public replyForm= new FormGroup({
-    text:new FormControl(null,[Validators.required, Validators.maxLength(500)])
+  public replyForm = new FormGroup({
+    text: new FormControl(null, [
+      Validators.required,
+      Validators.maxLength(500),
+    ]),
   });
 
-  replySubmit(){
+  replySubmit() {
     let reply = {
       text: this.replyForm.value.text,
-    }
-    this.httpClient.createReply(reply, this.tweetID, ).subscribe({
+    };
+    this.httpClient.createReply(reply, this.tweetID).subscribe({
       next: (data) => {
         this.tweet.replies.unshift(data);
-        console.log(data);
-        console.log(this.tweet);
-
-
+        this.tweet.replies_count += 1;
       },
       error: (err) => {
         this.error = err;
       },
-    })
-  };
+    });
+  }
   constructor(
     private httpClient: TweetsService,
     private activatedRouter: ActivatedRoute,
@@ -58,9 +58,4 @@ export class TweetDetailsComponent implements OnInit {
       },
     });
   }
-
-
-  }
-
-
-
+}
