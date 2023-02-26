@@ -17,11 +17,11 @@ class LikeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'tweet_id' => 'required',
-        ]);
+        // $request->validate([
+        //     'tweet_id' => 'required',
+        // ]);
 
-        $user = $request->user();
+        $user = JWTAuth::user();
         $like = Like::where('user_id', $user->id)->where('tweet_id', $request->tweet_id)->first();
 
         if ($like) {

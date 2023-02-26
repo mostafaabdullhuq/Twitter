@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateTweetRequest;
+use App\Models\Like;
 // use Apuse App\Models\Reply;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
@@ -205,8 +206,7 @@ class TweetController extends Controller
             $reply->replies;
             $reply->media = $replyMedia;
             $reply->replies_count = $reply->replies->count();
-            // $reply->replies_count = random_int(0, 999999999);
-            $reply->likes_count = random_int(0, 999999999);
+            $reply->likes_count = $reply->likes->count();
             $reply->retweets_count = random_int(0, 999999999);
             $reply->views_count = random_int(0, 999999999);
         }
@@ -216,6 +216,7 @@ class TweetController extends Controller
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         $tweet->replies_count = $tweet->replies->count();
+        $tweet->likes_count = $tweet->likes->count();
         return $tweet;
     }
 
@@ -262,7 +263,7 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id,
             ]
         );
-        $reply->replies_count = $reply->replies->count();
+
         unset($reply->repliable_type);
         unset($reply->repliable_id);
         unset($reply->updated_at);
@@ -270,11 +271,32 @@ class TweetController extends Controller
         unset($reply->user->facebook_access_token);
         unset($reply->user->email_verified_at);
         unset($reply->user->updated_at);
-        $reply->likes_count = $reply->likes->count();
-        $reply->retweets_count = random_int(0, 999999999);
-        $reply->views_count = random_int(0, 999999999);
+        $reply->likes_count = 0;
+        $reply->replies_count = 0;
+        $reply->retweets_count = 0;
+        $reply->views_count = 0;
         $reply->user;
         $reply->media;
         return $reply;
+    }
+
+    public function likeToggle($id)
+    {
+        $user = JWTAuth::user();
+        $tweet = Tweet::find($id);
+        $like = $tweet->likes()->where('user_id', $user->id)->first();
+        if ($like) {
+            $like->delete();
+        } else {
+            $tweet->likes()->create(
+                [
+                    'user_id' => $user->id,
+                ]
+            );
+        }
+
+        $tweet = $this->formatTweet($tweet);
+
+        return $tweet;
     }
 }

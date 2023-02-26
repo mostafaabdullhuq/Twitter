@@ -28,7 +28,9 @@ class Tweet extends Model
     public function replies()
     {
         return $this->morphMany(
-            Reply::class, 'repliable');
+            Reply::class,
+            'repliable'
+        );
     }
 
     public function replyWithUserID($userID)
@@ -47,5 +49,10 @@ class Tweet extends Model
             Media::class,
             'parent'
         );
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'liked');
     }
 }

@@ -49,4 +49,13 @@ class Reply extends Model
     {
         return $this->morphMany(Like::class, 'liked');
     }
+
+    public function replyWithUserID($userID)
+    {
+
+        return $this->morphMany(
+            Reply::class,
+            'repliable'
+        )->get()->where('user_id', $userID);
+    }
 }
