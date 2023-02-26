@@ -49,7 +49,7 @@
                 </div>
         
         <form class="mt-12 space-y-6" #updateForm=ngForm (ngSubmit)="onSubmit()">
-            <input [(ngModel)]="form.email" type="hidden" value="{{ user ? (user.email? user.email: '') : 'Loading...' }}" name="remember"  value="true">
+            <input [(ngModel)]="form.email" type="hidden"  value="{{ user ? (user.email? user.email: '') : 'Loading...' }}" name="remember">
             <div>
                 <input [(ngModel)]="form.first_name"  value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="name" name="name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
@@ -87,7 +87,7 @@
             </div>
 
             <div>
-                <input [(ngModel)]="form.website" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input [(ngModel)]="form.date_of_birth" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="date_of_birth">
             </div>

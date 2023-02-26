@@ -26,17 +26,29 @@ export class EditProfileComponent implements OnInit {
    private Auth: AuthService,
    private router: Router) {}
   public user: any;
+
   ngOnInit(): void {
     this.tweetsClient.getAuthedTweets().subscribe({
       next: (data: any) => {
         this.user = data.user;
-        console.log(this.user);
+        this.form = {
+          email: this.user.email || '',
+          first_name: null,
+          last_name: null,
+          username: this.user.username,
+          bio: this.user.bio,
+          date_of_birth: this.user.date_of_birth,
+          phone_number: this.user.phone_number,
+          location: this.user.location,
+          website: this.user.website,
+        };
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
+  
 
    onSubmit(){
 this.Auth.updateUser(this.form).subscribe({
