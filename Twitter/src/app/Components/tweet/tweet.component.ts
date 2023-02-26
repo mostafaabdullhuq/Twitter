@@ -6,27 +6,18 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TweetsService } from 'src/app/Services/tweets.service';
-import { RouterModule , RouterLink, ActivatedRoute, Router } from '@angular/router';
-import { TokenService } from 'src/app/Services/token.service';
+import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
-export class TweetComponent implements OnInit {
-  // public tweetID = this.activatedRouter.snapshot.params['id'];
+export class TweetComponent {
   constructor(
-    private httpClient: TweetsService,
-    private activatedRouter: ActivatedRoute,
-    private router: Router,
-    private tokenService: TokenService,
     private sanitizer: DomSanitizer,
-  ) {
-    this.user = this.tokenService.getUser();
-  }
-  protected tweet: any;
-  protected error: any;
-  protected user: any;
+    public myRoute: ActivatedRoute,
+    public httpClient: TweetsService
+  ) {}
   formatTweetText(text: string): SafeHtml {
     if (text) {
       const hashtagRegex = /#[a-zA-Z0-9_]+/g;
@@ -44,43 +35,38 @@ export class TweetComponent implements OnInit {
     }
   }
 
-
-  //like
-  isLiked: boolean = false;
-  // public tweetID = this.activatedRouter.snapshot.params['id'];
- likesCount(tweet: any) {
-  console.log(tweet.id);
-
-  this.httpClient.getLikesCount(tweet.id).subscribe({
-    next: (data: any) => {
-      this.isLiked = data.likes_count >= 1;
-      // this.isLiked = !this.isLiked;
-      console.log("liked a tweet from home component");
-    },
-    error: (err) => {
-      console.log(err);
-    },
-  });
-}
-
-
-  ngOnInit(): void {
-    const tweetID = this.activatedRouter.snapshot.params['id'];
-    this.httpClient.getTweetById(+tweetID).subscribe({
-      next: (data) => {
-        this.tweet = data;
+  likesCount(tweetID: any) {
+    this.httpClient.getLikesCount(tweetID).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        // this.tweet.likes_count = data.likes_count ;
       },
       error: (err) => {
-        this.error = err;
+        console.log(err);
       },
     });
   }
+
+  handleMedia(type: any, container: any, tweet: any) {
+    let nextIndex;
+    let currentSrc = container.children[0].children[0].src;
+    Object.entries(tweet.media).forEach((value: any, index: any) => {
+      let mediaObj = value[1];
+      if (currentSrc === mediaObj.media_url) {
+        if (type === 1) {
+          nextIndex = index + 1 >= tweet.media.length ? 0 : index + 1;
+        } else {
+          nextIndex = index - 1 < 0 ? tweet.media.length - 1 : index - 1;
+        }
+        console.log(nextIndex);
+        container.children[0].children[0].src =
+          tweet.media[nextIndex].media_url;
+
+        container.children[0].children[0].src =
+          tweet.media[nextIndex].media_url;
+      }
+    });
+  }
+
   @Input() tweets: any;
 }
-
-
-// constructor(private sanitizer: DomSanitizer,
-//    public myRoute: ActivatedRoute,
-//    public httpClient:TweetsService,
-//    private activatedRouter: ActivatedRoute,
-//    ) {}

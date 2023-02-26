@@ -30,5 +30,9 @@ export class AuthService {
   updateUser(data: any) {
     return this.http.post(`${this.baseUrl}/updateUser`,data);
   }
+
+  changePasswordSetting(data: any) {
+    return this.http.post(`${this.baseUrl}/changePassword`, data);
+  }
   
 }

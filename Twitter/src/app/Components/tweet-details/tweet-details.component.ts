@@ -20,12 +20,16 @@ export class TweetDetailsComponent implements OnInit {
       Validators.maxLength(500),
     ]),
   });
+<<<<<<< HEAD
+=======
+  //reply
+>>>>>>> efb4c8fa39659f1f0365fec57136c27c352afa66
   replySubmit() {
     let reply = {
       text: this.replyForm.value.text,
     };
     this.httpClient.createReply(reply, this.tweetID).subscribe({
-      next: (data:any) => {
+      next: (data: any) => {
         this.tweet.replies.unshift(data);
         this.tweet.replies_count += 1;
         this.replyForm.reset();
@@ -35,6 +39,7 @@ export class TweetDetailsComponent implements OnInit {
       },
     });
   }
+<<<<<<< HEAD
 
 //like
 like:any;
@@ -54,6 +59,20 @@ likesCount(){
   });
 }
 
+=======
+  //like
+  like: any;
+  likesCount() {
+    this.httpClient.getLikesCount(this.tweetID).subscribe({
+      next: (data: any) => {
+        this.tweet.likes_count = data.likes_count;
+      },
+      error: (err) => {
+        this.error = err;
+      },
+    });
+  }
+>>>>>>> efb4c8fa39659f1f0365fec57136c27c352afa66
   constructor(
     private httpClient: TweetsService,
     private activatedRouter: ActivatedRoute,

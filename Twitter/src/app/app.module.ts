@@ -47,6 +47,7 @@ import {
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 import { ReplyComponent } from './Components/reply/reply.component';
 import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { EditProfileComponent } from './Components/edit-profile/edit-profile.com
     TweetDetailsComponent,
     ReplyComponent,
     EditProfileComponent,
+    ChangePasswordComponent,
   ],
 
   imports: [

@@ -146,3 +146,6 @@ router-outlet + *
 .create_tweet:disabled {
   @apply bg-main-blue_0;
 }
+.media-item {
+  @apply w-full h-full  flex rounded-xl overflow-hidden;
+}

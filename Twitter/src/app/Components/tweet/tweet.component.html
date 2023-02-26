@@ -2,7 +2,7 @@
 
 
 
-    <div class="tweet  relative " *ngFor="let tweet of tweets">
+    <div class="tweet relative " *ngFor="let tweet of tweets">
         <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0 -z-10"></div>
         <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
             title="More">
@@ -16,7 +16,6 @@
                 src="{{tweet.user.profile_image_url || './../../../assets/images/default_profile.png'}}" alt="" />
         </div>
         <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
-            <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
             <div class="flex overflow-hidden mt-1">
                 <!--  name -->
                 <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
@@ -46,40 +45,42 @@
                 </div>
             </div>
 
-            <!-- ----paragraph----- -->
-
+            <!-- ----tweet body----- -->
             <div class="sm:pr-4">
+                <!-- tweet text -->
                 <p routerLink="/status/{{tweet.id}}"
                     class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
                     <span [innerHTML]="formatTweetText(tweet.text)"></span>
                     <!-- <span [innerHTML]="formatTweetText(tweet.replies[0].text)"></span> -->
-
                 </p>
-                <!-- <div class=" border border-b-green-700 text-white" *ngFor="let reply of tweet.replies">
-                    <span [innerHTML]="formatTweetText(reply.text)"></span>
-                    <div class="flex items-center w-auto max-w-[45%]">
-                      <span routerLink="/{{reply.user.username}}"
-                          class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{reply.user.username}}
-                      </span>
-                      <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
-                          .</p>
-                      <p routerLink="/status/{{reply.id}}"
-                          class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">{{reply.created_at
-                          |
-                          humanDates}}</p>
-                  </div>
-                </div> -->
-                <div *ngIf="tweet.media.length"
-                    class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
-                    <div *ngFor="let media of tweet.media">
-                        <img class="object-cover w-full h-full" src="{{media.media_url}}"
-                            *ngIf="media.media_type == 1" />
-                        <video controls *ngIf="media.media_type == 2">
-                            <source src="./../../../assets/videos/The Sound of Two Neutron Stars Colliding(480p).mp4"
-                                type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
 
+                <!-- tweet media -->
+                <div *ngIf="tweet.media.length"
+                    class="relative h-[400px] w-auto max-h-[400px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
+                    <div class="controls">
+                        <!-- media next -->
+                        <div (click)="handleMedia(1, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"
+                            class="absolute right-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                            <i class="fa-solid fa-chevron-right text-xl p-2 text-center"></i>
+                        </div>
+
+                        <!-- media previous -->
+                        <div (click)="handleMedia(2, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"
+                            class="absolute left-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                            <i class="fa-solid fa-chevron-left text-xl p-2 text-center"></i>
+                        </div>
+
+                    </div>
+                    <div #mediaContainer class="media-container absolute top-0 left-0 bottom-0 right-0 overflow-hidden">
+                        <!-- each media -->
+                        <div class="media-item">
+                            <img class="object-cover  h-full w-full" src="{{tweet.media[0].media_url}}"
+                                *ngIf="tweet.media[0].media_type == 1" />
+                            <video controls *ngIf="tweet.media[0].media_type == 2" class="object-cover  h-full w-full">
+                                <source src="{{tweet.media[0].media_url}}" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
                 </div>
 
@@ -94,9 +95,12 @@
                         || '0'
                         | humanNumbers: 2}}
                     </div>
-                    <div (click)="likesCount(tweet)" class="tweet-control-item hover:text-main-love" title="Like">
-                      <i [ngClass]="{'bg-main-love': isLiked}" class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>
-                      {{tweet.likes_count || '0' | humanNumbers: 2}}
+                    <div (click)="likesCount(tweet.id)" class="tweet-control-item  hover:text-main-love" title="Like">
+                        <i [ngClass]="{'text-main-love': tweet.liked == true}"
+                            class="fa-regular fa-heart  sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{tweet.likes_count
+                        ||
+                        '0' |
+                        humanNumbers: 2}}
                     </div>
                     <div class="tweet-control-item-special hover:text-main-blue_100" title="Analytics"><i
                             class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{tweet.views_count
@@ -110,94 +114,96 @@
             </div>
             <!-- ==================I'm Here ,Replaaay Test Design============ -->
 
-            <div *ngIf="tweet.replies?.replies" >
-              <div class=" border border-red-700 text-white" *ngFor="let reply of tweet.replies">
-                <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0 -z-10"></div>
-                <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
-                    title="More">
-                    <i
-                        class="fa-solid fa-ellipsis text-lg dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
-                </div>
-                <div class="flex">
-                  <!-- user image -->
-                  <div routerLink="/{{reply.user.username}}"
-                      class="flex rounded-full relative top-5 overflow-hidden twitter-user-img">
-                      <img class="w-full h-full object-cover"
-                          src="{{reply.user.profile_image_url || './../../../assets/images/default_profile.png'}}" alt="" />
-                  </div>
-                  <div class="flex overflow-hidden ">
-                    <!--  name -->
-                    <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto ">
-                        <p routerLink="/{{reply.user.username}}" class="dotted-text h-6 hover:underline ml-1 ">
-                            {{reply.user.first_name + ' ' + reply.user.last_name}}
-                        </p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
-                            *ngIf="reply.user.verified" stroke="currentColor"
-                            class="w-6 min-w-[25px] text-white fill-main-blue_100">
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                        </svg>
+            <div *ngIf="tweet.replies?.replies">
+                <div class=" border border-red-700 text-white" *ngFor="let reply of tweet.replies">
+                    <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0 -z-10"></div>
+                    <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
+                        title="More">
+                        <i
+                            class="fa-solid fa-ellipsis text-lg dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
                     </div>
-                    <!-- user and reply info -->
-                    <div class="flex items-center w-auto ">
+                    <div class="flex">
+                        <!-- user image -->
+                        <div routerLink="/{{reply.user.username}}"
+                            class="flex rounded-full relative top-5 overflow-hidden twitter-user-img">
+                            <img class="w-full h-full object-cover"
+                                src="{{reply.user.profile_image_url || './../../../assets/images/default_profile.png'}}"
+                                alt="" />
+                        </div>
+                        <div class="flex overflow-hidden ">
+                            <!--  name -->
+                            <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto ">
+                                <p routerLink="/{{reply.user.username}}" class="dotted-text h-6 hover:underline ml-1 ">
+                                    {{reply.user.first_name + ' ' + reply.user.last_name}}
+                                </p>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    strokeWidth="{1.5}" *ngIf="reply.user.verified" stroke="currentColor"
+                                    class="w-6 min-w-[25px] text-white fill-main-blue_100">
+                                    <path strokeLinecap="round" strokeLinejoin="round"
+                                        d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                                </svg>
+                            </div>
+                            <!-- user and reply info -->
+                            <div class="flex items-center w-auto ">
+                                <!-- username -->
+                                <span routerLink="/{{reply.user.username}}"
+                                    class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{reply.user.username}}
+                                </span>
+                                <!-- publish date -->
+                                <p
+                                    class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
+                                    .</p>
+                                <p routerLink="/status/{{reply.id}}"
+                                    class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">
+                                    {{reply.created_at
+                                    |
+                                    humanDates}}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--  user and reply info -->
+                    <div class="flex  w-auto ">
                         <!-- username -->
-                        <span routerLink="/{{reply.user.username}}"
-                            class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{reply.user.username}}
+                        <span
+                            class=" ml-14 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100 ">
+                            Replying to
                         </span>
-                        <!-- publish date -->
-                        <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
-                            .</p>
-                        <p routerLink="/status/{{reply.id}}"
-                            class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">{{reply.created_at
-                            |
-                            humanDates}}
-                        </p>
+                        <span routerLink="/{{reply.user.username}}"
+                            class=" ml-1 text-md font-normal dark:text-blue-400 dotted-text text-blue-400 hover:underline">@{{tweet.user.username}}
+                        </span>
                     </div>
-
+                    <div class="m-auto flex items-center justify-items-center ml-14 mt-4">
+                        <span [innerHTML]="formatTweetText(reply.text)"></span>
+                    </div>
+                    <!-- ----controls icons ---- -->
+                    <div class="w-full justify-between grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4 ml-12 m-auto">
+                        <div class="tweet-control-item hover:text-main-blue_100 " title="Reply">
+                            <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                            {{reply.replies_count || '0' | humanNumbers: 2}}
+                        </div>
+                        <div class="tweet-control-item hover:text-main-retweet" title="Retweet"><i
+                                class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{reply.retweets_count
+                            || '0'
+                            | humanNumbers: 2}}
+                        </div>
+                        <div class="tweet-control-item hover:text-main-love" title="Like"><i
+                                class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{reply.likes_count
+                            ||
+                            '0' |
+                            humanNumbers: 2}}
+                        </div>
+                        <div class="tweet-control-item-special hover:text-main-blue_100" title="Analytics"><i
+                                class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{reply.views_count
+                            || '0'
+                            | humanNumbers: 2}}
+                        </div>
+                        <div class="tweet-control-item hover:text-main-blue_100" title="Share">
+                            <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                        </div>
+                    </div>
                 </div>
-
-                </div>
-                <!--  user and reply info -->
-                <div class="flex  w-auto ">
-                  <!-- username -->
-                  <span
-                      class=" ml-14 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100 ">
-                      Replying to
-                  </span>
-                  <span routerLink="/{{reply.user.username}}"
-                      class=" ml-1 text-md font-normal dark:text-blue-400 dotted-text text-blue-400 hover:underline">@{{tweet.user.username}}
-                  </span>
-                </div>
-                <div class="m-auto flex items-center justify-items-center ml-14 mt-4">
-                  <span [innerHTML]="formatTweetText(reply.text)"></span>
-                </div>
-                <!-- ----controls icons ---- -->
-                <div class="w-full justify-between grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4 ml-12 m-auto">
-                  <div class="tweet-control-item hover:text-main-blue_100 " title="Reply">
-                      <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
-                      {{reply.replies_count || '0' | humanNumbers: 2}}
-                  </div>
-                  <div class="tweet-control-item hover:text-main-retweet" title="Retweet"><i
-                          class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{reply.retweets_count
-                      || '0'
-                      | humanNumbers: 2}}
-                  </div>
-                  <div class="tweet-control-item hover:text-main-love" title="Like"><i
-                          class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{reply.likes_count
-                      ||
-                      '0' |
-                      humanNumbers: 2}}
-                  </div>
-                  <div class="tweet-control-item-special hover:text-main-blue_100" title="Analytics"><i
-                          class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{reply.views_count
-                      || '0'
-                      | humanNumbers: 2}}
-                  </div>
-                  <div class="tweet-control-item hover:text-main-blue_100" title="Share">
-                      <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-                  </div>
-              </div>
-              </div>
             </div>
             <!-- =======================Replay End============== -->
         </div>

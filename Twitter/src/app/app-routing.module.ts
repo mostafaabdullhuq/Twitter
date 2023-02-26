@@ -20,6 +20,7 @@ import { ResponseResetComponent } from './Components/password/response-reset/res
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
 const routes: Routes = [
   {
     path: '',
@@ -100,13 +101,26 @@ const routes: Routes = [
     component: BookmarksComponent,
     canActivate: [AfterLoginService],
   },
-
+  {
+    path: 'request-password-reset',
+    component: RequestResetComponent,
+    canActivate: [BeforeLoginService],
+  },
+  {
+    path: 'response-password-reset',
+    component: ResponseResetComponent,
+    canActivate: [BeforeLoginService],
+  },
   {
     path: 'settings/account',
     component: SettingsComponent,
     canActivate: [AfterLoginService],
   },
-
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
+    canActivate: [AfterLoginService],
+  },
   {
     path: 'connect',
     component: ConnectComponent,
@@ -119,16 +133,6 @@ const routes: Routes = [
     canActivate: [AfterLoginService],
   },
 
-  {
-    path: 'request-password-reset',
-    component: RequestResetComponent,
-    canActivate: [BeforeLoginService],
-  },
-  {
-    path: 'response-password-reset',
-    component: ResponseResetComponent,
-    canActivate: [BeforeLoginService],
-  },
   {
     path: 'edit-profile',
     component: EditProfileComponent,
