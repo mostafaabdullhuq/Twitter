@@ -14,6 +14,7 @@ export class EditProfileComponent implements OnInit {
   email: null,
   first_name: null,
   last_name: null,
+  username: null,
   bio: null,
   date_of_birth: null,
   phone_number: null,
