@@ -5,17 +5,17 @@
 import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
+import { TweetsService } from 'src/app/Services/tweets.service';
+import { RouterModule , RouterLink, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent {
-  constructor(
-    private sanitizer: DomSanitizer,
-    public myRoute: ActivatedRoute
-  ) {}
+  constructor(private sanitizer: DomSanitizer
+    ,public myRoute: ActivatedRoute,
+     public httpClient:TweetsService,) {}
   formatTweetText(text: string): SafeHtml {
     if (text) {
       const hashtagRegex = /#[a-zA-Z0-9_]+/g;
@@ -33,16 +33,22 @@ export class TweetComponent {
     }
   }
 
-  // likeTweet(tweetId: number) {
-  //   this.http.post('/api/like', { tweetId }).subscribe(
-  //     (response) => {
-  //       console.log('Tweet liked!');
-  //     },
-  //     (error) => {
-  //       console.error('Error liking tweet:', error);
-  //     }
-  //   );
-  // }
+  likesCount(tweetID:any){
+    this.httpClient.getLikesCount(tweetID ).subscribe({
+      next: (data:any) => {
+        console.log(data);
+        console.log("liked a tweet from home component");
+
+        // this.tweet.likes_count = data.likes_count ;
+      },
+      error: (err) => {
+        console.log(err);
+
+      },
+    });
+  }
 
   @Input() tweets: any;
 }
+
+

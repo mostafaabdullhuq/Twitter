@@ -94,7 +94,7 @@
                         || '0'
                         | humanNumbers: 2}}
                     </div>
-                    <div class="tweet-control-item hover:text-main-love" title="Like"><i
+                    <div (click)="likesCount(tweet.id)" class="tweet-control-item hover:text-main-love" title="Like"><i
                             class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{tweet.likes_count
                         ||
                         '0' |
