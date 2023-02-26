@@ -13,10 +13,11 @@ class UpdateDataController extends Controller
     public function update(UpdateUserData $request){
         return $this->getUserRow($request)->count() > 0 ? $this->updateData($request) : $this->emailNotFoundResponse();
     }
-
-    private function getUserRow($request)
+    
+        private function getUserRow($request)
     {
-        return DB::table('users')->where(['email' => 'hagar@gmail.com']);
+        return DB::table('users')->where('email', $request->email);
+                                
     }
 
     private function emailNotFoundResponse()
@@ -26,10 +27,10 @@ class UpdateDataController extends Controller
 
     private function updateData($request)
     {
-        // $user = auth()->user();
-        $user = User::whereEmail('hagar@gmail.com')->first();
+        $user = User::whereEmail($request->email)->first();
 
         // Save the old values in variables
+        $oldEmail = $user->email;
         $oldFirstName = $user->first_name;
         $oldLastName = $user->last_name;
         $oldUserName = $user->username;
@@ -40,6 +41,9 @@ class UpdateDataController extends Controller
         $oldDateOfBirth = $user->date_of_birth;
 
         // Update the user data if the request data is not empty
+        if (!empty($request->email)) {
+            $user->email = $request->email;
+        }
         if (!empty($request->first_name)) {
             $user->first_name = $request->first_name;
         }
@@ -69,7 +73,7 @@ class UpdateDataController extends Controller
         $user->save();
 
         // Check if any data was updated and return a success message
-        if ($user->first_name != $oldFirstName || $user->last_name != $oldLastName || $user->username != $oldUserName || $user->bio != $oldBio ||
+        if ($user->email != $oldEmail || $user->first_name != $oldFirstName || $user->last_name != $oldLastName || $user->username != $oldUserName || $user->bio != $oldBio ||
             $user->location != $oldLocation || $user->website != $oldWebsite || $user->phone_number != $oldPhoneNumber ||
             $user->date_of_birth != $oldDateOfBirth) {
             return response()->json(['data' => 'Data Successfully Changed'], Response::HTTP_CREATED);
