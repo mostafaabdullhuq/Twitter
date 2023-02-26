@@ -11,6 +11,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 export class EditProfileComponent implements OnInit {
   public error: any = null;
   public form = {
+  email: null,
   first_name: null,
   last_name: null,
   bio: null,
