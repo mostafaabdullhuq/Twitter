@@ -122,8 +122,8 @@
                     <!-- tweet button -->
                     <div class="flex py-2.5 justify-end px-6">
                         <input
-                            type="submit"
-                            class="bg-main-blue_0 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_200 dark:opacity-50"
+                            type="submit" [disabled]="!replyForm.valid"
+                            class="bg-main-blue_100 cursor-pointer disabled:bg-opacity-60  disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100 "
                             value="Reply"
                         />
                     </div>
