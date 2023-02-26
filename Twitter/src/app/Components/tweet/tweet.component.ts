@@ -5,14 +5,14 @@
 import { Component, Input  } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { RouterModule , RouterLink } from '@angular/router';
+import { RouterModule , RouterLink, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent {
-  constructor(private sanitizer: DomSanitizer ) {}
+  constructor(private sanitizer: DomSanitizer ,public myRoute: ActivatedRoute) {}
   formatTweetText(text: string): SafeHtml {
     const hashtagRegex = /#[a-zA-Z0-9_]+/g;
     const mentionRegex = /@[a-zA-Z0-9_]+/g;
