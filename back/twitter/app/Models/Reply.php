@@ -28,7 +28,12 @@ class Reply extends Model
     {
         return $this->morphTo();
     }
-
+    
+    public function replies()
+    {
+        return $this->morphMany(
+            Reply::class, 'repliable');
+    }
 
     public function media()
     {

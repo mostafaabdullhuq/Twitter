@@ -49,7 +49,7 @@ class TweetController extends Controller
         $user = JWTAuth::user();
         $tweets = [];
         $replies = $user->replies()->get();
-        
+
         foreach ($replies as $key => $reply) {
             $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
             $tweets[] = $tweet;
@@ -172,8 +172,11 @@ class TweetController extends Controller
                 unset($value->parent_id);
                 unset($value->updated_at);
             }
+            $reply->replies;
             $reply->media = $replyMedia;
-            $reply->replies_count = random_int(0, 999999999);
+            $reply->replies_count = $reply->replies->count();
+
+            // $reply->replies_count = random_int(0, 999999999);
             $reply->likes_count = random_int(0, 999999999);
             $reply->retweets_count = random_int(0, 999999999);
             $reply->views_count = random_int(0, 999999999);
@@ -182,6 +185,7 @@ class TweetController extends Controller
         $tweet->user->followers_count = $tweet->user->followers()->count();
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
+        $tweet->replies_count = $tweet->replies->count();
         return $tweet;
     }
 
@@ -203,15 +207,13 @@ class TweetController extends Controller
                 unset($media['parent_id']);
                 unset($media['parent_type']);
                 unset($media['updated_at']);
+                $media->media_url = $media->media_url ? asset('storage/media/' . $media->media_url) : null;
             }
             // Add some additional information to the user object
             $tweet->user->followers_count = $tweet->user->followers()->count();
             $tweet->user->followings_count = $tweet->user->followings()->count();
             $tweet->user->tweets_count = $tweet->user->tweets()->count();
-            // Add the full URL to the media objects
-            foreach ($tweet->media as $media) {
-                $media->media_url = $media->media_url ? asset('storage/media/' . $media->media_url) : null;
-            }
+            $tweet->replies_count = $tweet->replies->count();
         }
         return $tweets;
     }
