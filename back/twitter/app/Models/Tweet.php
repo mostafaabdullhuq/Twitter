@@ -55,4 +55,14 @@ class Tweet extends Model
     {
         return $this->morphMany(Like::class, 'liked');
     }
+
+    public function retweets()
+    {
+        return $this->morphMany(Retweet::class, 'retweetable');
+    }
+
+    public function likedByUserID($id)
+    {
+        return $this->likes()->where('user_id', $id)->exists();
+    }
 }
