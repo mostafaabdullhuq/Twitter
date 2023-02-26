@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -30,6 +32,6 @@ class UserController extends Controller
     {
         $request->user()->delete();
 
-        return response()->json(['message'=>'user permanently deleted '], 500);        
+        return response()->json(['message' => 'user permanently deleted '], 500);
     }
 }

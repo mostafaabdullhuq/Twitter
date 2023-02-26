@@ -29,7 +29,6 @@ Route::group([
     Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
     Route::post('resetPassword', [ChangePasswordController::class, 'process']);
     Route::post('updateUser', [UpdateDataController::class, 'update']);
-
 });
 
 
@@ -47,39 +46,35 @@ Route::group([
     Route::post('get-followings', [FollowingController::class, 'get_followings']);
 });
 
-Route::post('api/like', [LikeController::class, 'store']);
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'tweet'
 ], function () {
-
     Route::post('', [TweetController::class, 'create']);
     Route::get('me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
-    Route::post('edit/{id}', [TweetController::class, 'edit']);
-    Route::post('delete/{id}', [TweetController::class, 'delete']);
-    Route::post('like/{id}', [TweetController::class, 'like']);
-    Route::post('unlike/{id}', [TweetController::class, 'unlike']);
-    Route::post('retweet/{id}', [TweetController::class, 'retweet']);
-    Route::post('{id}/reply', [ReplyController::class, 'store']);
-
-    // Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::get('replies', [TweetController::class, 'get_User_Replies']);
-    // Route::get('{tweet_id}/replies', [TweetController::class, 'get_User_Replies']);
-    // Route::get('{tweet_id}/reply' ,[TweetController::class, 'reply']);
-    Route::post('{tweet_id}/like', [TweetController::class, 'like']);
-    Route::delete('{tweet_id}/unlike', [TweetController::class, 'unlike']);
+    Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
+    Route::post('{id}/edit', [TweetController::class, 'edit']);
+    Route::post('{id}/delete', [TweetController::class, 'delete']);
+    Route::post('{id}/like', [TweetController::class, 'like']);
+    Route::post('{id}/unlike', [TweetController::class, 'unlike']);
+    Route::post('{id}/retweet', [TweetController::class, 'retweet']);
+    Route::post('{id}/reply', [TweetController::class, 'reply']);
+    Route::get('{id}/like', [TweetController::class, 'likeToggle']);
+    Route::delete('{id}/unlike', [TweetController::class, 'unlike']);
     Route::get('{id}', [TweetController::class, 'details']);
-
 });
 
 
-
-
-
-
-# php artisan key:generate
-# php artisan jwt:secret
-# jwt-auth secret [5M5guU5h5DjiOjDVbi9lB4OL2UHMujOgly58r0mnVf4jqytIERVC85RpBSxqnu5C] set successfully..
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'reply'
+], function () {
+    Route::post('{id}/like', [ReplyController::class, 'like']);
+    Route::post('{id}/unlike', [ReplyController::class, 'unlike']);
+    Route::post('{id}/edit', [ReplyController::class, 'edit']);
+    Route::post('{id}/delete', [ReplyController::class, 'delete']);
+    Route::post('{id}/reply', [ReplyController::class, 'reply']);
+});
