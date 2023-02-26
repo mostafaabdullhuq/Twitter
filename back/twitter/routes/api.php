@@ -12,6 +12,8 @@ use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
+use App\Http\Controllers\changePasswordSettingController;
+
 
 Route::group([
     'middleware' => 'api',
@@ -29,6 +31,8 @@ Route::group([
     Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
     Route::post('resetPassword', [ChangePasswordController::class, 'process']);
     Route::post('updateUser', [UpdateDataController::class, 'update']);
+    Route::Post('changePassword', [changePasswordSettingController::class, 'passwordSetting']);
+
 });
 
 
