@@ -75,7 +75,6 @@ export class TweetsService {
     return this.httpClient.get(`${this.BASE_URL}/hashtag/${hashtag}`);
   }
 
-  //bkrhk
   createReply(reply:any, tweetID:any){
     const accessToken = this.token.get();
 
@@ -84,7 +83,15 @@ export class TweetsService {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+  }
 
+  getLikesCount(tweetID:any){
+    const accessToken = this.token.get();
+    return this.httpClient.get(`${this.BASE_URL}/${tweetID}/like` ,{
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 
   getTweetsByMention(mention: any) {
