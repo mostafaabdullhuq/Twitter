@@ -16,7 +16,11 @@ class ReplyController extends Controller
     }
     public function store($id, Request $request)
     {
-        $data = $request->all();
+        $request ->validate([
+            'text'=> 'required |string|max:500',
+        ]);
+
+         $data = $request->all();
         $tweet = Tweet::find($id);
         $reply = $tweet->replies()->create(
             [

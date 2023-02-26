@@ -10,6 +10,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\BlockController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
 
 Route::group([
@@ -41,9 +42,10 @@ Route::group([
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
-    Route::post('block-user', [BlockController::class, 'store']);   
+    Route::post('block-user', [BlockController::class, 'store']);
     Route::post('get-followers', [FollowingController::class, 'get_followers']);
     Route::post('get-followings', [FollowingController::class, 'get_followings']);
+    Route::post('like', [LikeController::class, '']);
 
 });
 
