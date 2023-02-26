@@ -10,6 +10,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\BlockController;
+use App\Http\Controllers\UpdateDataController;
 
 Route::group([
     'middleware' => 'api',
@@ -19,7 +20,6 @@ Route::group([
     Route::post('signup', [AuthController::class, 'signup']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    // Route::post('update/{id}', [AuthController::class, 'update']);
     Route::post('me', [AuthController::class, 'me']);
     // Route::get('/redirect/google', [GoogleController::class, 'redirectGoogle']);
     // Route::get('/callback/google', [GoogleController::class, 'callbackGoogle']);
@@ -27,6 +27,8 @@ Route::group([
     // Route::post('/callback/facebook', [FacebookController::class, 'callbackFacebook']);
     Route::post('sendPasswordResetLink', [ResetPasswordController::class, 'sendEmail']);
     Route::post('resetPassword', [ChangePasswordController::class, 'process']);
+    Route::post('updateUser', [UpdateDataController::class, 'update']);
+
 });
 
 
