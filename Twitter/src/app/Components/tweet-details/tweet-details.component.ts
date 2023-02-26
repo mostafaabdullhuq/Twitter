@@ -42,17 +42,19 @@ likesCount(){
 
   this.httpClient.getLikesCount( this.tweetID ).subscribe({
     next: (data:any) => {
-      console.log(data);
+      if(data.likes_count==1){
       this.tweet.likes_count = data.likes_count ;
-      
+      console.log("liked a tweet from tweet_details component");
+      }
+      if(data.likes_count ==0 ){
+      console.log("unliked a tweet from tweet_details component");
+      }
     },
     error: (err) => {
       this.error = err;
     },
   });
 }
-
-
   constructor(
     private httpClient: TweetsService,
     private activatedRouter: ActivatedRoute,
