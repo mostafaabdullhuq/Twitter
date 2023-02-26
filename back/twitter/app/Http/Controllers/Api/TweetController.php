@@ -69,9 +69,9 @@ class TweetController extends Controller
             $tweets[] = $tweet;
             // unset($tweet->$reply->repliable_type);
             unset($reply->repliable_id);
-            // unset($tweet->$reply->user->google_access_token);
+            unset($reply->user->google_access_token);
             unset($reply->user->facebook_access_token);
-            unset($reply->user->email_verified_at);
+            // unset($reply->user->email_verified_at);
             unset($tweet->updated_at);
             // unset($tweet->reply->updated_at);
 
@@ -210,6 +210,7 @@ class TweetController extends Controller
             $reply->user = $reply->user;
             unset($reply->repliable_type);
             unset($reply->repliable_id);
+            unset($reply->updated_at);
             unset($reply->user->google_access_token);
             unset($reply->user->facebook_access_token);
             unset($reply->user->email_verified_at);
