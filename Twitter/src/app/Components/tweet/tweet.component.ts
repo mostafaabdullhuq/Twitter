@@ -2,10 +2,10 @@
 // that can be clicked on. It uses the sanitizer to bypass security restrictions and allows
 // the html to be rendered in the tweet component.
 
-import { Component, Input } from '@angular/core';
+import { Component, Input  } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-
+import { RouterModule , RouterLink } from '@angular/router';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
