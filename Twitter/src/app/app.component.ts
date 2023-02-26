@@ -31,8 +31,8 @@ export class AppComponent implements OnInit {
       this.isInSignup = false;
       this.isInRequestReset = false;
       this.isInResponseReset = false;
-      this.isConfirmed = false;
-      this.edit = false;
+      // this.isConfirmed = false;
+      // this.edit = false;
 
       if (!this.loggedIn) {
         if (this.router.url === '/login') {
@@ -40,39 +40,46 @@ export class AppComponent implements OnInit {
           this.isInSignup = false;
           this.isInRequestReset = false;
           this.isInResponseReset = false;
-          this.isConfirmed = false;
+          // this.isConfirmed = false;
+          // this.edit = false;
         } else if (this.router.url === '/signup') {
           this.isInSignup = true;
           this.isInLogin = false;
           this.isInRequestReset = false;
           this.isInResponseReset = false;
-          this.isConfirmed = false;
+          // this.isConfirmed = false;
+          // this.edit = false;
         } else if (this.router.url === '/request-password-reset') {
           this.isInRequestReset = true;
           this.isInLogin = false;
           this.isInSignup = false;
           this.isInResponseReset = false;
-          this.isConfirmed = false;
+          // this.isConfirmed = false;
+          // this.edit = false;
         } else if (this.router.url === '/response-password-reset') {
           this.isInResponseReset = true;
           this.isInLogin = false;
           this.isInSignup = false;
           this.isInRequestReset = false;
-          this.isConfirmed = false;
-        } else if (this.router.url === '/confirm') {
-          this.isConfirmed = true;
-          this.isInResponseReset = false;
-          this.isInLogin = false;
-          this.isInSignup = false;
-          this.isInRequestReset = false;
-        } else if (this.router.url === '/edit-profile') {
-          this.edit = true;
-          this.isConfirmed = false;
-          this.isInResponseReset = false;
-          this.isInLogin = false;
-          this.isInSignup = false;
-          this.isInRequestReset = false;
+          // this.isConfirmed = false;
+          // this.edit = false;
         }
+        //  else if (this.router.url === '/confirm') {
+        //   this.isConfirmed = true;
+        //   this.isInResponseReset = false;
+        //   this.isInLogin = false;
+        //   this.isInSignup = false;
+        //   this.isInRequestReset = false;
+        //   this.edit = false;
+        // } 
+        // else if (this.router.url === '/edit-profile') {
+        //   this.edit = true;
+        //   this.isConfirmed = false;
+        //   this.isInResponseReset = false;
+        //   this.isInLogin = false;
+        //   this.isInSignup = false;
+        //   this.isInRequestReset = false;
+        // }
       } else {
         this.user = this.Token.getUser();
       }
