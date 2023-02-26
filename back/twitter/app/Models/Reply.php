@@ -46,4 +46,5 @@ class Reply extends Model
     {
         return $this->morphMany(Like::class, 'liked');
     }
+
 }
