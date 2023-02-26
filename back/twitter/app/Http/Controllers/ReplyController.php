@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reply;
 use App\Models\Tweet;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -14,15 +15,18 @@ class ReplyController extends Controller
     {
         $this->middleware('auth:api');
     }
-    public function store($id, Request $request)
+
+
+
+    public function reply($id, Request $request)
     {
-        $request ->validate([
-            'text'=> 'required |string|max:500',
+        $request->validate([
+            'text' => 'required |string|max:500',
         ]);
 
-         $data = $request->all();
-        $tweet = Tweet::find($id);
-        $reply = $tweet->replies()->create(
+        $data = $request->all();
+        $reply = Reply::find($id);
+        $reply = $reply->replies()->create(
             [
                 'text' => $data['text'],
                 'user_id' => JWTAuth::user()->id,

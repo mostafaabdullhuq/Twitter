@@ -15,35 +15,36 @@ class LikeController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function store (Request $request){
-        $request ->validate([
+    public function store(Request $request)
+    {
+        $request->validate([
             'tweet_id' => 'required',
         ]);
 
         $user = $request->user();
-        $like= Like::where ('user_id', $user->id)->where('tweet_id', $request->tweet_id)->first();
+        $like = Like::where('user_id', $user->id)->where('tweet_id', $request->tweet_id)->first();
 
-        if ($like){
+        if ($like) {
             $like->delete();
             return response()->json([
-                'message'=> 'unliked',
+                'message' => 'unliked',
 
-            ],200);
-        }else{
-            $like = new Like ();
+            ], 200);
+        } else {
+            $like = new Like();
             $like->user_id = $user->id;
             $like->tweet_id = $request->tweet_id;
 
-            if($like->save()){
+            if ($like->save()) {
                 return response()->json([
-                    'message'=> 'Liked this post',
-                    'like'=> $like
-                ],201);
+                    'message' => 'Liked this post',
+                    'like' => $like
+                ], 201);
             } else {
                 return response()->json([
-                    'message'=> 'Error',
-                    'like'=> $like
-                ],500);
+                    'message' => 'Error',
+                    'like' => $like
+                ], 500);
             }
         }
         // $like->likes_count = $like->likes->count();
