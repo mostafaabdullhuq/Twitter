@@ -11,16 +11,17 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 export class EditProfileComponent implements OnInit {
   public error: any = null;
   public form = {
-  email: null,
-  first_name: null,
-  last_name: null,
-  username: null,
-  bio: null,
-  date_of_birth: null,
-  phone_number: null,
-  location: null,
-  website: null,
-}
+    email: '',
+    first_name: '',
+    last_name: '',
+    username: '',
+    bio: '',
+    date_of_birth: '',
+    phone_number: '',
+    location: '',
+    website: '',
+  };
+  
   constructor( public tweetsClient: TweetsService,
   public myActivate:ActivatedRoute, 
    private Auth: AuthService,
@@ -33,14 +34,14 @@ export class EditProfileComponent implements OnInit {
         this.user = data.user;
         this.form = {
           email: this.user.email || '',
-          first_name: null,
-          last_name: null,
-          username: this.user.username,
-          bio: this.user.bio,
-          date_of_birth: this.user.date_of_birth,
-          phone_number: this.user.phone_number,
-          location: this.user.location,
-          website: this.user.website,
+          first_name:'',
+          last_name: '',
+          username: this.user.username || null,
+          bio: this.user.bio || null,
+          date_of_birth: this.user.date_of_birth || null,
+          phone_number: this.user.phone_number || null,
+          location: this.user.location || null,
+          website: this.user.website || null,
         };
       },
       error: (err) => {
