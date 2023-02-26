@@ -49,16 +49,21 @@
                 </div>
         
         <form class="mt-12 space-y-6" #updateForm=ngForm (ngSubmit)="onSubmit()">
-            <input [(ngModel)]="form.email" type="hidden" value="{{ user ? (user.email? user.email: '') : 'Loading...' }}" name="remember"  value="true">
+            <input [(ngModel)]="form.email" type="hidden"  value="{{ user ? (user.email? user.email: '') : 'Loading...' }}" name="remember">
             <div>
-                <input [(ngModel)]="form.first_name"  value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="name" name="name" type="name" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.first_name"  value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="name" name="name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="Name">
+                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="First name">
             </div>
             <div>
-                <input [(ngModel)]="form.last_name"  value="{{ user ? (user.last_name ? user.last_name : '') : 'Loading...' }}" id="name" name="name" type="name" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.last_name"  value="{{ user ? (user.last_name ? user.last_name : '') : 'Loading...' }}" id="name" name="name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="Name">
+                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="Last name">
+            </div>
+            <div>
+                <input [(ngModel)]="form.username"  value="{{ user ? (user.username ? user.username : '') : 'Loading...' }}" id="username" name="username" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                   border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
+                    focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="User name">
             </div>
             <div>
                 <input [(ngModel)]="form.bio"  value="{{ user ? (user.bio ? user.bio : '') : 'Bio' }}" id="bio" name="bio"  autocomplete="bio" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
@@ -82,7 +87,7 @@
             </div>
 
             <div>
-                <input [(ngModel)]="form.website" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input [(ngModel)]="form.date_of_birth" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="date_of_birth">
             </div>
@@ -98,4 +103,3 @@
         </form>
     </div>
 </div>
-<!-- </div> -->
