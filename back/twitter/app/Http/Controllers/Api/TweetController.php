@@ -51,6 +51,9 @@ class TweetController extends Controller
         $user = JWTAuth::user();
         $tweets = [];
         $replies = $user->replies()->latest()->get();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
         unset($user->id);
         unset($user->google_access_token);
         unset($user->facebook_access_token);
@@ -63,12 +66,13 @@ class TweetController extends Controller
 
             $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
             $tweets[] = $tweet;
-            // unset($tweet->$reply->repliable_type);
-            unset($reply->repliable_id);
-            // unset($tweet->$reply->user->google_access_token);
-            unset($reply->user->facebook_access_token);
-            unset($reply->user->email_verified_at);
             unset($tweet->updated_at);
+            // unset($tweet->$reply->repliable_type);
+            // unset($reply->repliable_id);
+            // unset($reply->user->google_access_token);
+            // unset($reply->user->facebook_access_token);
+            // unset($reply->user->email_verified_at);
+
             // unset($tweet->reply->updated_at);
 
         }
@@ -202,6 +206,7 @@ class TweetController extends Controller
             $reply->user = $reply->user;
             unset($reply->repliable_type);
             unset($reply->repliable_id);
+            unset($reply->updated_at);
             unset($reply->user->google_access_token);
             unset($reply->user->facebook_access_token);
             unset($reply->user->email_verified_at);
