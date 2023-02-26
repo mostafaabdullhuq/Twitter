@@ -51,11 +51,15 @@ class TweetController extends Controller
         $user = JWTAuth::user();
         $tweets = [];
         $replies = $user->replies()->latest()->get();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
         unset($user->id);
         unset($user->google_access_token);
         unset($user->facebook_access_token);
         unset($user->email_verified_at);
         unset($user->updated_at);
+
         // unset($user->tweets->replies->updated_at);
 
 
