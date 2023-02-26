@@ -16,7 +16,7 @@ class UpdateDataController extends Controller
 
     private function getUserRow($request)
     {
-        return DB::table('users')->where(['email' => $request->email]);
+        return DB::table('users')->where(['email' => 'hagar@gmail.com']);
     }
 
     private function emailNotFoundResponse()
@@ -27,11 +27,12 @@ class UpdateDataController extends Controller
     private function updateData($request)
     {
         // $user = auth()->user();
-        $user = User::whereEmail($request->email);
+        $user = User::whereEmail('hagar@gmail.com')->first();
 
         // Save the old values in variables
         $oldFirstName = $user->first_name;
         $oldLastName = $user->last_name;
+        $oldUserName = $user->username;
         $oldBio = $user->bio;
         $oldLocation = $user->location;
         $oldWebsite = $user->website;
@@ -44,6 +45,9 @@ class UpdateDataController extends Controller
         }
         if (!empty($request->last_name)) {
             $user->last_name = $request->last_name;
+        }
+        if (!empty($request->username)) {
+            $user->username = $request->username;
         }
         if (!empty($request->bio)) {
             $user->bio = $request->bio;
@@ -65,7 +69,7 @@ class UpdateDataController extends Controller
         $user->save();
 
         // Check if any data was updated and return a success message
-        if ($user->first_name != $oldFirstName || $user->last_name != $oldLastName || $user->bio != $oldBio ||
+        if ($user->first_name != $oldFirstName || $user->last_name != $oldLastName || $user->username != $oldUserName || $user->bio != $oldBio ||
             $user->location != $oldLocation || $user->website != $oldWebsite || $user->phone_number != $oldPhoneNumber ||
             $user->date_of_birth != $oldDateOfBirth) {
             return response()->json(['data' => 'Data Successfully Changed'], Response::HTTP_CREATED);
