@@ -33,36 +33,6 @@ class TweetController extends Controller
         ];
     }
 
-    public function get_User_Retweets()
-    {
-
-        $retweets = JWTAuth::user()->retweets()->latest()->get();
-        $user = JWTAuth::user();
-
-        return [
-            'user' => $user,
-            'retweets' => $retweets
-        ];
-    }
-    public function get_User_Replies()
-    {
-        $user = JWTAuth::user();
-        $tweets = [];
-        $replies = $user->replies()->get();
-        foreach ($replies as $key => $reply) {
-            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
-            $tweets[] = $tweet;
-        }
-        $response = [
-            'user' => $user,
-            'tweets' => $tweets
-        ];
-        return $response;
-    }
-
-
-
-
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()
     {
@@ -171,10 +141,6 @@ class TweetController extends Controller
                 unset($value->updated_at);
             }
             $reply->media = $replyMedia;
-            $reply->replies_count = random_int(0, 999999999);
-            $reply->likes_count = random_int(0, 999999999);
-            $reply->retweets_count = random_int(0, 999999999);
-            $reply->views_count = random_int(0, 999999999);
         }
         $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
@@ -212,5 +178,33 @@ class TweetController extends Controller
             }
         }
         return $tweets;
+    }
+
+
+    public function get_User_Retweets()
+    {
+
+        $retweets = JWTAuth::user()->retweets()->latest()->get();
+        $user = JWTAuth::user();
+
+        return [
+            'user' => $user,
+            'retweets' => $retweets
+        ];
+    }
+    public function get_User_Replies()
+    {
+        $user = JWTAuth::user();
+        $tweets = [];
+        $replies = $user->replies()->get();
+        foreach ($replies as $key => $reply) {
+            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
+            $tweets[] = $tweet;
+        }
+        $response = [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
+        return $response;
     }
 }

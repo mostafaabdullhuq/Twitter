@@ -10,6 +10,10 @@ use JWTAuth;
 
 class ReplyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function store($id, Request $request)
     {
         $data = $request->all();
