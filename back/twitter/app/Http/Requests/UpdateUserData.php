@@ -24,14 +24,13 @@ class UpdateUserData extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
-            'bio' => 'string',
-            'website' => 'string',
-            'date_of_birth' => 'date',
-            'password' => 'required|min:8|confirmed|max:24',
-            'password_confirmation' => 'required|same:password|max:24',
-
+            // 'first_name' => ['required', 'string'],
+            // 'last_name' => ['required', 'string'],
+            // 'date_of_birth' => 'date',
+            // 'bio' => 'string',
+            // 'website' => 'string',
+            // 'location' => 'string',
+            // 'phone_number' => 'string',
         ];
     }
 }

@@ -68,20 +68,6 @@ class AuthController extends Controller
         return $this->login($request);
     }
 
-    // public function update(Request $request){
-    //     $user = User::findOrFail($id);
-    //     // $user = User::where('email', $email)->get();
-    //     $user = User::update(
-    //         [
-    //             'first_name' => $request->first_name,
-    //             'last_name' => $request->last_name,
-    //             'username' => $username,
-    //             'location' => $request->location,
-    //             'website' => $request->website,
-    //             'bio' => $request->bio,
-    //         ]
-    //     );
-    // }
 
     /**
      * Get the authenticated User.
