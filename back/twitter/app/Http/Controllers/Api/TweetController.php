@@ -309,9 +309,20 @@ class TweetController extends Controller
                 ]
             );
         }
-
         $tweet = $this->formatTweet($tweet);
-
         return $tweet;
+    }
+
+
+    public function view($id)
+    {
+        $user = JWTAuth::user();
+        $tweet = Tweet::find($id);
+            $tweet->views()->create(
+                [
+                    'user_id' => $user->id,
+                ]
+            );
+                return $tweet;
     }
 }

@@ -49,4 +49,21 @@ class ReplyController extends Controller
         $reply->media;
         return $reply;
     }
+
+    public function likeToggle($id)
+    {
+        $user = JWTAuth::user();
+        $reply = Reply::find($id);
+        $like = $reply->likes()->where('user_id', $user->id)->first();
+        if ($like) {
+            $like->delete();
+        } else {
+            $reply->likes()->create(
+                [
+                    'user_id' => $user->id,
+                ]
+            );
+        }
+        return $reply;
+    }
 }
