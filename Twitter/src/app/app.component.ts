@@ -14,8 +14,6 @@ export class AppComponent implements OnInit {
   public isInSignup: boolean = false;
   public isInRequestReset: boolean = false;
   public isInResponseReset: boolean = false;
-  public isConfirmed: boolean = false;
-  public edit:boolean = false;
   public popup = false;
   public user: any;
   constructor(
