@@ -167,4 +167,13 @@ export class TweetsService {
       },
     });
   }
+  //Just TEST
+  createLike(like:any, tweetID:any){
+    const accessToken = this.token.get();
+    return this.httpClient.post(`${this.BASE_URL}/${tweetID}/like`,like, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
 }
