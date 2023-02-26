@@ -33,6 +33,38 @@ class TweetController extends Controller
         ];
     }
 
+    public function get_User_Retweets()
+    {
+
+        $retweets = JWTAuth::user()->retweets()->latest()->get();
+        $user = JWTAuth::user();
+
+        return [
+            'user' => $user,
+            'retweets' => $retweets
+        ];
+    }
+    public function get_User_Replies()
+    {
+        $user = JWTAuth::user();
+        $tweets = [];
+        $replies = $user->replies()->get();
+
+        foreach ($replies as $key => $reply) {
+            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
+            $tweets[] = $tweet;
+        }
+
+        $response = [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
+        return $response;
+    }
+
+
+
+
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()
     {
@@ -210,33 +242,5 @@ class TweetController extends Controller
             $tweet->replies_count = $tweet->replies->count();
         }
         return $tweets;
-    }
-
-    public function get_User_Retweets()
-    {
-
-        $retweets = JWTAuth::user()->retweets()->latest()->get();
-        $user = JWTAuth::user();
-
-        return [
-            'user' => $user,
-            'retweets' => $retweets
-        ];
-    }
-
-    public function get_User_Replies()
-    {
-        $user = JWTAuth::user();
-        $tweets = [];
-        $replies = $user->replies()->get();
-        foreach ($replies as $key => $reply) {
-            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
-            $tweets[] = $tweet;
-        }
-        $response = [
-            'user' => $user,
-            'tweets' => $tweets
-        ];
-        return $response;
     }
 }

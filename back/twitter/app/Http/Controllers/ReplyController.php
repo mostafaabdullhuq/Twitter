@@ -16,7 +16,11 @@ class ReplyController extends Controller
     }
     public function store($id, Request $request)
     {
-        $data = $request->all();
+        $request ->validate([
+            'text'=> 'required |string|max:500',
+        ]);
+
+         $data = $request->all();
         $tweet = Tweet::find($id);
         $reply = $tweet->replies()->create(
             [
@@ -34,7 +38,7 @@ class ReplyController extends Controller
         unset($reply->user->facebook_access_token);
         unset($reply->user->email_verified_at);
         unset($reply->user->updated_at);
-        $reply->likes_count = random_int(0, 999999999);
+        $reply->likes_count = $reply->likes->count();
         $reply->retweets_count = random_int(0, 999999999);
         $reply->views_count = random_int(0, 999999999);
         $reply->user;
