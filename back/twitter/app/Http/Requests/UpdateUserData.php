@@ -24,6 +24,7 @@ class UpdateUserData extends FormRequest
     public function rules()
     {
         return [
+            // 'email',
             // 'first_name' => ['required', 'string'],
             // 'last_name' => ['required', 'string'],
             // 'date_of_birth' => 'date',

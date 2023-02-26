@@ -46,16 +46,31 @@ class TweetController extends Controller
         ];
     }
 
-
     public function get_User_Replies()
     {
         $user = JWTAuth::user();
         $tweets = [];
-        $replies = $user->replies()->get();
+        $replies = $user->replies()->latest()->get();
+        unset($user->id);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->email_verified_at);
+        unset($user->updated_at);
+        // unset($user->tweets->replies->updated_at);
+
 
         foreach ($replies as $key => $reply) {
+
             $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
             $tweets[] = $tweet;
+            // unset($tweet->$reply->repliable_type);
+            unset($reply->repliable_id);
+            // unset($tweet->$reply->user->google_access_token);
+            unset($reply->user->facebook_access_token);
+            unset($reply->user->email_verified_at);
+            unset($tweet->updated_at);
+            // unset($tweet->reply->updated_at);
+
         }
 
         $response = [
