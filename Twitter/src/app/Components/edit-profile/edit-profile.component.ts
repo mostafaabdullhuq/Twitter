@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
@@ -9,6 +9,19 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
+  @Input() showPopup = false;
+  @Output() closePopup = new EventEmitter<void>();
+
+  onClosePopup() {
+    this.closePopup.emit();
+  }
+  
+  // showEdit = true;
+  //   hidePopup() {
+  //   this.showEdit = false;
+  //   document.body.classList.remove('popup-open');
+  // }
+  
   public error: any = null;
   public form = {
     email: '',

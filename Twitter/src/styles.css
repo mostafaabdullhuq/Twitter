@@ -149,3 +149,7 @@ router-outlet + *
 .media-item {
   @apply w-full h-full  flex rounded-xl overflow-hidden;
 }
+
+.popup-open {
+  background-color: rgba(0, 0, 0, 0.5);
+}

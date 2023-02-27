@@ -3,13 +3,29 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoggedService } from 'src/app/Services/logged.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
-
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  // showEdit = false;
+
+  // onButtonClick() {
+  //   this.showEdit = true;
+  //   document.body.classList.add('popup-open');
+  // }
+  showPopup = false;
+
+  onButtonClick() {
+    this.showPopup = true;
+  }
+
+  onClosePopup() {
+    this.showPopup = false;
+  }
+  
   constructor(
     public myRoute: ActivatedRoute,
     public tweetsClient: TweetsService,
