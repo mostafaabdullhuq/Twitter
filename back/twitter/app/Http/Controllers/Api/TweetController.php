@@ -94,7 +94,7 @@ class TweetController extends Controller
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         // $user->likes_count = $user->likes()->count();
-        $user->tweets_count = $user->likes()->count(); //get tweets count that was liked 
+        $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
 
         foreach ($likes as $key => $like) {
             // $tweet = $this->formatTweet($like->liked()->first(), $user->id);
@@ -109,11 +109,23 @@ class TweetController extends Controller
             'user' => $user,
             'tweets' => $tweets
         ];
-        // $response=[
-        //     'tweets'=>$tweets,
-        //     'user'=>$user,
-        // ];
-        // return $response;
+    }
+
+    public function get_User_Media(){
+        $user = JWTAuth::user();
+        $media =$user->media;
+        $tweets = [];
+
+        foreach($media as $key => $value){
+            if($value->parent_type == Tweet::class){
+                $tweets[] = Tweet::find($value->parent_id);
+            }
+        }
+        $tweets = $this->formatTweets($tweets);
+        return [
+            'user' => $user,
+            'tweets' =>$tweets
+        ];
     }
 
 
