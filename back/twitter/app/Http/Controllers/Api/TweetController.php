@@ -313,9 +313,7 @@ class TweetController extends Controller
                 ]
             );
         }
-
         $tweet = $this->formatTweet($tweet);
-
         return $tweet;
     }
 }
