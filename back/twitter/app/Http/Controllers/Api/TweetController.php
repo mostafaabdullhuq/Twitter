@@ -83,6 +83,36 @@ class TweetController extends Controller
         ];
         return $response;
     }
+    public function get_User_Likes()
+    {
+        $user = JWTAuth::user();
+        $likes= $user->likes;
+        $tweets = [];
+        // $tweets = JWTAuth::user()->tweets()->latest()->get();
+        // $like = $tweets->likes()->where('user_id', $user->id)->latest()->get();
+        // // $likes = $user->likes()->latest()->get();
+        // $user->followers_count = $user->followers()->count();
+        // $user->followings_count = $user->followings()->count();
+        // $user->likes_count = $user->likes()->count();
+        foreach ($likes as $key => $like) {
+            // $tweet = $this->formatTweet($like->liked()->first(), $user->id);
+            // $tweets[] = $tweet;
+            if($like->liked_type ==Tweet::class){
+                $tweets[]=Tweet::find($like->liked_id);
+            }
+
+        }
+        $tweets = $this->formatTweets($tweets);
+        return [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
+        // $response=[
+        //     'tweets'=>$tweets,
+        //     'user'=>$user,
+        // ];
+        // return $response;
+    }
 
 
 
