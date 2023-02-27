@@ -9,7 +9,6 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-
   public error: any = null;
   public form = {
     email: null,
@@ -44,7 +43,7 @@ export class ChangePasswordComponent implements OnInit {
     })
   }
   handleResponse(res: any) {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
     
   }
   
