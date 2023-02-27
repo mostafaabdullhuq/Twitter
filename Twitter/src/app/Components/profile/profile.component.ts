@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoggedService } from 'src/app/Services/logged.service';
+import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 
 @Component({
@@ -10,8 +12,12 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 export class ProfileComponent implements OnInit {
   constructor(
     public myRoute: ActivatedRoute,
-    public tweetsClient: TweetsService
+    public tweetsClient: TweetsService,
+    private Logged: LoggedService,
+    private router: Router,
+    private Token: TokenService
   ) {}
+  public popup = false;
   public tweets: any;
   public tweetsCount = 0;
   public user: any;
@@ -59,25 +65,14 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  // showReplies = false;
-  // show = false;
-  // showTogether()
-  // {
-  //   this.show = !this.show;
-  // }
-  // showTweets()
-  // {
-  //   this.show = !this.show;
-  // }
+  logout(event: MouseEvent) {
+    event.preventDefault();
+    this.Token.remove();
+    this.Logged.changeAuthStatus(false);
+    this.router.navigateByUrl('/login');
+  }
 
-  // if (this.myRoute.snapshot?.url[1]?.path === 'retweets'){
-  //   this.tweetsClient.getAuthedRetweets().subscribe({
-  //     next: (data: any) => {
-  //       this.tweets = data;
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //   });
-  // }
+  logoutPopup() {
+    this.popup ? (this.popup = false) : (this.popup = true);
+  }
 }

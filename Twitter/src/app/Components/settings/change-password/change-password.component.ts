@@ -9,7 +9,6 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-
   public error: any = null;
   public form = {
     email: null,
@@ -26,6 +25,10 @@ export class ChangePasswordComponent implements OnInit {
       this.tweetsClient.getAuthedTweets().subscribe({
         next: (data: any) => {
           this.user = data.user;
+          this.form = {
+            email: this.user.email || '',
+            password: this.user.password || null,
+            password_confirmation: this.user.password_confirmation || null,}
         },
         error: (err) => {
           console.log(err);
@@ -40,7 +43,7 @@ export class ChangePasswordComponent implements OnInit {
     })
   }
   handleResponse(res: any) {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
     
   }
   
