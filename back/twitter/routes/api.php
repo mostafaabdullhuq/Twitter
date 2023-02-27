@@ -66,10 +66,9 @@ Route::group([
     Route::post('{id}/reply', [TweetController::class, 'reply']);
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     Route::post('{id}/delete', [TweetController::class, 'delete']);
-    Route::post('{id}', [TweetController::class, 'view']);
-    // Route::get('{id}', [TweetController::class, 'details']);
+    Route::get('{id}/view', [TweetController::class, 'view']);
+    Route::get('{id}', [TweetController::class, 'details']);
 });
-
 
 Route::group([
     'middleware' => 'api',

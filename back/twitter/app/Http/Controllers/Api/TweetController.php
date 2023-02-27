@@ -262,7 +262,7 @@ class TweetController extends Controller
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
-        $tweet->views_count = $tweet->views->count();
+        // $tweet->views_count = $tweet->views->count();
         return $tweet;
     }
 
@@ -293,7 +293,7 @@ class TweetController extends Controller
             $tweet->user->tweets_count = $tweet->user->tweets()->count();
             $tweet->replies_count = $tweet->replies->count();
             $tweet->likes_count = $tweet->likes->count();
-            $tweet->views_count = $tweet->views->count();
+            // $tweet->views_count = $tweet->views->count();
 
         }
         return $tweets;
@@ -349,17 +349,11 @@ class TweetController extends Controller
         return $tweet;
     }
 
-
-    public function view($id)
-    {
-        $user = JWTAuth::user();
-        $tweet = Tweet::find($id);
-            $tweet->views()->create(
-                [
-                    'user_id' => $user->id,
-                ]
-            );
-
+    public function view($id){
+        $tweet= Tweet::find($id);
+        $tweet->update([
+            'views_count'=> $tweet->views_count+1
+        ]);
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
