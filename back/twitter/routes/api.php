@@ -61,11 +61,12 @@ Route::group([
     Route::get('replies', [TweetController::class, 'get_User_Replies']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
-    Route::post('{id}/delete', [TweetController::class, 'delete']);
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
     Route::post('{id}/reply', [TweetController::class, 'reply']);
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
-    Route::get('{id}', [TweetController::class, 'details']);
+    Route::post('{id}/delete', [TweetController::class, 'delete']);
+    Route::post('{id}', [TweetController::class, 'view']);
+    // Route::get('{id}', [TweetController::class, 'details']);
 });
 
 
@@ -73,8 +74,9 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'reply'
 ], function () {
-    Route::get('{id}/like', [ReplyController::class, 'likeToggle']);
+    Route::post('{id}/like', [ReplyController::class, 'likeToggle']);
     // Route::post('{id}/unlike', [ReplyController::class, 'unlike']);
+    Route::post('{id}/view', [ReplyController::class, 'view']);
     Route::post('{id}/edit', [ReplyController::class, 'edit']);
     Route::post('{id}/delete', [ReplyController::class, 'delete']);
     Route::post('{id}/reply', [ReplyController::class, 'reply']);

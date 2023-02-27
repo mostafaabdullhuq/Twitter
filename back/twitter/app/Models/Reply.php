@@ -13,10 +13,9 @@ class Reply extends Model
         'text',
         'user_id',
         'repliable_id',
-        'repliable_type'
+        'repliable_type',
+        'views_count',
     ];
-
-
 
     public function user()
     {
@@ -50,6 +49,11 @@ class Reply extends Model
         return $this->morphMany(Like::class, 'liked');
     }
 
+    public function Views()
+    {
+        return $this->morphMany(View::class, 'viewed');
+    }
+
     public function replyWithUserID($userID)
     {
         return $this->morphMany(
@@ -62,4 +66,6 @@ class Reply extends Model
     {
         return $this->likes()->where('user_id', $id)->exists();
     }
+
+
 }

@@ -220,20 +220,19 @@ class TweetController extends Controller
 
             $reply->replies;
             $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
-
             $reply->media = $replyMedia;
             $reply->replies_count = $reply->replies->count();
             $reply->likes_count = $reply->likes->count();
+            $reply->views_count = $reply->views->count();
             $reply->retweets_count = random_int(0, 999999999);
-            $reply->views_count = random_int(0, 999999999);
         }
-
         $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
+        $tweet->views_count = $tweet->views->count();
         return $tweet;
     }
 
@@ -264,6 +263,8 @@ class TweetController extends Controller
             $tweet->user->tweets_count = $tweet->user->tweets()->count();
             $tweet->replies_count = $tweet->replies->count();
             $tweet->likes_count = $tweet->likes->count();
+            $tweet->views_count = $tweet->views->count();
+
         }
         return $tweets;
     }
@@ -299,6 +300,7 @@ class TweetController extends Controller
         return $reply;
     }
 
+
     public function likeToggle($id)
     {
         $user = JWTAuth::user();
@@ -313,6 +315,21 @@ class TweetController extends Controller
                 ]
             );
         }
+        $tweet = $this->formatTweet($tweet);
+        return $tweet;
+    }
+
+
+    public function view($id)
+    {
+        $user = JWTAuth::user();
+        $tweet = Tweet::find($id);
+            $tweet->views()->create(
+                [
+                    'user_id' => $user->id,
+                ]
+            );
+
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }

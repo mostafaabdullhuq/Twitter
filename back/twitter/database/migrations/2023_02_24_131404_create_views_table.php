@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('views', function (Blueprint $table) {
             $table->id();
             $table->morphs('viewed');
-            $table->integer('views');
+            $table->integer('views_count');
             $table->timestamps();
         });
     }
