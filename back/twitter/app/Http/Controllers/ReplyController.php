@@ -79,4 +79,19 @@ class ReplyController extends Controller
         $reply->media;
         return $reply;
     }
+
+
+    public function delete($id)
+    {
+        try {
+            $reply = Reply::find($id);
+            if ($reply->user_id != JWTAuth::user()->id) {
+                return response()->json(['message' => 'You are not authorized to delete this reply'], 401);
+            }
+            $reply->delete();
+            return response()->json(['message' => 'Reply deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Reply not found'], 404);
+        }
+    }
 }

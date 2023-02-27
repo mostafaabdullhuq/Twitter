@@ -86,7 +86,7 @@ class TweetController extends Controller
     public function get_User_Likes()
     {
         $user = JWTAuth::user();
-        $likes= $user->likes;
+        $likes = $user->likes;
         $tweets = [];
         // $tweets = JWTAuth::user()->tweets()->latest()->get();
         // $like = $tweets->likes()->where('user_id', $user->id)->latest()->get();
@@ -99,10 +99,9 @@ class TweetController extends Controller
         foreach ($likes as $key => $like) {
             // $tweet = $this->formatTweet($like->liked()->first(), $user->id);
             // $tweets[] = $tweet;
-            if($like->liked_type ==Tweet::class){
-                $tweets[]=Tweet::find($like->liked_id);
+            if ($like->liked_type == Tweet::class) {
+                $tweets[] = Tweet::find($like->liked_id);
             }
-
         }
         $tweets = $this->formatTweets($tweets);
         return [
@@ -276,7 +275,7 @@ class TweetController extends Controller
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
-        $tweet->views_count = $tweet->views->count();
+        // $tweet->views_count = $tweet->views->count();
         return $tweet;
     }
 
@@ -307,7 +306,7 @@ class TweetController extends Controller
             $tweet->user->tweets_count = $tweet->user->tweets()->count();
             $tweet->replies_count = $tweet->replies->count();
             $tweet->likes_count = $tweet->likes->count();
-            $tweet->views_count = $tweet->views->count();
+            // $tweet->views_count = $tweet->views->count();
 
         }
         return $tweets;
@@ -363,18 +362,28 @@ class TweetController extends Controller
         return $tweet;
     }
 
-
     public function view($id)
     {
-        $user = JWTAuth::user();
         $tweet = Tweet::find($id);
-            $tweet->views()->create(
-                [
-                    'user_id' => $user->id,
-                ]
-            );
-
+        $tweet->update([
+            'views_count' => $tweet->views_count + 1
+        ]);
         $tweet = $this->formatTweet($tweet);
         return $tweet;
+    }
+
+
+    public function delete($id)
+    {
+        try {
+            $tweet = Tweet::find($id);
+            if ($tweet->user_id != JWTAuth::user()->id) {
+                return response()->json(['message' => 'You are not authorized to delete this tweet'], 401);
+            }
+            $tweet->delete();
+            return response()->json(['message' => 'Tweet deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Tweet not found'], 404);
+        }
     }
 }

@@ -29,12 +29,6 @@ class CreateTweetRequest extends FormRequest
             'schedule_date_time' => 'date',
             'files' => 'array|max:4|required_without:text',
             'files.*' => 'file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,m4v,avi,flv,mov|max:50000|required_without:text',
-            // 'media.*' => 'file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,m4v,avi,flv,mov|max:50000|required_without:text',
-
-            // 'media_1' => "file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,m4v,avi,flv,mov|max:50000|required_without:text",
-            // 'media_2' => "file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,m4v,avi,flv,mov|max:50000|required_without:text",
-            // 'media_3' => "file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,m4v,avi,flv,mov|max:50000|required_without:text",
-            // 'media_4' => "file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg,m4v,avi,flv,mov|max:50000|required_without:text",
         ];
     }
 
