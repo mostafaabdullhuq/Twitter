@@ -59,6 +59,7 @@ Route::group([
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
     Route::get('replies', [TweetController::class, 'get_User_Replies']);
+    Route::get('likes' , [TweetController::class, 'get_User_Likes']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
     Route::post('{id}/delete', [TweetController::class, 'delete']);
@@ -69,7 +70,6 @@ Route::group([
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     // Route::delete('{id}/unlike', [TweetController::class, 'unlike']);
     Route::get('{id}', [TweetController::class, 'details']);
-    Route::get('likes' , [TweetController::class, 'get_User_Likes']);
 });
 
 

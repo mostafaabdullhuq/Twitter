@@ -86,17 +86,32 @@ class TweetController extends Controller
     public function get_User_Likes()
     {
         $user = JWTAuth::user();
+        $likes= $user->likes;
         $tweets = [];
-        $likes = $user->likes()->latest()->get();
+        // $tweets = JWTAuth::user()->tweets()->latest()->get();
+        // $like = $tweets->likes()->where('user_id', $user->id)->latest()->get();
+        // // $likes = $user->likes()->latest()->get();
+        // $user->followers_count = $user->followers()->count();
+        // $user->followings_count = $user->followings()->count();
+        // $user->likes_count = $user->likes()->count();
         foreach ($likes as $key => $like) {
-            $tweet = $this->formatTweet($like->liked()->first(), $user->id);
-            $tweets[] = $tweet;
+            // $tweet = $this->formatTweet($like->liked()->first(), $user->id);
+            // $tweets[] = $tweet;
+            if($like->liked_type ==Tweet::class){
+                $tweets[]=Tweet::find($like->liked_id);
+            }
+
         }
-        $response=[
-            'tweets'=>$tweets,
-            'user'=>$user,
+        $tweets = $this->formatTweets($tweets);
+        return [
+            'user' => $user,
+            'tweets' => $tweets
         ];
-        return $response;
+        // $response=[
+        //     'tweets'=>$tweets,
+        //     'user'=>$user,
+        // ];
+        // return $response;
     }
 
 
