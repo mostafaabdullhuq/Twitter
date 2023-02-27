@@ -22,4 +22,19 @@ export class UsersService {
       },
     })
   }
+  postFollow(id:number){
+    const accessToken = this.token.get();
+
+    return this.httpClient.post(this.BASE_URL +'/follow-unfollow',
+    {
+      following_id : id,
+    }
+    ,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+  }
 }

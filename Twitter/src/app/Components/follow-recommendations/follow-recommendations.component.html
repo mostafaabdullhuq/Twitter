@@ -8,6 +8,8 @@
         <div class="flex items-center gap-1 w-3/4" >
             <img src="https://pbs.twimg.com/profile_images/1154766291254861824/oAQ7JwWr_400x400.jpg"
                 class="twitter-user-img" alt="" />
+                <!-- <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+                class="absolute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" /> -->
             <div class="ml-3 text-md w-2/3">
                 <div class="flex max-w-full w-full -mb-1 mt-1">
                     <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
@@ -23,9 +25,12 @@
             </div>
         </div>
         <!-- ! --------follow button ---- -->
-        <a href=""
+        <a (click)="follow(u.id)" 
             class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">Follow</a>
     </div>
+
+
+
     <div class="text-blue-400 right-follow rounded-b-2xl mb-2">
         <a routerLink="/connect" class="hover:underline">Show more</a>
     </div>

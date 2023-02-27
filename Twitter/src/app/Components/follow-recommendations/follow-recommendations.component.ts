@@ -19,6 +19,22 @@ export class FollowRecommendationsComponent implements OnInit{
         },
         error:(err)=>{err},
       })
+
+    
+  }
+
+  follow(id:any){
+    let userid = +id;
+    this.myService.postFollow(userid).subscribe(
+      {
+        next:(data)=>{
+          console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      },
+      }
+    )
   }
 }
 
