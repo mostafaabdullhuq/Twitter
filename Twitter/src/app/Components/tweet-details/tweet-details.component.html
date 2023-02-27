@@ -46,14 +46,46 @@
             <p class="font-normal dark:text-white text-md text-dark-gray_400" dir="auto">
                 {{tweet.text|hashtag}}
             </p>
-            <div *ngFor="let media of tweet.media"
+
+            <!-- tweet media -->
+            <div *ngIf="tweet.media.length"
+                class="relative h-[500px] w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
+                <div class="controls">
+                    <!-- media next -->
+                    <div (click)="handleMedia(1, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"
+                        class="absolute right-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                        <i class="fa-solid fa-chevron-right text-xl p-2 text-center"></i>
+                    </div>
+
+                    <!-- media previous -->
+                    <div (click)="handleMedia(2, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"
+                        class="absolute left-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                        <i class="fa-solid fa-chevron-left text-xl p-2 text-center"></i>
+                    </div>
+
+                </div>
+                <div #mediaContainer class="media-container absolute top-0 left-0 bottom-0 right-0 overflow-hidden">
+                    <!-- each media -->
+                    <div class="media-item">
+                        <img class="object-cover  h-full w-full" src="{{tweet.media[0].media_url}}"
+                            *ngIf="tweet.media[0].media_type == 1" />
+                        <video controls *ngIf="tweet.media[0].media_type == 2" class="object-cover  h-full w-full">
+                            <source src="{{tweet.media[0].media_url}}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <div *ngFor="let media of tweet.media"
                 class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
                 <img class="object-cover w-full h-full" src="{{media.media_url}}" *ngIf="media.media_type == 1" />
                 <video controls *ngIf="media.media_type == 2">
                     <source src="{{media.media_url}}" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-            </div>
+            </div> -->
             <!-- tweet details -->
             <div class="w-full flex text-sm pt-1 gap-2 text-gray-600 dark:text-gray-400 items-center">
                 <p>{{tweet.created_at|date: 'shortTime'}}</p>

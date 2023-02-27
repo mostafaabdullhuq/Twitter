@@ -13,23 +13,41 @@
                     class="px-3 py-3 text-xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
                     name="" id="" placeholder="What's happening?"></textarea>
             </div>
+
             <!-- new tweet media -->
-            <div *ngIf="tweetMedia">
+            <div *ngIf="tweetMedia.length">
                 <div
-                    class="media border flex flex-wrap bg-white relative border-light-gray dark:border-dark-gray_0  w-[90%] mb-3 max-h-[300px] mt-2 rounded-xl m-auto overflow-hidden">
-                    <div class="flex col-span-1 overflow-hidden  h-full" *ngFor="let media of tweetMedia">
-                        <img #mediaPreview src="{{media}}"
-                            class="border border-red-500 w-full object-cover object-center" alt="">
+                    class="media border h-[500px] flex  bg-white relative border-light-gray dark:border-dark-gray_0  w-[90%] mb-3 max-h-[500px] mt-2 rounded-xl m-auto overflow-hidden">
+                    <div class="flex  overflow-hidden h-full w-full">
+                        <img #mediaPreview *ngIf="currentMediaType == 1" src="{{currentMediaSrc}}"
+                            class=" dark:border-dark-gray_0  border border-light-gray w-full object-cover object-center"
+                            alt="">
+                        <video #mediaPreview *ngIf="currentMediaType == 2" controls
+                            class="dark:border-dark-gray_0  border border-light-gray  w-full object-cover object-center">
+                            <source src="{{currentMediaSrc}}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
-                    <div class="absolute hover:bg-dark-black_100 transition-opacity
-                              top-2 left-2 p-2 cursor-pointer rounded-full w-8 h-8 items-center justify-center text-white bg-black bg-opacity-90    flex"
-                        (click)="removeMedia()">
-                        <i class="fa-solid fa-times"></i>
+
+
+                    <div class="controls">
+                        <div *ngIf="tweetMedia.length > 1" (click)="handleMedia(1)"
+                            class="absolute right-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                            <i class="fa-solid fa-chevron-right text-xl p-2 text-center"></i>
+                        </div>
+                        <div *ngIf="tweetMedia.length > 1" (click)="handleMedia(2)"
+                            class="absolute left-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                            <i class="fa-solid fa-chevron-left text-xl p-2 text-center"></i>
+                        </div>
+                        <div class="absolute hover:bg-dark-black_100 transition-opacity top-2 left-2 p-2 cursor-pointer rounded-full w-8 h-8 items-center justify-center text-white bg-black bg-opacity-90 flex"
+                            (click)="removeMedia()">
+                            <i class="fa-solid fa-times"></i>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
+            <!-- new tweet controls -->
             <div class="controls relative w-full grid grid-cols-2">
                 <!-- tweet icons -->
                 <div class="flex p-4 sm:pl-16 pl-6">
@@ -39,12 +57,6 @@
                         <input type="file" multiple (change)="inputChange($event)" accept="image/*,video/*"
                             formControlName="media" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
                         <i class="w-full fa-regular fa-image text-lg"></i>
-                    </a>
-                    <a class="text-main-blue relative dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
-                        title="GIF">
-                        <!-- gif upload -->
-                        <input type="file" accept="image/gif" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
-                        <i class="w-full fa-regular fa-file-image"></i>
                     </a>
                     <a href=""
                         class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
@@ -64,10 +76,9 @@
                 <!-- tweet button -->
                 <div class="flex py-2.5 justify-end px-6">
                     <input type="submit" value="Tweet" [disabled]="!tweetForm.value.text && !tweetForm.value.media"
-                        class="bg-main-blue_100 cursor-pointer disabled:bg-opacity-60  disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100 ">
+                        class="bg-main-blue_100 mb-1 cursor-pointer disabled:bg-opacity-60  disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100 ">
                 </div>
             </div>
-            <!-- <p class="p-4">No Media.</p> -->
         </div>
     </form>
 
