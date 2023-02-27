@@ -25,6 +25,7 @@ export class TweetDetailsComponent implements OnInit {
   protected error: any;
   protected user: any;
   public tweetID = this.activatedRouter.snapshot.params['id'];
+  public showBookmark = false;
   public showControls = false;
 
   //reply

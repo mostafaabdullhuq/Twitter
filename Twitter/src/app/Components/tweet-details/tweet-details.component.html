@@ -16,26 +16,26 @@
         <div *ngIf="showControls"
             class="absolute z-10 top-10 right-2  flex flex-col overflow-hidden items-center dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
             <div (click)="deleteTweet()" *ngIf="tweet.user.id === user.id"
-                class="flex cursor-pointer border-b border-gray-100 dark:border-dark-gray_0 py-2 w-full overflow-hidden gap-3 text-red-500 font-semibold transition-colors hover:bg-red-500 dark:text-white hover:text-white items-center px-12">
+                class="flex cursor-pointer border-b border-gray-100 dark:border-dark-gray_0 py-2 w-full overflow-hidden gap-3 text-red-500 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
                 <i class="fa-solid fa-trash-can"></i>
                 <div>Delete</div>
 
             </div>
-            <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="bookmarkToggle(tweet.id)"
+            <!-- <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="bookmarkToggle(tweet.id)"
                 class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
                 <i class="fa-regular fa-bookmark"></i>
                 <div>Bookmark</div>
 
-            </div>
+            </div> -->
         </div>
 
-        <ng-template #unbookmarkBlock>
+        <!-- <ng-template #unbookmarkBlock>
             <div>
                 <button (click)="bookmarkToggle(tweet.id)"
                     class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Unbookmark</button>
 
             </div>
-        </ng-template>
+        </ng-template> -->
 
         <!-- user info -->
         <div class="user-info flex gap-2">
@@ -142,11 +142,49 @@
                 <div class="single-tweet-control-item hover:text-main-retweet"><i
                         class="fa-solid text-lg p-2 fa-retweet rounded-full hover:bg-green-100"></i></div>
                 <div (click)="likesCount()" class="single-tweet-control-item hover:text-main-love"><i
-                        [ngClass]="{'text-main-love': tweet.liked == true}"
+                        [ngClass]="{'text-main-love fa-solid': tweet.liked == true}"
                         class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"></i></div>
-                <div class="single-tweet-control-item hover:text-main-blue_100">
+                <div (click)="showBookmark = !showBookmark"
+                    class="relative single-tweet-control-item hover:text-main-blue_100">
                     <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+
+                    <!-- bookmark tweet popup -->
+                    <div *ngIf="showBookmark"
+                        class="absolute z-10 -top-12 right-0  flex flex-col overflow-hidden items-center dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
+                        <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="bookmarkToggle(tweet.id)"
+                            class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
+                            <i class="fa-regular fa-bookmark"></i>
+                            <div>Bookmark</div>
+
+                        </div>
+                    </div>
+
+                    <ng-template #unbookmarkBlock>
+                        <div>
+                            <button (click)="bookmarkToggle(tweet.id)"
+                                class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Unbookmark</button>
+                        </div>
+                    </ng-template>
+
+
+
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
             <!-- new reply section -->
             <form [formGroup]="replyForm" (ngSubmit)="replySubmit()">
