@@ -37,6 +37,15 @@ export class TweetsService {
     });
   }
 
+  addView(id:any){
+    const accessToken = this.token.get();
+    return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
   getTweetById(id: any) {
     const accessToken = this.token.get();
 

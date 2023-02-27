@@ -25,5 +25,6 @@ export class ReplyComponent {
         },
       });
     }
+    
   @Input() replies: any;
 }

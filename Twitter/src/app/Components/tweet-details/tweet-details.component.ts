@@ -70,5 +70,13 @@ export class TweetDetailsComponent implements OnInit {
         this.error = err;
       },
     });
+    this.httpClient.addView(+tweetID).subscribe({
+      next: (data) => {
+        this.tweet = data;
+      },
+      error: (err) => {
+        this.error = err;
+      },
+    });
   }
 }
