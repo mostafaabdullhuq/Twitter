@@ -107,6 +107,10 @@ class TweetController extends Controller
     public function get_User_Media(){
         $user = JWTAuth::user();
         $tweets =$user->tweetsWithMedia;
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweetsWithMedia()->count();
+        
         // $tweets = [];
 
         // foreach($media as $key => $value){
