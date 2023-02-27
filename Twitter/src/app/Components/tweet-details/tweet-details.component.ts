@@ -38,15 +38,15 @@ export class TweetDetailsComponent implements OnInit {
 
   formatTweetText(text: string): SafeHtml {
     if (text) {
-      const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-      const mentionRegex = /@[a-zA-Z0-9_]+/g;
+      // console.log(text);
+      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
       const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
 
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
         .replace(mentionRegex, mentionTemplate);
-
       return this.sanitizer.bypassSecurityTrustHtml(formattedText);
     } else {
       return '';
