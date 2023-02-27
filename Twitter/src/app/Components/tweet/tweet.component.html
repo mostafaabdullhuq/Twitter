@@ -49,7 +49,6 @@
                 <p routerLink="/status/{{tweet.id}}"
                     class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
                     <span [innerHTML]="formatTweetText(tweet.text)"></span>
-                    <!-- <span [innerHTML]="formatTweetText(tweet.replies[0].text)"></span> -->
                 </p>
 
                 <!-- tweet media -->
@@ -90,14 +89,14 @@
                     </div>
                     <div class="tweet-control-item hover:text-main-retweet" title="Retweet"><i
                             class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>
-                            {{tweet.retweets_count
+                        {{tweet.retweets_count
                         || '0'
                         | humanNumbers: 2}}
                     </div>
                     <div (click)="likesCount(tweet.id)" class="tweet-control-item  hover:text-main-love" title="Like">
                         <i [ngClass]="{'text-main-love': tweet.liked == true}"
                             class="fa-regular fa-heart  sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>
-                            {{tweet.likes_count
+                        {{tweet.likes_count
                         ||
                         '0' |
                         humanNumbers: 2}}

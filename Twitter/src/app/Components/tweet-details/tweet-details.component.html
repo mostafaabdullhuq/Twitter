@@ -5,11 +5,38 @@
     <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
     <div class="single-tweet">
         <!-- tweet right up control -->
-        <div class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
+        <div (click)="showControls = !showControls"
+            class="absolute  dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
             title="More">
             <i
                 class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
         </div>
+
+        <!-- tweet controls popup -->
+        <div *ngIf="showControls"
+            class="absolute z-10 top-10 right-2  flex flex-col overflow-hidden items-center dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
+            <div (click)="deleteTweet()" *ngIf="tweet.user.id === user.id"
+                class="flex cursor-pointer border-b border-gray-100 dark:border-dark-gray_0 py-2 w-full overflow-hidden gap-3 text-red-500 font-semibold transition-colors hover:bg-red-500 dark:text-white hover:text-white items-center px-12">
+                <i class="fa-solid fa-trash-can"></i>
+                <div>Delete</div>
+
+            </div>
+            <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="bookmarkToggle(tweet.id)"
+                class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
+                <i class="fa-regular fa-bookmark"></i>
+                <div>Bookmark</div>
+
+            </div>
+        </div>
+
+        <ng-template #unbookmarkBlock>
+            <div>
+                <button (click)="bookmarkToggle(tweet.id)"
+                    class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Unbookmark</button>
+
+            </div>
+        </ng-template>
+
         <!-- user info -->
         <div class="user-info flex gap-2">
             <!-- user image -->
@@ -48,7 +75,7 @@
             </p>
             <!-- tweet media -->
             <div *ngIf="tweet.media.length"
-                class="relative h-[500px] w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
+                class="relative h-[500px] z-1 w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
                 <div class="controls">
                     <!-- media next -->
                     <div (click)="handleMedia(1, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"

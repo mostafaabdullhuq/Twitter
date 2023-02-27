@@ -25,6 +25,7 @@ export class TweetDetailsComponent implements OnInit {
   protected error: any;
   protected user: any;
   public tweetID = this.activatedRouter.snapshot.params['id'];
+  public showControls = false;
 
   //reply
   public replyForm = new FormGroup({
@@ -111,5 +112,27 @@ export class TweetDetailsComponent implements OnInit {
         this.error = err;
       },
     });
+  }
+
+  deleteTweet() {
+    this.httpClient.deleteTweetById(this.tweet.id).subscribe({
+      next: (data) => {
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  bookmarkToggle(tweetID: any) {
+    // this.httpClient.bookmarkToggle(tweetID).subscribe({
+    //   next: (data) => {
+    //     this.tweet = data;
+    //   },
+    //   error: (err) => {
+    //     this.error = err;
+    //   },
+    // });
   }
 }
