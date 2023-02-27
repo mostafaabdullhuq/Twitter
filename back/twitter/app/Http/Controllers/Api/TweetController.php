@@ -110,7 +110,12 @@ class TweetController extends Controller
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->tweetsWithMedia()->count();
-        
+        unset($user->tweetsWithMedia);
+        unset($user->id);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->email_verified_at);
+        unset($user->updated_at);
         // $tweets = [];
 
         // foreach($media as $key => $value){
