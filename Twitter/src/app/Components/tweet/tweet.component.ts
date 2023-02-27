@@ -67,6 +67,11 @@ export class TweetComponent {
     });
   }
 
+  popup: boolean = false ;
+  showPop(){
+    this.popup ? (this.popup = false) : (this.popup = true);
+  }
+
   @Input() tweets: any ;
   @Input() showReplies: any ;
 }

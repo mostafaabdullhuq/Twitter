@@ -141,10 +141,13 @@
                 </div>
                 <div class="single-tweet-control-item hover:text-main-retweet"><i
                         class="fa-solid text-lg p-2 fa-retweet rounded-full hover:bg-green-100"></i></div>
-                <div (click)="likesCount()" class="single-tweet-control-item hover:text-main-love"><i
+                <div (click)="likesCount()"
+                 class="single-tweet-control-item hover:text-main-love"><i
                         [ngClass]="{'text-main-love': tweet.liked == true}"
                         class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"></i></div>
-                <div class="single-tweet-control-item hover:text-main-blue_100">
+                <div (click)="showControls = !showControls"
+                class="single-tweet-control-item hover:text-main-blue_100">
+
                     <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
                 </div>
             </div>
