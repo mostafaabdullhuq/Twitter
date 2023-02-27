@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'gender',
+        'views_count',
         'phone_number',
         'date_of_birth',
     ];
@@ -76,6 +76,11 @@ class User extends Authenticatable implements JWTSubject
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function Views()
+    {
+        return $this->hasMany(View::class);
     }
 
     public function replies()
