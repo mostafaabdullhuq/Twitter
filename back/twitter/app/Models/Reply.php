@@ -58,4 +58,10 @@ class Reply extends Model
             'repliable'
         )->get()->where('user_id', $userID);
     }
+
+
+    public function likedByUserID($id)
+    {
+        return $this->likes()->where('user_id', $id)->exists();
+    }
 }

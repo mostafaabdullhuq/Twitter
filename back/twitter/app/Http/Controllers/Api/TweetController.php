@@ -120,26 +120,26 @@ class TweetController extends Controller
     // ----------------- in progress ----------------------
     public function create(CreateTweetRequest $request)
     {
-        $response = [];
 
-        $files = $request->allFiles();
-        foreach ($files as $key => $value) {
-            $response[] = [
-                'key' => $key,
-                'name' => $value->getClientOriginalName(),
-                'type' => $value->getClientMimeType(),
-                'size' => $value->getSize(),
-                'path' => $value->getRealPath(),
-                'extension' => $value->getClientOriginalExtension(),
-            ];
-        }
+        // $response = [];
 
-        return $response;
+        // $files = $request->allFiles()["files"];
 
+        // foreach ($files as $key => $value) {
+        //     $response[] = [
+        //         'key' => $key,
+        //         'name' => $value->getClientOriginalName(),
+        //         'type' => $value->getClientMimeType(),
+        //         'size' => $value->getSize(),
+        //         'path' => $value->getRealPath(),
+        //         'extension' => $value->getClientOriginalExtension(),
+        //     ];
+        // }
 
+        // return $response;
 
         $tweetText = $request->text ?? null;
-        $tweetMedia = $request->files ?? null;
+        $tweetMedia = $request->allFiles()["files"] ?? null;
         $tweetScheduleDateTime = $request->schedule_date_time ?? null;
 
         $tweet = JWTAuth::user()->tweets()->create(
@@ -149,8 +149,8 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id
             ]
         );
-        if ($tweetMedia) {
 
+        if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
                 $mediaType = $media?->getClientMimeType();
                 $mediaType = explode('/', $mediaType)[0];
@@ -161,20 +161,14 @@ class TweetController extends Controller
                     $mediaType = 2;
                 }
 
-                dd($media);
-
                 $media = $media ? $media->store('public/media') : null;
                 $mediaName = explode('/', $media)[2];
-
-                // $tweetMedia = $tweetMedia ? $tweetMedia->store('public/media') : null;
-                // $mediaName = explode('/', $tweetMedia)[2];
                 $tweet->media()->create([
                     'media_url' => $mediaName,
                     'media_type' => $mediaType
                 ]);
             }
         }
-
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
@@ -210,6 +204,8 @@ class TweetController extends Controller
         unset($tweet->user->updated_at);
         unset($tweet->user_id);
 
+        $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
+
         // get the media of the tweet and update it's url values and remove security sensitive info
         $media = $tweet->media;
         if ($media->count()) {
@@ -230,7 +226,6 @@ class TweetController extends Controller
             unset($reply->user->facebook_access_token);
             unset($reply->user->email_verified_at);
             unset($reply->user->updated_at);
-
             $replyMedia = $reply->media;
             foreach ($replyMedia as $key => $value) {
                 unset($value->parent_type);
@@ -239,6 +234,8 @@ class TweetController extends Controller
             }
 
             $reply->replies;
+            $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
+
             $reply->media = $replyMedia;
             $reply->replies_count = $reply->replies->count();
             $reply->likes_count = $reply->likes->count();
@@ -268,6 +265,7 @@ class TweetController extends Controller
             unset($tweet->user_id);
             // Get the media associated with this tweet
             $tweet->media;
+            $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
             // Remove sensitive information from the media objects
             foreach ($tweet->media as $media) {
                 unset($media['parent_id']);
@@ -280,6 +278,7 @@ class TweetController extends Controller
             $tweet->user->followings_count = $tweet->user->followings()->count();
             $tweet->user->tweets_count = $tweet->user->tweets()->count();
             $tweet->replies_count = $tweet->replies->count();
+            $tweet->likes_count = $tweet->likes->count();
         }
         return $tweets;
     }
@@ -298,7 +297,6 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id,
             ]
         );
-
         unset($reply->repliable_type);
         unset($reply->repliable_id);
         unset($reply->updated_at);
@@ -310,6 +308,7 @@ class TweetController extends Controller
         $reply->replies_count = 0;
         $reply->retweets_count = 0;
         $reply->views_count = 0;
+        $reply->liked = false;
         $reply->user;
         $reply->media;
         return $reply;
