@@ -69,6 +69,7 @@ Route::group([
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     // Route::delete('{id}/unlike', [TweetController::class, 'unlike']);
     Route::get('{id}', [TweetController::class, 'details']);
+    Route::get('likes' , [TweetController::class, 'get_User_Likes']);
 });
 
 
