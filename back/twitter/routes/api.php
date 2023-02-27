@@ -32,7 +32,6 @@ Route::group([
     Route::post('resetPassword', [ChangePasswordController::class, 'process']);
     Route::post('updateUser', [UpdateDataController::class, 'update']);
     Route::Post('changePassword', [changePasswordSettingController::class, 'passwordSetting']);
-
 });
 
 
@@ -60,23 +59,26 @@ Route::group([
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
     Route::get('replies', [TweetController::class, 'get_User_Replies']);
+    Route::get('likes', [TweetController::class, 'get_User_Likes']);
+    Route::get('likes', [TweetController::class, 'get_User_Media']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
-    Route::post('{id}/delete', [TweetController::class, 'delete']);
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
     Route::post('{id}/reply', [TweetController::class, 'reply']);
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
+    Route::delete('{id}/delete', [TweetController::class, 'delete']);
+    Route::get('{id}/view', [TweetController::class, 'view']);
     Route::get('{id}', [TweetController::class, 'details']);
 });
-
 
 Route::group([
     'middleware' => 'api',
     'prefix' => 'reply'
 ], function () {
-    Route::get('{id}/like', [ReplyController::class, 'likeToggle']);
+    Route::post('{id}/like', [ReplyController::class, 'likeToggle']);
     // Route::post('{id}/unlike', [ReplyController::class, 'unlike']);
+    Route::post('{id}/view', [ReplyController::class, 'view']);
     Route::post('{id}/edit', [ReplyController::class, 'edit']);
-    Route::post('{id}/delete', [ReplyController::class, 'delete']);
+    Route::delete('{id}/delete', [ReplyController::class, 'delete']);
     Route::post('{id}/reply', [ReplyController::class, 'reply']);
 });

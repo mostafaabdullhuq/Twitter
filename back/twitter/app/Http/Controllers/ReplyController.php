@@ -30,7 +30,6 @@ class ReplyController extends Controller
                 'user_id' => JWTAuth::user()->id,
             ]
         );
-
         $reply->replies_count = $reply->replies->count();
         unset($reply->repliable_type);
         unset($reply->repliable_id);
@@ -43,7 +42,7 @@ class ReplyController extends Controller
         $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
         $reply->likes_count = $reply->likes->count();
         $reply->retweets_count = random_int(0, 999999999);
-        $reply->views_count = random_int(0, 999999999);
+        $reply->views_count = $reply->views->count();
         $reply->user;
         $reply->media;
         return $reply;
@@ -75,9 +74,24 @@ class ReplyController extends Controller
         $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
         $reply->likes_count = $reply->likes->count();
         $reply->retweets_count = random_int(0, 999999999);
-        $reply->views_count = random_int(0, 999999999);
+        $reply->views_count = $reply->views->count();
         $reply->user;
         $reply->media;
         return $reply;
+    }
+
+
+    public function delete($id)
+    {
+        try {
+            $reply = Reply::find($id);
+            if ($reply->user_id != JWTAuth::user()->id) {
+                return response()->json(['message' => 'You are not authorized to delete this reply'], 401);
+            }
+            $reply->delete();
+            return response()->json(['message' => 'Reply deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Reply not found'], 404);
+        }
     }
 }

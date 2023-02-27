@@ -16,16 +16,14 @@ return new class extends Migration
         Schema::create('retweets', function (Blueprint $table) {
             $table->id();
             $table->text('text')->nullable();
+            $table->integer('views_count')->default(0);
+            $table->morphs('retweetable');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
 
             // $table->unsignedBigInteger('tweet_id');
             // $table->foreign('tweet_id')->references('id')->on('tweets');
-
-            $table->morphs('retweetable');
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->timestamps();
         });
     }
 
