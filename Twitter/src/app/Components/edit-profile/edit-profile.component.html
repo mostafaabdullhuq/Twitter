@@ -51,12 +51,12 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl flex flex-co
         <form class="mt-12 space-y-6" #updateForm=ngForm (ngSubmit)="onSubmit()">
             <input [(ngModel)]="form.email" type="hidden"  value="{{ user ? (user.email? user.email: '') : 'Loading...' }}" name="remember">
             <div>
-                <input [(ngModel)]="form.first_name"  value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="name" name="name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.first_name"  value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="firstname" name="firstname" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
                     focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="First name">
             </div>
             <div>
-                <input [(ngModel)]="form.last_name"  value="{{ user ? (user.last_name ? user.last_name : '') : 'Loading...' }}" id="name" name="name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.last_name"  value="{{ user ? (user.last_name ? user.last_name : '') : 'Loading...' }}" id="lastname" name="lastname" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
                     focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="Last name">
             </div>
@@ -91,7 +91,7 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl flex flex-co
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="date_of_birth">
             </div>
-            <button type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4 
+            <button  type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4 
             text-xl text-white hover:bg-gray-200 focus:outline-none focus:ring-2
              focus:ring-indigo-500 rounded-full focus:ring-offset-2">
                         Save

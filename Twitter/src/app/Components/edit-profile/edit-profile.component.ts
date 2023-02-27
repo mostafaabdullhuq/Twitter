@@ -47,8 +47,8 @@ export class EditProfileComponent implements OnInit {
         this.user = data.user;
         this.form = {
           email: this.user.email || '',
-          first_name:'',
-          last_name: '',
+          first_name:this.user.first_name || '',
+          last_name: this.user.last_name || '',
           username: this.user.username || null,
           bio: this.user.bio || null,
           date_of_birth: this.user.date_of_birth || null,
