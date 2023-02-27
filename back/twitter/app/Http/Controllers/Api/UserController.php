@@ -26,6 +26,9 @@ class UserController extends Controller
         return $user;
     }
 
+    public function get_all_users(){
+        return User::all();
+    }
 
 
     public function destroy(Request $request)
