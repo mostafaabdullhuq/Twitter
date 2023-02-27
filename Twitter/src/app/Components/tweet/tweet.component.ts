@@ -6,16 +6,18 @@ import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TweetsService } from 'src/app/Services/tweets.service';
-import { RouterModule , RouterLink, ActivatedRoute } from '@angular/router';
+import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent {
-  constructor(private sanitizer: DomSanitizer
-    ,public myRoute: ActivatedRoute,
-    public httpClient:TweetsService,) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    public myRoute: ActivatedRoute,
+    public httpClient: TweetsService
+  ) {}
   formatTweetText(text: string): SafeHtml {
     if (text) {
       const hashtagRegex = /#[a-zA-Z0-9_]+/g;
@@ -33,22 +35,38 @@ export class TweetComponent {
     }
   }
 
-  likesCount(tweetID:any){
-    this.httpClient.getLikesCount(tweetID ).subscribe({
-      next: (data:any) => {
+  likesCount(tweetID: any) {
+    this.httpClient.getLikesCount(tweetID).subscribe({
+      next: (data: any) => {
         console.log(data);
-        console.log("liked a tweet from home component");
-
         // this.tweet.likes_count = data.likes_count ;
       },
       error: (err) => {
         console.log(err);
-
       },
+    });
+  }
+
+  handleMedia(type: any, container: any, tweet: any) {
+    let nextIndex;
+    let currentSrc = container.children[0].children[0].src;
+    Object.entries(tweet.media).forEach((value: any, index: any) => {
+      let mediaObj = value[1];
+      if (currentSrc === mediaObj.media_url) {
+        if (type === 1) {
+          nextIndex = index + 1 >= tweet.media.length ? 0 : index + 1;
+        } else {
+          nextIndex = index - 1 < 0 ? tweet.media.length - 1 : index - 1;
+        }
+        console.log(nextIndex);
+        container.children[0].children[0].src =
+          tweet.media[nextIndex].media_url;
+
+        container.children[0].children[0].src =
+          tweet.media[nextIndex].media_url;
+      }
     });
   }
 
   @Input() tweets: any;
 }
-
-

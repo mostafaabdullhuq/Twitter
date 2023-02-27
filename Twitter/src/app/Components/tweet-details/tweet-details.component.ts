@@ -19,42 +19,34 @@ export class TweetDetailsComponent implements OnInit {
       Validators.maxLength(500),
     ]),
   });
-//reply
+  //reply
   replySubmit() {
     let reply = {
       text: this.replyForm.value.text,
     };
     this.httpClient.createReply(reply, this.tweetID).subscribe({
-      next: (data:any) => {
+      next: (data: any) => {
         this.tweet.replies.unshift(data);
         this.tweet.replies_count += 1;
         this.replyForm.reset();
-
       },
       error: (err) => {
         this.error = err;
       },
     });
   }
-//like
-like:any;
-likesCount(){
-
-  this.httpClient.getLikesCount( this.tweetID ).subscribe({
-    next: (data:any) => {
-      if(data.likes_count==1){
-      this.tweet.likes_count = data.likes_count ;
-      console.log("liked a tweet from tweet_details component");
-      }
-      if(data.likes_count ==0 ){
-      console.log("unliked a tweet from tweet_details component");
-      }
-    },
-    error: (err) => {
-      this.error = err;
-    },
-  });
-}
+  //like
+  like: any;
+  likesCount() {
+    this.httpClient.getLikesCount(this.tweetID).subscribe({
+      next: (data: any) => {
+        this.tweet.likes_count = data.likes_count;
+      },
+      error: (err) => {
+        this.error = err;
+      },
+    });
+  }
   constructor(
     private httpClient: TweetsService,
     private activatedRouter: ActivatedRoute,
