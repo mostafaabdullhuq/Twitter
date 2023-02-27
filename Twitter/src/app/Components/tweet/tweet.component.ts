@@ -39,7 +39,6 @@ export class TweetComponent {
     this.httpClient.getLikesCount(tweetID).subscribe({
       next: (data: any) => {
         console.log(data);
-        // this.tweet.likes_count = data.likes_count ;
       },
       error: (err) => {
         console.log(err);

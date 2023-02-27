@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { TweetsService } from 'src/app/Services/tweets.service';
+// import { TweetsService } from 'src/app/Services/tweets.service';
 import { RouterModule , RouterLink, ActivatedRoute } from '@angular/router';
+import { ReplyService } from 'src/app/Services/reply.service';
 
 @Component({
   selector: 'app-reply',
@@ -10,16 +11,14 @@ import { RouterModule , RouterLink, ActivatedRoute } from '@angular/router';
 export class ReplyComponent {
   constructor(
     public myRoute: ActivatedRoute,
-     public httpClient:TweetsService,) {}
+     public httpClient:ReplyService,) {}
 
      //like
-  isLiked: boolean = false;
+  // isLiked: boolean = false;
      likesCount(replyID:any){
       this.httpClient.getLikesCount( replyID ).subscribe({
-        next: (data:any) => {
-          this.isLiked = data.likes_count >= 1;
-          // console.log(data);
-          console.log("liked a reply");
+        next: (data: any) => {
+          console.log(data);
         },
         error: (err) => {
           console.log(err);

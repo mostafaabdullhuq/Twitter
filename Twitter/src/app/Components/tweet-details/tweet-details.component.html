@@ -84,13 +84,8 @@
                 <div class="single-tweet-control-item hover:text-main-retweet"><i
                         class="fa-solid text-lg p-2 fa-retweet rounded-full hover:bg-green-100"></i></div>
                 <div (click)="likesCount()" class="single-tweet-control-item hover:text-main-love"><i
-<<<<<<< HEAD
-                        class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"
-                        [ngClass]="{'bg-main-love': isLiked}" ></i></div>
-=======
                         [ngClass]="{'text-main-love': tweet.liked == true}"
                         class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"></i></div>
->>>>>>> efb4c8fa39659f1f0365fec57136c27c352afa66
                 <div class="single-tweet-control-item hover:text-main-blue_100">
                     <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
                 </div>

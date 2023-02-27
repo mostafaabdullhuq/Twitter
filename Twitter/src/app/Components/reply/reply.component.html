@@ -64,12 +64,9 @@
                         class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{reply.retweets_count|humanNumbers:2}}
                 </div>
                 <div (click)="likesCount(reply.id)" class="tweet-control-item hover:text-main-love"><i
-<<<<<<< HEAD
-                  [ngClass]="{'bg-main-love': isLiked}" 
-=======
                         [ngClass]="{'text-main-love': reply.liked == true}"
->>>>>>> efb4c8fa39659f1f0365fec57136c27c352afa66
-                        class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>{{reply.likes_count|humanNumbers:2}}
+                        class="fa-regular fa-heart sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>
+                        {{reply.likes_count|humanNumbers:2}}
                 </div>
                 <div class="tweet-control-item-special hover:text-main-blue_100"><i
                         class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{reply.views_count|humanNumbers:2}}

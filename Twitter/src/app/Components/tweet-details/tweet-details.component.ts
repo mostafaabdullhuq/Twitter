@@ -20,10 +20,7 @@ export class TweetDetailsComponent implements OnInit {
       Validators.maxLength(500),
     ]),
   });
-<<<<<<< HEAD
-=======
   //reply
->>>>>>> efb4c8fa39659f1f0365fec57136c27c352afa66
   replySubmit() {
     let reply = {
       text: this.replyForm.value.text,
@@ -39,27 +36,6 @@ export class TweetDetailsComponent implements OnInit {
       },
     });
   }
-<<<<<<< HEAD
-
-//like
-like:any;
-isLiked: boolean = false;
-likesCount(){
-  this.httpClient.getLikesCount( this.tweetID ).subscribe({
-    next: (data:any) => {
-      this.isLiked = data.likes_count >= 1;
-      this.tweet.likes_count = data.likes_count ;
-      this.tweet.likes_count += 1;
-
-      console.log("liked a tweet from tweet_details component");
-    },
-    error: (err) => {
-      this.error = err;
-    },
-  });
-}
-
-=======
   //like
   like: any;
   likesCount() {
@@ -72,7 +48,6 @@ likesCount(){
       },
     });
   }
->>>>>>> efb4c8fa39659f1f0365fec57136c27c352afa66
   constructor(
     private httpClient: TweetsService,
     private activatedRouter: ActivatedRoute,
