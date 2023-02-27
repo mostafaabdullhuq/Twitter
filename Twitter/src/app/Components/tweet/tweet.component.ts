@@ -2,7 +2,7 @@
 // that can be clicked on. It uses the sanitizer to bypass security restrictions and allows
 // the html to be rendered in the tweet component.
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TweetsService } from 'src/app/Services/tweets.service';
@@ -39,7 +39,6 @@ export class TweetComponent {
     this.httpClient.getLikesCount(tweetID).subscribe({
       next: (data: any) => {
         console.log(data);
-        // this.tweet.likes_count = data.likes_count ;
       },
       error: (err) => {
         console.log(err);
@@ -68,5 +67,6 @@ export class TweetComponent {
     });
   }
 
-  @Input() tweets: any;
+  @Input() tweets: any ;
+  @Input() showReplies: any ;
 }

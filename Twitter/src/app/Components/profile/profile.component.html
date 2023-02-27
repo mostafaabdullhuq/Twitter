@@ -26,9 +26,9 @@
                             d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                     </svg>
                 </div>
-                <p class="dark:text-gray-500 text-gray-600 pl-6 text-sm -mt-1">{{tweetsCount|humanNumbers}} Tweets</p>
+                <p class="dark:text-gray-500 text-gray-600 pl-6 text-sm -mt-1">{{user.tweets_count|humanNumbers}} Tweets</p>
             </div>
-           
+
             <div class="ml-auto pr-7">
             <div class="xl:flex" (click)="logoutPopup()">
                 <i class="fa-solid fa-ellipsis text-3xl items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
@@ -59,21 +59,26 @@
 
         <!-- profile controls -->
         <div class="flex items-center sm:mt-4 mt-12  px-4 float-right gap-4 w-full justify-end">
+<<<<<<< HEAD
            
             <a  (click)="onButtonClick()"
+=======
+
+            <a routerLink="/edit-profile"
+>>>>>>> 487dbdc5b226842b7cf109c3ae0266ebef094ba9
                 class="text-center py-2 px-5 rounded-full transition-colors border
                  dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-10 dark:text-white
                   text-black cursor-pointer hover:bg-gray-200 ">
                 <span class="font-semibold"> Edit profile </span>
             </a>
-            
+
             <a href="#"
                 class="text-center py-2 px-5 rounded-full transition-colors border dark:text-white
                  dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-30
                   text-black cursor-pointer hover:bg-gray-200">
                 <span class="font-semibold"> Follow </span>
             </a>
-       
+
         </div>
         <!-- profile info -->
 
@@ -155,7 +160,7 @@
         </div>
     </div>
     <div class="tweets">
-        <app-tweet [tweets]="tweets"></app-tweet>
+        <app-tweet [tweets]="tweets" [showReplies]="show"></app-tweet>
         <!-- <app-modal [tweets]="tweets"></app-modal> -->
     </div>
     <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
