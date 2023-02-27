@@ -73,6 +73,11 @@ class User extends Authenticatable implements JWTSubject
         return  $this->hasMany(Tweet::class);
     }
 
+    public function media()
+    {
+        return $this->hasMany(Reply::class );
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -88,10 +93,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Reply::class);
     }
 
-    public function media()
-    {
-        return $this->hasMany(Reply::class);
-    }
+
 
     // get the users who follow the current user
     public function followers()

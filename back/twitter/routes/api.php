@@ -57,8 +57,8 @@ Route::group([
     Route::get('me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
-    Route::get('replies', [TweetController::class, 'get_User_Replies']);
     Route::get('media', [TweetController::class, 'get_User_Media']);
+    Route::get('replies', [TweetController::class, 'get_User_Replies']);
     Route::get('likes', [TweetController::class, 'get_User_Likes']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
