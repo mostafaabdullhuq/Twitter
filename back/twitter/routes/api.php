@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HashtagController;
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
@@ -80,4 +81,12 @@ Route::group([
     Route::post('{id}/edit', [ReplyController::class, 'edit']);
     Route::delete('{id}/delete', [ReplyController::class, 'delete']);
     Route::post('{id}/reply', [ReplyController::class, 'reply']);
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'hashtag'
+], function () {
+    Route::get('{hashtag}', [HashtagController::class, 'index']);
 });

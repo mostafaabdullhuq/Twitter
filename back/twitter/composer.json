@@ -13,6 +13,7 @@
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.7",
         "php-open-source-saver/jwt-auth": "*",
+        "spatie/laravel-tags": "^4.3",
         "tymon/jwt-auth": "^1.0.3"
     },
     "require-dev": {
