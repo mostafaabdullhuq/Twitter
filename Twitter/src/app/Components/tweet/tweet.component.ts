@@ -68,5 +68,6 @@ export class TweetComponent {
     });
   }
 
-  @Input() tweets: any;
+  @Input() tweets: any ;
+  @Input() showReplies: any ;
 }

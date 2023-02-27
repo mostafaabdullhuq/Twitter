@@ -114,7 +114,7 @@
             </div>
             <!-- ==================I'm Here ,Replaaay Test Design============ -->
 
-            <div *ngIf="tweet.replies?.replies">
+            <div *ngIf="showReplies">
                 <div class=" border border-red-700 text-white" *ngFor="let reply of tweet.replies">
                     <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0 -z-10"></div>
                     <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
