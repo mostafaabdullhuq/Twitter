@@ -19,12 +19,13 @@ export class ProfileComponent implements OnInit {
   ) {}
   public popup = false;
   public tweets: any;
-  public tweetsCount = 0;
+  // public tweetsCount = 0;
   public user: any;
   public viewType = 1;
-
+  show= false;
   ngOnInit(): void {
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
+      this.show=true;
       this.tweetsClient.getReplies().subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
@@ -36,12 +37,28 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         },
       });
-    } else {
+    }
+    else if(this.myRoute.snapshot?.url[1]?.path === 'likes'){
+      this.show=false;
+      this.tweetsClient.getLikes().subscribe({
+        next:(data:any)=>{
+          this.tweets = data.tweets;
+          console.log(this.tweets);
+          this.user = data.user;
+          console.log(this.user);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
+    else {
+      this.show=false;
       this.tweetsClient.getAuthedTweets().subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           this.user = data.user;
-          this.tweetsCount = this.tweets.length;
+          // this.tweetsCount = this.tweets.length;
         },
         error: (err) => {
           console.log(err);

@@ -167,13 +167,21 @@ export class TweetsService {
       },
     });
   }
-  //Just TEST
-  createLike(like:any, tweetID:any){
+  getLikes(){
     const accessToken = this.token.get();
-    return this.httpClient.post(`${this.BASE_URL}/${tweetID}/like`,like, {
+    return this.httpClient.get(this.BASE_URL + '/likes' ,{
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization :`Bearer ${accessToken}`,
       },
     });
   }
+  //Just TEST
+  // createLike(like:any, tweetID:any){
+  //   const accessToken = this.token.get();
+  //   return this.httpClient.post(`${this.BASE_URL}/${tweetID}/like`,like, {
+  //     headers: {
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+  // }
 }
