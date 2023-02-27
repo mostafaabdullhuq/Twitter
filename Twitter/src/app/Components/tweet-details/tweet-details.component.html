@@ -44,9 +44,8 @@
             <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
             <!-- ----paragraph----- -->
             <p class="font-normal dark:text-white text-md text-dark-gray_400" dir="auto">
-                {{tweet.text|hashtag}}
+                <span [innerHTML]="formatTweetText(tweet.text)"></span>
             </p>
-
             <!-- tweet media -->
             <div *ngIf="tweet.media.length"
                 class="relative h-[500px] w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">

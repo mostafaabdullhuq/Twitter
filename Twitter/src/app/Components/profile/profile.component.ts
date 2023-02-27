@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit {
         next: (data: any) => {
           this.tweets = data.tweets;
           console.log(this.tweets);
-
           this.user = data.user;
           console.log(this.user);
         },

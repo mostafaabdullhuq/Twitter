@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   public tweetMedia: any = [];
   public currentMediaSrc: any;
   public currentMediaType: any;
+  public currentMediaIndex: any = 0;
   public tweetMediaFiles: any = [];
   public tweetMediaTypes: any = [];
   @ViewChild('tweetBox') tweetBox!: ElementRef;
@@ -87,7 +88,10 @@ export class HomeComponent implements OnInit {
   }
 
   inputChange(data: any) {
-    this.tweetMediaFiles = data.target.files ? data.target.files : null;
+    this.tweetMedia = [];
+    this.tweetMediaFiles = Array.from(
+      data.target.files ? data.target.files : null
+    );
     Object.keys(this.tweetMediaFiles).forEach((key: any) => {
       this.tweetMediaTypes.push(
         this.tweetMediaFiles[key].type.split('/')[0] == 'image' ? 1 : 2
@@ -115,14 +119,25 @@ export class HomeComponent implements OnInit {
     });
     this.currentMediaSrc = this.tweetMedia[elementIndex];
     this.currentMediaType = this.tweetMediaTypes[elementIndex];
+    this.currentMediaIndex = elementIndex;
   }
 
   removeMedia() {
-    // this.currentMediaSrc = null;
-    // this.currentMediaType = null;
-    this.tweetMedia.splice(0, this.currentMediaSrc);
-    // this.tweetMedia = [];
-    // this.tweetMediaFiles = [];
-    // this.tweetForm.patchValue({ media: null });
+    this.tweetMedia.splice(this.currentMediaIndex, 1);
+    this.tweetMediaTypes.splice(this.currentMediaIndex, 1);
+    Object.entries(this.tweetMediaFiles).forEach(([key, value]) => {
+      if (key == this.currentMediaIndex) {
+        delete this.tweetMediaFiles[key];
+      }
+    });
+    this.tweetMediaFiles = Array.from(this.tweetMediaFiles).filter(
+      (item: any) => item != undefined
+    );
+    this.currentMediaSrc = this.tweetMedia[0];
+    this.currentMediaType = this.tweetMediaTypes[0];
+    this.currentMediaIndex = 0;
+    if (!this.tweetMedia.length) {
+      this.tweetForm.patchValue({ media: null });
+    }
   }
 }
