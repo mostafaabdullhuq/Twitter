@@ -106,14 +106,15 @@ class TweetController extends Controller
 
     public function get_User_Media(){
         $user = JWTAuth::user();
-        $media =$user->media;
-        $tweets = [];
+        $tweets =$user->tweetsWithMedia;
+        // $tweets = [];
 
-        foreach($media as $key => $value){
-            if($value->parent_type == Tweet::class){
-                $tweets[] = Tweet::find($value->parent_id);
-            }
-        }
+        // foreach($media as $key => $value){
+        //     if($value->parent_type == Tweet::class){
+        //         $tweets[] = Tweet::find($value->parent_id);
+        //     }
+        // }
+        // return $tweets;
         $tweets = $this->formatTweets($tweets);
         return [
             'user' => $user,
