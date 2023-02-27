@@ -60,6 +60,7 @@ Route::group([
     Route::get('following', [TweetController::class, 'homefollowing']);
     Route::get('replies', [TweetController::class, 'get_User_Replies']);
     Route::get('likes' , [TweetController::class, 'get_User_Likes']);
+    Route::get('likes' , [TweetController::class, 'get_User_Media']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
