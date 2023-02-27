@@ -5,13 +5,20 @@ import { TokenService } from './token.service';
 @Injectable({
   providedIn: 'root'
 })
-export class TweetsService {
-  private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
-  // private Retweet_URL = 'http://127.0.0.1:8000/api';
-  constructor(private httpClient: HttpClient, public token: TokenService) {}
 
 export class ReplyService {
+  private BASE_URL = 'http://127.0.0.1:8000/api/reply';
+  constructor(private httpClient: HttpClient, public token: TokenService) {}
 
-  constructor() { }
+  getLikesCount(replyID:any){
+    const accessToken = this.token.get();
+    return this.httpClient.get(`${this.BASE_URL}/${replyID}/like` ,{
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
 }
-}
+
+

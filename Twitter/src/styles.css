@@ -13,7 +13,7 @@
 }
 
 .tweet {
-  @apply border-t border-b    border-gray-100 dark:border-dark-gray_0 dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
+  @apply border-b    border-gray-100 dark:border-dark-gray_0 dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
 }
 
 .reply {

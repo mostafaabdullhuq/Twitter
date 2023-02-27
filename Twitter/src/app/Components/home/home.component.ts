@@ -23,7 +23,10 @@ export class HomeComponent implements OnInit {
     media: new FormControl(null, []),
   });
   public tweetMedia: any = [];
-  public tweetMediaFiles: [] = [];
+  public currentMediaSrc: any;
+  public currentMediaType: any;
+  public tweetMediaFiles: any = [];
+  public tweetMediaTypes: any = [];
   @ViewChild('tweetBox') tweetBox!: ElementRef;
 
   constructor(
@@ -58,6 +61,7 @@ export class HomeComponent implements OnInit {
 
   tweetSubmit() {
     const media: any = this.tweetForm.value.media ?? null;
+    const type: number = 1;
     const text: any = this.tweetForm.value.text ?? null;
     let tweet: any = {};
     if (this.tweetMediaFiles || text) {
@@ -66,7 +70,6 @@ export class HomeComponent implements OnInit {
         postData.append('files[]', this.tweetMediaFiles[key]);
       });
       text ? postData.append('text', text) : false;
-
       this.tweetClient.createTweet(postData).subscribe({
         next: (data: any) => {
           this.tweets.unshift(data);
@@ -83,24 +86,43 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  handleEditor(event: any) {
-    console.log(event);
-  }
-
   inputChange(data: any) {
     this.tweetMediaFiles = data.target.files ? data.target.files : null;
     Object.keys(this.tweetMediaFiles).forEach((key: any) => {
+      this.tweetMediaTypes.push(
+        this.tweetMediaFiles[key].type.split('/')[0] == 'image' ? 1 : 2
+      );
       let reader = new FileReader();
       reader.readAsDataURL(this.tweetMediaFiles[key]);
       reader.onload = (e) => {
         this.tweetMedia.push(e.target?.result);
+        this.currentMediaSrc = this.tweetMedia[0];
+        this.currentMediaType = this.tweetMediaTypes[0];
       };
     });
   }
 
+  handleMedia(type: any) {
+    let elementIndex = 0;
+    this.tweetMedia.forEach((element: any, index: any) => {
+      if (this.currentMediaSrc == element) {
+        if (type == 1) {
+          elementIndex = index + 1 >= this.tweetMedia.length ? 0 : index + 1;
+        } else {
+          elementIndex = index - 1 < 0 ? this.tweetMedia.length - 1 : index - 1;
+        }
+      }
+    });
+    this.currentMediaSrc = this.tweetMedia[elementIndex];
+    this.currentMediaType = this.tweetMediaTypes[elementIndex];
+  }
+
   removeMedia() {
-    this.tweetMedia = [];
-    this.tweetMediaFiles = [];
-    this.tweetForm.patchValue({ media: null });
+    // this.currentMediaSrc = null;
+    // this.currentMediaType = null;
+    this.tweetMedia.splice(0, this.currentMediaSrc);
+    // this.tweetMedia = [];
+    // this.tweetMediaFiles = [];
+    // this.tweetForm.patchValue({ media: null });
   }
 }

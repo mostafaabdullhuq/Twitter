@@ -13,6 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class TweetDetailsComponent implements OnInit {
   public tweetID = this.activatedRouter.snapshot.params['id'];
 
+  //reply
   public replyForm = new FormGroup({
     text: new FormControl(null, [
       Validators.required,
@@ -58,6 +59,27 @@ export class TweetDetailsComponent implements OnInit {
   protected tweet: any;
   protected error: any;
   protected user: any;
+
+  handleMedia(type: any, container: any, tweet: any) {
+    let nextIndex;
+    let currentSrc = container.children[0].children[0].src;
+    Object.entries(tweet.media).forEach((value: any, index: any) => {
+      let mediaObj = value[1];
+      if (currentSrc === mediaObj.media_url) {
+        if (type === 1) {
+          nextIndex = index + 1 >= tweet.media.length ? 0 : index + 1;
+        } else {
+          nextIndex = index - 1 < 0 ? tweet.media.length - 1 : index - 1;
+        }
+        console.log(nextIndex);
+        container.children[0].children[0].src =
+          tweet.media[nextIndex].media_url;
+
+        container.children[0].children[0].src =
+          tweet.media[nextIndex].media_url;
+      }
+    });
+  }
 
   ngOnInit(): void {
     const tweetID = this.activatedRouter.snapshot.params['id'];
