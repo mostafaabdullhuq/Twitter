@@ -17,6 +17,7 @@ class Tweet extends Model
         'schedule_date_time',
         'user_id',
         'views_count',
+
     ];
 
 
@@ -71,6 +72,7 @@ class Tweet extends Model
     {
         return $this->likes()->where('user_id', $id)->exists();
     }
+
 
 
 }

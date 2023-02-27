@@ -108,7 +108,7 @@ class TweetController extends Controller
         $user = JWTAuth::user();
         $media =$user->media;
         $tweets = [];
-
+        dd($media);
         foreach($media as $key => $value){
             if($value->parent_type == Tweet::class){
                 $tweets[] = Tweet::find($value->parent_id);
@@ -120,8 +120,6 @@ class TweetController extends Controller
             'tweets' =>$tweets
         ];
     }
-
-
 
 
     // get logged in user for you tweets (tweets of followings of the followings of the user)
@@ -301,7 +299,6 @@ class TweetController extends Controller
             $tweet->replies_count = $tweet->replies->count();
             $tweet->likes_count = $tweet->likes->count();
             // $tweet->views_count = $tweet->views->count();
-
         }
         return $tweets;
     }
@@ -365,7 +362,6 @@ class TweetController extends Controller
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
-
 
     public function delete($id)
     {
