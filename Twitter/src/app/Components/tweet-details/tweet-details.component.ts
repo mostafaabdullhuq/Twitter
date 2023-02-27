@@ -13,6 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class TweetDetailsComponent implements OnInit {
   public tweetID = this.activatedRouter.snapshot.params['id'];
 
+  //reply
   public replyForm = new FormGroup({
     text: new FormControl(null, [
       Validators.required,
