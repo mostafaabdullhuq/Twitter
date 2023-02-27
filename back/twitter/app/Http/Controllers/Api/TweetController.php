@@ -108,6 +108,18 @@ class TweetController extends Controller
     {
         $user = JWTAuth::user();
         $tweets = $user->tweetsWithMedia;
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweetsWithMedia()->count();
+
+        // $tweets = [];
+
+        // foreach($media as $key => $value){
+        //     if($value->parent_type == Tweet::class){
+        //         $tweets[] = Tweet::find($value->parent_id);
+        //     }
+        // }
+        // return $tweets;
         $tweets = $this->formatTweets($tweets);
         return [
             'user' => $user,
