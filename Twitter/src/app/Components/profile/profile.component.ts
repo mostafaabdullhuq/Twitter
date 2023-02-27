@@ -31,7 +31,21 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         },
       });
-    } else {
+    }
+    else if(this.myRoute.snapshot?.url[1]?.path === 'likes'){
+      this.tweetsClient.getLikes().subscribe({
+        next:(data:any)=>{
+          this.tweets = data.tweets;
+          console.log(this.tweets);
+          this.user = data.user;
+          console.log(this.user);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
+    else {
       this.tweetsClient.getAuthedTweets().subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
