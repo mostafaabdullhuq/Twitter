@@ -93,6 +93,9 @@ class TweetController extends Controller
         // $likes = $user->likes()->latest()->get();
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        // $user->followers_count = $user->followers()->count();
+        // $user->followings_count = $user->followings()->count();
         // $user->likes_count = $user->likes()->count();
         $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
 
