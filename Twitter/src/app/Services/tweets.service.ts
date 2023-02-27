@@ -175,6 +175,14 @@ export class TweetsService {
       },
     });
   }
+  getMedia(){
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + '/media' , {
+      headers: {
+        Authorization : `Bearer ${accessToken}`,
+      }
+    });
+  }
   //Just TEST
   // createLike(like:any, tweetID:any){
   //   const accessToken = this.token.get();
