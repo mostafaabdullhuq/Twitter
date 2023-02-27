@@ -37,6 +37,15 @@ export class TweetsService {
     });
   }
 
+  addView(id:any){
+    const accessToken = this.token.get();
+    return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
   getTweetById(id: any) {
     const accessToken = this.token.get();
 
@@ -62,7 +71,13 @@ export class TweetsService {
   }
 
   deleteTweetById(id: any) {
-    return this.httpClient.delete(`${this.BASE_URL}/${id}`);
+    const accessToken = this.token.get();
+
+    return this.httpClient.delete(`${this.BASE_URL}/${id}/delete`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 
   getTweetsByUserId(id: any) {
@@ -73,10 +88,10 @@ export class TweetsService {
     return this.httpClient.get(`${this.BASE_URL}/hashtag/${hashtag}`);
   }
 
-//replies
-  createReply(reply:any, tweetID:any){
+  //replies
+  createReply(reply: any, tweetID: any) {
     const accessToken = this.token.get();
-    return this.httpClient.post(`${this.BASE_URL}/${tweetID}/reply`,reply, {
+    return this.httpClient.post(`${this.BASE_URL}/${tweetID}/reply`, reply, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -84,9 +99,9 @@ export class TweetsService {
   }
 
   //likes
-  getLikesCount(id: any){
+  getLikesCount(id: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(`${this.BASE_URL}/${id}/like` ,{
+    return this.httpClient.get(`${this.BASE_URL}/${id}/like`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -167,11 +182,11 @@ export class TweetsService {
       },
     });
   }
-  getLikes(){
+  getLikes() {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/likes' ,{
+    return this.httpClient.get(this.BASE_URL + '/likes', {
       headers: {
-        Authorization :`Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   }
