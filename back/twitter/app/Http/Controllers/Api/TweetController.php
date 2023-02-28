@@ -66,17 +66,15 @@ class TweetController extends Controller
             if ($replyParent) {
                 $tweet = $this->formatTweet($replyParent, $user->id);
                 $tweets[] = $tweet;
+
                 unset($tweet->updated_at);
             }
-            // unset($tweet->$reply->repliable_type);
-            // unset($reply->repliable_id);
-            // unset($reply->user->google_access_token);
-            // unset($reply->user->facebook_access_token);
-            // unset($reply->user->email_verified_at);
-
-            // unset($tweet->reply->updated_at);
-
         }
+
+        // remove dupplicated tweets and return as indexed array
+        $tweets = array_values(array_unique($tweets, SORT_REGULAR));
+
+
 
         $response = [
             'user' => $user,
@@ -98,7 +96,6 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->updated_at);
         unset($user->email_verified_at);
-        // unset($user->likes->updated_at);
 
         foreach ($likes as $key => $like) {
             if ($like->liked_type == Tweet::class) {
@@ -107,7 +104,6 @@ class TweetController extends Controller
                     $tweets[] = $tweet;
                 }
             }
-            // unset($user->$like->updated_at);
         }
         $tweets = $this->formatTweets($tweets);
         return [
@@ -281,7 +277,7 @@ class TweetController extends Controller
             $reply->replies_count = $reply->replies->count();
             $reply->likes_count = $reply->likes->count();
             $reply->views_count = $reply->views->count();
-            $reply->retweets_count = random_int(0, 999999999);
+            $reply->retweets_count = 0;
         }
         $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
