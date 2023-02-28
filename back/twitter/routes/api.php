@@ -44,6 +44,8 @@ Route::group([
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
+    Route::get('bookmarks', [UserController::class, 'bookmarks']);
+    Route::post('bookmarks/create', [UserController::class, 'addBookmark']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
     Route::post('block-user', [BlockController::class, 'store']);
     Route::post('get-followers', [FollowingController::class, 'get_followers']);
@@ -76,7 +78,6 @@ Route::group([
     'prefix' => 'reply'
 ], function () {
     Route::post('{id}/like', [ReplyController::class, 'likeToggle']);
-    // Route::post('{id}/unlike', [ReplyController::class, 'unlike']);
     Route::post('{id}/view', [ReplyController::class, 'view']);
     Route::post('{id}/edit', [ReplyController::class, 'edit']);
     Route::delete('{id}/delete', [ReplyController::class, 'delete']);

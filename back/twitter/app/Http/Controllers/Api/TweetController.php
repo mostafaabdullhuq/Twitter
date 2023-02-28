@@ -133,8 +133,6 @@ class TweetController extends Controller
     }
 
 
-
-
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()
     {
@@ -320,7 +318,6 @@ class TweetController extends Controller
             $tweet->replies_count = $tweet->replies->count();
             $tweet->likes_count = $tweet->likes->count();
             // $tweet->views_count = $tweet->views->count();
-
         }
         return $tweets;
     }
@@ -384,7 +381,6 @@ class TweetController extends Controller
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
-
 
     public function delete($id)
     {

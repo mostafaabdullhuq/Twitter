@@ -39,7 +39,9 @@ class UpdateDataController extends Controller
         $oldWebsite = $user->website;
         $oldPhoneNumber = $user->phone_number;
         $oldDateOfBirth = $user->date_of_birth;
-    
+        $oldprofile_picture = $user->profile_picture;
+        $oldcover_picture  = $user->cover_picture;
+
         // Update the user data if the request data is not null
         if ($request->email !== null) {
             $user->email = $request->email;
@@ -81,6 +83,16 @@ class UpdateDataController extends Controller
         } else {
             $user->date_of_birth = $request->date_of_birth;
         }
+        if (!$request->profile_picture || trim($request->profile_picture) == '') {
+            $user->profile_picture = null;
+        } else {
+            $user->profile_picture = $request->profile_picture;
+        }
+        if (!$request->cover_picture  || trim($request->cover_picture ) == '') {
+            $user->cover_picture  = null;
+        } else {
+            $user->cover_picture  = $request->cover_picture ;
+        }
     
         // Save the changes to the database
         $user->save();
@@ -88,7 +100,7 @@ class UpdateDataController extends Controller
         // Check if any data was updated and return a success message
         if ($user->email !== $oldEmail || $user->first_name !== $oldFirstName || $user->last_name !== $oldLastName || $user->username !== $oldUserName || $user->bio !== $oldBio ||
             $user->location !== $oldLocation || $user->website !== $oldWebsite || $user->phone_number !== $oldPhoneNumber ||
-            $user->date_of_birth !== $oldDateOfBirth) {
+            $user->date_of_birth !== $oldDateOfBirth || $user->profile_picture!== $oldprofile_picture || $user->cover_picture !== $oldcover_picture) {
             return response()->json(['data' => 'Data Successfully Changed'], Response::HTTP_CREATED);
         } else {
             return response()->json(['data' => 'No Data Changed'], Response::HTTP_OK);
