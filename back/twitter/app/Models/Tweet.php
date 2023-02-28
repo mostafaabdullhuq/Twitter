@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Reply;
 use App\Models\Like;
-use Spatie\Tags\HasTags;
+// use Spatie\Tags\HasTags;
 
 
 class Tweet extends Model
 {
     use HasFactory;
-    use HasTags;
+    // use HasTags;
 
 
     protected $fillable = [
@@ -75,7 +75,5 @@ class Tweet extends Model
     {
         return $this->likes()->where('user_id', $id)->exists();
     }
-
-
-
+    
 }
