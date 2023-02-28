@@ -12,7 +12,7 @@ import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
-export class TweetComponent {
+export class TweetComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
@@ -67,7 +67,12 @@ export class TweetComponent {
       }
     });
   }
+  ngOnInit(){
+    this.isInBookmark = this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+  }
   popup: boolean = false;
+  isInBookmark:boolean=false;
+
   @Input() tweets: any;
   @Input() showReplies: any;
 }

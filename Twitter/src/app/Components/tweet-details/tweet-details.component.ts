@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
@@ -29,6 +29,7 @@ export class TweetDetailsComponent implements OnInit {
   public tweetID = this.activatedRouter.snapshot.params['id'];
   public showBookmark = false;
   public showControls = false;
+  @ViewChild('tweetBox') tweetBox!: ElementRef;
 
   //reply
   public replyForm = new FormGroup({
@@ -67,23 +68,6 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-  formatTweetText(text: string): SafeHtml {
-    if (text) {
-      const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-      const mentionRegex = /@[a-zA-Z0-9_]+/g;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
-
-      const formattedText = text
-        .replace(hashtagRegex, hashtagTemplate)
-        .replace(mentionRegex, mentionTemplate);
-
-      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
-    } else {
-      return '';
-    }
-  }
-
   createBokkmarks(tweetID: any) {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {
@@ -96,6 +80,7 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
+  
   handleMedia(type: any, container: any, tweet: any) {
     let nextIndex;
     let currentSrc = container.children[0].children[0].src;
@@ -146,5 +131,26 @@ export class TweetDetailsComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  formatTweetText(text: any): SafeHtml {
+    if (text) {
+      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
+      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+
+      const formattedText = text
+        .replace(hashtagRegex, hashtagTemplate)
+        .replace(mentionRegex, mentionTemplate);
+      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
+    } else {
+      return "<p class='text-gray-500 tracking-tighter text-xl'>Add your reply.</p>";
+    }
+  }
+  handleScroll(event: any) {
+    // sync the scroll between text area and pre
+
+    this.tweetBox.nativeElement.scrollTop = event.target.scrollTop;
   }
 }
