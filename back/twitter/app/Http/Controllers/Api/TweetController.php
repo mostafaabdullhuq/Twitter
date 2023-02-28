@@ -106,7 +106,10 @@ class TweetController extends Controller
 
     public function get_User_Media(){
         $user = JWTAuth::user();
-        $tweets =$user->tweetsWithMedia;
+        $tweets =$user->tweetsWithM    public function get_User_Media()
+    {
+        $user = JWTAuth::user();
+        $tweets = $user->tweetsWithMedia;
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->tweetsWithMedia()->count();
@@ -127,11 +130,9 @@ class TweetController extends Controller
         $tweets = $this->formatTweets($tweets);
         return [
             'user' => $user,
-            'tweets' =>$tweets
+            'tweets' => $tweets
         ];
     }
-
-
 
 
     // get logged in user for you tweets (tweets of followings of the followings of the user)
@@ -153,27 +154,20 @@ class TweetController extends Controller
     public function create(CreateTweetRequest $request)
     {
 
-        // $response = [];
-
-        // $files = $request->allFiles()["files"];
-
-        // foreach ($files as $key => $value) {
-        //     $response[] = [
-        //         'key' => $key,
-        //         'name' => $value->getClientOriginalName(),
-        //         'type' => $value->getClientMimeType(),
-        //         'size' => $value->getSize(),
-        //         'path' => $value->getRealPath(),
-        //         'extension' => $value->getClientOriginalExtension(),
-        //     ];
-        // }
-
-        // return $response;
-
         $tweetText = $request->text ?? null;
+        $tweetHashtags = [];
+        if ($tweetText) {
+            $reqHashtags = preg_grep(
+                '/#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/',
+                explode(' ', $tweetText)
+            );
+            foreach ($reqHashtags as $key => $hashtag) {
+                $hashtag = str_replace('#', '', $hashtag);
+                $tweetHashtags[] = $hashtag;
+            }
+        }
         $tweetMedia = $request->allFiles()["files"] ?? null;
         $tweetScheduleDateTime = $request->schedule_date_time ?? null;
-
         $tweet = JWTAuth::user()->tweets()->create(
             [
                 'text' => $tweetText,
@@ -181,6 +175,8 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id
             ]
         );
+
+        $tweetHashtags ? $tweet->attachTags($tweetHashtags) : null;
 
         if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
@@ -280,6 +276,19 @@ class TweetController extends Controller
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
         // $tweet->views_count = $tweet->views->count();
+
+        $tags = $tweet->tags;
+
+        foreach ($tags as $key => $tag) {
+            unset($tag->pivot);
+            unset($tag->created_at);
+            unset($tag->updated_at);
+            unset($tag->order_column);
+        }
+
+        $tweet->tags = $tags;
+
+
         return $tweet;
     }
 
@@ -311,7 +320,6 @@ class TweetController extends Controller
             $tweet->replies_count = $tweet->replies->count();
             $tweet->likes_count = $tweet->likes->count();
             // $tweet->views_count = $tweet->views->count();
-
         }
         return $tweets;
     }
@@ -374,16 +382,5 @@ class TweetController extends Controller
         ]);
         $tweet = $this->formatTweet($tweet);
         return $tweet;
-    }
-
->views_count + 1
-        ]);
-        $tweet = $this->formatTweet($tweet);
-        return $tweet;
-    }
-y'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Tweet not found'], 404);
-        }
     }
 }
