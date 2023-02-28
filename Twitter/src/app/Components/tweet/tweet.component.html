@@ -11,7 +11,7 @@
         <div routerLink="/{{tweet.user.username}}"
             class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
             <img class="w-full h-full object-cover"
-                src="{{tweet.user.profile_image_url || './../../../assets/images/default_profile.png'}}" alt="" />
+            *ngIf="user?.profile_picture" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
         </div>
         <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
             <div class="flex overflow-hidden mt-1">

@@ -12,12 +12,22 @@ import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
-export class TweetComponent {
+export class TweetComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService
   ) {}
+  public user: any;
+  ngOnInit(): void {
+  this.httpClient.getAuthedTweets().subscribe({
+    next: (data: any) => {
+      this.user = data.user;
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  });}
   formatTweetText(text: string): SafeHtml {
     if (text) {
       const hashtagRegex = /#[a-zA-Z0-9_]+/g;
