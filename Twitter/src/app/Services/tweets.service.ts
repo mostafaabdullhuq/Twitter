@@ -28,9 +28,9 @@ export class TweetsService {
     });
   }
 
-  getAuthedTweets() {
+  getAuthedTweets(username:any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/me', {
+    return this.httpClient.get(`this.BASE_URL + /${username}/me`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -174,25 +174,25 @@ export class TweetsService {
   //   });
   // }
 
-  getReplies() {
+  getReplies(username:any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + 'user/replies', {
+    return this.httpClient.get(`this.BASE_URL + /${username}/replies `, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-  getLikes() {
+  getLikes(username:any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + 'user/likes', {
+    return this.httpClient.get(`this.BASE_URL + /${username}/likes`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-  getMedia(){
+  getMedia(username:any){
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + 'user/media' , {
+    return this.httpClient.get(`this.BASE_URL + /${username}/media` , {
       headers: {
         Authorization : `Bearer ${accessToken}`,
       }

@@ -15,13 +15,13 @@ export class EditProfileComponent implements OnInit {
   onClosePopup() {
     this.closePopup.emit();
   }
-  
+
   // showEdit = true;
   //   hidePopup() {
   //   this.showEdit = false;
   //   document.body.classList.remove('popup-open');
   // }
-  
+
   public error: any = null;
   public form = {
     email: '',
@@ -34,15 +34,16 @@ export class EditProfileComponent implements OnInit {
     location: '',
     website: '',
   };
-  
+
   constructor( public tweetsClient: TweetsService,
-  public myActivate:ActivatedRoute, 
-   private Auth: AuthService,
-   private router: Router) {}
+  public myActivate:ActivatedRoute,
+  private Auth: AuthService,
+  private router: Router) {}
   public user: any;
 
   ngOnInit(): void {
-    this.tweetsClient.getAuthedTweets().subscribe({
+    let username = this.myActivate.snapshot.params['username'];
+    this.tweetsClient.getAuthedTweets(username).subscribe({
       next: (data: any) => {
         this.user = data.user;
         this.form = {
@@ -62,17 +63,16 @@ export class EditProfileComponent implements OnInit {
       },
     });
   }
-  
 
-   onSubmit(){
-this.Auth.updateUser(this.form).subscribe({
-  next: (data) => {this.handleResponse(data)},
-  error: (err) => {this.handleError(err);},
-})
- }
- handleResponse(res: any) {
+
+onSubmit(){
+  this.Auth.updateUser(this.form).subscribe({
+    next: (data) => {this.handleResponse(data)},
+    error: (err) => {this.handleError(err);},
+  })
+}
+handleResponse(res: any) {
   this.router.navigate(['/profile']);
-  
 }
 
 handleError(error: any) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 
@@ -15,14 +15,18 @@ export class ChangePasswordComponent implements OnInit {
     password: null,
     password_confirmation: null,
   }
-  constructor(public tweetsClient: TweetsService,
+  constructor(
+    public tweetsClient: TweetsService,
     private Auth: AuthService,
-    private router: Router)
+    private router: Router,
+    public myRoute: ActivatedRoute,
+    )
     {}
     public user: any;
 
     ngOnInit(): void {
-      this.tweetsClient.getAuthedTweets().subscribe({
+      let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getAuthedTweets(username).subscribe({
         next: (data: any) => {
           this.user = data.user;
           this.form = {
@@ -44,9 +48,9 @@ export class ChangePasswordComponent implements OnInit {
   }
   handleResponse(res: any) {
     this.router.navigate(['/home']);
-    
+
   }
-  
+
   handleError(error: any) {
     this.error = error.error.error;
   }

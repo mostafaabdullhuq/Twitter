@@ -41,7 +41,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.show=true;
-      this.tweetsClient.getReplies().subscribe({
+      let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getReplies(username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           console.log(this.tweets);
@@ -55,7 +56,8 @@ export class ProfileComponent implements OnInit {
     }
     else if(this.myRoute.snapshot?.url[1]?.path === 'likes'){
       this.show=false;
-      this.tweetsClient.getLikes().subscribe({
+      let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getLikes(username).subscribe({
         next:(data:any)=>{
           this.tweets = data.tweets;
           console.log(this.tweets);
@@ -69,7 +71,8 @@ export class ProfileComponent implements OnInit {
     }
     else if (this.myRoute.snapshot?.url[1]?.path === 'media'){
       this.show = false ;
-      this.tweetsClient.getMedia().subscribe({
+      let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getMedia(username).subscribe({
         next:(data:any)=>{
           this.tweets = data.tweets;
           console.log(this.tweets);
@@ -83,7 +86,8 @@ export class ProfileComponent implements OnInit {
     }
     else {
       this.show=false;
-      this.tweetsClient.getAuthedTweets().subscribe({
+      let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getAuthedTweets(username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           this.user = data.user;
