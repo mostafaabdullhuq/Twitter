@@ -394,7 +394,7 @@ class TweetController extends Controller
             // $tweet->views()->delete();
             $tweet->media()->delete();
             $tweet->tags()->detach();
-            $tweet->retweets()->delete();
+            // $tweet->retweets()->delete();
             $tweet->delete();
             return response()->json(['message' => 'Tweet deleted successfully'], 200);
         } catch (\Exception $e) {
