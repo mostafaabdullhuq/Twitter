@@ -389,6 +389,12 @@ class TweetController extends Controller
             if ($tweet->user_id != JWTAuth::user()->id) {
                 return response()->json(['message' => 'You are not authorized to delete this tweet'], 401);
             }
+            $tweet->likes()->delete();
+            $tweet->replies()->delete();
+            // $tweet->views()->delete();
+            $tweet->media()->delete();
+            $tweet->tags()->detach();
+            $tweet->retweets()->delete();
             $tweet->delete();
             return response()->json(['message' => 'Tweet deleted successfully'], 200);
         } catch (\Exception $e) {
