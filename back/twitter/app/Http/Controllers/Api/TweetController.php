@@ -20,18 +20,22 @@ class TweetController extends Controller
     }
 
     // get logged in user tweets
-    public function me()
+    public function me($username)
     {
-        $tweets = JWTAuth::user()->tweets()->latest()->get();
-        $user = JWTAuth::user();
-        $user->followers_count = $user->followers()->count();
-        $user->followings_count = $user->followings()->count();
-        $user->tweets_count = $user->tweets()->count();
-        $tweets = $this->formatTweets($tweets);
-        return [
-            'user' => $user,
-            'tweets' => $tweets
-        ];
+        $user = User::where('username', $username)->first();
+        if ($user) {
+            $tweets = $user->tweets()->latest()->get();
+            $user->followers_count = $user->followers()->count();
+            $user->followings_count = $user->followings()->count();
+            $user->tweets_count = $user->tweets()->count();
+            $tweets = $this->formatTweets($tweets);
+            $user->is_following = JWTAuth::user()->isFollowing($user);
+            return [
+                'user' => $user,
+                'tweets' => $tweets
+            ];
+        }
+        return response()->json(['error' => 'User not found'], 404);
     }
 
     public function get_User_Retweets()
@@ -182,7 +186,6 @@ class TweetController extends Controller
             }
         }
         $tweetHashtags ? $tweet->attachTags($tweetHashtags) : null;
-
 
 
         $tweetMentions = [];

@@ -48,7 +48,7 @@ Route::group([
     Route::post('bookmarks/create', [UserController::class, 'addBookmark']);
     Route::delete('{id}/delete', [UserController::class, 'deleteBookmark']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
-    Route::post('block-user',[BlockController::class, 'store']);
+    Route::post('block-user', [BlockController::class, 'store']);
     Route::get('get-followers', [FollowingController::class, 'get_followers']);
     Route::get('get-followings', [FollowingController::class, 'get_followings']);
     Route::get('get-all', [UserController::class, 'get_all_users']);
@@ -60,7 +60,7 @@ Route::group([
     'prefix' => 'tweet'
 ], function () {
     Route::post('', [TweetController::class, 'create']);
-    Route::get('me', [TweetController::class, 'me']);
+    Route::get('{username}/me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
     Route::get('media', [TweetController::class, 'get_User_Media']);
@@ -92,5 +92,6 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'hashtag'
 ], function () {
-    Route::get('{hashtag}', [HashtagController::class, 'index']);
+    Route::get('trends/{days}', [HashtagController::class, 'trends']);
+    Route::get('search/{hashtag}', [HashtagController::class, 'search']);
 });

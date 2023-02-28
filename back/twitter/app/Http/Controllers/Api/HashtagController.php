@@ -7,18 +7,14 @@ use App\Models\Tweet;
 use Illuminate\Http\Request;
 use JWTAuth;
 
+use function PHPSTORM_META\type;
 
 class HashtagController extends Controller
 {
-    public function index($hashtag)
+    public function __construct()
     {
-        $tweets =  Tweet::withAnyTags(
-            [$hashtag]
-        )->get();
-
-        return $this->formatTweets($tweets);
+        $this->middleware('auth:api');
     }
-
     public function formatTweets($tweets)
     {
         foreach ($tweets as $tweet) {
@@ -49,5 +45,33 @@ class HashtagController extends Controller
             // $tweet->views_count = $tweet->views->count();
         }
         return $tweets;
+    }
+
+    // get top 10 trending hashtags and their tweets count
+    public function trends($days)
+    {
+        $trends = Tweet::selectRaw('tags.name, count(*) as count')
+            ->join('taggables', 'taggables.taggable_id', '=', 'tweets.id')
+            ->join('tags', 'tags.id', '=', 'taggables.tag_id')
+            ->where('taggables.taggable_type', 'App\Models\Tweet')
+            ->where('tweets.created_at', '>=', now()->subDays(((int) $days) || 1))
+            ->groupBy('tags.name')
+            ->orderBy('count', 'desc')
+            ->limit(10)
+            ->get();
+
+        foreach ($trends as $key => $trend) {
+            $trend->name = json_decode($trend->name)->en;
+            $trend->tweets_count = $trend->count;
+            unset($trend->count);
+        }
+        return $trends;
+    }
+
+    // get tweets by specific hashtag
+    public function search($hashtag)
+    {
+        $tweets =  Tweet::withAnyTags([$hashtag])->get();
+        return $this->formatTweets($tweets);
     }
 }
