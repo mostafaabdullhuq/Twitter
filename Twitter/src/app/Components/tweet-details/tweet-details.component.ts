@@ -80,7 +80,7 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-  
+
   handleMedia(type: any, container: any, tweet: any) {
     let nextIndex;
     let currentSrc = container.children[0].children[0].src;
@@ -104,6 +104,7 @@ export class TweetDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const tweetID = this.activatedRouter.snapshot.params['id'];
+    
     this.httpClient.getTweetById(+tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
