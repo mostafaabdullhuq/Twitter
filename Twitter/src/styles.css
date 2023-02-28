@@ -71,11 +71,9 @@
   @apply relative;
 }
 
-.tweet-editor * {
-  /* font-style: normal !important;
-  font-weight: normal !important; */
+/* .tweet-editor * {
   @apply border overflow-hidden max-w-[100%] border-red-500  md:text-xl font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
-}
+} */
 
 .tweet-editor img {
   @apply object-cover !important;
@@ -151,4 +149,12 @@ router-outlet + *
 
 .popup-open {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tweet-editor .hashtag {
+  @apply text-main-blue_100 hover:underline cursor-pointer !important;
+}
+
+pre {
+  all: unset;
 }
