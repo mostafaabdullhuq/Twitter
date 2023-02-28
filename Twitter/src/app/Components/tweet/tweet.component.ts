@@ -20,8 +20,8 @@ export class TweetComponent {
   ) {}
   formatTweetText(text: string): SafeHtml {
     if (text) {
-      const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-      const mentionRegex = /@[a-zA-Z0-9_]+/g;
+      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
       const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
 
@@ -67,6 +67,6 @@ export class TweetComponent {
     });
   }
 
-  @Input() tweets: any ;
-  @Input() showReplies: any ;
+  @Input() tweets: any;
+  @Input() showReplies: any;
 }
