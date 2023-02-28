@@ -66,7 +66,10 @@ export class TweetComponent {
       }
     });
   }
-
+  show=true;
+  showPopup(){
+    this.show = !this.showPopup;
+  }
   @Input() tweets: any;
   @Input() showReplies: any;
 }
