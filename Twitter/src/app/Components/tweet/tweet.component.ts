@@ -18,6 +18,18 @@ export class TweetComponent {
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService
   ) {}
+
+  likesCount(tweetID: any) {
+    this.httpClient.getLikesCount(tweetID).subscribe({
+      next: (data: any) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   formatTweetText(text: string): SafeHtml {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
@@ -33,17 +45,6 @@ export class TweetComponent {
     } else {
       return '';
     }
-  }
-
-  likesCount(tweetID: any) {
-    this.httpClient.getLikesCount(tweetID).subscribe({
-      next: (data: any) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
   }
 
   handleMedia(type: any, container: any, tweet: any) {
@@ -66,10 +67,7 @@ export class TweetComponent {
       }
     });
   }
-  show=true;
-  showPopup(){
-    this.show = !this.showPopup;
-  }
+  popup:boolean = false;
   @Input() tweets: any;
   @Input() showReplies: any;
 }
