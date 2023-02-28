@@ -35,10 +35,8 @@ class TweetController extends Controller
 
     public function get_User_Retweets()
     {
-
         $retweets = JWTAuth::user()->retweets()->latest()->get();
         $user = JWTAuth::user();
-
         return [
             'user' => $user,
             'retweets' => $retweets
@@ -58,9 +56,6 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->email_verified_at);
         unset($user->updated_at);
-        // unset($user->tweets->replies->updated_at);
-
-
         foreach ($replies as $key => $reply) {
             $replyParent = $reply->repliable()->first();
             if ($replyParent) {
@@ -125,7 +120,6 @@ class TweetController extends Controller
             'tweets' =>$tweets
         ];
     }
-
 
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()

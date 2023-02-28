@@ -28,16 +28,23 @@ class UserController extends Controller
         $user->update($request->all());
         return $user;
     }
-
+//getBookmarked Tweets
     public function bookmarks(Request $request){
-        $user = auth()->user();
-        $bookmarks=$user->bookmarks;
+        $user = JWTAuth::user();
         $tweets = [];
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        $tweets = $this->formatTweets($tweets);
+        $bookmarks=$user->bookmarks;
         foreach($bookmarks as $bookmark){
             $tweets[]= $bookmark->tweet;
         }
         $tweets = $this->formatTweets($tweets);
-         return $tweets ;
+        return [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
     }
 
 //deleteBookmark
