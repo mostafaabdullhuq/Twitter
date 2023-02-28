@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   onClosePopup() {
     this.showPopup = false;
   }
-  
+
   constructor(
     public myRoute: ActivatedRoute,
     public tweetsClient: TweetsService,
@@ -35,7 +35,6 @@ export class ProfileComponent implements OnInit {
   ) {}
   public popup = false;
   public tweets: any;
-  // public tweetsCount = 0;
   public user: any;
   public viewType = 1;
   show= false;
@@ -88,7 +87,6 @@ export class ProfileComponent implements OnInit {
         next: (data: any) => {
           this.tweets = data.tweets;
           this.user = data.user;
-          // this.tweetsCount = this.tweets.length;
         },
         error: (err) => {
           console.log(err);

@@ -88,7 +88,7 @@ export class TweetDetailsComponent implements OnInit {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
-        console.log('booked succsess');
+        console.log('Added to db successfully');
       },
       error: (err) => {
         this.error = err;
