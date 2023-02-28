@@ -141,7 +141,8 @@
                 </div>
                 <div class="single-tweet-control-item hover:text-main-retweet"><i
                         class="fa-solid text-lg p-2 fa-retweet rounded-full hover:bg-green-100"></i></div>
-                <div (click)="likesCount()" class="single-tweet-control-item hover:text-main-love"><i
+                <div (click)="likesCount();tweet.liked = !tweet.liked; tweet.likes_count = tweet.liked ? tweet.likes_count + 1 :  tweet.likes_count - 1"
+                    class="single-tweet-control-item hover:text-main-love"><i
                         [ngClass]="{'text-main-love fa-solid': tweet.liked == true}"
                         class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"></i></div>
 
@@ -150,8 +151,7 @@
                     <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
 
                     <!-- bookmark tweet popup -->
-                    <div *ngIf="showBookmark"
-                        class="absolute z-10 -top-12 right-0  flex flex-col overflow-hidden items-center
+                    <div *ngIf="showBookmark" class="absolute z-10 -top-12 right-0  flex flex-col overflow-hidden items-center
                         dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
                         <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="createBokkmarks(tweetID)"
                             class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
@@ -164,7 +164,8 @@
                     <ng-template #unbookmarkBlock>
                         <div>
                             <button (click)="createBokkmarks(tweetID)"
-                                class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove from Bookmarks</button>
+                                class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove
+                                from Bookmarks</button>
                         </div>
                     </ng-template>
                 </div>
@@ -192,9 +193,22 @@
                         <img class="twitter-user-img"
                             src="{{user.profile_picture ? user.profile_picture: './../../../../assets/images/default_profile.png'}}"
                             alt="{{user.first_name + ' ' + user.last_name}}" />
-                        <textarea formControlName="text"
+
+                        <div data-before="Add your reply." dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid 
+                                    max-w-[100%]">
+                            <pre #tweetBox dir="auto"
+                                class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
+                                [innerHTML]="formatTweetText(replyForm.value.text)">
+                                        <!-- {{tweetForm.value.text}} -->
+                                    </pre>
+                            <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
+                                class="font-normal tracking-tight scrollbar-hide  outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0  resize-none overflow-x-hidden    bg-transparent  whitespace-pre-wrap  text-left">
+                                    </textarea>
+                        </div>
+
+                        <!-- <textarea formControlName="text"
                             class=" form-control px-3 py-2 text-xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[50px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
-                            name="" id="" placeholder="Add your reply."></textarea>
+                            name="" id="" placeholder="Add your reply."></textarea> -->
                     </div>
                     <!-- tweet button -->
                     <div class="flex py-2.5 justify-end px-6">
