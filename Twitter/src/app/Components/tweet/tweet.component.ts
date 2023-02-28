@@ -67,7 +67,7 @@ export class TweetComponent {
       }
     });
   }
-
+  popup:boolean = false;
   @Input() tweets: any;
   @Input() showReplies: any;
 }

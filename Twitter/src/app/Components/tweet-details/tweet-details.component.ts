@@ -38,22 +38,6 @@ export class TweetDetailsComponent implements OnInit {
     ]),
   });
 
-  formatTweetText(text: string): SafeHtml {
-    if (text) {
-      // console.log(text);
-      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
-
-      const formattedText = text
-        .replace(hashtagRegex, hashtagTemplate)
-        .replace(mentionRegex, mentionTemplate);
-      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
-    } else {
-      return '';
-    }
-  }
 
   //reply
   replySubmit() {
@@ -105,7 +89,7 @@ export class TweetDetailsComponent implements OnInit {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
-        console.log("booked succsess");
+        console.log("Added to db successfully");
 
       },
       error: (err) => {
