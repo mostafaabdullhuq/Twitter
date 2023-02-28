@@ -212,6 +212,7 @@
 
 <ng-template #noTweetBlock>
     <div class="loading" *ngIf="tweets;else loadingBlock">
+      <div *ngIf="!isInBookmark; else bookmarkBlock">
         <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
             <h3 class="text-xl font-bold">What? No Tweets Yet?</h3>
             <p class="w-fit px-10 m-auto">It seems like you haven't followed anyone yet. You can start following people
@@ -221,6 +222,7 @@
                 Find People to follow
             </a>
         </div>
+      </div>
     </div>
 </ng-template>
 
@@ -228,4 +230,10 @@
     <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
         <i class="fa-solid fa-spinner text-2xl animate-spin"></i>
     </div>
+</ng-template>
+
+<ng-template #bookmarkBlock>
+  <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
+<p class="dark:text-white">hi</p>
+  </div>
 </ng-template>

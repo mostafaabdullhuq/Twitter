@@ -96,6 +96,7 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
+  
   handleMedia(type: any, container: any, tweet: any) {
     let nextIndex;
     let currentSrc = container.children[0].children[0].src;
