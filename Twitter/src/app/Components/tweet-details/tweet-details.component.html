@@ -151,7 +151,7 @@
                     <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
 
                     <!-- bookmark tweet popup -->
-                    <div *ngIf="showBookmark" class="absolute z-10 -top-12 right-0  flex flex-col overflow-hidden items-center
+                    <div *ngIf="showBookmark" class="absolute z-10 -top-12 right-0  flex overflow-hidden items-center
                         dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
                         <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="createBokkmarks(tweetID)"
                             class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
@@ -162,28 +162,13 @@
                     </div>
 
                     <ng-template #unbookmarkBlock>
-                        <div>
+                        <div class="">
                             <button (click)="createBokkmarks(tweetID)"
-                                class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove
+                                class="text-red-500 w-60 py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove
                                 from Bookmarks</button>
                         </div>
                     </ng-template>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             </div>
             <!-- new reply section -->
@@ -194,12 +179,11 @@
                             src="{{user.profile_picture ? user.profile_picture: './../../../../assets/images/default_profile.png'}}"
                             alt="{{user.first_name + ' ' + user.last_name}}" />
 
-                        <div data-before="Add your reply." dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid 
+                        <div data-before="Add your reply." dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid
                                     max-w-[100%]">
                             <pre #tweetBox dir="auto"
                                 class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
-                                [innerHTML]="formatTweetText(replyForm.value.text)">
-                                        <!-- {{tweetForm.value.text}} -->
+                                [innerHTML]="formatTweetText(replyForm.value.text,1)">
                                     </pre>
                             <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
                                 class="font-normal tracking-tight scrollbar-hide  outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0  resize-none overflow-x-hidden    bg-transparent  whitespace-pre-wrap  text-left">
