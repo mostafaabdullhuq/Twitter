@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Tweet;
+use JWTAuth;
 
 class UserController extends Controller
 {
@@ -25,6 +27,135 @@ class UserController extends Controller
         $user->update($request->all());
         return $user;
     }
+
+    public function bookmarks(Request $request){
+        $user = auth()->user();
+        $bookmarks=$user->bookmarks;
+        $tweets = [];
+        foreach($bookmarks as $bookmark){
+            $tweets[]= $bookmark->tweet;
+        }
+        $tweets = $this->formatTweets($tweets);
+         return $tweets ;
+    }
+
+    //addTweetBookmark
+    public function addBookmark(Request $request){
+        $request->validate([
+            'tweet_id' => 'required'
+        ]);
+         $tweetID =$request->tweet_id ;
+        $user = JWTAuth::user();
+        $tweet= Tweet::findOrFail($tweetID);
+            if ($tweet) {
+                $bookmark = $user->bookmarks()->where('tweet_id', $tweetID)->first();
+                if ($bookmark) {
+                    $bookmark->delete();
+                } else {
+                    $user->bookmarks()->create(
+                        [
+                            'tweet_id' => $tweetID,
+                        ]
+                    );
+                }
+                $tweet = $this->formatTweet($tweet);
+                return  $tweet ;
+                }
+                return "Tweet not found";
+            }
+
+
+            public function formatTweet($tweet, $userID = 0)
+            {
+                // add user object to the tweet object and delete security sensitive information
+                $tweet->user;
+                unset($tweet->user->google_access_token);
+                unset($tweet->user->facebook_access_token);
+                unset($tweet->user->email_verified_at);
+                unset($tweet->user->updated_at);
+                unset($tweet->user_id);
+
+                $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
+
+                // get the media of the tweet and update it's url values and remove security sensitive info
+                $media = $tweet->media;
+                if ($media->count()) {
+                    foreach ($media as $key => $value) {
+                        unset($value['parent_id']);
+                        unset($value['parent_type']);
+                        unset($value['updated_at']);
+                        $value->media_url = asset('storage/media/' . $value->media_url);
+                    }
+                }
+                $replies = $userID ? $tweet->replyWithUserID($userID) : $tweet->replies;
+                foreach ($replies as $reply) {
+                    $reply->user = $reply->user;
+                    unset($reply->repliable_type);
+                    unset($reply->repliable_id);
+                    unset($reply->updated_at);
+                    unset($reply->user->google_access_token);
+                    unset($reply->user->facebook_access_token);
+                    unset($reply->user->email_verified_at);
+                    unset($reply->user->updated_at);
+                    $replyMedia = $reply->media;
+                    foreach ($replyMedia as $key => $value) {
+                        unset($value->parent_type);
+                        unset($value->parent_id);
+                        unset($value->updated_at);
+                    }
+
+                    $reply->replies;
+                    $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
+                    $reply->media = $replyMedia;
+                    $reply->replies_count = $reply->replies->count();
+                    $reply->likes_count = $reply->likes->count();
+                    $reply->views_count = $reply->views->count();
+                    $reply->retweets_count = random_int(0, 999999999);
+                }
+                $tweet->replies = $replies;
+                $tweet->user->followers_count = $tweet->user->followers()->count();
+                $tweet->user->followings_count = $tweet->user->followings()->count();
+                $tweet->user->tweets_count = $tweet->user->tweets()->count();
+                $tweet->replies_count = $tweet->replies->count();
+                $tweet->likes_count = $tweet->likes->count();
+                // $tweet->views_count = $tweet->views->count();
+                $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
+                return $tweet;
+            }
+
+
+            public function formatTweets($tweets)
+            {
+        foreach ($tweets as $tweet) {
+            // Get the user associated with this tweet
+            $tweet->user;
+            // Remove sensitive information from the user object
+            unset($tweet->user->google_access_token);
+            unset($tweet->user->facebook_access_token);
+            unset($tweet->user->email_verified_at);
+            unset($tweet->user->updated_at);
+            unset($tweet->user_id);
+            // Get the media associated with this tweet
+            $tweet->media;
+            $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
+            // Remove sensitive information from the media objects
+            foreach ($tweet->media as $media) {
+                unset($media['parent_id']);
+                unset($media['parent_type']);
+                unset($media['updated_at']);
+                $media->media_url = $media->media_url ? asset('storage/media/' . $media->media_url) : null;
+            }
+            // Add some additional information to the user object
+            $tweet->user->followers_count = $tweet->user->followers()->count();
+            $tweet->user->followings_count = $tweet->user->followings()->count();
+            $tweet->user->tweets_count = $tweet->user->tweets()->count();
+            $tweet->replies_count = $tweet->replies->count();
+            $tweet->likes_count = $tweet->likes->count();
+            // $tweet->views_count = $tweet->views->count();
+        }
+        return $tweets;
+    }
+
 
 
 

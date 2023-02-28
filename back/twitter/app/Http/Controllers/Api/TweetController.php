@@ -376,16 +376,12 @@ class TweetController extends Controller
         return $tweet;
     }
 
-
-    public function delete($id)
-    {
-        try {
-            $tweet = Tweet::find($id);
-            if ($tweet->user_id != JWTAuth::user()->id) {
-                return response()->json(['message' => 'You are not authorized to delete this tweet'], 401);
-            }
-            $tweet->delete();
-            return response()->json(['message' => 'Tweet deleted successfully'], 200);
+>views_count + 1
+        ]);
+        $tweet = $this->formatTweet($tweet);
+        return $tweet;
+    }
+y'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Tweet not found'], 404);
         }
