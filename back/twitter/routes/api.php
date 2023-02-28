@@ -78,7 +78,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'reply'
 ], function () {
-    Route::post('{id}/like', [ReplyController::class, 'likeToggle']);
+    Route::get('{id}/like', [ReplyController::class, 'likeToggle']);
     Route::post('{id}/view', [ReplyController::class, 'view']);
     Route::post('{id}/edit', [ReplyController::class, 'edit']);
     Route::delete('{id}/delete', [ReplyController::class, 'delete']);
