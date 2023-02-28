@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators ,ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
@@ -225,4 +225,5 @@ export class HomeComponent implements OnInit {
 
     this.tweetBox.nativeElement.scrollTop = event.target.scrollTop;
   }
+
 }

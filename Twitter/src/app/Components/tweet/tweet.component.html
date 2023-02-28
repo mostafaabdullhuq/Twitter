@@ -50,7 +50,6 @@
                     class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
                     <pre class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight  whitespace-pre-wrap overflow-y-auto text-left"
                         [innerHTML]="formatTweetText(tweet.text)">
-
                     </pre>
                 </div>
 
@@ -121,7 +120,6 @@
 
             <div *ngIf="showReplies">
                 <app-reply [replies]="tweet.replies"></app-reply>
-
             </div>
             <!-- =======================Replay End============== -->
         </div>
