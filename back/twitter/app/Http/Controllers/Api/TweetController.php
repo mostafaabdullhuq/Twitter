@@ -56,22 +56,23 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->email_verified_at);
         unset($user->updated_at);
+
+        // $user = $this->formatUser($user);
+
         foreach ($replies as $key => $reply) {
             $replyParent = $reply->repliable()->first();
             if ($replyParent) {
                 $tweet = $this->formatTweet($replyParent, $user->id);
                 $tweets[] = $tweet;
+
                 unset($tweet->updated_at);
             }
-            // unset($tweet->$reply->repliable_type);
-            // unset($reply->repliable_id);
-            // unset($reply->user->google_access_token);
-            // unset($reply->user->facebook_access_token);
-            // unset($reply->user->email_verified_at);
-
-            // unset($tweet->reply->updated_at);
-
         }
+
+        // remove dupplicated tweets and return as indexed array
+        $tweets = array_values(array_unique($tweets, SORT_REGULAR));
+
+
 
         $response = [
             'user' => $user,
@@ -88,6 +89,11 @@ class TweetController extends Controller
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
+        unset($user->email_verified_at);
 
         foreach ($likes as $key => $like) {
             if ($like->liked_type == Tweet::class) {
@@ -104,20 +110,31 @@ class TweetController extends Controller
         ];
     }
 
-    public function get_User_Media(){
+    public function get_User_Media()
+    {
         $user = JWTAuth::user();
-        $media =$user->media;
-        $tweets = [];
-        dd($media);
-        foreach($media as $key => $value){
-            if($value->parent_type == Tweet::class){
-                $tweets[] = Tweet::find($value->parent_id);
-            }
-        }
+        $tweets = $user->tweetsWithMedia;
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweetsWithMedia()->count();
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
+
+
+        // $tweets = [];
+
+        // foreach($media as $key => $value){
+        //     if($value->parent_type == Tweet::class){
+        //         $tweets[] = Tweet::find($value->parent_id);
+        //     }
+        // }
+        // return $tweets;
         $tweets = $this->formatTweets($tweets);
         return [
             'user' => $user,
-            'tweets' =>$tweets
+            'tweets' => $tweets
         ];
     }
 
@@ -140,23 +157,6 @@ class TweetController extends Controller
     public function create(CreateTweetRequest $request)
     {
 
-        // $response = [];
-
-        // $files = $request->allFiles()["files"];
-
-        // foreach ($files as $key => $value) {
-        //     $response[] = [
-        //         'key' => $key,
-        //         'name' => $value->getClientOriginalName(),
-        //         'type' => $value->getClientMimeType(),
-        //         'size' => $value->getSize(),
-        //         'path' => $value->getRealPath(),
-        //         'extension' => $value->getClientOriginalExtension(),
-        //     ];
-        // }
-
-        // return $response;
-
         $tweetText = $request->text ?? null;
         $tweetMedia = $request->allFiles()["files"] ?? null;
         $tweetScheduleDateTime = $request->schedule_date_time ?? null;
@@ -168,6 +168,19 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id
             ]
         );
+
+        $tweetHashtags = [];
+        if ($tweetText) {
+            $reqHashtags = preg_grep(
+                '/#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/',
+                explode(' ', $tweetText)
+            );
+            foreach ($reqHashtags as $key => $hashtag) {
+                $hashtag = str_replace('#', '', $hashtag);
+                $tweetHashtags[] = $hashtag;
+            }
+        }
+        $tweetHashtags ? $tweet->attachTags($tweetHashtags) : null;
 
         if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
@@ -188,6 +201,9 @@ class TweetController extends Controller
                 ]);
             }
         }
+
+
+
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
@@ -258,7 +274,7 @@ class TweetController extends Controller
             $reply->replies_count = $reply->replies->count();
             $reply->likes_count = $reply->likes->count();
             $reply->views_count = $reply->views->count();
-            $reply->retweets_count = random_int(0, 999999999);
+            $reply->retweets_count = 0;
         }
         $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
@@ -266,7 +282,16 @@ class TweetController extends Controller
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
-        // $tweet->views_count = $tweet->views->count();
+
+        $tags = $tweet->tags;
+        foreach ($tags as $key => $tag) {
+            unset($tag->pivot);
+            unset($tag->created_at);
+            unset($tag->updated_at);
+            unset($tag->order_column);
+        }
+        $tweet->tags = $tags;
+
         return $tweet;
     }
 
@@ -301,6 +326,15 @@ class TweetController extends Controller
         }
         return $tweets;
     }
+
+    // public function formatUser($user )
+    // {
+    //     unset($user->id);
+    //     unset($user->google_access_token);
+    //     unset($user->facebook_access_token);
+    //     unset($user->email_verified_at);
+    //     unset($user->updated_at);
+    // }
 
     public function reply($id, Request $request)
     {
