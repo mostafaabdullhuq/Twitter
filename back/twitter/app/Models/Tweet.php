@@ -35,7 +35,8 @@ class Tweet extends Model
         return $this->morphMany(
             Reply::class,
             'repliable'
-        );
+        )
+            ->latest();
     }
 
     public function replyWithUserID($userID)
@@ -44,9 +45,14 @@ class Tweet extends Model
         return $this->morphMany(
             Reply::class,
             'repliable'
-        )->get()->where('user_id', $userID);
+        )->get()->where('user_id', $userID)->latest();
     }
 
+
+    public function mentions()
+    {
+        return $this->morphMany(Mention::class, 'mentionable');
+    }
 
     public function media()
     {
