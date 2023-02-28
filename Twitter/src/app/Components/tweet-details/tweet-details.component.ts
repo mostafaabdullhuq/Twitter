@@ -15,7 +15,7 @@ import { UserService } from 'src/app/Services/user.service';
 export class TweetDetailsComponent implements OnInit {
   constructor(
     private httpClient: TweetsService,
-    private userService:UserService,
+    private userService: UserService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
     private tokenService: TokenService,
@@ -37,7 +37,6 @@ export class TweetDetailsComponent implements OnInit {
       Validators.maxLength(500),
     ]),
   });
-
 
   //reply
   replySubmit() {
@@ -85,12 +84,11 @@ export class TweetDetailsComponent implements OnInit {
     }
   }
 
-  createBokkmarks(tweetID:any) {
+  createBokkmarks(tweetID: any) {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
-        console.log("Added to db successfully");
-
+        console.log('Added to db successfully');
       },
       error: (err) => {
         this.error = err;
@@ -141,12 +139,12 @@ export class TweetDetailsComponent implements OnInit {
 
   deleteTweet() {
     this.httpClient.deleteTweetById(this.tweet.id).subscribe({
-        next: (data) => {
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+      next: (data) => {
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }

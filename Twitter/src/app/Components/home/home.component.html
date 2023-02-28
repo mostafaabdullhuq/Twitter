@@ -5,13 +5,23 @@
     <!-- new tweet section -->
     <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()" enctype="multipart/form-data">
         <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
-            <div class="flex p-4 h-fit">
+            <div class="flex p-4 h-fit max-w-full">
                 <img class="twitter-user-img" routerLink="/{{user.username}}"
                     src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
 
-                <textarea dir="auto" formControlName="text"
-                    class="px-3 py-3 text-xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[100px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
-                    name="" id="" placeholder="What's happening?"></textarea>
+                <!-- custom textarea -->
+                <div (input)="handleRichEditor($event)" data-before="What's happening?" dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid 
+                    max-w-[100%]">
+                    <pre #tweetBox dir="auto"
+                        class="break-words  font-normal  outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
+                        [innerHTML]="formatTweetText(tweetForm.value.text)">
+                        <!-- {{tweetForm.value.text}} -->
+                    </pre>
+                    <textarea (scroll)="handleScroll($event)" (input)="handleRichEditor($event)" dir="auto"
+                        formControlName="text"
+                        class="font-normal tracking-tight  outline-none break-words md:text-xl text-lg overflow-y-auto text-red-500 text-opacity-0  resize-none   bg-transparent  whitespace-pre-wrap  text-left">
+                    </textarea>
+                </div>
             </div>
 
             <!-- new tweet media -->
@@ -87,7 +97,7 @@
         class="text-center text-md py-4 hover:bg-gray-100 transition-colors dark:bg-black bg-white capitalize cursor-pointer text-main-blue dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-60">
         show 111 tweets
     </div> -->
-    
+
     <!-- !------tweets--------- -->
     <div id="tweetsContainer" class="tweets w-full flex flex-col">
         <app-tweet [tweets]="tweets"></app-tweet>
