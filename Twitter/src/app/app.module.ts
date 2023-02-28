@@ -36,7 +36,7 @@ import { RequestResetComponent } from './Components/password/request-reset/reque
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
 import { WebsitePipe } from './Pipes/website.pipe';
-import {SocialLoginModule,SocialAuthServiceConfig,} from '@abacritt/angularx-social-login';
+import { AuthServiceConfig, SocialLoginModule,SocialAuthServiceConfig,} from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider,FacebookLoginProvider,} from '@abacritt/angularx-social-login';
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 import { ReplyComponent } from './Components/reply/reply.component';
