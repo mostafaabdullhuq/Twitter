@@ -8,8 +8,8 @@ import { UsersService } from 'src/app/Services/users.service';
 })
 export class FollowRecommendationsComponent implements OnInit{
   constructor(public myService:UsersService){}
-
   users:any;
+  followings:any;
   ngOnInit(): void {
     
     this.myService.getAllUsers().subscribe(
@@ -18,14 +18,28 @@ export class FollowRecommendationsComponent implements OnInit{
             this.users = data;
         },
         error:(err)=>{err},
-      })
+      });
+
+    this.myService.getFollowings().subscribe({
+
+        next:(data)=>{
+            this.followings = data;
+            // console.log(data);
+        },
+        error:(err)=>{err},
+    })
 
     
   }
 
+  // Follow = true;
+
   follow(id:any){
-    let userid = +id;
-    this.myService.postFollow(userid).subscribe(
+    let user_id = +id;
+
+    // this.Follow = false;‏
+
+    this.myService.postFollow(user_id).subscribe(
       {
         next:(data)=>{
           console.log(data);
@@ -36,5 +50,20 @@ export class FollowRecommendationsComponent implements OnInit{
       }
     )
   }
+  status= false;
+followed(){
+  this.status =true;
 }
+  // toggleClick(){
+  //   let Fol = true;
+  // }
 
+//   toggle = true;
+// status = 'Enable'; 
+
+// enableDisableRule() {
+//     this.toggle = !this.toggle;
+//     this.status = this.toggle ? 'Enable' : 'Disable';
+// }
+// }
+}
