@@ -22,18 +22,22 @@ class TweetController extends Controller
     }
 
     // get logged in user tweets
-    public function me()
+    public function me($username)
     {
-        $tweets = JWTAuth::user()->tweets()->latest()->get();
-        $user = JWTAuth::user();
-        $user->followers_count = $user->followers()->count();
-        $user->followings_count = $user->followings()->count();
-        $user->tweets_count = $user->tweets()->count();
-        $tweets = $this->formatTweets($tweets);
-        return [
-            'user' => $user,
-            'tweets' => $tweets
-        ];
+        $user = User::where('username', $username)->first();
+        if ($user) {
+            $tweets = $user->tweets()->latest()->get();
+            $user->followers_count = $user->followers()->count();
+            $user->followings_count = $user->followings()->count();
+            $user->tweets_count = $user->tweets()->count();
+            $tweets = $this->formatTweets($tweets);
+            $user->is_following = JWTAuth::user()->isFollowing($user);
+            return [
+                'user' => $user,
+                'tweets' => $tweets
+            ];
+        }
+        return response()->json(['error' => 'User not found'], 404);
     }
 
 
@@ -187,6 +191,30 @@ class TweetController extends Controller
         }
         $tweetHashtags ? $tweet->attachTags($tweetHashtags) : null;
 
+
+        $tweetMentions = [];
+        if ($tweetText) {
+            $reqMentions = preg_grep(
+                '/@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/',
+                explode(' ', $tweetText)
+            );
+            foreach ($reqMentions as $key => $mention) {
+                $mention = str_replace('@', '', $mention);
+                $tweetMentions[] = $mention;
+            }
+        }
+
+        // find users with mentions
+        $users = User::whereIn('username', $tweetMentions)->get();
+        foreach ($users as $key => $user) {
+            // notify the mentioned user
+            // $user->notify(new Mentioned($tweet));
+            // add mentions to tweet
+            $tweet->mentions()->create([
+                'mentioned_user_id' => $user->id
+            ]);
+        }
+
         if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
                 $mediaType = $media?->getClientMimeType();
@@ -237,14 +265,17 @@ class TweetController extends Controller
     public function formatTweet($tweet, $userID = 0)
     {
         // add user object to the tweet object and delete security sensitive information
+        $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
+        $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
+        $tweet->replies_count = $tweet->replies->count();
+        $tweet->likes_count = $tweet->likes->count();
+
         $tweet->user;
         unset($tweet->user->google_access_token);
         unset($tweet->user->facebook_access_token);
         unset($tweet->user->email_verified_at);
         unset($tweet->user->updated_at);
         unset($tweet->user_id);
-
-        $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
 
         // get the media of the tweet and update it's url values and remove security sensitive info
         $media = $tweet->media;
@@ -285,8 +316,6 @@ class TweetController extends Controller
         $tweet->user->followers_count = $tweet->user->followers()->count();
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
-        $tweet->replies_count = $tweet->replies->count();
-        $tweet->likes_count = $tweet->likes->count();
 
         $tags = $tweet->tags;
         foreach ($tags as $key => $tag) {
@@ -296,6 +325,21 @@ class TweetController extends Controller
             unset($tag->order_column);
         }
         $tweet->tags = $tags;
+
+        $mentions = $tweet->mentions;
+
+        foreach ($mentions as $key => $mention) {
+            $mention->mentioned_user = $mention->mentionedUser;
+            unset($mention->mentioned_user->google_access_token);
+            unset($mention->mentioned_user->facebook_access_token);
+            unset($mention->mentioned_user->email_verified_at);
+            unset($mention->mentioned_user->updated_at);
+            unset($mention->mentioned_user_id);
+            unset($mention->mentionable_type);
+            unset($mention->mentionable_id);
+            unset($mention->updated_at);
+        }
+        $tweet->mentions = $mentions;
 
         return $tweet;
     }

@@ -48,7 +48,7 @@ Route::group([
     Route::post('bookmarks/create', [UserController::class, 'addBookmark']);
     Route::delete('{id}/delete', [UserController::class, 'deleteBookmark']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
-    Route::post('block-user',[BlockController::class, 'store']);
+    Route::post('block-user', [BlockController::class, 'store']);
     Route::get('get-followers', [FollowingController::class, 'get_followers']);
     Route::get('get-followings', [FollowingController::class, 'get_followings']);
     Route::get('get-all', [UserController::class, 'get_all_users']);
@@ -92,7 +92,8 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'hashtag'
 ], function () {
-    Route::get('{hashtag}', [HashtagController::class, 'index']);
+    Route::get('trends/{days}', [HashtagController::class, 'trends']);
+    Route::get('search/{hashtag}', [HashtagController::class, 'search']);
 });
 
 Route::group([

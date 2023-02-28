@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -10,25 +11,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdateDataController extends Controller
 {
-    public function update(UpdateUserData $request){
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+
+    public function update(UpdateUserData $request)
+    {
         return $this->getUserRow($request)->count() > 0 ? $this->updateData($request) : $this->emailNotFoundResponse();
     }
-    
-        private function getUserRow($request)
+
+    private function getUserRow($request)
     {
         return DB::table('users')->where('email', $request->email);
-                                
     }
 
     private function emailNotFoundResponse()
     {
-        return response()->json(['error' => 'Email is incorrect'],Response::HTTP_UNPROCESSABLE_ENTITY);
+        return response()->json(['error' => 'Email is incorrect'], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     private function updateData($request)
     {
         $user = User::whereEmail($request->email)->first();
-    
+
         // Save the old values in variables
         $oldEmail = $user->email;
         $oldFirstName = $user->first_name;
@@ -67,7 +75,7 @@ class UpdateDataController extends Controller
         } else {
             $user->location = $request->location;
         }
-    
+
         if (!$request->website || trim($request->website) == '') {
             $user->website = null;
         } else {
@@ -88,24 +96,24 @@ class UpdateDataController extends Controller
         } else {
             $user->profile_picture = $request->profile_picture;
         }
-        if (!$request->cover_picture  || trim($request->cover_picture ) == '') {
+        if (!$request->cover_picture  || trim($request->cover_picture) == '') {
             $user->cover_picture  = null;
         } else {
-            $user->cover_picture  = $request->cover_picture ;
+            $user->cover_picture  = $request->cover_picture;
         }
-    
+
         // Save the changes to the database
         $user->save();
-    
+
         // Check if any data was updated and return a success message
-        if ($user->email !== $oldEmail || $user->first_name !== $oldFirstName || $user->last_name !== $oldLastName || $user->username !== $oldUserName || $user->bio !== $oldBio ||
+        if (
+            $user->email !== $oldEmail || $user->first_name !== $oldFirstName || $user->last_name !== $oldLastName || $user->username !== $oldUserName || $user->bio !== $oldBio ||
             $user->location !== $oldLocation || $user->website !== $oldWebsite || $user->phone_number !== $oldPhoneNumber ||
-            $user->date_of_birth !== $oldDateOfBirth || $user->profile_picture!== $oldprofile_picture || $user->cover_picture !== $oldcover_picture) {
+            $user->date_of_birth !== $oldDateOfBirth || $user->profile_picture !== $oldprofile_picture || $user->cover_picture !== $oldcover_picture
+        ) {
             return response()->json(['data' => 'Data Successfully Changed'], Response::HTTP_CREATED);
         } else {
             return response()->json(['data' => 'No Data Changed'], Response::HTTP_OK);
         }
     }
-    
-    
 }
