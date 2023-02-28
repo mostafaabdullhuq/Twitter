@@ -176,7 +176,7 @@ export class TweetsService {
 
   getReplies() {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/replies', {
+    return this.httpClient.get(this.BASE_URL + 'user/replies', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -184,7 +184,7 @@ export class TweetsService {
   }
   getLikes() {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/likes', {
+    return this.httpClient.get(this.BASE_URL + 'user/likes', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -192,7 +192,7 @@ export class TweetsService {
   }
   getMedia(){
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/media' , {
+    return this.httpClient.get(this.BASE_URL + 'user/media' , {
       headers: {
         Authorization : `Bearer ${accessToken}`,
       }
