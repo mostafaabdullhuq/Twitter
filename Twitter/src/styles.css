@@ -71,6 +71,11 @@
   @apply relative;
 }
 
+.tweet-editor * {
+  grid-column: 1;
+  grid-row: 1;
+}
+
 /* .tweet-editor * {
   @apply border overflow-hidden max-w-[100%] border-red-500  md:text-xl font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
 } */

@@ -207,8 +207,6 @@ export class HomeComponent implements OnInit {
 
   formatTweetText(text: any): SafeHtml {
     if (text) {
-      console.log(text);
-
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
@@ -217,10 +215,14 @@ export class HomeComponent implements OnInit {
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
         .replace(mentionRegex, mentionTemplate);
-
       return this.sanitizer.bypassSecurityTrustHtml(formattedText);
     } else {
       return "<p class='text-gray-500 tracking-tighter text-xl'>What's Happening?</p>";
     }
+  }
+  handleScroll(event: any) {
+    // sync the scroll between text area and pre
+
+    this.tweetBox.nativeElement.scrollTop = event.target.scrollTop;
   }
 }

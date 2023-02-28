@@ -15,7 +15,7 @@ import { UserService } from 'src/app/Services/user.service';
 export class TweetDetailsComponent implements OnInit {
   constructor(
     private httpClient: TweetsService,
-    private userService:UserService,
+    private userService: UserService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
     private tokenService: TokenService,
@@ -37,23 +37,6 @@ export class TweetDetailsComponent implements OnInit {
       Validators.maxLength(500),
     ]),
   });
-
-  formatTweetText(text: string): SafeHtml {
-    if (text) {
-      // console.log(text);
-      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
-
-      const formattedText = text
-        .replace(hashtagRegex, hashtagTemplate)
-        .replace(mentionRegex, mentionTemplate);
-      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
-    } else {
-      return '';
-    }
-  }
 
   //reply
   replySubmit() {
@@ -101,12 +84,11 @@ export class TweetDetailsComponent implements OnInit {
     }
   }
 
-  createBokkmarks(tweetID:any) {
+  createBokkmarks(tweetID: any) {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
-        console.log("booked succsess");
-
+        console.log('booked succsess');
       },
       error: (err) => {
         this.error = err;
@@ -157,12 +139,12 @@ export class TweetDetailsComponent implements OnInit {
 
   deleteTweet() {
     this.httpClient.deleteTweetById(this.tweet.id).subscribe({
-        next: (data) => {
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+      next: (data) => {
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }
