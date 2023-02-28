@@ -42,6 +42,9 @@ import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.
 import { ReplyComponent } from './Components/reply/reply.component';
 import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
+import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +83,9 @@ import { ChangePasswordComponent } from './Components/settings/change-password/c
     ReplyComponent,
     EditProfileComponent,
     ChangePasswordComponent,
+    PageNotFoundComponent,
+    FollowersAndFollowingComponent,
+    StickyHeaderFollowingComponent,
   ],
 
   imports: [
