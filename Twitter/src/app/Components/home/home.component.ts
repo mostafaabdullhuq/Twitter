@@ -140,4 +140,8 @@ export class HomeComponent implements OnInit {
       this.tweetForm.patchValue({ media: null });
     }
   }
+
+  handleRichEditor(event: any) {
+    // this.tweetForm.patchValue({ text: event });
+  }
 }

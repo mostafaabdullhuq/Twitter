@@ -67,18 +67,17 @@
 .dotted-text {
   @apply overflow-hidden text-ellipsis whitespace-nowrap;
 }
-[contenteditable] {
+.tweet-editor {
   @apply relative;
 }
 
-[contenteditable] * {
-  font-style: normal !important;
-  font-weight: normal !important;
-  @apply md:text-xl !important;
-  @apply tracking-tight font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
+.tweet-editor * {
+  /* font-style: normal !important;
+  font-weight: normal !important; */
+  @apply border overflow-hidden max-w-[100%] border-red-500  md:text-xl font-normal not-italic text-main-black_0 bg-transparent font-sans  break-words !important;
 }
 
-[contenteditable] img {
+.tweet-editor img {
   @apply object-cover !important;
 }
 
