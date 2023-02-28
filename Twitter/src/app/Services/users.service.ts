@@ -21,6 +21,26 @@ export class UsersService {
         Authorization: `Bearer ${accessToken}`,
       },
     })
+  }  
+  getFollowings(){
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL +'/get-followings',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  }  
+  getFollowers(){
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL +'/get-followers',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
   }
   postFollow(id:number){
     const accessToken = this.token.get();
