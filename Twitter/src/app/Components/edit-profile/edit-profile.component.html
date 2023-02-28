@@ -1,13 +1,13 @@
-<div class="bg-white min-w-[300px] sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl
- p-6 w-[90%] max-w-[600px] scale flex flex-col scale-[.95] overflow-y-auto "
-     style="height:35rem;" id="popup">
+<div *ngIf="showPopup"  class="w-full max-w-[700px] sm:gap-4  min-w-[300px] dark:bg-black
+bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl flex flex-col scale-[.95] overflow-y-auto "
+     style="height:43rem; " id="popup">
         <div class="flex justify-between">
             <div class="flex">
-                <a href="#" id="close-popup" class="mr-4 mt-2"><i class="fa-regular fa-x"></i></a>
+                <a (click)="onClosePopup()" id="close-popup" class="mr-4 mt-2"><i class="fa-regular fa-x"></i></a>
                 <h1 class="text-3xl ">Edit profile</h1>
             </div>
             <!-- <form> -->
- 
+
         </div>
         <!-- cover & photo -->
         <div class="relative">
@@ -34,7 +34,7 @@
 
             <div class="relative p-3" style="bottom: 6rem;">
                 <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
-                class="absolute rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />           
+                class="absolute rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />
                      <a href="#" class="rounded-full p-2 bg-black   hover:bg-gray-200 text-center justify-center flex"
                     style="width: 3rem; height: 3rem; opacity: 0.3; position: absolute; left: 4.3rem; top: 4rem;">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -47,16 +47,16 @@
                     </svg>
                 </a>
                 </div>
-        
+
         <form class="mt-12 space-y-6" #updateForm=ngForm (ngSubmit)="onSubmit()">
             <input [(ngModel)]="form.email" type="hidden"  value="{{ user ? (user.email? user.email: '') : 'Loading...' }}" name="remember">
             <div>
-                <input [(ngModel)]="form.first_name"  value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="name" name="name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.first_name"  value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="firstname" name="firstname" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
                     focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="First name">
             </div>
             <div>
-                <input [(ngModel)]="form.last_name"  value="{{ user ? (user.last_name ? user.last_name : '') : 'Loading...' }}" id="name" name="name" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.last_name"  value="{{ user ? (user.last_name ? user.last_name : '') : 'Loading...' }}" id="lastname" name="lastname" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                    border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
                     focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="Last name">
             </div>
@@ -66,32 +66,32 @@
                     focus:border-indigo-500 focus:outline-none focus:ring-indigo-500" placeholder="User name">
             </div>
             <div>
-                <input [(ngModel)]="form.bio"  value="{{ user ? (user.bio ? user.bio : '') : 'Bio' }}" id="bio" name="bio"  autocomplete="bio" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input [(ngModel)]="form.bio"  value="{{ user ? (user.bio ? user.bio : '') : 'Bio' }}" id="bio" name="bio"  autocomplete="bio" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Bio" >
             </div>
             <div>
-                <input  [(ngModel)]="form.phone_number"  value="{{ user ? (user.phone_number? user.phone_number : '') : 'Phone_number' }}" id="phone_number" name="phone_number"  autocomplete="phone_number" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input  [(ngModel)]="form.phone_number"  value="{{ user ? (user.phone_number? user.phone_number : '') : 'Phone_number' }}" id="phone_number" name="phone_number"  autocomplete="phone_number" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Phone number" >
             </div>
             <div>
-                <input [(ngModel)]="form.location" value="{{ user ? (user.location ? user.location: '') : 'Location' }}" id="location" name="location" type="location" autocomplete="location" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input [(ngModel)]="form.location" value="{{ user ? (user.location ? user.location: '') : 'Location' }}" id="location" name="location" type="location" autocomplete="location" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Location">
             </div>
             <div>
-                <input [(ngModel)]="form.website" value="{{ user ? (user.website? user.website: '') : 'Website' }}" id="website" name="website" type="website" autocomplete="website" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input [(ngModel)]="form.website" value="{{ user ? (user.website? user.website: '') : 'Website' }}" id="website" name="website" type="website" autocomplete="website" required class="relative block w-full appearance-none border border-gray-300 px-3 py-2
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="Website">
             </div>
 
             <div>
-                <input [(ngModel)]="form.date_of_birth" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2 
+                <input [(ngModel)]="form.date_of_birth" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth" name="date_of_birth" type="text"  required class="relative block w-full appearance-none border border-gray-300 px-3 py-2
                   text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500
                   focus:outline-none focus:ring-indigo-500 text-xl" placeholder="date_of_birth">
             </div>
-            <button type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4 
+            <button  type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4
             text-xl text-white hover:bg-gray-200 focus:outline-none focus:ring-2
              focus:ring-indigo-500 rounded-full focus:ring-offset-2">
                         Save
@@ -103,3 +103,4 @@
         </form>
     </div>
 </div>
+<div *ngIf="showPopup" class="bg-opacity-50 fixed inset-0 z-40 bg-gray-700"></div>

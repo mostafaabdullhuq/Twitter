@@ -11,4 +11,8 @@ export class ModalComponent {
   toggleModal(){
     this.showModal = !this.showModal;
   }
+  Follow = true;
+  toggleClick(){
+    this.Follow = !this.Follow;
+  }
 }

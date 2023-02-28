@@ -1,4 +1,6 @@
 <!--! -------middle ------- -->
+<app-edit-profile   [showPopup]="showPopup" (closePopup)="onClosePopup()"></app-edit-profile>
+
 <div *ngIf="user;else loadingBlock"
     class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
     <!-- -----sticky header---- -->
@@ -44,10 +46,9 @@
     </div>
     </div>
 
-
-
     <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
-    <div class="relative flex flex-col">
+    <!-- *ngIf="!showEdit" -->
+    <div  class="relative flex flex-col">
         <!-- cover photo -->
         <div class="w-full overflow-hidden h-48 bg-slate-300">
             <img *ngIf="user?.cover_picture" src="./../../../assets/images/twitter_99mx.jpg"
@@ -60,16 +61,16 @@
         <!-- profile controls -->
         <div class="flex items-center sm:mt-4 mt-12  px-4 float-right gap-4 w-full justify-end">
 
-            <a routerLink="/edit-profile"
+            <a  (click)="onButtonClick()"
                 class="text-center py-2 px-5 rounded-full transition-colors border
-                 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-10 dark:text-white
+                dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-10 dark:text-white
                   text-black cursor-pointer hover:bg-gray-200 ">
                 <span class="font-semibold"> Edit profile </span>
             </a>
 
             <a href="#"
                 class="text-center py-2 px-5 rounded-full transition-colors border dark:text-white
-                 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-30
+                dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-30
                   text-black cursor-pointer hover:bg-gray-200">
                 <span class="font-semibold"> Follow </span>
             </a>
@@ -126,6 +127,7 @@
                 </div>
             </div>
         </div>
+
         <!-- profile views -->
         <div class="profile-views">
             <div class="flex">
@@ -159,6 +161,7 @@
     </div>
     <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
 </div>
+
 <!--! -----------right---------- -->
 <div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
     <app-search></app-search>

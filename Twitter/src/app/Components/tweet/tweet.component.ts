@@ -12,16 +12,28 @@ import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
-export class TweetComponent {
+export class TweetComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService
   ) {}
+
+  likesCount(tweetID: any) {
+    this.httpClient.getLikesCount(tweetID).subscribe({
+      next: (data: any) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   formatTweetText(text: string): SafeHtml {
     if (text) {
-      const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-      const mentionRegex = /@[a-zA-Z0-9_]+/g;
+      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
       const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
 
@@ -33,17 +45,6 @@ export class TweetComponent {
     } else {
       return '';
     }
-  }
-
-  likesCount(tweetID: any) {
-    this.httpClient.getLikesCount(tweetID).subscribe({
-      next: (data: any) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
   }
 
   handleMedia(type: any, container: any, tweet: any) {
@@ -66,7 +67,12 @@ export class TweetComponent {
       }
     });
   }
+  ngOnInit(){
+    this.isInBookmark = this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+  }
+  popup: boolean = false;
+  isInBookmark:boolean=false;
 
-  @Input() tweets: any ;
-  @Input() showReplies: any ;
+  @Input() tweets: any;
+  @Input() showReplies: any;
 }

@@ -45,7 +45,7 @@ export class TweetsService {
       },
     });
   }
-
+////////////////
   getTweetById(id: any) {
     const accessToken = this.token.get();
 
@@ -188,6 +188,14 @@ export class TweetsService {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+    });
+  }
+  getMedia(){
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + '/media' , {
+      headers: {
+        Authorization : `Bearer ${accessToken}`,
+      }
     });
   }
   //Just TEST
