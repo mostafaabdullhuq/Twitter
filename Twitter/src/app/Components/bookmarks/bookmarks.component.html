@@ -1,15 +1,17 @@
 <!--middle-->
-<div
-    class="pb-20 sm:pb-0 h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-          <!-- content of fixed nav -->
+<div *ngIf="user;else loadingBlock"
+    class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+    <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
+
+   <!-- content of fixed nav -->
           <div class="content z-0 flex items-center py-2">
-            <div class="flex flex-col">
+            <div class="flex flex-col sticky-nav-scroll ">
                 <div class="flex items-center">
-                    <h3 class="text-gray-800 pl-6 text-2xl dark:text-white font-bold">Bookmarks</h3>
-                    <p class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{user.username}}</p>
+                    <h2 class="text-gray-800 pl-6 text-xl dark:text-white font-semibold">Bookmarks</h2>
                 </div>
+                    <p class="username ml-5 text-sm font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{user.username}}</p>
             </div>
-    </div>
+</div>
 
 <!-- !------tweets--------- -->
 <div id="tweetsContainer" class="tweets w-full flex flex-col">
@@ -22,6 +24,7 @@
             class="fa-solid fa-spinner animate-spin"></i></div> -->
 
     <!-- -----toggler----- -->
+</div>
 </div>
 <!--! -----------right start---------- -->
 <div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
