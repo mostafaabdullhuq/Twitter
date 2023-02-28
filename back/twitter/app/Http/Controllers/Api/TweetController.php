@@ -21,7 +21,6 @@ class TweetController extends Controller
     // get logged in user tweets
     public function me()
     {
-
         $tweets = JWTAuth::user()->tweets()->latest()->get();
         $user = JWTAuth::user();
         $user->followers_count = $user->followers()->count();
@@ -36,10 +35,8 @@ class TweetController extends Controller
 
     public function get_User_Retweets()
     {
-
         $retweets = JWTAuth::user()->retweets()->latest()->get();
         $user = JWTAuth::user();
-
         return [
             'user' => $user,
             'retweets' => $retweets
@@ -59,23 +56,23 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->email_verified_at);
         unset($user->updated_at);
-        // unset($user->tweets->replies->updated_at);
 
+        // $user = $this->formatUser($user);
 
         foreach ($replies as $key => $reply) {
+            $replyParent = $reply->repliable()->first();
+            if ($replyParent) {
+                $tweet = $this->formatTweet($replyParent, $user->id);
+                $tweets[] = $tweet;
 
-            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
-            $tweets[] = $tweet;
-            unset($tweet->updated_at);
-            // unset($tweet->$reply->repliable_type);
-            // unset($reply->repliable_id);
-            // unset($reply->user->google_access_token);
-            // unset($reply->user->facebook_access_token);
-            // unset($reply->user->email_verified_at);
-
-            // unset($tweet->reply->updated_at);
-
+                unset($tweet->updated_at);
+            }
         }
+
+        // remove dupplicated tweets and return as indexed array
+        $tweets = array_values(array_unique($tweets, SORT_REGULAR));
+
+
 
         $response = [
             'user' => $user,
@@ -83,24 +80,27 @@ class TweetController extends Controller
         ];
         return $response;
     }
+
     public function get_User_Likes()
     {
         $user = JWTAuth::user();
         $likes = $user->likes;
         $tweets = [];
-        // $tweets = JWTAuth::user()->tweets()->latest()->get();
-        // $like = $tweets->likes()->where('user_id', $user->id)->latest()->get();
-        // $likes = $user->likes()->latest()->get();
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
-        // $user->likes_count = $user->likes()->count();
-        $user->tweets_count = $user->likes()->count(); //get tweets count that was liked 
+        $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
+        unset($user->email_verified_at);
 
         foreach ($likes as $key => $like) {
-            // $tweet = $this->formatTweet($like->liked()->first(), $user->id);
-            // $tweets[] = $tweet;
             if ($like->liked_type == Tweet::class) {
-                $tweets[] = Tweet::find($like->liked_id);
+                $tweet = Tweet::find($like->liked_id);
+                if ($tweet) {
+                    $tweets[] = $tweet;
+                }
             }
         }
         $tweets = $this->formatTweets($tweets);
@@ -108,15 +108,35 @@ class TweetController extends Controller
             'user' => $user,
             'tweets' => $tweets
         ];
-        // $response=[
-        //     'tweets'=>$tweets,
-        //     'user'=>$user,
-        // ];
-        // return $response;
     }
 
+    public function get_User_Media()
+    {
+        $user = JWTAuth::user();
+        $tweets = $user->tweetsWithMedia;
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweetsWithMedia()->count();
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
 
 
+        // $tweets = [];
+
+        // foreach($media as $key => $value){
+        //     if($value->parent_type == Tweet::class){
+        //         $tweets[] = Tweet::find($value->parent_id);
+        //     }
+        // }
+        // return $tweets;
+        $tweets = $this->formatTweets($tweets);
+        return [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
+    }
 
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()
@@ -137,23 +157,6 @@ class TweetController extends Controller
     public function create(CreateTweetRequest $request)
     {
 
-        // $response = [];
-
-        // $files = $request->allFiles()["files"];
-
-        // foreach ($files as $key => $value) {
-        //     $response[] = [
-        //         'key' => $key,
-        //         'name' => $value->getClientOriginalName(),
-        //         'type' => $value->getClientMimeType(),
-        //         'size' => $value->getSize(),
-        //         'path' => $value->getRealPath(),
-        //         'extension' => $value->getClientOriginalExtension(),
-        //     ];
-        // }
-
-        // return $response;
-
         $tweetText = $request->text ?? null;
         $tweetMedia = $request->allFiles()["files"] ?? null;
         $tweetScheduleDateTime = $request->schedule_date_time ?? null;
@@ -165,6 +168,19 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id
             ]
         );
+
+        $tweetHashtags = [];
+        if ($tweetText) {
+            $reqHashtags = preg_grep(
+                '/#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/',
+                explode(' ', $tweetText)
+            );
+            foreach ($reqHashtags as $key => $hashtag) {
+                $hashtag = str_replace('#', '', $hashtag);
+                $tweetHashtags[] = $hashtag;
+            }
+        }
+        $tweetHashtags ? $tweet->attachTags($tweetHashtags) : null;
 
         if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
@@ -185,6 +201,9 @@ class TweetController extends Controller
                 ]);
             }
         }
+
+
+
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
@@ -255,7 +274,7 @@ class TweetController extends Controller
             $reply->replies_count = $reply->replies->count();
             $reply->likes_count = $reply->likes->count();
             $reply->views_count = $reply->views->count();
-            $reply->retweets_count = random_int(0, 999999999);
+            $reply->retweets_count = 0;
         }
         $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
@@ -263,7 +282,16 @@ class TweetController extends Controller
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
-        // $tweet->views_count = $tweet->views->count();
+
+        $tags = $tweet->tags;
+        foreach ($tags as $key => $tag) {
+            unset($tag->pivot);
+            unset($tag->created_at);
+            unset($tag->updated_at);
+            unset($tag->order_column);
+        }
+        $tweet->tags = $tags;
+
         return $tweet;
     }
 
@@ -295,10 +323,18 @@ class TweetController extends Controller
             $tweet->replies_count = $tweet->replies->count();
             $tweet->likes_count = $tweet->likes->count();
             // $tweet->views_count = $tweet->views->count();
-
         }
         return $tweets;
     }
+
+    // public function formatUser($user )
+    // {
+    //     unset($user->id);
+    //     unset($user->google_access_token);
+    //     unset($user->facebook_access_token);
+    //     unset($user->email_verified_at);
+    //     unset($user->updated_at);
+    // }
 
     public function reply($id, Request $request)
     {
@@ -360,7 +396,6 @@ class TweetController extends Controller
         return $tweet;
     }
 
-
     public function delete($id)
     {
         try {
@@ -368,6 +403,12 @@ class TweetController extends Controller
             if ($tweet->user_id != JWTAuth::user()->id) {
                 return response()->json(['message' => 'You are not authorized to delete this tweet'], 401);
             }
+            $tweet->likes()->delete();
+            $tweet->replies()->delete();
+            // $tweet->views()->delete();
+            $tweet->media()->delete();
+            $tweet->tags()->detach();
+            // $tweet->retweets()->delete();
             $tweet->delete();
             return response()->json(['message' => 'Tweet deleted successfully'], 200);
         } catch (\Exception $e) {

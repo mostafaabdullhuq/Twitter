@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HashtagController;
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
@@ -43,6 +44,9 @@ Route::group([
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
+    Route::get('bookmarks', [UserController::class, 'bookmarks']);
+    Route::post('bookmarks/create', [UserController::class, 'addBookmark']);
+    Route::delete('{id}/delete', [UserController::class, 'deleteBookmark']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
     Route::post('block-user',[BlockController::class, 'store']);
     Route::get('get-followers', [FollowingController::class, 'get_followers']);
@@ -59,9 +63,9 @@ Route::group([
     Route::get('me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
+    Route::get('media', [TweetController::class, 'get_User_Media']);
     Route::get('replies', [TweetController::class, 'get_User_Replies']);
     Route::get('likes', [TweetController::class, 'get_User_Likes']);
-    Route::get('likes', [TweetController::class, 'get_User_Media']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
@@ -76,10 +80,17 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'reply'
 ], function () {
-    Route::post('{id}/like', [ReplyController::class, 'likeToggle']);
-    // Route::post('{id}/unlike', [ReplyController::class, 'unlike']);
+    Route::get('{id}/like', [ReplyController::class, 'likeToggle']);
     Route::post('{id}/view', [ReplyController::class, 'view']);
     Route::post('{id}/edit', [ReplyController::class, 'edit']);
     Route::delete('{id}/delete', [ReplyController::class, 'delete']);
     Route::post('{id}/reply', [ReplyController::class, 'reply']);
+});
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'hashtag'
+], function () {
+    Route::get('{hashtag}', [HashtagController::class, 'index']);
 });
