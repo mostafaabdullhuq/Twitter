@@ -60,12 +60,12 @@ Route::group([
     'prefix' => 'tweet'
 ], function () {
     Route::post('', [TweetController::class, 'create']);
-    Route::get('me', [TweetController::class, 'me']);
+    // Route::get('me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
-    Route::get('media', [TweetController::class, 'get_User_Media']);
-    Route::get('replies', [TweetController::class, 'get_User_Replies']);
-    Route::get('likes', [TweetController::class, 'get_User_Likes']);
+    // Route::get('media', [TweetController::class, 'get_User_Media']);
+    // Route::get('replies', [TweetController::class, 'get_User_Replies']);
+    // Route::get('likes', [TweetController::class, 'get_User_Likes']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
@@ -93,4 +93,14 @@ Route::group([
     'prefix' => 'hashtag'
 ], function () {
     Route::get('{hashtag}', [HashtagController::class, 'index']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'tweet'
+], function () {
+    Route::get('{username}/me', [TweetController::class, 'me']);
+    Route::get('{username}/media', [TweetController::class, 'get_User_Media']);
+    Route::get('{username}/replies', [TweetController::class, 'get_User_Replies']);
+    Route::get('{username}/likes', [TweetController::class, 'get_User_Likes']);
 });
