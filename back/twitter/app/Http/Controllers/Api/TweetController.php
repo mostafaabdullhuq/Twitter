@@ -58,8 +58,8 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->email_verified_at);
         unset($user->updated_at);
-        // unset($user->tweets->replies->updated_at);
 
+        // $user = $this->formatUser($user);
 
         foreach ($replies as $key => $reply) {
             $replyParent = $reply->repliable()->first();
@@ -324,6 +324,15 @@ class TweetController extends Controller
         }
         return $tweets;
     }
+
+    // public function formatUser($user )
+    // {
+    //     unset($user->id);
+    //     unset($user->google_access_token);
+    //     unset($user->facebook_access_token);
+    //     unset($user->email_verified_at);
+    //     unset($user->updated_at);
+    // }
 
     public function reply($id, Request $request)
     {
