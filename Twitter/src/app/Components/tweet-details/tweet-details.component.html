@@ -144,14 +144,16 @@
                 <div (click)="likesCount()" class="single-tweet-control-item hover:text-main-love"><i
                         [ngClass]="{'text-main-love fa-solid': tweet.liked == true}"
                         class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"></i></div>
+
                 <div (click)="showBookmark = !showBookmark"
                     class="relative single-tweet-control-item hover:text-main-blue_100">
                     <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
 
                     <!-- bookmark tweet popup -->
                     <div *ngIf="showBookmark"
-                        class="absolute z-10 -top-12 right-0  flex flex-col overflow-hidden items-center dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
-                        <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="bookmarkToggle(tweet.id)"
+                        class="absolute z-10 -top-12 right-0  flex flex-col overflow-hidden items-center
+                        dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
+                        <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="createBokkmarks(tweetID)"
                             class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
                             <i class="fa-regular fa-bookmark"></i>
                             <div>Bookmark</div>
@@ -161,13 +163,10 @@
 
                     <ng-template #unbookmarkBlock>
                         <div>
-                            <button (click)="bookmarkToggle(tweet.id)"
-                                class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Unbookmark</button>
+                            <button (click)="createBokkmarks(tweetID)"
+                                class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove from Bookmarks</button>
                         </div>
                     </ng-template>
-
-
-
                 </div>
 
 

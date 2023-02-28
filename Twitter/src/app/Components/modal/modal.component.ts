@@ -11,4 +11,5 @@ export class ModalComponent {
   toggleModal(){
     this.showModal = !this.showModal;
   }
+
 }
