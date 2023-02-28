@@ -21,7 +21,6 @@ class TweetController extends Controller
     // get logged in user tweets
     public function me()
     {
-
         $tweets = JWTAuth::user()->tweets()->latest()->get();
         $user = JWTAuth::user();
         $user->followers_count = $user->followers()->count();
@@ -63,10 +62,12 @@ class TweetController extends Controller
 
 
         foreach ($replies as $key => $reply) {
-
-            $tweet = $this->formatTweet($reply->repliable()->first(), $user->id);
-            $tweets[] = $tweet;
-            unset($tweet->updated_at);
+            $replyParent = $reply->repliable()->first();
+            if ($replyParent) {
+                $tweet = $this->formatTweet($replyParent, $user->id);
+                $tweets[] = $tweet;
+                unset($tweet->updated_at);
+            }
             // unset($tweet->$reply->repliable_type);
             // unset($reply->repliable_id);
             // unset($reply->user->google_access_token);
@@ -83,6 +84,7 @@ class TweetController extends Controller
         ];
         return $response;
     }
+
     public function get_User_Likes()
     {
         $user = JWTAuth::user();
@@ -94,7 +96,10 @@ class TweetController extends Controller
 
         foreach ($likes as $key => $like) {
             if ($like->liked_type == Tweet::class) {
-                $tweets[] = Tweet::find($like->liked_id);
+                $tweet = Tweet::find($like->liked_id);
+                if ($tweet) {
+                    $tweets[] = $tweet;
+                }
             }
         }
         $tweets = $this->formatTweets($tweets);
@@ -104,21 +109,14 @@ class TweetController extends Controller
         ];
     }
 
-    public function get_User_Media(){
-        $user = JWTAuth::user();
-        $tweets =$user->tweetsWithM    public function get_User_Media()
+    public function get_User_Media()
     {
         $user = JWTAuth::user();
         $tweets = $user->tweetsWithMedia;
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->tweetsWithMedia()->count();
-        unset($user->tweetsWithMedia);
-        unset($user->id);
-        unset($user->google_access_token);
-        unset($user->facebook_access_token);
-        unset($user->email_verified_at);
-        unset($user->updated_at);
+
         // $tweets = [];
 
         // foreach($media as $key => $value){
@@ -382,5 +380,25 @@ class TweetController extends Controller
         ]);
         $tweet = $this->formatTweet($tweet);
         return $tweet;
+    }
+
+    public function delete($id)
+    {
+        try {
+            $tweet = Tweet::find($id);
+            if ($tweet->user_id != JWTAuth::user()->id) {
+                return response()->json(['message' => 'You are not authorized to delete this tweet'], 401);
+            }
+            $tweet->likes()->delete();
+            $tweet->replies()->delete();
+            // $tweet->views()->delete();
+            $tweet->media()->delete();
+            $tweet->tags()->detach();
+            // $tweet->retweets()->delete();
+            $tweet->delete();
+            return response()->json(['message' => 'Tweet deleted successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Tweet not found'], 404);
+        }
     }
 }
