@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Follow;
+use App\Models\User;
+use JWTAuth;
 use Response;
 
 class FollowingController extends Controller
@@ -15,6 +17,8 @@ class FollowingController extends Controller
         ]);
 
         $user = $request->user();
+
+        // $user->followed = $user->isFollowedBy(JWTAuth::user()->id);
 
         $following = Follow::where('following_id', $request->following_id)
                             ->where('follower_id',$user->id)
@@ -57,10 +61,12 @@ class FollowingController extends Controller
         $user = $request->user();
 
         $following = Follow::select('follower_id')->where('following_id', $user->id)->get();
-
+        // $user = User::find(follower_id);
+        $user =  JWTAuth::user();
+        
             if($following){
                 return response()->json(
-                    $following
+                    ['following' => $following,'user' => $user]
                     ,200);
             } else{
                 return response()->json(
