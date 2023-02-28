@@ -225,5 +225,5 @@ export class HomeComponent implements OnInit {
 
     this.tweetBox.nativeElement.scrollTop = event.target.scrollTop;
   }
- 
+
 }
