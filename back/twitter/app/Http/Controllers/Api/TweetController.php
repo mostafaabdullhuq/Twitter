@@ -93,6 +93,12 @@ class TweetController extends Controller
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
+        unset($user->email_verified_at);
+        // unset($user->likes->updated_at);
 
         foreach ($likes as $key => $like) {
             if ($like->liked_type == Tweet::class) {
@@ -101,6 +107,7 @@ class TweetController extends Controller
                     $tweets[] = $tweet;
                 }
             }
+            // unset($user->$like->updated_at);
         }
         $tweets = $this->formatTweets($tweets);
         return [
@@ -116,6 +123,11 @@ class TweetController extends Controller
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->tweetsWithMedia()->count();
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
+
 
         // $tweets = [];
 
