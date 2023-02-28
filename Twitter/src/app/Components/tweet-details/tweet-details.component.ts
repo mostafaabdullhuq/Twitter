@@ -5,6 +5,7 @@ import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-tweet-details',
@@ -14,6 +15,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class TweetDetailsComponent implements OnInit {
   constructor(
     private httpClient: TweetsService,
+    private userService:UserService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
     private tokenService: TokenService,
@@ -25,6 +27,7 @@ export class TweetDetailsComponent implements OnInit {
   protected error: any;
   protected user: any;
   public tweetID = this.activatedRouter.snapshot.params['id'];
+  public showBookmark = false;
   public showControls = false;
 
   //reply
@@ -35,22 +38,6 @@ export class TweetDetailsComponent implements OnInit {
     ]),
   });
 
-  formatTweetText(text: string): SafeHtml {
-    if (text) {
-      const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-      const mentionRegex = /@[a-zA-Z0-9_]+/g;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
-
-      const formattedText = text
-        .replace(hashtagRegex, hashtagTemplate)
-        .replace(mentionRegex, mentionTemplate);
-
-      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
-    } else {
-      return '';
-    }
-  }
 
   //reply
   replySubmit() {
@@ -74,6 +61,36 @@ export class TweetDetailsComponent implements OnInit {
     this.httpClient.getLikesCount(this.tweetID).subscribe({
       next: (data: any) => {
         this.tweet.likes_count = data.likes_count;
+      },
+      error: (err) => {
+        this.error = err;
+      },
+    });
+  }
+
+  formatTweetText(text: string): SafeHtml {
+    if (text) {
+      const hashtagRegex = /#[a-zA-Z0-9_]+/g;
+      const mentionRegex = /@[a-zA-Z0-9_]+/g;
+      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
+      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+
+      const formattedText = text
+        .replace(hashtagRegex, hashtagTemplate)
+        .replace(mentionRegex, mentionTemplate);
+
+      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
+    } else {
+      return '';
+    }
+  }
+  
+  createBokkmarks(tweetID:any) {
+    this.userService.createBokkmarks(tweetID).subscribe({
+      next: (data) => {
+        this.tweet = data;
+        console.log("booked succsess");
+
       },
       error: (err) => {
         this.error = err;
@@ -124,23 +141,12 @@ export class TweetDetailsComponent implements OnInit {
 
   deleteTweet() {
     this.httpClient.deleteTweetById(this.tweet.id).subscribe({
-      next: (data) => {
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-
-  bookmarkToggle(tweetID: any) {
-    // this.httpClient.bookmarkToggle(tweetID).subscribe({
-    //   next: (data) => {
-    //     this.tweet = data;
-    //   },
-    //   error: (err) => {
-    //     this.error = err;
-    //   },
-    // });
-  }
+        next: (data) => {
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
 }

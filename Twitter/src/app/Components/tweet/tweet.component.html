@@ -94,7 +94,7 @@
                         | humanNumbers: 2}}
                     </div>
                     <div (click)="likesCount(tweet.id)" class="tweet-control-item  hover:text-main-love" title="Like">
-                        <i [ngClass]="{'text-main-love': tweet.liked == true}"
+                        <i [ngClass]="{'text-main-love fa-solid': tweet.liked == true}"
                             class="fa-regular fa-heart  sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>
                         {{tweet.likes_count
                         ||
@@ -103,7 +103,7 @@
                     </div>
                     <div class="tweet-control-item-special hover:text-main-blue_100" title="Analytics"><i
                             class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>
-                            {{tweet.views_count
+                        {{tweet.views_count
                         || '0'
                         | humanNumbers: 2}}
                     </div>

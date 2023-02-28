@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./bookmarks.component.css']
 })
 export class BookmarksComponent {
+  protected tweet: any;
+  protected user: any;
+  public tweets: any;
+
 
 }

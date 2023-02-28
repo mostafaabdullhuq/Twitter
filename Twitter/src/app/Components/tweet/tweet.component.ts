@@ -18,6 +18,18 @@ export class TweetComponent {
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService
   ) {}
+
+  likesCount(tweetID: any) {
+    this.httpClient.getLikesCount(tweetID).subscribe({
+      next: (data: any) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  
   formatTweetText(text: string): SafeHtml {
     if (text) {
       const hashtagRegex = /#[a-zA-Z0-9_]+/g;
@@ -33,17 +45,6 @@ export class TweetComponent {
     } else {
       return '';
     }
-  }
-
-  likesCount(tweetID: any) {
-    this.httpClient.getLikesCount(tweetID).subscribe({
-      next: (data: any) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
   }
 
   handleMedia(type: any, container: any, tweet: any) {
