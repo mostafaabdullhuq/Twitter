@@ -28,16 +28,16 @@ export class TweetsService {
     });
   }
 
-  getAuthedTweets() {
+  getAuthedTweets(userName: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/me', {
+    return this.httpClient.get(this.BASE_URL + `/${userName}/me`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
 
-  addView(id:any){
+  addView(id: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
       headers: {
@@ -45,7 +45,7 @@ export class TweetsService {
       },
     });
   }
-////////////////
+  ////////////////
   getTweetById(id: any) {
     const accessToken = this.token.get();
 
@@ -190,12 +190,12 @@ export class TweetsService {
       },
     });
   }
-  getMedia(){
+  getMedia() {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/media' , {
+    return this.httpClient.get(this.BASE_URL + '/media', {
       headers: {
-        Authorization : `Bearer ${accessToken}`,
-      }
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
   //Just TEST

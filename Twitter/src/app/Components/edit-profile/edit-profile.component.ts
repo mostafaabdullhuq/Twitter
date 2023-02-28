@@ -6,7 +6,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent implements OnInit {
   @Input() showPopup = false;
@@ -15,13 +15,13 @@ export class EditProfileComponent implements OnInit {
   onClosePopup() {
     this.closePopup.emit();
   }
-  
+
   // showEdit = true;
   //   hidePopup() {
   //   this.showEdit = false;
   //   document.body.classList.remove('popup-open');
   // }
-  
+
   public error: any = null;
   public form = {
     email: '',
@@ -34,20 +34,23 @@ export class EditProfileComponent implements OnInit {
     location: '',
     website: '',
   };
-  
-  constructor( public tweetsClient: TweetsService,
-  public myActivate:ActivatedRoute, 
-   private Auth: AuthService,
-   private router: Router) {}
+
+  constructor(
+    public tweetsClient: TweetsService,
+    public myActivate: ActivatedRoute,
+    private Auth: AuthService,
+    private router: Router
+  ) {}
   public user: any;
 
   ngOnInit(): void {
-    this.tweetsClient.getAuthedTweets().subscribe({
+    let userName = this.myActivate.snapshot.params['user'];
+    this.tweetsClient.getAuthedTweets(userName).subscribe({
       next: (data: any) => {
         this.user = data.user;
         this.form = {
           email: this.user.email || '',
-          first_name:this.user.first_name || '',
+          first_name: this.user.first_name || '',
           last_name: this.user.last_name || '',
           username: this.user.username || null,
           bio: this.user.bio || null,
@@ -62,20 +65,22 @@ export class EditProfileComponent implements OnInit {
       },
     });
   }
-  
 
-   onSubmit(){
-this.Auth.updateUser(this.form).subscribe({
-  next: (data) => {this.handleResponse(data)},
-  error: (err) => {this.handleError(err);},
-})
- }
- handleResponse(res: any) {
-  this.router.navigate(['/profile']);
-  
-}
+  onSubmit() {
+    this.Auth.updateUser(this.form).subscribe({
+      next: (data) => {
+        this.handleResponse(data);
+      },
+      error: (err) => {
+        this.handleError(err);
+      },
+    });
+  }
+  handleResponse(res: any) {
+    this.router.navigate(['/profile']);
+  }
 
-handleError(error: any) {
-  this.error = error.error.error;
-}
+  handleError(error: any) {
+    this.error = error.error.error;
+  }
 }

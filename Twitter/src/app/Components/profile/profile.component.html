@@ -1,5 +1,5 @@
 <!--! -------middle ------- -->
-<app-edit-profile   [showPopup]="showPopup" (closePopup)="onClosePopup()"></app-edit-profile>
+<app-edit-profile [showPopup]="showPopup" (closePopup)="onClosePopup()"></app-edit-profile>
 
 <div *ngIf="user;else loadingBlock"
     class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
@@ -27,28 +27,30 @@
                             d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                     </svg>
                 </div>
-                <p class="dark:text-gray-500 text-gray-600 pl-6 text-sm -mt-1">{{user.tweets_count|humanNumbers}} Tweets</p>
+                <p class="dark:text-gray-500 text-gray-600 pl-6 text-sm -mt-1">{{user.tweets_count|humanNumbers}} Tweets
+                </p>
             </div>
 
             <div class="ml-auto pr-7">
-            <div class="xl:flex" (click)="logoutPopup()">
-                <i class="fa-solid fa-ellipsis text-3xl items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
-              </div>
-              <div *ngIf="popup"
-                class="absolute flex top-14 dark:bg-black dark:border-dark-gray_0 dark:text-white bg-white shadow-[0px_0px_2px_0px_rgba(0,0,0,0.3)] dark:shadow-[0px_0px_0px_0px_rgba(255,255,255,0.5)] border border-gray-50 z-10 left-0 text-center rounded-md right-0">
-                <a href="#" (click)="logout($event)"
-                  class="dotted-text w-full text-center py-4 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 hover:bg-gray-100">
-                  <span class="font-semibold dotted-text w-full px-4">
-                    Log out @{{ user.username }}</span>
-                </a>
-              </div>
+                <div class="xl:flex" (click)="logoutPopup()">
+                    <i
+                        class="fa-solid fa-ellipsis text-3xl items-center xl:ml-4 text-gray-800 dark:text-white cursor-pointer"></i>
+                </div>
+                <div *ngIf="popup"
+                    class="absolute flex top-14 dark:bg-black dark:border-dark-gray_0 dark:text-white bg-white shadow-[0px_0px_2px_0px_rgba(0,0,0,0.3)] dark:shadow-[0px_0px_0px_0px_rgba(255,255,255,0.5)] border border-gray-50 z-10 left-0 text-center rounded-md right-0">
+                    <a href="#" (click)="logout($event)"
+                        class="dotted-text w-full text-center py-4 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 hover:bg-gray-100">
+                        <span class="font-semibold dotted-text w-full px-4">
+                            Log out @{{ user.username }}</span>
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
     </div>
 
     <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
     <!-- *ngIf="!showEdit" -->
-    <div  class="relative flex flex-col">
+    <div class="relative flex flex-col">
         <!-- cover photo -->
         <div class="w-full overflow-hidden h-48 bg-slate-300">
             <img *ngIf="user?.cover_picture" src="./../../../assets/images/twitter_99mx.jpg"
@@ -61,18 +63,16 @@
         <!-- profile controls -->
         <div class="flex items-center sm:mt-4 mt-12  px-4 float-right gap-4 w-full justify-end">
 
-            <a  (click)="onButtonClick()"
-                class="text-center py-2 px-5 rounded-full transition-colors border
+            <a (click)="onButtonClick()" class="text-center py-2 px-5 rounded-full transition-colors border
                 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-10 dark:text-white
                   text-black cursor-pointer hover:bg-gray-200 ">
                 <span class="font-semibold"> Edit profile </span>
             </a>
 
-            <a href="#"
-                class="text-center py-2 px-5 rounded-full transition-colors border dark:text-white
+            <a href="#" class="text-center py-2 px-5 rounded-full transition-colors border dark:text-white
                 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-30
                   text-black cursor-pointer hover:bg-gray-200">
-                <span class="font-semibold"> Follow </span>
+                <span class="font-semibold"> {{user.is_following ? 'Unfollow' : 'Follow'}} </span>
             </a>
 
         </div>
