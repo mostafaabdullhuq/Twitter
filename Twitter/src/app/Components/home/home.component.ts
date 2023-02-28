@@ -5,7 +5,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators ,ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
@@ -143,69 +148,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  handleRichEditor(event: any) {
-    console.log(event.target.value);
-
-    // this.tweetBox.nativeElement.innerText = event.target.value;
-    // Remove all tags except <a> and <br> and allow new line
-    // remove all tags except <a> and <br>
-    // let text = event.target.innerHTML.replace(/<\/?[^>]+(>|$)/g, '');
-    // event.target.innerHTML = event.target.innerHTML.replace(
-    //   /<[^>]+>/g,
-    //   function (match: any) {
-    //     // keep <a> tags and new lines, remove all other tags
-    //     if (match.startsWith('<a') || match === '<br>') {
-    //       return match;
-    //     } else {
-    //       return '';
-    //     }
-    //   }
-    // );
-    // if there's a hashtag make it blue
-    // let filteredHtml = html.replace(/#(\w+)/g, '<a class="hashtag">#$1</a>');
-    // // if there's a mention make it blue
-    // filteredHtml = filteredHtml.replace(
-    //   /@(\w+)/g,
-    //   '<a class="hashtag">@$1</a>'
-    // );
-    // event.target.innerHTML = filteredHtml;
-    // console.log(filteredHtml);
-    // // allow new line
-    // event.target.innerHTML = event.target.innerHTML.replace(
-    //   /&nbsp;/g,
-    //   '<br>&nbsp;'
-    // );
-    // move the cursor at the end of the content
-    // let range = document.createRange();
-    // let sel = window.getSelection();
-    // console.log(this.tweetBox.nativeElement.childNodes);
-    // console.log(
-    //   this.tweetBox.nativeElement.childNodes[
-    //     event.target?.childNodes?.length - 1
-    //   ]
-    // );
-    // console.log(
-    //   event.target.childNodes[
-    //     this.tweetBox.nativeElement.childNodes?.length - 1
-    //   ]?.length
-    // );
-    // // move the cursor after the end of all the child nodes
-    // range.setStart(
-    //   event.target.childNodes[
-    //     this.tweetBox.nativeElement.childNodes?.length - 1
-    //   ] || event.target,
-    //   // after the end of the content
-    //   event.target.childNodes[
-    //     this.tweetBox.nativeElement.childNodes?.length - 1
-    //   ]?.length || 0
-    // );
-    // range.collapse(true);
-    // sel?.removeAllRanges();
-    // sel?.addRange(range);
-    // this.tweetForm.patchValue({ text: event });
-  }
-
-  formatTweetText(text: any): SafeHtml {
+  formatTweetText(text: any, type = 0): SafeHtml {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
@@ -217,7 +160,10 @@ export class HomeComponent implements OnInit {
         .replace(mentionRegex, mentionTemplate);
       return this.sanitizer.bypassSecurityTrustHtml(formattedText);
     } else {
-      return "<p class='text-gray-500 tracking-tighter text-xl'>What's Happening?</p>";
+      if (type == 1) {
+        return "<p class='text-gray-500 tracking-tighter text-xl'>What's Happening?</p>";
+      }
+      return '';
     }
   }
   handleScroll(event: any) {
@@ -225,5 +171,4 @@ export class HomeComponent implements OnInit {
 
     this.tweetBox.nativeElement.scrollTop = event.target.scrollTop;
   }
-
 }

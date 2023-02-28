@@ -84,7 +84,8 @@
   @apply object-cover !important;
 }
 
-.hashtag {
+.hashtag,
+.mention {
   @apply text-main-blue_100 hover:underline cursor-pointer;
 }
 
