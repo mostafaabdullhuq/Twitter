@@ -46,6 +46,7 @@ Route::group([
     Route::delete('delete', [UserController::class, 'destroy']);
     Route::get('bookmarks', [UserController::class, 'bookmarks']);
     Route::post('bookmarks/create', [UserController::class, 'addBookmark']);
+    Route::delete('{id}/delete', [UserController::class, 'deleteBookmark']);
     Route::post('follow-unfollow', [FollowingController::class, 'store']);
     Route::post('block-user', [BlockController::class, 'store']);
     Route::post('get-followers', [FollowingController::class, 'get_followers']);

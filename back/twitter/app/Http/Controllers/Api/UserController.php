@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Tweet;
@@ -39,6 +40,17 @@ class UserController extends Controller
          return $tweets ;
     }
 
+//deleteBookmark
+    public function deleteBookmark($id)
+    {
+        try {
+            $bookmark = Bookmark::find($id);
+            $bookmark->delete();
+            return response()->json(['message' => 'Removed from bookmarks'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'not bookmarked'], 404);
+        }
+    }
     //addTweetBookmark
     public function addBookmark(Request $request){
         $request->validate([
