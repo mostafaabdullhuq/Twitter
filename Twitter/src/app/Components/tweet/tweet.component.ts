@@ -34,8 +34,8 @@ export class TweetComponent implements OnInit {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+      const hashtagTemplate = '<a routerLink="/hashtag" class="hashtag">$&</a>';
+      const mentionTemplate = '<a routerLink="/{{$&}}" class="mention">$&</a>';
 
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
@@ -67,11 +67,12 @@ export class TweetComponent implements OnInit {
       }
     });
   }
-  ngOnInit(){
-    this.isInBookmark = this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+  ngOnInit() {
+    this.isInBookmark =
+      this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
   }
   popup: boolean = false;
-  isInBookmark:boolean=false;
+  isInBookmark: boolean = false;
 
   @Input() tweets: any;
   @Input() showReplies: any;

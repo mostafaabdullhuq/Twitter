@@ -198,8 +198,7 @@
                                     max-w-[100%]">
                             <pre #tweetBox dir="auto"
                                 class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
-                                [innerHTML]="formatTweetText(replyForm.value.text)">
-                                        <!-- {{tweetForm.value.text}} -->
+                                [innerHTML]="formatTweetText(replyForm.value.text,1)">
                                     </pre>
                             <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
                                 class="font-normal tracking-tight scrollbar-hide  outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0  resize-none overflow-x-hidden    bg-transparent  whitespace-pre-wrap  text-left">
