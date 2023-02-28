@@ -163,3 +163,6 @@ router-outlet + *
 pre {
   all: unset;
 }
+
+::-webkit-scrollbar {
+}

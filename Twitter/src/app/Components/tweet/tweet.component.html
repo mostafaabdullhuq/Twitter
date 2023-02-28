@@ -46,10 +46,13 @@
             <!-- ----tweet body----- -->
             <div class="sm:pr-4">
                 <!-- tweet text -->
-                <p routerLink="/status/{{tweet.id}}"
+                <div routerLink="/status/{{tweet.id}}"
                     class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
-                    <span [innerHTML]="formatTweetText(tweet.text)"></span>
-                </p>
+                    <pre class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight  whitespace-pre-wrap overflow-y-auto text-left"
+                        [innerHTML]="formatTweetText(tweet.text)">
+
+                    </pre>
+                </div>
 
                 <!-- tweet media -->
                 <div *ngIf="tweet.media.length"
@@ -83,7 +86,8 @@
 
                 <!-- ----controls icons ---- -->
                 <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
-                    <div class="tweet-control-item hover:text-main-blue_100" title="Reply">
+                    <div routerLink="/status/{{tweet.id}}" class="tweet-control-item hover:text-main-blue_100"
+                        title="Reply">
                         <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
                         {{tweet.replies_count || '0' | humanNumbers: 2}}
                     </div>
@@ -93,7 +97,8 @@
                         || '0'
                         | humanNumbers: 2}}
                     </div>
-                    <div (click)="likesCount(tweet.id)" class="tweet-control-item  hover:text-main-love" title="Like">
+                    <div (click)="likesCount(tweet.id);tweet.liked = !tweet.liked; tweet.likes_count = tweet.liked ? tweet.likes_count + 1 :  tweet.likes_count - 1"
+                        class="tweet-control-item hover:text-main-love" title="Like">
                         <i [ngClass]="{'text-main-love fa-solid': tweet.liked == true}"
                             class="fa-regular fa-heart  sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>
                         {{tweet.likes_count
