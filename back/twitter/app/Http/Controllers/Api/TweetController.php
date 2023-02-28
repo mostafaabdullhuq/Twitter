@@ -116,7 +116,8 @@ class TweetController extends Controller
         ];
     }
 
-    public function get_User_Media(){
+    public function get_User_Media()
+    {
         $user = JWTAuth::user();
         $tweets = $user->tweetsWithMedia;
         $user->followers_count = $user->followers()->count();
@@ -139,7 +140,7 @@ class TweetController extends Controller
         $tweets = $this->formatTweets($tweets);
         return [
             'user' => $user,
-            'tweets' =>$tweets
+            'tweets' => $tweets
         ];
     }
 
@@ -163,23 +164,6 @@ class TweetController extends Controller
     public function create(CreateTweetRequest $request)
     {
 
-        // $response = [];
-
-        // $files = $request->allFiles()["files"];
-
-        // foreach ($files as $key => $value) {
-        //     $response[] = [
-        //         'key' => $key,
-        //         'name' => $value->getClientOriginalName(),
-        //         'type' => $value->getClientMimeType(),
-        //         'size' => $value->getSize(),
-        //         'path' => $value->getRealPath(),
-        //         'extension' => $value->getClientOriginalExtension(),
-        //     ];
-        // }
-
-        // return $response;
-
         $tweetText = $request->text ?? null;
         $tweetMedia = $request->allFiles()["files"] ?? null;
         $tweetScheduleDateTime = $request->schedule_date_time ?? null;
@@ -191,6 +175,19 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id
             ]
         );
+
+        $tweetHashtags = [];
+        if ($tweetText) {
+            $reqHashtags = preg_grep(
+                '/#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/',
+                explode(' ', $tweetText)
+            );
+            foreach ($reqHashtags as $key => $hashtag) {
+                $hashtag = str_replace('#', '', $hashtag);
+                $tweetHashtags[] = $hashtag;
+            }
+        }
+        $tweetHashtags ? $tweet->attachTags($tweetHashtags) : null;
 
         if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
@@ -211,6 +208,9 @@ class TweetController extends Controller
                 ]);
             }
         }
+
+
+
         $tweet = $this->formatTweet($tweet);
         return $tweet;
     }
@@ -289,7 +289,16 @@ class TweetController extends Controller
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
-        // $tweet->views_count = $tweet->views->count();
+
+        $tags = $tweet->tags;
+        foreach ($tags as $key => $tag) {
+            unset($tag->pivot);
+            unset($tag->created_at);
+            unset($tag->updated_at);
+            unset($tag->order_column);
+        }
+        $tweet->tags = $tags;
+
         return $tweet;
     }
 
