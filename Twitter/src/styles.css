@@ -138,6 +138,7 @@ router-outlet + app-signup,
 router-outlet + trends-recommendation,
 router-outlet + app-new-message,
 router-outlet + app-tweet-details,
+router-outlet + app-followers-and-following,
 router-outlet + *
 /* router-outlet + * */ {
   @apply flex h-screen w-full xl:w-4/5 overflow-hidden;
