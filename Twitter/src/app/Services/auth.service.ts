@@ -29,7 +29,13 @@ export class AuthService {
   }
 
   updateUser(data: any) {
-    return this.http.post(`${this.baseUrl}/updateUser`, data);
+    let accessToken = this.tokenService.get();
+
+    return this.http.post(`${this.baseUrl}/updateUser`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   }
 
   changePasswordSetting(data: any) {
