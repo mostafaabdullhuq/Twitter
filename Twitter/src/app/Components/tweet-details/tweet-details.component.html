@@ -1,7 +1,7 @@
 <!--! -------middle ------- -->
 <div *ngIf="!error && tweet; else: errorBlock"
     class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-    <app-sticky-header-pages></app-sticky-header-pages>
+    <app-sticky-header-pages [title]="tweet.user.first_name+'\'s Tweet'"></app-sticky-header-pages>
     <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
     <div class="single-tweet">
         <!-- tweet right up control -->
