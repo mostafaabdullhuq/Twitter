@@ -12,7 +12,7 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl flex flex-co
         <!-- cover & photo -->
         <div class="relative">
             <form class="space-y-6"  #updateForm=ngForm (ngSubmit)="onSubmit()">
-                {{error}}
+             <div class="text-red">{{error}}</div>   
             <div class="w-full overflow-hidden h-48 bg-slate-300">
                 <img id="cover-image" src="{{user.cover_picture || './../../../assets/images/3840x2160-dark-gray-solid-color-background.jpg'}}"
                 class="object-cover object-center w-full h-full" />
@@ -102,18 +102,18 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl flex flex-co
                   border-gray-300 p-4 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
                      focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 " placeholder="Website">
             </div>
-
             <div>
-                <input [(ngModel)]="form.date_of_birth" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth" name="date_of_birth" type="text"  required 
-                class="relative block w-full appearance-none border text-xl
-                  border-gray-300 p-4 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
-                     focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 " placeholder="date_of_birth">
+                <input [(ngModel)]="form.date_of_birth" type="date"
+                    autocomplete="date_of_birth" value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date'}}" name="date_of_birth"
+                    class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
+                  text-gray-900 placeholder-gray-500 focus:z-10 
+                  focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Date of birth">
             </div>
-            <button  type="submit" id="next" class="flex w-auto justify-center border border-transparent bg-gray-400 py-1 px-4
-            text-xl text-white hover:bg-gray-200 focus:outline-none focus:ring-2
-            focus:ring-indigo-500 rounded-full focus:ring-offset-2">
-                        Save
-                    </button>
+            <button type="submit" id="next" class=" px-8 flex w-auto justify-center border border-transparent bg-black dark:bg-white dark:text-black py-2
+            text-xl text-white  focus:outline-none focus:ring-2
+             rounded-full focus:ring-offset-2">
+                Save
+            </button>
         </form>
     </div>
 </div>
