@@ -3,7 +3,7 @@
     <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">Who to follow
     </h3>
 
-    <div class="right-follow gap-2" *ngFor="let u of users; let i = index">
+    <div class="right-follow gap-2" *ngFor="let u of users.slice(0,5); let i = index">
         <!--! -----user info block ---- -->
         <div class="flex items-center gap-1 w-3/4">
             <img routerLink="/{{u.username}}"
