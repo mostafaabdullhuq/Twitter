@@ -15,7 +15,6 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent implements OnInit {
-  username: any;
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
