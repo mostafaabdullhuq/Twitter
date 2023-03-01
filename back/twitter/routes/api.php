@@ -35,12 +35,10 @@ Route::group([
     Route::Post('changePassword', [changePasswordSettingController::class, 'passwordSetting']);
 });
 
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'user'
 ], function () {
-
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
@@ -60,6 +58,7 @@ Route::group([
     'prefix' => 'tweet'
 ], function () {
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
+    Route::get('{retweet_id}/retweet/view', [TweetController::class, 'viewsRetweet']);
     Route::post('', [TweetController::class, 'create']);
     Route::get('{username}/me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
@@ -73,6 +72,7 @@ Route::group([
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     Route::delete('{id}/delete', [TweetController::class, 'delete']);
     Route::get('{id}/view', [TweetController::class, 'view']);
+    Route::get('trending/{count}', [TweetController::class, 'highestTweets']);
     Route::get('{id}', [TweetController::class, 'details']);
 });
 

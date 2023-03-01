@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateTweetRequest;
 use App\Models\Like;
@@ -12,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
+
 class TweetController extends Controller
 {
     public function __construct()
@@ -47,6 +49,27 @@ class TweetController extends Controller
             'retweets' => $retweets
         ];
     }
+
+
+    public function highestTweets($count)
+    {
+
+        $count = (int) $count ?? 20;
+        // get top tweets with highest likes, replies and views 
+        $tweets = Tweet::withCount(['likes', 'replies', 'views'])
+            ->orderBy('replies_count', 'desc')
+            ->orderBy('likes_count', 'desc')
+            ->orderBy('views_count', 'desc')
+            ->take($count)
+            ->get();
+
+        $tweets = $this->formatTweets($tweets);
+
+        return $tweets;
+    }
+
+
+
 
     public function get_User_Replies($username)
     {
@@ -386,27 +409,72 @@ class TweetController extends Controller
         return $reply;
     }
 
-    public function retweet(Request $request , $id){
-    $user = JWTAuth::user();
-    $tweet = Tweet::findOrFail($id);
-    $id = $request->tweet_id;
-    $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
+    // public function retweet(Request $request , $id){
+    // $user = JWTAuth::user();
+    // $data = $request->all();
+    // $tweet = Tweet::findOrFail($id);
+    // $id = $request->tweet_id;
+    // $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
+    //     if ($retweet) {
+    //         $retweet->delete();
+    //     } else {
+    //         $tweet->retweets()->create([
+    //         'user_id' => JWTAuth::user()->id,
+    //         'text' => $data['text'],
+    //         ]);
+    //     }
+    //         $tweet = $this->formatTweet($tweet);
+    //         return $tweet;
+    //         $tweet->update([
+    //             'views_count' => $tweet->views_count + 1
+    //         ]);
+    //     return "Tweet not found";
+    // }
+    public function retweet(Request $request, $id)
+    {
+        $user = JWTAuth::user();
+        $data = $request->all();
+        $tweet = Tweet::findOrFail($id);
+        $id = $request->tweet_id;
+        $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
         if ($retweet) {
             $retweet->delete();
         } else {
             $tweet->retweets()->create([
-            'user_id' => JWTAuth::user()->id,
-            'text' => $request->text||null ,
+                'user_id' => JWTAuth::user()->id,
+                'text' => $data['text'],
             ]);
         }
-            $tweet = $this->formatTweet($tweet);
-            return $tweet;
-            $tweet->update([
-                'views_count' => $tweet->views_count + 1
-            ]);
-        return "Tweet not found";
+        $tweet->update([
+            'views_count' => $tweet->views_count + 1
+        ]);
+        $tweet = $this->formatTweet($tweet);
+        return $tweet;
     }
 
+    //Tweet views count
+    public function view($id)
+    {
+        $tweet = Tweet::find($id);
+        $tweet->update([
+            'views_count' => $tweet->views_count + 1
+        ]);
+        $tweet = $this->formatTweet($tweet);
+        return $tweet;
+    }
+
+    //Retweet views count
+    public function viewsRetweet($retweet_id)
+    {
+        $retweets = Retweet::find($retweet_id);
+        if ($retweets) {
+            $retweets->update([
+                'views_count' => $retweets->views_count + 1
+            ]);
+            return $retweets;
+        }
+        return "Retweet not found";
+    }
 
     public function likeToggle($id)
     {
@@ -426,16 +494,7 @@ class TweetController extends Controller
         return $tweet;
     }
 
-    //views count
-    public function view($id)
-    {
-        $tweet = Tweet::find($id);
-        $tweet->update([
-            'views_count' => $tweet->views_count + 1
-        ]);
-        $tweet = $this->formatTweet($tweet);
-        return $tweet;
-    }
+
 
 
     public function delete($id)

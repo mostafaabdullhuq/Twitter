@@ -21,7 +21,7 @@ class Retweet extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function tweet(){
         return $this->belongsTo(Tweet::class);
     }
@@ -31,7 +31,7 @@ class Retweet extends Model
         return $this->morphTo();
     }
 
-    public function Views()
+    public function viewsRetweet($id)
     {
         return $this->morphMany(View::class, 'viewed');
     }

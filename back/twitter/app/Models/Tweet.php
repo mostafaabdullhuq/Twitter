@@ -18,6 +18,7 @@ class Tweet extends Model
         'schedule_date_time',
         'user_id',
         'views_count',
+
     ];
 
     public function user()
@@ -70,6 +71,12 @@ class Tweet extends Model
     {
         return $this->likes()->where('user_id', $id)->exists();
     }
+
+    // public function viewRetweet()
+    // {
+    //     return $this->morphMany(View::class, 'viewed');
+    // }
+
     public function Views()
     {
         return $this->morphMany(View::class, 'viewed');
