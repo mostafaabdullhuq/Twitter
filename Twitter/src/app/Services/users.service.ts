@@ -11,7 +11,16 @@ export class UsersService {
   constructor(private httpClient:HttpClient, public token: TokenService) { }
 
   private BASE_URL = 'http://127.0.0.1:8000/api/user';
+  index(){
+    const accessToken = this.token.get();
 
+    return this.httpClient.get(this.BASE_URL +'/index',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  }
   getAllUsers(){
     const accessToken = this.token.get();
 
