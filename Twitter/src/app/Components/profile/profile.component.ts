@@ -43,6 +43,7 @@ export class ProfileComponent implements OnInit {
     this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
     // console.log(this.username);
     // Heeere
+    
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.show = true;
       this.tweetsClient.getReplies(this.username).subscribe({
