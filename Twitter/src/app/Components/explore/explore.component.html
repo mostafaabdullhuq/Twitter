@@ -72,8 +72,6 @@
                 </div>
             </div>
             <!-- ! --------follow button ---- -->
-            <!-- <a href=""
-                class="w-1/4 text-sm font-bold bg-black dark:hover:bg-main-white_100 text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black">Fowllow</a> -->
             <button (click)="follow(u.id); u.followed_by = !u.followed_by"
                 class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">
                 {{u?.followed_by?"Unfollow":"Follow" }}
