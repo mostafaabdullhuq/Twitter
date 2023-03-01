@@ -80,7 +80,7 @@
     <!-- -------User ------- -->
     <div (click)="logoutPopup()"
       class="relative flex mr-4 max-w-[225px] mt-8 items-center hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 transition-colors mb-2 rounded-full cursor-pointer p-2">
-      <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+      <img  src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
         class="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] rounded-full" alt="" />
       <div class="hidden xl:flex flex-col ml-2 dotted-text">
         <h5 *ngIf="user" class="text-gray-900 dark:text-white font-bold text-sm dotted-text">
