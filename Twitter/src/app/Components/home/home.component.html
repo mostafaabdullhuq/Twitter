@@ -1,7 +1,8 @@
 <!-- ! -------middle start ------- -->
 <div id="middleRoot" *ngIf="user;else loadingBlock"
     class="pb-20 sm:pb-0 h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-    <app-sticky-header-home></app-sticky-header-home>
+    <app-sticky-header-home
+        class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent"></app-sticky-header-home>
     <!-- new tweet section -->
     <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()" enctype="multipart/form-data">
         <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
@@ -10,15 +11,13 @@
                     src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
 
                 <!-- custom textarea -->
-                <div (input)="handleRichEditor($event)" data-before="What's happening?" dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid
+                <div data-before="What's happening?" dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid
                     max-w-[100%]">
                     <pre #tweetBox dir="auto"
                         class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
-                        [innerHTML]="formatTweetText(tweetForm.value.text)">
-                        <!-- {{tweetForm.value.text}} -->
+                        [innerHTML]="formatTweetText(tweetForm.value.text,1)">
                     </pre>
-                    <textarea (scroll)="handleScroll($event)" (input)="handleRichEditor($event)" dir="auto"
-                        formControlName="text"
+                    <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
                         class="font-normal tracking-tight scrollbar-hide  outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0  resize-none overflow-x-hidden    bg-transparent  whitespace-pre-wrap  text-left">
                     </textarea>
                 </div>

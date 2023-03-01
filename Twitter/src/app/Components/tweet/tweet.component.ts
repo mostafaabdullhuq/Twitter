@@ -7,6 +7,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TweetsService } from 'src/app/Services/tweets.service';
 import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
+import { TokenService } from 'src/app/Services/token.service';
+import { AuthService } from 'src/app/Services/auth.service';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
@@ -16,8 +18,25 @@ export class TweetComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
-    public httpClient: TweetsService
+    public httpClient: TweetsService,
+    private authService: AuthService
   ) {}
+  public user: any;
+  ngOnInit(): void {
+    this.isInBookmark =
+      this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+
+    this.authService.getUser().subscribe({
+      next: (data: any) => {
+        console.log(data);
+
+        this.user = data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
 
   likesCount(tweetID: any) {
     this.httpClient.getLikesCount(tweetID).subscribe({
@@ -34,8 +53,8 @@ export class TweetComponent implements OnInit {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+      const hashtagTemplate = '<a routerLink="/hashtag" class="hashtag">$&</a>';
+      const mentionTemplate = '<a routerLink="/{{$&}}" class="mention">$&</a>';
 
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
@@ -67,11 +86,12 @@ export class TweetComponent implements OnInit {
       }
     });
   }
-  ngOnInit(){
-    this.isInBookmark = this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
-  }
+  // ngOnInit() {
+  //   this.isInBookmark =
+  // this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+  // }
   popup: boolean = false;
-  isInBookmark:boolean=false;
+  isInBookmark: boolean = false;
 
   @Input() tweets: any;
   @Input() showReplies: any;

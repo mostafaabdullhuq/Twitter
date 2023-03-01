@@ -80,7 +80,6 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-  
   handleMedia(type: any, container: any, tweet: any) {
     let nextIndex;
     let currentSrc = container.children[0].children[0].src;
@@ -104,6 +103,7 @@ export class TweetDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const tweetID = this.activatedRouter.snapshot.params['id'];
+
     this.httpClient.getTweetById(+tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
@@ -133,18 +133,21 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-  formatTweetText(text: any): SafeHtml {
+  formatTweetText(text: any, type = 0): SafeHtml {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+      const hashtagTemplate = '<a class="hashtag">$&</a>';
+      const mentionTemplate = '<a  class="hashtag">$&</a>';
 
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
         .replace(mentionRegex, mentionTemplate);
       return this.sanitizer.bypassSecurityTrustHtml(formattedText);
     } else {
+      if (type === 0) {
+        return '';
+      }
       return "<p class='text-gray-500 tracking-tighter text-xl'>Add your reply.</p>";
     }
   }

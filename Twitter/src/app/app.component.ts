@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
 import { Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
+import { TweetsService } from './Services/tweets.service';
+import { AuthService } from './Services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,12 +19,22 @@ export class AppComponent implements OnInit {
   public popup = false;
   public user: any;
   constructor(
+    public tweetsClient: TweetsService,
     private Logged: LoggedService,
     private router: Router,
-    private Token: TokenService
+    private Token: TokenService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.authService.getUser().subscribe({
+      next: (data: any) => {
+        this.user = data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
     this.Logged.authStatus.subscribe((value) => (this.loggedIn = value));
     this.router.events.subscribe((value) => {
       this.isInLogin = false;

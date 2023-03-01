@@ -36,8 +36,14 @@ import { RequestResetComponent } from './Components/password/request-reset/reque
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
 import { WebsitePipe } from './Pipes/website.pipe';
-import {SocialLoginModule,SocialAuthServiceConfig,} from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider,FacebookLoginProvider,} from '@abacritt/angularx-social-login';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from '@abacritt/angularx-social-login';
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 import { ReplyComponent } from './Components/reply/reply.component';
 import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
@@ -85,6 +91,7 @@ import { FollowersAndFollowingComponent } from './followers-and-following/follow
     ChangePasswordComponent,
     PageNotFoundComponent,
     FollowersAndFollowingComponent,
+
     // StickyHeaderFollowingComponent,
   ],
 
@@ -109,12 +116,12 @@ import { FollowersAndFollowingComponent } from './followers-and-following/follow
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               '1032393167493-djg4gqrnejak3b4nope9rol5r7j26h97.apps.googleusercontent.com'
-            )
+            ),
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('1249243529000381')
-          }
+            provider: new FacebookLoginProvider('1249243529000381'),
+          },
         ],
         onError: (err) => {
           console.error(err);

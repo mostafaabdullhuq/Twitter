@@ -1,7 +1,7 @@
 <div *ngIf="tweets && tweets.length  > 0;else noTweetBlock">
 
     <div class="tweet relative " *ngFor="let tweet of tweets">
-        <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0 -z-10"></div>
+        <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
         <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
             title="More">
             <i
@@ -10,10 +10,11 @@
         <!-- user image -->
         <div routerLink="/{{tweet.user.username}}"
             class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
-            <img class="w-full h-full object-cover"
-                src="{{tweet.user.profile_image_url || './../../../assets/images/default_profile.png'}}" alt="" />
+            <img class="w-full h-full object-cover" *ngIf="tweet.user"
+                src="{{tweet.user.profile_picture ?? './../../../assets/images/default_profile.png'}}" alt="" />
         </div>
-        <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+        <div
+            class="content  relative z-10 ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
             <div class="flex overflow-hidden mt-1">
                 <!--  name -->
                 <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
@@ -46,8 +47,7 @@
             <!-- ----tweet body----- -->
             <div class="sm:pr-4">
                 <!-- tweet text -->
-                <div routerLink="/status/{{tweet.id}}"
-                    class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
+                <div class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
                     <pre class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight  whitespace-pre-wrap overflow-y-auto text-left"
                         [innerHTML]="formatTweetText(tweet.text)">
                     </pre>
@@ -128,17 +128,18 @@
 
 <ng-template #noTweetBlock>
     <div class="loading" *ngIf="tweets;else loadingBlock">
-      <div *ngIf="!isInBookmark; else bookmarkBlock">
-        <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
-            <h3 class="text-xl font-bold">What? No Tweets Yet?</h3>
-            <p class="w-fit px-10 m-auto">It seems like you haven't followed anyone yet. You can start following people
-                by clicking on the button below.</p>
-            <a routerLink="/connect"
-                class="cursor-pointer font-semibold w-fit  m-auto py-3 px-4 hover:bg-main-blue_200 transition-colors rounded-full bg-main-blue_100 text-white">
-                Find People to follow
-            </a>
+        <div *ngIf="!isInBookmark; else bookmarkBlock">
+            <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
+                <h3 class="text-xl font-bold">What? No Tweets Yet?</h3>
+                <p class="w-fit px-10 m-auto">It seems like you haven't followed anyone yet. You can start following
+                    people
+                    by clicking on the button below.</p>
+                <a routerLink="/connect"
+                    class="cursor-pointer font-semibold w-fit  m-auto py-3 px-4 hover:bg-main-blue_200 transition-colors rounded-full bg-main-blue_100 text-white">
+                    Find People to follow
+                </a>
+            </div>
         </div>
-      </div>
     </div>
 </ng-template>
 
@@ -149,7 +150,23 @@
 </ng-template>
 
 <ng-template #bookmarkBlock>
-  <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
-<p class="dark:text-white">hi</p>
-  </div>
+    <!-- <div class=" my-2 mt-5 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
+    <img src="../../../assets/images/bookmark.png" alt="">
+    <div class="content z-0 flex items-center text-center py-2">
+      <div class="flex flex-col">
+          <div class="flex items-center">
+              <h2 class="text-gray-800  text-xl dark:text-white font-semibold">Bookmarks</h2>
+          </div>
+              <p class="username ml-5 text-sm font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100"></p>
+      </div>
+</div>
+  </div> -->
+    <div class=" my-2 mt-5 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
+        <img src="../../../assets/images/bookmark.png" alt="">
+        <h3 class="text-3xl font-bold">Save Tweets for later</h3>
+        <p class="w-fit text-gray-800 dark:text-dark-gray_300 px-10 m-auto">Don’t let the good ones fly away! Bookmark
+            <br>Tweets to easily find them again in the future.
+        </p>
+
+    </div>
 </ng-template>

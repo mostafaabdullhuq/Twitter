@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.css'],
 })
 export class ChangePasswordComponent implements OnInit {
   public error: any = null;
@@ -14,39 +14,46 @@ export class ChangePasswordComponent implements OnInit {
     email: null,
     password: null,
     password_confirmation: null,
-  }
-  constructor(public tweetsClient: TweetsService,
+  };
+  constructor(
+    public tweetsClient: TweetsService,
     private Auth: AuthService,
-    private router: Router)
-    {}
-    public user: any;
+    private myRoute: ActivatedRoute,
+    private router: Router
+  ) {}
+  public user: any;
 
-    ngOnInit(): void {
-      this.tweetsClient.getAuthedTweets().subscribe({
-        next: (data: any) => {
-          this.user = data.user;
-          this.form = {
-            email: this.user.email || '',
-            password: this.user.password || null,
-            password_confirmation: this.user.password_confirmation || null,}
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+  ngOnInit(): void {
+    let userName = this.myRoute.snapshot.params['user'];
+    this.tweetsClient.getAuthedTweets(userName).subscribe({
+      next: (data: any) => {
+        this.user = data.user;
+        this.form = {
+          email: this.user.email || '',
+          password: this.user.password || null,
+          password_confirmation: this.user.password_confirmation || null,
+        };
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
-  onSubmit(){
+  onSubmit() {
     this.Auth.changePasswordSetting(this.form).subscribe({
-      next: (data) => {this.handleResponse(data)},
-      error: (err) => {this.handleError(err);},
-    })
+      next: (data) => {
+        this.handleResponse(data);
+      },
+      error: (err) => {
+        this.handleError(err);
+      },
+    });
   }
   handleResponse(res: any) {
     this.router.navigate(['/home']);
-    
   }
-  
+
   handleError(error: any) {
     this.error = error.error.error;
   }

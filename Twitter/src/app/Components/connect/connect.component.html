@@ -9,8 +9,9 @@
         for you</h3>
     <div class="right-follow gap-2 " *ngFor="let u of users">
         <!--! -----user info block ---- -->
-        <div class="flex items-center gap-1 w-3/4">
-            <img src="./../../../assets/images/img.jpeg" class="twitter-user-img" alt="" />
+        <div routerLink="/{{u.username}}" class="flex items-center gap-1 w-3/4">
+            <img src="{{u.profile_picture ? u.profile_picture: './../../../../assets/images/default_profile.png'}}"
+                class="twitter-user-img" alt="" />
             <div class="ml-3 text-md w-2/3">
                 <div class="flex max-w-full w-full -mb-1 mt-1">
                     <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
@@ -31,10 +32,10 @@
 
 
 
-    
+
     <!-- <div class="right-follow gap-2"> -->
-        <!--! -----user info block ---- -->
-        <!-- <div class="flex items-center gap-1 w-3/4">
+    <!--! -----user info block ---- -->
+    <!-- <div class="flex items-center gap-1 w-3/4">
             <img src="https://pbs.twimg.com/profile_images/1154766291254861824/oAQ7JwWr_400x400.jpg"
                 class="twitter-user-img" alt="" />
             <div class="ml-3 text-md w-2/3">
@@ -57,8 +58,8 @@
                 </p>
             </div>
         </div> -->
-        <!-- ! --------follow button ---- -->
-        <!-- <a href=""
+    <!-- ! --------follow button ---- -->
+    <!-- <a href=""
             class="w-1/4 text-sm font-bold dark:hover:bg-main-white_100 bg-black text-white items-center flex justify-center px-4 py-3 rounded-full hover:bg-light-black dark:bg-white dark:text-black">Follow</a>
     </div> -->
 

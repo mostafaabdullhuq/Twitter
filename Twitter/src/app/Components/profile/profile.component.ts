@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
      this.myRoute.params.subscribe( (res:any)=>{this.username = res.user})
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
-      this.show=true;
+      this.show = true;
       this.tweetsClient.getReplies().subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
@@ -55,11 +55,10 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         },
       });
-    }
-    else if(this.myRoute.snapshot?.url[1]?.path === 'likes'){
-      this.show=false;
+    } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
+      this.show = false;
       this.tweetsClient.getLikes().subscribe({
-        next:(data:any)=>{
+        next: (data: any) => {
           this.tweets = data.tweets;
           console.log(this.tweets);
           this.user = data.user;
@@ -67,26 +66,25 @@ export class ProfileComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-        }
-      })
-    }
-    else if (this.myRoute.snapshot?.url[1]?.path === 'media'){
-      this.show = false ;
+        },
+      });
+    } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
+      this.show = false;
       this.tweetsClient.getMedia().subscribe({
-        next:(data:any)=>{
+        next: (data: any) => {
           this.tweets = data.tweets;
           console.log(this.tweets);
           this.user = data.user;
           console.log(this.user);
         },
-        error:(err) => {
+        error: (err) => {
           console.log(err);
-        }
-      })
-    }
-    else {
-      this.show=false;
-      this.tweetsClient.getAuthedTweets().subscribe({
+        },
+      });
+    } else {
+      this.show = false;
+      let userName = this.myRoute.snapshot.params['user'];
+      this.tweetsClient.getAuthedTweets(userName).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           this.user = data.user;
