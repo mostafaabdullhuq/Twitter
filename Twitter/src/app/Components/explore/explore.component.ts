@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HashtagService } from 'src/app/Services/hashtag.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
+import { UsersService } from 'src/app/Services/users.service';
 
 @Component({
   selector: 'app-explore',
@@ -12,12 +13,15 @@ export class ExploreComponent implements OnInit {
   constructor(
     private hashtagService: HashtagService,
     public myRouter: ActivatedRoute,
-    private tweetService: TweetsService
+    private tweetService: TweetsService,
+    private usersService: UsersService
+    
   ) {}
 
   public hashtags: any;
   public tweets: any;
-
+  public users: any;
+  
   ngOnInit(): void {
     // if in explore page without any param
     if (!Object.keys(this.myRouter.snapshot.params).length) {
@@ -43,6 +47,29 @@ export class ExploreComponent implements OnInit {
           console.log(err);
         },
       });
+
+      //get follow recommendations
+      this.usersService.getAllUsers().subscribe(
+        {
+          next:(data)=>{
+              this.users = data;
+          },
+          error:(err)=>{err},
+        });
     }
+  }
+  follow(id:any){
+    let user_id = +id;
+
+    this.usersService.postFollow(user_id).subscribe(
+      {
+        next:(data)=>{
+          console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      },
+      }
+    )
   }
 }
