@@ -92,6 +92,6 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'hashtag'
 ], function () {
-    Route::get('trends/{days}', [HashtagController::class, 'trends']);
+    Route::post('trending/', [HashtagController::class, 'trends']);
     Route::get('search/{hashtag}', [HashtagController::class, 'search']);
 });

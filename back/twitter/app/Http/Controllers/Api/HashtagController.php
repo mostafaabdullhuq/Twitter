@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\PostTrendsRequest;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -11,10 +12,12 @@ use function PHPSTORM_META\type;
 
 class HashtagController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
+
+
     public function formatTweets($tweets)
     {
         foreach ($tweets as $tweet) {
@@ -48,16 +51,21 @@ class HashtagController extends Controller
     }
 
     // get top 10 trending hashtags and their tweets count
-    public function trends($days)
+    public function trends(PostTrendsRequest $request)
     {
+
+        $days = $request->days_count;
+        $count = $request->hashtags_count;
+
+
         $trends = Tweet::selectRaw('tags.name, count(*) as count')
             ->join('taggables', 'taggables.taggable_id', '=', 'tweets.id')
             ->join('tags', 'tags.id', '=', 'taggables.tag_id')
             ->where('taggables.taggable_type', 'App\Models\Tweet')
-            ->where('tweets.created_at', '>=', now()->subDays(((int) $days) || 1))
+            ->where('tweets.created_at', '>=', now()->subDays($days))
             ->groupBy('tags.name')
             ->orderBy('count', 'desc')
-            ->limit(10)
+            ->limit($count)
             ->get();
 
         foreach ($trends as $key => $trend) {
