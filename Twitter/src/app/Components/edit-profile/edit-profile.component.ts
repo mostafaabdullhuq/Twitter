@@ -12,6 +12,7 @@ export class EditProfileComponent implements OnInit {
   @Input() showPopup = false;
   @Output() closePopup = new EventEmitter<void>();
   previewUrl: any;
+  username: any;
 
   onClosePopup() {
     this.closePopup.emit();
@@ -74,11 +75,11 @@ export class EditProfileComponent implements OnInit {
   public user: any;
 
   ngOnInit(): void {
-
+    this.myActivate.params.subscribe((res:any)=>{this.username = res.user});
     // retrieve the stored file from localStorage
     const storedProfilePicture = sessionStorage.getItem('profile_picture');
     const storedCoverPicture = sessionStorage.getItem('cover_picture');
-    this.tweetsClient.getAuthedTweets().subscribe({
+    this.tweetsClient.getAuthedTweets(this.username).subscribe({
       next: (data: any) => {
         this.user = data.user;
 

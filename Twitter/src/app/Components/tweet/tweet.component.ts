@@ -13,6 +13,7 @@ import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent implements OnInit {
+  username: any;
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
@@ -20,8 +21,9 @@ export class TweetComponent implements OnInit {
   ) {}
   public user: any;
   ngOnInit(): void {
+    this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
   this.isInBookmark =this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
-  this.httpClient.getAuthedTweets().subscribe({
+  this.httpClient.getAuthedTweets(this.username).subscribe({
     next: (data: any) => {
       this.user = data.user;
     },

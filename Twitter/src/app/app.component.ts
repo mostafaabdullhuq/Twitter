@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
 import { TweetsService } from './Services/tweets.service';
 @Component({
@@ -17,15 +17,18 @@ export class AppComponent implements OnInit {
   public isInResponseReset: boolean = false;
   public popup = false;
   public user: any;
+  username: any;
   constructor(
     public tweetsClient: TweetsService,
     private Logged: LoggedService,
     private router: Router,
-    private Token: TokenService
+    private Token: TokenService,
+    public myRoute:ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.tweetsClient.getAuthedTweets().subscribe({
+    this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
+    this.tweetsClient.getAuthedTweets(this.username).subscribe({
       next: (data: any) => {
         this.user = data.user;
       },
