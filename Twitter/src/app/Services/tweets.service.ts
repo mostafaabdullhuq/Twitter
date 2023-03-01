@@ -5,6 +5,9 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class TweetsService {
+  uploadImage(formData: FormData) {
+    throw new Error('Method not implemented.');
+  }
   private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 

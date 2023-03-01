@@ -7,7 +7,7 @@
     <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()" enctype="multipart/form-data">
         <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
             <div class="flex p-4 h-fit max-w-full">
-                <img class="twitter-user-img" routerLink="/{{user.username}}"
+                <img class="twitter-user-img" routerLink="/{{user.username}}" 
                     src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
 
                 <!-- custom textarea -->
