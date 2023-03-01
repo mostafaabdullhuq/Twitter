@@ -59,6 +59,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'tweet'
 ], function () {
+    Route::post('{id}/retweet', [TweetController::class, 'retweet']);
     Route::post('', [TweetController::class, 'create']);
     Route::get('{username}/me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
@@ -68,7 +69,6 @@ Route::group([
     Route::get('{username}/likes', [TweetController::class, 'get_User_Likes']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
-    Route::post('{id}/retweet', [TweetController::class, 'retweet']);
     Route::post('{id}/reply', [TweetController::class, 'reply']);
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     Route::delete('{id}/delete', [TweetController::class, 'delete']);
