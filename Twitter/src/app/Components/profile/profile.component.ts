@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   //   document.body.classList.add('popup-open');
   // }
   showPopup = false;
+  username: any;
 
   onButtonClick() {
     this.showPopup = true;
@@ -86,7 +87,8 @@ export class ProfileComponent implements OnInit {
     }
     else {
       this.show=false;
-      let username = this.myRoute.snapshot.params['username'];
+      let username = 'adm';
+      this.myRoute.params.subscribe((res:any)=>{this.username = res.user.username});
       this.tweetsClient.getAuthedTweets(username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
