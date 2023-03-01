@@ -11,16 +11,47 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 export class EditProfileComponent implements OnInit {
   @Input() showPopup = false;
   @Output() closePopup = new EventEmitter<void>();
+  previewUrl: any;
 
   onClosePopup() {
     this.closePopup.emit();
   }
 
-  // showEdit = true;
-  //   hidePopup() {
-  //   this.showEdit = false;
-  //   document.body.classList.remove('popup-open');
-  // }
+  private reader: FileReader = new FileReader();
+
+  onSelectFile(event: any): void {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.reader.onload = () => {
+        this.form.profile_picture = this.reader.result as string;
+        sessionStorage.setItem('profile_picture', this.form.profile_picture);
+        const img = document.getElementById(
+          'profile-image'
+        ) as HTMLImageElement; // get the image element by id
+        img.src = this.form.profile_picture; // set the src attribute to the data URL
+      };
+      this.reader.readAsDataURL(file);
+    }
+  }
+
+  private readerCover: FileReader = new FileReader();
+  onSelectCover(event: any): void {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      this.readerCover.onload = () => {
+        this.form.cover_picture = this.readerCover.result as string;
+        sessionStorage.setItem('cover_picture', this.form.cover_picture);
+        const img = document.getElementById('cover-image') as HTMLImageElement;
+        img.src = this.form.cover_picture;
+      };
+      this.readerCover.readAsDataURL(file);
+    }
+  }
+
+  clearCoverPicture(): void {
+    this.user.cover_picture = '';
+    sessionStorage.removeItem('cover_picture');
+  }
 
   public error: any = null;
   public form = {
@@ -33,21 +64,29 @@ export class EditProfileComponent implements OnInit {
     phone_number: '',
     location: '',
     website: '',
+    profile_picture: '',
+    cover_picture: '',
   };
 
   constructor(
     public tweetsClient: TweetsService,
     public myActivate: ActivatedRoute,
     private Auth: AuthService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
   public user: any;
 
   ngOnInit(): void {
-    let userName = this.myActivate.snapshot.params['user'];
-    this.tweetsClient.getAuthedTweets(userName).subscribe({
+    // retrieve the stored file from localStorage
+    const storedProfilePicture = sessionStorage.getItem('profile_picture');
+    const storedCoverPicture = sessionStorage.getItem('cover_picture');
+    // let userName;
+    this.authService.getUser().subscribe({
       next: (data: any) => {
-        this.user = data.user;
+        this.user = data;
+
+        // set the value of the input field to the stored file
         this.form = {
           email: this.user.email || '',
           first_name: this.user.first_name || '',
@@ -58,6 +97,12 @@ export class EditProfileComponent implements OnInit {
           phone_number: this.user.phone_number || null,
           location: this.user.location || null,
           website: this.user.website || null,
+          profile_picture:
+            storedProfilePicture ||
+            './../../../assets/images/default_profile.png',
+          cover_picture:
+            storedCoverPicture ||
+            './../../../assets/images/3840x2160-dark-gray-solid-color-background.jpg',
         };
       },
       error: (err) => {
