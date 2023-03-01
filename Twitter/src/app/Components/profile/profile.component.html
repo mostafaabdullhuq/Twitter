@@ -1,5 +1,4 @@
 <!--! -------middle ------- -->
-<app-edit-profile [showPopup]="showPopup" (closePopup)="onClosePopup()"></app-edit-profile>
 
 <div *ngIf="user;else loadingBlock"
     class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
@@ -61,15 +60,13 @@
         <!-- profile controls -->
         <div class="flex items-center sm:mt-4 mt-12  px-4 float-right gap-4 w-full justify-end">
 
-            <a *ngIf="username === user.username" (click)="onButtonClick()"
-                class="text-center py-2 px-5 rounded-full transition-colors border
+            <a *ngIf="username === user.username" (click)="onButtonClick()" class="text-center py-2 px-5 rounded-full transition-colors border
                 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-10 dark:text-white
                   text-black cursor-pointer hover:bg-gray-200 ">
                 <span class="font-semibold"> Edit profile </span>
             </a>
 
-            <a *ngIf="username !== user.username" href="#"
-                class="text-center py-2 px-5 rounded-full transition-colors border dark:text-white
+            <a *ngIf="username !== user.username" href="#" class="text-center py-2 px-5 rounded-full transition-colors border dark:text-white
                 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-30
                   text-black cursor-pointer hover:bg-gray-200">
                 <span class="font-semibold"> {{user.is_following ? 'Unfollow' : 'Follow'}} </span>
@@ -160,6 +157,8 @@
         <!-- <app-modal [tweets]="tweets"></app-modal> -->
     </div>
     <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
+    <app-edit-profile [showPopup]="showPopup" (closePopup)="onClosePopup()" [userDetails]="user"></app-edit-profile>
+
 </div>
 
 <!--! -----------right---------- -->

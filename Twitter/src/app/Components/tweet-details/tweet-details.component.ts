@@ -6,6 +6,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { UserService } from 'src/app/Services/user.service';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-tweet-details',
@@ -19,6 +20,7 @@ export class TweetDetailsComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private router: Router,
     private tokenService: TokenService,
+    private authService: AuthService,
     private sanitizer: DomSanitizer
   ) {
     this.user = this.tokenService.getUser();
@@ -49,6 +51,17 @@ export class TweetDetailsComponent implements OnInit {
         this.tweet.replies.unshift(data);
         this.tweet.replies_count += 1;
         this.replyForm.reset();
+        this.authService.getUser().subscribe({
+          next: (data: any) => {
+            this.user = data;
+            console.log(this.user);
+          },
+          error: (err: any) => {
+            this.user = this.tokenService.getUser();
+
+            console.log(err);
+          },
+        });
       },
       error: (err) => {
         this.error = err;

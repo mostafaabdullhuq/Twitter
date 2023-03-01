@@ -1,4 +1,4 @@
-<div *ngIf="showPopup && user"
+<div *ngIf="showPopup"
     class="w-full max-w-[700px] sm:gap-4 min-w-[300px] dark:bg-black
 bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-scroll scrollbar-default  flex flex-col scale-[.95]  "
     style="height:43rem; " id="popup">
@@ -10,19 +10,21 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
         </div>
     </div>
     <div class="relative">
-        <form class="space-y-4" [formGroup]="updateForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <form class="space-y-4" #updateForm=ngForm (ngSubmit)="onSubmit()">
             <div class="dark:text-white">
                 {{error}}
             </div>
             <!-- cover photo -->
             <div class="w-full  overflow-hidden h-48 bg-slate-300">
-                <img src="{{user.cover_picture ?? './../../../assets/images/3840x2160-dark-gray-solid-color-background.jpg'}}"
+                <img id="cover-image"
+                    [src]="user.cover_picture ?? './../../../assets/images/3840x2160-dark-gray-solid-color-background.jpg'"
                     class="object-cover object-center w-full h-full" />
                 <div class="flex absolute top-[5rem] left-[15rem] ">
-                    <a class="cursor-pointer overflow-hidden rounded-full  p-2 bg-black   hover:bg-gray-200 text-center justify-center flex"
+                    <a class="cursor-pointer overflow-hidden rounded-full mr-4 p-2 bg-black   hover:bg-gray-200 text-center justify-center flex"
                         style="width: 3rem; height: 3rem; opacity: 0.3;">
-                        <input accept="image/*" (change)="onSelectCover($event)" type="file" name="cover_picture"
-                            formControlName="cover_picture" accept="image/*"
+                        <input [(ngModel)]="user.cover_picture"
+                            [value]=" user ? (user.cover_picture ? user.cover_picture: '') : './../../../assets/images/3840x2160-dark-gray-solid-color-background.jpg'"
+                            (change)="onSelectCover($event)" type="file" name="cover_picture" multiple accept="image/*"
                             class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white"
                             class="bi bi-camera cursor-pointer" viewBox="0 0 16 16">
@@ -32,24 +34,24 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
                                 d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                         </svg>
                     </a>
-                    <!-- <div class="rounded-full cursor-pointer hover:bg-gray-200 p-2 bg-black text-center justify-center flex"
+                    <div class="rounded-full cursor-pointer hover:bg-gray-200 p-2 bg-black text-center justify-center flex"
                         style="width: 3rem; height: 3rem; opacity: 0.3;" (click)="clearCoverPicture()">
                         <a class=" text-white text-2xl"><i class="fa-regular fa-x"></i></a>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
-            <!-- profile image -->
             <div class="relative p-3" style="bottom: 6rem;">
-                <img src="{{user.profile_picture ? user.profile_picture :  './../../../assets/images/default_profile.png'}}"
-                    class="absolute bg-white dark:bg-black rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />
+                <img id="profile-image" [src]="user.profile_picture || './../../../assets/images/default_profile.png'"
+                    class="absolute rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />
 
                 <a class="cursor-pointer rounded-full p-2 bg-black   hover:bg-gray-200 text-center justify-center flex"
                     style="width: 3rem; height: 3rem; opacity: 0.3; position: absolute; left: 4.3rem; top: 4rem;">
 
-                    <input formControlName="profile_picture" name="profile_picture" (change)="onSelectFile($event)"
-                        type="file" name="profile_picture" accept="image/*,video/*"
-                        class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
+                    <input [(ngModel)]="form.profile_picture"
+                        [value]=" user ? (user.profile_picture ? user.profile_picture: '') : './../../../assets/images/default_profile.png'"
+                        (change)="onSelectFile($event)" type="file" name="profile_picture" multiple
+                        accept="image/*,video/*" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white"
                         class="bi bi-camera cursor-pointer" viewBox="0 0 16 16">
@@ -61,76 +63,67 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
                 </a>
             </div>
 
+            <input [(ngModel)]="form.email" type="hidden"
+                value="{{ user ? (user.email? user.email: '') : 'Loading...' }}" name="remember">
             <div>
-                <!-- first name -->
-                <input formControlName="first_name" type="text" autocomplete="current-name"
-                    [ngClass]="{'border-red-500': this.updateForm.controls.first_name.errors}" class="mt-14 relative block w-full appearance-none border text-xl
-                  border-gray-300 p-4 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
-                     focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" placeholder="First name">
+                <input [(ngModel)]="form.first_name"
+                    value="{{ user ? (user.first_name? user.first_name: '') : 'Loading...' }}" id="firstname"
+                    name="firstname" type="text" autocomplete="current-name" required class="mt-14 relative block w-full appearance-none border text-xl
+                   border-gray-300 p-4 rounded-md dark:bg-black dark:text-white text-gray-900 placeholder-gray-500 dark:placeholder-gray-200 dark:border-dark-gray_0 focus:z-10
+                     focus:outline-none " placeholder="First name">
             </div>
             <div>
-
-                <!-- last name -->
-                <input formControlName="last_name"
-                    [ngClass]="{'border-red-500': this.updateForm.controls.last_name.errors}" type="text"
-                    autocomplete="current-name" class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.last_name"
+                    value="{{ user ? (user.last_name ? user.last_name : '') : 'Loading...' }}" id="lastname"
+                    name="lastname" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                   border-gray-300 p-4 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
                      focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 " placeholder="Last name">
             </div>
             <div>
-
-                <!-- username -->
-                <input formControlName="username"
-                    [ngClass]="{'border-red-500': this.updateForm.controls.username.errors}" type="text"
-                    autocomplete="current-name" class="relative block w-full appearance-none border text-xl
+                <input [(ngModel)]="form.username"
+                    value="{{ user ? (user.username ? user.username : '') : 'Loading...' }}" id="username"
+                    name="username" type="text" autocomplete="current-name" required class="relative block w-full appearance-none border text-xl
                   border-gray-300 p-4 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
                      focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 " placeholder="Username">
             </div>
             <div>
-
-                <!-- bio -->
-                <input autocomplete="bio" [ngClass]="{'border-red-500': this.updateForm.controls.bio.errors}"
-                    formControlName="bio" type="text"
+                <input [(ngModel)]="form.bio" value="{{ user ? (user.bio ? user.bio : '') : 'Bio' }}" id="bio"
+                    name="bio" autocomplete="bio" required
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
                   text-gray-900 placeholder-gray-500 focus:z-10 
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Bio">
             </div>
             <div>
-
-                <!-- phone number -->
-                <input autocomplete="phone_number" formControlName="phone_number"
-                    [ngClass]="{'border-red-500': this.updateForm.controls.phone_number.errors}"
+                <input [(ngModel)]="form.phone_number"
+                    value="{{ user ? (user.phone_number? user.phone_number : '') : 'Phone_number' }}" id="phone_number"
+                    name="phone_number" autocomplete="phone_number" required
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
                   text-gray-900 placeholder-gray-500 focus:z-10 
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Phone number">
             </div>
             <div>
-                <!-- location -->
-                <input formControlName="location" type="text" autocomplete="location"
-                    [ngClass]="{'border-red-500': this.updateForm.controls.location.errors}"
+                <input [(ngModel)]="form.location" value="{{ user ? (user.location ? user.location: '') : 'Location' }}"
+                    id="location" name="location" type="location" autocomplete="location" required
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
                   text-gray-900 placeholder-gray-500 focus:z-10 
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Location">
             </div>
             <div>
-                <!-- website -->
-                <input formControlName="website" type="url" autocomplete="website"
-                    [ngClass]="{'border-red-500': this.updateForm.controls.website.errors}"
+                <input [(ngModel)]="form.website" value="{{ user ? (user.website? user.website: '') : 'Website' }}"
+                    id="website" name="website" type="url" autocomplete="website" required
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
                   text-gray-900 placeholder-gray-500 focus:z-10 
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Website">
             </div>
 
             <div>
-                <!-- date of birth -->
-                <input formControlName="date_of_birth" type="date"
-                    [ngClass]="{'border-red-500': this.updateForm.controls.date_of_birth.errors}"
-                    autocomplete="date_of_birth" [value]="user.date_of_birth"
+                <input [(ngModel)]="form.date_of_birth"
+                    value="{{ user ? (user.date_of_birth? user.date_of_birth: '') : 'Birth Date' }}" id="date_of_birth"
+                    name="date_of_birth" type="date" required autocomplete="date_of_birth"
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
                   text-gray-900 placeholder-gray-500 focus:z-10 
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Date of birth">
             </div>
-            <!-- submit button -->
             <button type="submit" id="next" class=" px-8 flex w-auto justify-center border border-transparent bg-black dark:bg-white dark:text-black py-2
             text-xl text-white  focus:outline-none focus:ring-2
              rounded-full focus:ring-offset-2">

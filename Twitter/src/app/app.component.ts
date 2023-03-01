@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
@@ -12,7 +12,7 @@ import { AuthService } from './Services/auth.service';
 export class AppComponent implements OnInit {
   title = 'Twitter';
   auth2: any;
-  @ViewChild('loginRef', {static: true }) loginElement!: ElementRef;
+  @ViewChild('loginRef', { static: true }) loginElement!: ElementRef;
   public loggedIn: boolean = true;
   public isInLogin: boolean = false;
   public isInSignup: boolean = false;
@@ -27,12 +27,15 @@ export class AppComponent implements OnInit {
     private router: Router,
     private Token: TokenService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.Token.getUser();
+  }
 
   ngOnInit(): void {
     this.authService.getUser().subscribe({
       next: (data: any) => {
         this.user = data;
+        console.log(this.user);
       },
       error: (err: any) => {
         console.log(err);
@@ -69,7 +72,17 @@ export class AppComponent implements OnInit {
           this.isInRequestReset = false;
         }
       } else {
-        this.user = this.Token.getUser();
+        this.authService.getUser().subscribe({
+          next: (data: any) => {
+            this.user = data;
+            console.log(this.user);
+          },
+          error: (err: any) => {
+            this.user = this.Token.getUser();
+
+            console.log(err);
+          },
+        });
       }
     });
   }

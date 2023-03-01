@@ -31,7 +31,12 @@ export class AuthService {
   updateUser(data: any) {
     let accessToken = this.tokenService.get();
 
-    return this.http.post(`${this.baseUrl}/updateUser`, data, {
+    // return this.http.post(`${this.baseUrl}/updateUser`, data, {
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    // });
+    return this.http.post(`http://127.0.0.1:8000/api/user/update`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

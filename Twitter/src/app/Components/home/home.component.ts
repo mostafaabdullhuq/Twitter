@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
     public myRoute: ActivatedRoute,
     public tweetClient: TweetsService,
     private Token: TokenService,
+    private authService: AuthService,
     private sanitizer: DomSanitizer
   ) {
     this.user = this.Token.getUser();
@@ -50,6 +52,17 @@ export class HomeComponent implements OnInit {
       this.tweetClient.getFollowingTweets().subscribe({
         next: (data: any) => {
           this.tweets = data;
+          this.authService.getUser().subscribe({
+            next: (data: any) => {
+              this.user = data;
+              console.log(this.user);
+            },
+            error: (err: any) => {
+              this.user = this.Token.getUser();
+
+              console.log(err);
+            },
+          });
         },
         error: (err) => {
           console.log(err);

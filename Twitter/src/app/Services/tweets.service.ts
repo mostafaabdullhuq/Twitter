@@ -173,7 +173,6 @@ export class TweetsService {
   //   });
   // }
 
-
   getReplies(userName: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${userName}/replies`, {
@@ -183,7 +182,7 @@ export class TweetsService {
     });
   }
 
-  getLikes(username:any) {
+  getLikes(username: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
       headers: {
@@ -191,10 +190,10 @@ export class TweetsService {
       },
     });
   }
-  
-  getMedia(username:any){
+
+  getMedia(username: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
+    return this.httpClient.get(this.BASE_URL + `/${username}/media`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
