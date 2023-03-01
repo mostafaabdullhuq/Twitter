@@ -15,7 +15,6 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
 use App\Http\Controllers\changePasswordSettingController;
 
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -35,12 +34,10 @@ Route::group([
     Route::Post('changePassword', [changePasswordSettingController::class, 'passwordSetting']);
 });
 
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'user'
 ], function () {
-
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
@@ -60,6 +57,7 @@ Route::group([
     'prefix' => 'tweet'
 ], function () {
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
+    Route::get('{retweet_id}/retweet/view', [TweetController::class, 'viewsRetweet']);
     Route::post('', [TweetController::class, 'create']);
     Route::get('{username}/me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);

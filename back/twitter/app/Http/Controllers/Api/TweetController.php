@@ -386,27 +386,71 @@ class TweetController extends Controller
         return $reply;
     }
 
+    // public function retweet(Request $request , $id){
+    // $user = JWTAuth::user();
+    // $data = $request->all();
+    // $tweet = Tweet::findOrFail($id);
+    // $id = $request->tweet_id;
+    // $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
+    //     if ($retweet) {
+    //         $retweet->delete();
+    //     } else {
+    //         $tweet->retweets()->create([
+    //         'user_id' => JWTAuth::user()->id,
+    //         'text' => $data['text'],
+    //         ]);
+    //     }
+    //         $tweet = $this->formatTweet($tweet);
+    //         return $tweet;
+    //         $tweet->update([
+    //             'views_count' => $tweet->views_count + 1
+    //         ]);
+    //     return "Tweet not found";
+    // }
     public function retweet(Request $request , $id){
-    $user = JWTAuth::user();
-    $tweet = Tweet::findOrFail($id);
-    $id = $request->tweet_id;
-    $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
+        $user = JWTAuth::user();
+        $data = $request->all();
+        $tweet = Tweet::findOrFail($id);
+        $id = $request->tweet_id;
+        $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
         if ($retweet) {
             $retweet->delete();
         } else {
             $tweet->retweets()->create([
-            'user_id' => JWTAuth::user()->id,
-            'text' => $request->text||null ,
+                'user_id' => JWTAuth::user()->id,
+                'text' => $data['text'],
             ]);
         }
-            $tweet = $this->formatTweet($tweet);
-            return $tweet;
+        $tweet->update([
+            'views_count' => $tweet->views_count + 1
+        ]);
+        $tweet = $this->formatTweet($tweet);
+        return $tweet;
+    }
+
+        //Tweet views count
+        public function view($id)
+        {
+            $tweet = Tweet::find($id);
             $tweet->update([
                 'views_count' => $tweet->views_count + 1
             ]);
-        return "Tweet not found";
-    }
+            $tweet = $this->formatTweet($tweet);
+            return $tweet;
+        }
 
+        //Retweet views count
+        public function viewsRetweet($retweet_id)
+        {
+            $retweets = Retweet::find($retweet_id);
+            if ($retweets ) {
+                $retweets->update([
+                    'views_count' => $retweets->views_count + 1
+                ]);
+                return $retweets ;
+            }
+            return "Retweet not found";
+        }
 
     public function likeToggle($id)
     {
@@ -426,16 +470,7 @@ class TweetController extends Controller
         return $tweet;
     }
 
-    //views count
-    public function view($id)
-    {
-        $tweet = Tweet::find($id);
-        $tweet->update([
-            'views_count' => $tweet->views_count + 1
-        ]);
-        $tweet = $this->formatTweet($tweet);
-        return $tweet;
-    }
+
 
 
     public function delete($id)
