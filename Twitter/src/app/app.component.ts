@@ -40,26 +40,22 @@ export class AppComponent implements OnInit {
       this.isInRequestReset = false;
       this.isInResponseReset = false;
 
-
       if (!this.loggedIn) {
         if (this.router.url === '/login') {
           this.isInLogin = true;
           this.isInSignup = false;
           this.isInRequestReset = false;
           this.isInResponseReset = false;
-     
         } else if (this.router.url === '/signup') {
           this.isInSignup = true;
           this.isInLogin = false;
           this.isInRequestReset = false;
           this.isInResponseReset = false;
-       
         } else if (this.router.url === '/request-password-reset') {
           this.isInRequestReset = true;
           this.isInLogin = false;
           this.isInSignup = false;
           this.isInResponseReset = false;
-       
         } else if (this.router.url === '/response-password-reset') {
           this.isInResponseReset = true;
           this.isInLogin = false;
@@ -77,6 +73,7 @@ export class AppComponent implements OnInit {
     this.Token.remove();
     this.Logged.changeAuthStatus(false);
     this.router.navigateByUrl('/login');
+    this.popup = false;
   }
 
   logoutPopup() {

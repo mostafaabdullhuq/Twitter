@@ -1,1 +1,49 @@
-<p>bookmarks works!</p>
+<!--middle-->
+<div *ngIf="user;else loadingBlock"
+    class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+    <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
+
+   <!-- content of fixed nav -->
+          <div class="content z-0 flex items-center py-2">
+            <div class="flex flex-col sticky-nav-scroll ">
+                <div class="flex items-center">
+                    <h2 class="text-gray-800 pl-6 text-xl dark:text-white font-semibold">Bookmarks</h2>
+                </div>
+                    <p class="username ml-5 text-sm font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{user.username}}</p>
+            </div>
+</div>
+
+<!-- !------tweets--------- -->
+<div id="tweetsContainer" class="tweets w-full flex flex-col">
+  <app-tweet [tweets]="tweets"></app-tweet>
+</div>
+<div id="loading" class="hidden text-center py-4 text-xl dark:text-white"><i
+      class="fa-solid fa-spinner animate-spin"></i></div>
+
+    <!-- <div id="loading" class="hidden text-center py-4 text-xl dark:text-white"><i
+            class="fa-solid fa-spinner animate-spin"></i></div> -->
+
+    <!-- -----toggler----- -->
+</div>
+</div>
+<!--! -----------right start---------- -->
+<div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
+  <app-search></app-search>
+  <app-trends-recommendation></app-trends-recommendation>
+  <app-follow-recommendations></app-follow-recommendations>
+  <app-footer></app-footer>
+  <app-message-popup></app-message-popup>
+</div>
+<!--! -----------right end---------- -->
+
+
+
+<ng-template #loadingBlock>
+  <div
+      class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+      <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
+          <i class="fa-solid fa-spinner text-2xl animate-spin"></i>
+      </div>
+
+  </div>
+</ng-template>

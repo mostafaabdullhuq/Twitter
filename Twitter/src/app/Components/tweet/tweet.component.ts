@@ -20,6 +20,7 @@ export class TweetComponent implements OnInit {
   ) {}
   public user: any;
   ngOnInit(): void {
+  this.isInBookmark =this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
   this.httpClient.getAuthedTweets().subscribe({
     next: (data: any) => {
       this.user = data.user;
@@ -28,22 +29,8 @@ export class TweetComponent implements OnInit {
       console.log(err);
     },
   });}
-  formatTweetText(text: string): SafeHtml {
-    if (text) {
-      const hashtagRegex = /#[a-zA-Z0-9_]+/g;
-      const mentionRegex = /@[a-zA-Z0-9_]+/g;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
 
-      const formattedText = text
-        .replace(hashtagRegex, hashtagTemplate)
-        .replace(mentionRegex, mentionTemplate);
 
-      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
-    } else {
-      return '';
-    }
-  }
 
   likesCount(tweetID: any) {
     this.httpClient.getLikesCount(tweetID).subscribe({
@@ -54,6 +41,23 @@ export class TweetComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  formatTweetText(text: string): SafeHtml {
+    if (text) {
+      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const hashtagTemplate = '<a routerLink="/hashtag" class="hashtag">$&</a>';
+      const mentionTemplate = '<a routerLink="/{{$&}}" class="mention">$&</a>';
+
+      const formattedText = text
+        .replace(hashtagRegex, hashtagTemplate)
+        .replace(mentionRegex, mentionTemplate);
+
+      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
+    } else {
+      return '';
+    }
   }
 
   handleMedia(type: any, container: any, tweet: any) {
@@ -76,7 +80,13 @@ export class TweetComponent implements OnInit {
       }
     });
   }
+  // ngOnInit() {
+  //   this.isInBookmark =
+  // this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+  // }
+  popup: boolean = false;
+  isInBookmark: boolean = false;
 
-  @Input() tweets: any ;
-  @Input() showReplies: any ;
+  @Input() tweets: any;
+  @Input() showReplies: any;
 }

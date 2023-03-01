@@ -17,6 +17,12 @@ export class NewMessageComponent  {
     this.showModal = !this.showModal;
   }
 
+  // Follow = true;
+  // toggleClick(){
+  //   this.Follow = !this.Follow;
+  // }
+
+
   // fromDialog!:string;
 
   // @ViewChild('dialogRef')

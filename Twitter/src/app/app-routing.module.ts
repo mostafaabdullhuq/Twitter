@@ -21,6 +21,9 @@ import { ConfirmPasswordComponent } from './Components/password/confirm-password
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
+import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -162,6 +165,20 @@ const routes: Routes = [
     path: ':user/likes',
     component: ProfileComponent,
     canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/following',
+    component: FollowersAndFollowingComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: ':user/followers',
+    component: FollowersAndFollowingComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 

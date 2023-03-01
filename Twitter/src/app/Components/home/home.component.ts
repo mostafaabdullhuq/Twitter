@@ -5,7 +5,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
@@ -33,7 +39,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public myRoute: ActivatedRoute,
     public tweetClient: TweetsService,
-    private Token: TokenService
+    private Token: TokenService,
+    private sanitizer: DomSanitizer
   ) {
     this.user = this.Token.getUser();
   }
@@ -139,5 +146,29 @@ export class HomeComponent implements OnInit {
     if (!this.tweetMedia.length) {
       this.tweetForm.patchValue({ media: null });
     }
+  }
+
+  formatTweetText(text: any, type = 0): SafeHtml {
+    if (text) {
+      const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
+      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
+      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+
+      const formattedText = text
+        .replace(hashtagRegex, hashtagTemplate)
+        .replace(mentionRegex, mentionTemplate);
+      return this.sanitizer.bypassSecurityTrustHtml(formattedText);
+    } else {
+      if (type == 1) {
+        return "<p class='text-gray-500 tracking-tighter text-xl'>What's Happening?</p>";
+      }
+      return '';
+    }
+  }
+  handleScroll(event: any) {
+    // sync the scroll between text area and pre
+
+    this.tweetBox.nativeElement.scrollTop = event.target.scrollTop;
   }
 }
