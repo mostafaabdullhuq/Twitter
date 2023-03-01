@@ -7,7 +7,7 @@ import { HashtagService } from 'src/app/Services/hashtag.service';
   styleUrls: ['./trends-recommendation.component.css'],
 })
 export class TrendsRecommendationComponent implements OnInit {
-  public hashtags: any = [];
+  public hashtags: any;
 
   constructor(private hashtagService: HashtagService) {}
 
