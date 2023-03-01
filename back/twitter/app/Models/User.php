@@ -95,6 +95,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Reply::class);
     }
 
+    public function retweets()
+    {
+        return $this->hasMany(Retweet::class);
+    }
+
+    public function isRetweeted($tweet_id)
+    {
+        return $this->retweets()->where('tweet_id', $tweet_id)->exists();
+    }
+    
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
@@ -104,6 +114,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->bookmarks()->where('tweet_id', $tweet_id)->exists();
     }
+
 
     // get the users who follow the current user
     public function followers()
