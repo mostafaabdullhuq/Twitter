@@ -4,12 +4,15 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { Router } from '@angular/router';
 import { LoggedService } from 'src/app/Services/logged.service';
-import { SocialUser } from "@abacritt/angularx-social-login";
-import { GoogleLoginProvider, SocialAuthService } from "@abacritt/angularx-social-login";
-import { FacebookLoginProvider } from "@abacritt/angularx-social-login";
-
+import { SocialUser } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  SocialAuthService,
+} from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 import { SignupComponent } from '../signup/signup.component';
+import { HashtagService } from 'src/app/Services/hashtag.service';
 
 @Component({
   selector: 'app-exploreout',
@@ -20,8 +23,10 @@ export class ExploreoutComponent {
   auth2: any;
   @ViewChild('loginRef', {static: true }) loginElement!: ElementRef;
   public error: any = null;
-  user: SocialUser = new SocialUser;
+  user: SocialUser = new SocialUser();
   loggedIn: boolean = false;
+
+  public hashtags: any = [];
 
   constructor(
     private Auth: AuthService,
@@ -29,7 +34,8 @@ export class ExploreoutComponent {
     private router: Router,
     private Logged: LoggedService,
     private authService: SocialAuthService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private hashtagService: HashtagService
   ) {}
 
   //fb
@@ -84,12 +90,10 @@ export class ExploreoutComponent {
   // }
 
   signInWithFacebook(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then(user => {
-      })
-      .catch(err => {
-      });
-
+    this.authService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((user) => {})
+      .catch((err) => {});
   }
 
   //google

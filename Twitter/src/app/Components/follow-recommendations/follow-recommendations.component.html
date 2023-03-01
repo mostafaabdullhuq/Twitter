@@ -3,19 +3,21 @@
     <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">Who to follow
     </h3>
 
-    <div class="right-follow gap-2" *ngFor="let u of users.slice(0,2)">
+    <div class="right-follow gap-2" *ngFor="let u of users.slice(0,2); let i = index">
         <!--! -----user info block ---- -->
-        <div class="flex items-center gap-1 w-3/4" >
-            <img src="https://pbs.twimg.com/profile_images/1154766291254861824/oAQ7JwWr_400x400.jpg"
+        <div class="flex items-center gap-1 w-3/4">
+            <img routerLink="/{{u.username}}"
+                src="{{u.profile_picture ? u.profile_picture: './../../../../assets/images/default_profile.png'}}"
                 class="twitter-user-img" alt="" />
-                <!-- <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+            <!-- <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
                 class="abso1lute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" /> -->
             <div class="ml-3 text-md w-2/3">
-                <div class="flex max-w-full w-full -mb-1 mt-1">
+                <div routerLink="/{{u.username}}" class="flex max-w-full w-full -mb-1 mt-1">
                     <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
                         {{u.first_name}} {{u.last_name}}</h5>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
-                        stroke="currentColor" class="w-6 min-w-[25px] text-white fill-main-blue_100">
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="u.is_verified" fill="none" viewBox="0 0 24 24"
+                        strokeWidth="{1.5}" stroke="currentColor"
+                        class="w-6 min-w-[25px] text-white fill-main-blue_100">
                         <path strokeLinecap="round" strokeLinejoin="round"
                             d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                     </svg>
@@ -25,9 +27,9 @@
             </div>
         </div>
         <!-- ! --------follow button ---- -->
-        <button (click)="follow(u.id)" 
+        <button (click)="follow(u.id); u.is_followed = !u.is_followed" 
             class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">
-            follow‏
+            {{u?.is_followed?"Follow":"Unfollow" }} 
         </button>
 
         <!-- <button (click)="toggleClick()" class="btn border-t-neutral-700">
@@ -39,8 +41,8 @@
     [ngClass]="{'green' : toggle, 'red': !toggle}">
     {{status}}
 </button> -->
-        
-            <!-- <div *ngFor="let f of followings">
+
+        <!-- <div *ngFor="let f of followings">
             <a *ngIf="u.id == f.following_id;" href="">unfollow</a>
         </div> 
 
@@ -51,7 +53,7 @@
         <!-- <a  href="">follow</a> -->
 
 
-            <!-- <div *ngIf="u.id == ; then thenBlock else elseBlock"></div>
+        <!-- <div *ngIf="u.id == ; then thenBlock else elseBlock"></div>
             <ng-template #thenBlock>Content to render when condition is true.</ng-template>
             <ng-template #elseBlock>Content to render when condition is false.</ng-template> -->
     </div>
@@ -62,16 +64,16 @@
         <a routerLink="/connect" class="hover:underline">Show more</a>
     </div>
 
-<!-- ----------loader--------- -->
-<!-- <div class="px-4 py-2">
+    <!-- ----------loader--------- -->
+    <!-- <div class="px-4 py-2">
     <div class="flex gap-x-4 animate-pulse"> -->
-        <!-- ------------ structure like an image---- -->
+    <!-- ------------ structure like an image---- -->
 
-        <!-- <div class="rounded-full bg-gray-400 twitter-user-img"></div> -->
+    <!-- <div class="rounded-full bg-gray-400 twitter-user-img"></div> -->
 
-        <!-- ---------space-y : make its childs to make margin top & bottom by 0.5 rem -->
+    <!-- ---------space-y : make its childs to make margin top & bottom by 0.5 rem -->
 
-        <!-- <div class="flex-1 w-full space-y-2 py-1">
+    <!-- <div class="flex-1 w-full space-y-2 py-1">
             <div class="h-4 bg-gray-400 rounded w-5/6"></div>
             <div class="h-4 bg-gray-400 rounded w-3/4"></div>
         </div>
@@ -81,7 +83,5 @@
     <a routerLink="/connect" class="hover:underline">Show more</a>
   </div> -->
 
-  
+
 </div>
-
-

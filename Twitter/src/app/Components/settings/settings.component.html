@@ -1,7 +1,7 @@
 <div
     class="h-full w-5/6 hidden lg:flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-l border-gray-100">
     <h4 class="text-gray-800 mb-4 py-3 text-xl px-4 dark:text-white font-extrabold mt-1">Settings</h4>
-    <div class="settings-item settings-item-active">
+    <div (click)="showChangePassword = false;" class="settings-item settings-item-active">
         <p>Your account</p>
         <i class="fa-solid fa-chevron-right"></i>
     </div>
@@ -28,7 +28,7 @@
 </div>
 <!--! -----------right---------- -->
 
-<div 
+<div
     class="w-full h-full dark:border-dark-gray_0 border-x md:border-r border-gray-100 overflow-y-scroll scrollbar-hide block relative">
     <!-- -----sticky header---- -->
     <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
@@ -50,41 +50,42 @@
         </p>
     </div>
     <div *ngIf="!showChangePassword">
-    <div class="settings-item">
-        <div class="flex items-center gap-5">
-            <i class="fa-regular fa-user text-xl text-gray-600 dark:text-dark-gray_300"></i>
-            <div>
-                <p>Account information</p>
-                <p class="text-xs text-gray-600 dark:text-dark-gray_300">See your account information like
-                    your phone number and email address.</p>
+        <div class="settings-item">
+            <div class="flex items-center gap-5">
+                <i class="fa-regular fa-user text-xl text-gray-600 dark:text-dark-gray_300"></i>
+                <div>
+                    <p>Account information</p>
+                    <p class="text-xs text-gray-600 dark:text-dark-gray_300">See your account information like
+                        your phone number and email address.</p>
+                </div>
             </div>
+            <i class="fa-solid fa-chevron-right"></i>
         </div>
-        <i class="fa-solid fa-chevron-right"></i>
-    </div>
-    <div class="settings-item" (click)="onButtonClick()" >
-        <div class="flex items-center gap-5">
-            <i class="fa-solid fa-key text-gray-600 text-xl dark:text-dark-gray_300"></i>
-            <div>
-                <p>Change your password</p>
-                <p class="text-xs text-gray-600 dark:text-dark-gray_300">Change your password at any time.
-                </p>
+        <div class="settings-item" (click)="onButtonClick()">
+            <div class="flex items-center gap-5">
+                <i class="fa-solid fa-key text-gray-600 text-xl dark:text-dark-gray_300"></i>
+                <div>
+                    <p>Change your password</p>
+                    <p class="text-xs text-gray-600 dark:text-dark-gray_300">Change your password at any time.
+                    </p>
+                </div>
             </div>
+            <i class="fa-solid fa-chevron-right"></i>
         </div>
-        <i class="fa-solid fa-chevron-right"></i>
-    </div>
-    <div class="settings-item">
-        <div class="flex items-center gap-5">
-            <i class="fa-solid fa-heart-crack text-gray-600 text-xl dark:text-dark-gray_300"></i>
-            <div>
-                <p>Deactivate your account</p>
-                <p class="text-xs text-gray-600 dark:text-dark-gray_300">Find out how you can deactivate
-                    your account.</p>
+        <div class="settings-item">
+            <div class="flex items-center gap-5">
+                <i class="fa-solid fa-heart-crack text-gray-600 text-xl dark:text-dark-gray_300"></i>
+                <div>
+                    <p>Deactivate your account</p>
+                    <p class="text-xs text-gray-600 dark:text-dark-gray_300">Find out how you can deactivate
+                        your account.</p>
+                </div>
             </div>
+            <i class="fa-solid fa-chevron-right"></i>
         </div>
-        <i class="fa-solid fa-chevron-right"></i>
-    </div>
     </div>
     <!-- <div class="h-full dark:border-dark-gray_0 border-x md:border-r border-gray-100 overflow-y-scroll scrollbar-hide block relative"> -->
+
     <app-change-password *ngIf="showChangePassword"></app-change-password>
     <!-- </div> -->
 

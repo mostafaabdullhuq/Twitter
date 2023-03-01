@@ -137,8 +137,8 @@ export class TweetDetailsComponent implements OnInit {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+      const hashtagTemplate = '<a class="hashtag">$&</a>';
+      const mentionTemplate = '<a  class="hashtag">$&</a>';
 
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)

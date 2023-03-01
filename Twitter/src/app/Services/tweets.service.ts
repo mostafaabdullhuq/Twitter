@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
 @Injectable({
@@ -28,16 +27,16 @@ export class TweetsService {
     });
   }
 
-  getAuthedTweets() {
+  getAuthedTweets(userName: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/me', {
+    return this.httpClient.get(this.BASE_URL + `/${userName}/me`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
 
-  addView(id:any){
+  addView(id: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
       headers: {
@@ -45,7 +44,7 @@ export class TweetsService {
       },
     });
   }
-////////////////
+  ////////////////
   getTweetById(id: any) {
     const accessToken = this.token.get();
 
@@ -174,28 +173,31 @@ export class TweetsService {
   //   });
   // }
 
-  getReplies() {
+
+  getReplies(userName: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/replies', {
+    return this.httpClient.get(this.BASE_URL + `/${userName}/replies`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-  getLikes() {
+
+  getLikes(username:any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/likes', {
+    return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-  getMedia(){
+  
+  getMedia(username:any){
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/media' , {
+    return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
       headers: {
-        Authorization : `Bearer ${accessToken}`,
-      }
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
   //Just TEST

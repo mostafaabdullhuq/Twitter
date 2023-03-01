@@ -7,17 +7,37 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TweetsService } from 'src/app/Services/tweets.service';
 import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
+import { TokenService } from 'src/app/Services/token.service';
+import { AuthService } from 'src/app/Services/auth.service';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent implements OnInit {
+  username: any;
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
-    public httpClient: TweetsService
+    public httpClient: TweetsService,
+    private authService: AuthService
   ) {}
+  public user: any;
+  ngOnInit(): void {
+    this.isInBookmark =
+      this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+
+    this.authService.getUser().subscribe({
+      next: (data: any) => {
+        console.log(data);
+
+        this.user = data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
 
   likesCount(tweetID: any) {
     this.httpClient.getLikesCount(tweetID).subscribe({
@@ -67,10 +87,10 @@ export class TweetComponent implements OnInit {
       }
     });
   }
-  ngOnInit() {
-    this.isInBookmark =
-      this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
-  }
+  // ngOnInit() {
+  //   this.isInBookmark =
+  // this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+  // }
   popup: boolean = false;
   isInBookmark: boolean = false;
 

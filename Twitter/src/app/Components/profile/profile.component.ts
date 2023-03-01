@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   //   document.body.classList.add('popup-open');
   // }
   showPopup = false;
+  public username: any="";
 
   onButtonClick() {
     this.showPopup = true;
@@ -39,9 +40,24 @@ export class ProfileComponent implements OnInit {
   public viewType = 1;
   show= false;
   ngOnInit(): void {
+    this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
-      this.show=true;
-      this.tweetsClient.getReplies().subscribe({
+      this.show = true;
+      this.tweetsClient.getReplies(this.username).subscribe({
+        next: (data: any) => {
+          this.tweets = data.tweets;
+          console.log(this.tweets);
+          this.user = data.user;
+
+          console.log(this.user);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
+      this.show = false;
+      this.tweetsClient.getLikes(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           console.log(this.tweets);
@@ -52,11 +68,10 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         },
       });
-    }
-    else if(this.myRoute.snapshot?.url[1]?.path === 'likes'){
-      this.show=false;
-      this.tweetsClient.getLikes().subscribe({
-        next:(data:any)=>{
+    } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
+      this.show = false;
+      this.tweetsClient.getMedia(this.username).subscribe({
+        next: (data: any) => {
           this.tweets = data.tweets;
           console.log(this.tweets);
           this.user = data.user;
@@ -64,26 +79,12 @@ export class ProfileComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-        }
-      })
-    }
-    else if (this.myRoute.snapshot?.url[1]?.path === 'media'){
-      this.show = false ;
-      this.tweetsClient.getMedia().subscribe({
-        next:(data:any)=>{
-          this.tweets = data.tweets;
-          console.log(this.tweets);
-          this.user = data.user;
-          console.log(this.user);
         },
-        error:(err) => {
-          console.log(err);
-        }
-      })
-    }
-    else {
-      this.show=false;
-      this.tweetsClient.getAuthedTweets().subscribe({
+      });
+    } else {
+      this.show = false;
+      // let userName = this.myRoute.snapshot.params['user'];
+      this.tweetsClient.getAuthedTweets(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           this.user = data.user;
