@@ -36,7 +36,6 @@ class UpdateDataController extends Controller
     private function updateData($request)
     {
         $user = User::whereEmail($request->email)->first();
-
         // Save the old values in variables
         $oldEmail = $user->email;
         $oldFirstName = $user->first_name;

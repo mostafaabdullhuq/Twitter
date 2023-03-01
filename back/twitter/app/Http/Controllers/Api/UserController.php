@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\UpdateUserRequest;
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -20,28 +21,68 @@ class UserController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $user->followers_count = $user->followers()->count();
-        $user->followings_count = $user->followings()->count();
-        $user->tweets_count = $user->tweets()->count();
-        $user->is_following = false;
-
+        $user = $this->formatUser($user);
         return $user;
     }
 
-    public function update(Request $request)
+
+    public function update(UpdateUserRequest $request)
     {
-        $user = auth()->user();
-        $user->update($request->all());
-        return $user;
+        try {
+            // get only required from request
+            $data = $request->only([
+                'first_name', 'last_name', 'username', 'bio', 'location', 'website', 'phone_number', 'date_of_birth', 'is_cover_removed'
+            ]);
+
+
+            // if any input not given, set it as null
+
+            $data['first_name'] = $data['first_name'] ?? null;
+            $data['last_name'] = $data['last_name'] ?? null;
+            $data['username'] = $data['username'] ?? null;
+            $data['bio'] = $data['bio'] ?? null;
+            $data['location'] = $data['location'] ?? null;
+            $data['website'] = $data['website'] ?? null;
+            $data['phone_number'] = $data['phone_number'] ?? null;
+            $data['date_of_birth'] = $data['date_of_birth'] ?? null;
+
+            $userProfileImage = $request->file('profile_picture');
+            $userCoverImage = $request->file('cover_picture');
+            $user = auth()->user();
+
+            if ($userProfileImage) {
+                $userProfileImage = $userProfileImage->store('public/profile_pictures') ?? null;
+                $userProfileImage = $userProfileImage ? explode('/', $userProfileImage)[2] : null;
+                $data['profile_picture'] = $userProfileImage;
+            }
+
+
+            if ($userCoverImage) {
+                $userCoverImage = $userCoverImage->store('public/cover_pictures') ?? null;
+                $userCoverImage = $userCoverImage ? explode('/', $userCoverImage)[2] : null;
+                $data['cover_picture'] = $userCoverImage;
+            } else if (isset($data['is_cover_removed'])) {
+                return $data['is_cover_removed'];
+                $data['cover_picture'] = null;
+            }
+
+            $user->update($data);
+
+            $user = $this->formatUser($user);
+            return $user;
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e], 500);
+        }
     }
+
+
+
     //getBookmarked Tweets
     public function bookmarks(Request $request)
     {
         $user = JWTAuth::user();
         $tweets = [];
-        $user->followers_count = $user->followers()->count();
-        $user->followings_count = $user->followings()->count();
-        $user->tweets_count = $user->tweets()->count();
+        $user = $this->formatUser($user);
         $tweets = $this->formatTweets($tweets);
         $bookmarks = $user->bookmarks;
         foreach ($bookmarks as $bookmark) {
@@ -96,12 +137,13 @@ class UserController extends Controller
     {
         // add user object to the tweet object and delete security sensitive information
         $tweet->user;
+        $tweet->user = $this->formatUser($tweet->user);
+
         unset($tweet->user->google_access_token);
         unset($tweet->user->facebook_access_token);
         unset($tweet->user->email_verified_at);
         unset($tweet->user->updated_at);
         unset($tweet->user_id);
-
         $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
 
         // get the media of the tweet and update it's url values and remove security sensitive info
@@ -156,6 +198,8 @@ class UserController extends Controller
         foreach ($tweets as $tweet) {
             // Get the user associated with this tweet
             $tweet->user;
+            $tweet->user = $this->formatUser($tweet->user);
+
             // Remove sensitive information from the user object
             unset($tweet->user->google_access_token);
             unset($tweet->user->facebook_access_token);
@@ -183,17 +227,43 @@ class UserController extends Controller
         return $tweets;
     }
 
+    public function formatUser($user)
+    {
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        $user->is_following = false;
+        $user->profile_picture = $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : null;
+        $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
+        unset(
+            $user->email_verified_at,
+            $user->password,
+            $user->remember_token,
+            $user->updated_at,
+            $user->facebook_access_token,
+            $user->google_access_token,
+        );
+
+        return $user;
+    }
+
 
     public function get_all_users()
     {
-        return User::all();
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $user = $this->formatUser($user);
+        }
+
+
+        return $users;
     }
 
 
     public function destroy(Request $request)
     {
         $request->user()->delete();
-
         return response()->json(['message' => 'user permanently deleted '], 500);
     }
 }

@@ -118,7 +118,7 @@ class AuthController extends Controller
         unset($user->email_verified_at);
         unset($user->updated_at);
         unset($user->google_access_token);
-
+        $user = $this->formatUser($user);
         $ttl = JWTAuth::factory()->getTTL();
         return response()->json([
             'access_token' => $token,
@@ -126,5 +126,26 @@ class AuthController extends Controller
             'expires_in' => Carbon::now()->addMinutes($ttl),
             'user' => JWTAuth::user()
         ]);
+    }
+
+    public function formatUser($user)
+    {
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        $user->is_following = false;
+        $user->profile_picture = $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : null;
+        $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
+
+        unset(
+            $user->email_verified_at,
+            $user->password,
+            $user->remember_token,
+            $user->updated_at,
+            $user->facebook_access_token,
+            $user->google_access_token,
+        );
+
+        return $user;
     }
 }

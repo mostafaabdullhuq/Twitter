@@ -32,6 +32,8 @@ class TweetController extends Controller
             $user->tweets_count = $user->tweets()->count();
             $tweets = $this->formatTweets($tweets);
             $user->is_following = JWTAuth::user()->isFollowing($user);
+
+            $user = $this->formatUser($user);
             return [
                 'user' => $user,
                 'tweets' => $tweets
@@ -46,6 +48,8 @@ class TweetController extends Controller
     {
         $retweets = JWTAuth::user()->retweets()->latest()->get();
         $user = JWTAuth::user();
+        $user = $this->formatUser($user);
+
         return [
             'user' => $user,
             'retweets' => $retweets
@@ -65,15 +69,12 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->email_verified_at);
         unset($user->updated_at);
-
-        // $user = $this->formatUser($user);
-
+        $user = $this->formatUser($user);
         foreach ($replies as $key => $reply) {
             $replyParent = $reply->repliable()->first();
             if ($replyParent) {
                 $tweet = $this->formatTweet($replyParent, $user->id);
                 $tweets[] = $tweet;
-
                 unset($tweet->updated_at);
             }
         }
@@ -95,6 +96,7 @@ class TweetController extends Controller
         $user = User::where('username', $username)->first();
         $likes = $user->likes;
         $tweets = [];
+        $user = $this->formatUser($user);
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
         $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
@@ -122,6 +124,7 @@ class TweetController extends Controller
     public function get_User_Media($username)
     {
         $user = User::where('username', $username)->first();
+        $user = $this->formatUser($user);
         $tweets = $user->tweetsWithMedia;
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
@@ -130,7 +133,7 @@ class TweetController extends Controller
         unset($user->google_access_token);
         unset($user->facebook_access_token);
         unset($user->updated_at);
-        
+
         $tweets = $this->formatTweets($tweets);
         return [
             'user' => $user,
@@ -218,6 +221,7 @@ class TweetController extends Controller
 
                 $media = $media ? $media->store('public/media') : null;
                 $mediaName = explode('/', $media)[2];
+
                 $tweet->media()->create([
                     'media_url' => $mediaName,
                     'media_type' => $mediaType
@@ -250,7 +254,26 @@ class TweetController extends Controller
             return response()->json(['error' => $e->getMessage(), 'code' => 2], 500);
         }
     }
+    public function formatUser($user)
+    {
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        $user->is_following = false;
+        $user->profile_picture = $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : null;
+        $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
 
+        unset(
+            $user->email_verified_at,
+            $user->password,
+            $user->remember_token,
+            $user->updated_at,
+            $user->facebook_access_token,
+            $user->google_access_token,
+        );
+
+        return $user;
+    }
 
     public function formatTweet($tweet, $userID = 0)
     {
@@ -259,14 +282,7 @@ class TweetController extends Controller
         $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
-
-        $tweet->user;
-        unset($tweet->user->google_access_token);
-        unset($tweet->user->facebook_access_token);
-        unset($tweet->user->email_verified_at);
-        unset($tweet->user->updated_at);
-        unset($tweet->user_id);
-
+        $tweet->user = $this->formatUser($tweet->user);
         // get the media of the tweet and update it's url values and remove security sensitive info
         $media = $tweet->media;
         if ($media->count()) {
@@ -279,7 +295,7 @@ class TweetController extends Controller
         }
         $replies = $userID ? $tweet->replyWithUserID($userID) : $tweet->replies;
         foreach ($replies as $reply) {
-            $reply->user = $reply->user;
+            $reply->user = $this->formatUser($reply->user);
             unset($reply->repliable_type);
             unset($reply->repliable_id);
             unset($reply->updated_at);
@@ -319,7 +335,7 @@ class TweetController extends Controller
         $mentions = $tweet->mentions;
 
         foreach ($mentions as $key => $mention) {
-            $mention->mentioned_user = $mention->mentionedUser;
+            $mention->mentioned_user = $this->formatUser($mention->mentionedUser);
             unset($mention->mentioned_user->google_access_token);
             unset($mention->mentioned_user->facebook_access_token);
             unset($mention->mentioned_user->email_verified_at);
@@ -337,15 +353,7 @@ class TweetController extends Controller
     public function formatTweets($tweets)
     {
         foreach ($tweets as $tweet) {
-            // Get the user associated with this tweet
-            $tweet->user;
-            // Remove sensitive information from the user object
-            unset($tweet->user->google_access_token);
-            unset($tweet->user->facebook_access_token);
-            unset($tweet->user->email_verified_at);
-            unset($tweet->user->updated_at);
-            unset($tweet->user_id);
-            // Get the media associated with this tweet
+            $tweet->user = $this->formatUser($tweet->user);            // Get the media associated with this tweet
             $tweet->media;
             $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
             // Remove sensitive information from the media objects

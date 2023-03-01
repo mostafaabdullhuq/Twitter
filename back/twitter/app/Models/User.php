@@ -28,6 +28,12 @@ class User extends Authenticatable implements JWTSubject
         'views_count',
         'phone_number',
         'date_of_birth',
+        'profile_picture',
+        'cover_picture',
+        'bio',
+        'location',
+        'website',
+
     ];
 
     /**
@@ -39,6 +45,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'remember_token',
     ];
+
+
 
     /**
      * The attributes that should be cast.
@@ -70,7 +78,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function tweets()
     {
-        return  $this->hasMany(Tweet::class) ;
+        return  $this->hasMany(Tweet::class);
     }
 
     public function tweetsWithMedia()
@@ -78,6 +86,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Tweet::class)
             ->whereHas('media');
     }
+
+
 
 
     public function likes()
