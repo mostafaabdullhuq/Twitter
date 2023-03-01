@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
 import { TweetsService } from './Services/tweets.service';
 import { AuthService } from './Services/auth.service';
@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   public isInResponseReset: boolean = false;
   public popup = false;
   public user: any;
+  username: any;
   constructor(
     public tweetsClient: TweetsService,
     private Logged: LoggedService,

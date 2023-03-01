@@ -173,25 +173,28 @@ export class TweetsService {
   //   });
   // }
 
-  getReplies() {
+
+  getReplies(userName: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/replies', {
+    return this.httpClient.get(this.BASE_URL + `/${userName}/replies`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-  getLikes() {
+
+  getLikes(username:any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/likes', {
+    return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-  getMedia() {
+  
+  getMedia(username:any){
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/media', {
+    return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
