@@ -130,7 +130,7 @@ class TweetController extends Controller
         unset($user->google_access_token);
         unset($user->facebook_access_token);
         unset($user->updated_at);
-        
+
         $tweets = $this->formatTweets($tweets);
         return [
             'user' => $user,
