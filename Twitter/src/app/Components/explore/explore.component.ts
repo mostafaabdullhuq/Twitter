@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.css']
+  styleUrls: ['./explore.component.css'],
 })
-export class ExploreComponent {
-
+export class ExploreComponent implements OnInit {
+  constructor() {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 }
