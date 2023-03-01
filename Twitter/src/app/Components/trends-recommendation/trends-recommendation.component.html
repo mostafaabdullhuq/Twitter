@@ -2,16 +2,20 @@
 <div class="bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 rounded-2xl mb-4 overflow-hidden">
     <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">What’s happening
     </h3>
-    <div *ngIf="hashtags.length; else loadingBlock">
-        <div *ngFor="let hashtag of hashtags">
-            <div class="right-trend">
-                <h4 dir="auto" class="font-bold text-gray-700 dark:text-white">#{{hashtag.name}}</h4>
-                <p class="text-sm text-gray-600 dark:text-dark-gray_300">{{hashtag.tweets_count | humanNumbers}} Tweets
-                </p>
-            </div>
+    <div *ngIf="hashtags; else loadingBlock">
+        <div *ngIf="hashtags.length;else noHashtagBlock">
+            <div *ngFor="let hashtag of hashtags">
+                <div class="right-trend">
+                    <h4 dir="auto" class="font-bold text-gray-700 dark:text-white">#{{hashtag.name}}</h4>
+                    <p class="text-sm text-gray-600 dark:text-dark-gray_300">{{hashtag.tweets_count | humanNumbers}}
+                        Tweets
+                    </p>
+                </div>
 
+            </div>
+            <div routerLink="/explore" class="text-blue-400 p-3 cursor-pointer hover:underline right-trend">Show more
+            </div>
         </div>
-        <div routerLink="/explore" class="text-blue-400 p-3 cursor-pointer hover:underline right-trend">Show more</div>
 
     </div>
 </div>
@@ -22,6 +26,13 @@
     <div class="h-full w-full flex flex-col items-center justify-center ">
         <div class="flex flex-col text-center gap-4 px-4 py-10 dark:text-white">
             <i class="fa-solid fa-spinner text-2xl animate-spin"></i>
+        </div>
+    </div>
+</ng-template>
+<ng-template #noHashtagBlock>
+    <div class="h-full w-full flex flex-col items-center justify-center ">
+        <div class="flex flex-col text-center gap-4 px-4 py-10 dark:text-white">
+            There's no hashtags to show.
         </div>
     </div>
 </ng-template>
