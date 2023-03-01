@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Tweet;
 use JWTAuth;
+use App\Http\Requests\UpdateUserData;
+
 
 class UserController extends Controller
 {
@@ -28,12 +30,54 @@ class UserController extends Controller
         return $user;
     }
 
-    public function update(Request $request)
-    {
-        $user = auth()->user();
-        $user->update($request->all());
-        return $user;
-    }
+    // public function update(UpdateUserData $request)
+    // {
+    //     try {
+    //         // get only required from request
+    //         $data = $request->only([
+    //             'first_name', 'last_name', 'username', 'bio', 'location', 'website', 'phone_number', 'date_of_birth', 'is_cover_removed'
+    //         ]);
+
+
+    //         // if any input not given, set it as null
+
+    //         $data['first_name'] = $data['first_name'] ?? null;
+    //         $data['last_name'] = $data['last_name'] ?? null;
+    //         $data['username'] = $data['username'] ?? null;
+    //         $data['bio'] = $data['bio'] ?? null;
+    //         $data['location'] = $data['location'] ?? null;
+    //         $data['website'] = $data['website'] ?? null;
+    //         $data['phone_number'] = $data['phone_number'] ?? null;
+    //         $data['date_of_birth'] = $data['date_of_birth'] ?? null;
+
+    //         $userProfileImage = $request->file('profile_picture');
+    //         $userCoverImage = $request->file('cover_picture');
+    //         $user = auth()->user();
+
+    //         if ($userProfileImage) {
+    //             $userProfileImage = $userProfileImage->store('public/profile_pictures') ?? null;
+    //             $userProfileImage = $userProfileImage ? explode('/', $userProfileImage)[2] : null;
+    //             $data['profile_picture'] = $userProfileImage;
+    //         }
+
+
+    //         if ($userCoverImage) {
+    //             $userCoverImage = $userCoverImage->store('public/cover_pictures') ?? null;
+    //             $userCoverImage = $userCoverImage ? explode('/', $userCoverImage)[2] : null;
+    //             $data['cover_picture'] = $userCoverImage;
+    //         } else if (isset($data['is_cover_removed'])) {
+    //             return $data['is_cover_removed'];
+    //             $data['cover_picture'] = null;
+    //         }
+
+    //         $user->update($data);
+
+    //         $user = $this->formatUser($user);
+    //         return $user;
+    //     } catch (\Exception $e) {
+    //         return response()->json(['message' => $e], 500);
+    //     }
+    // }
     //getBookmarked Tweets
     public function bookmarks(Request $request)
     {
