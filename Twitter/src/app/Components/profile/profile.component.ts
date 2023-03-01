@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   //   document.body.classList.add('popup-open');
   // }
 
-  
+
   showPopup = false;
   public username: any = '';
 
@@ -43,10 +43,8 @@ export class ProfileComponent implements OnInit {
   show = false;
   ngOnInit(): void {
     this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
-    // console.log(this.username);
-    // Heeere
-    
-    if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
+
+    if (this.myRoute.snapshot?.url[1]?.path === 'with_replies'){
       this.show = true;
       this.tweetsClient.getReplies(this.username).subscribe({
         next: (data: any) => {
@@ -60,7 +58,8 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         },
       });
-    } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
+    }
+    else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
       this.show = false;
       this.tweetsClient.getLikes(this.username).subscribe({
         next: (data: any) => {
@@ -73,7 +72,8 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         },
       });
-    } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
+    }
+    else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
       this.show = false;
       this.tweetsClient.getMedia(this.username).subscribe({
         next: (data: any) => {
@@ -86,7 +86,8 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         },
       });
-    } else {
+    }
+    else {
       this.show = false;
       this.tweetsClient.getAuthedTweets(this.username).subscribe({
         next: (data: any) => {
