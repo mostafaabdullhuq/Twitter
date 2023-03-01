@@ -182,7 +182,6 @@ class TweetController extends Controller
         }
         $tweetHashtags ? $tweet->attachTags($tweetHashtags) : null;
 
-
         $tweetMentions = [];
         if ($tweetText) {
             $reqMentions = preg_grep(
