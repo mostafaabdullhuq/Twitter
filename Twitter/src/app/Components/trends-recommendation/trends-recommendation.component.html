@@ -4,14 +4,14 @@
     </h3>
     <div *ngIf="hashtags; else loadingBlock">
         <div *ngIf="hashtags.length;else noHashtagBlock">
-            <div *ngFor="let hashtag of hashtags">
+            <div routerLink="/search" [queryParams]="{'type':'hashtag_tweets', 'q': hashtag.name}"
+                *ngFor="let hashtag of hashtags">
                 <div class="right-trend">
                     <h4 dir="auto" class="font-bold text-gray-700 dark:text-white">#{{hashtag.name}}</h4>
                     <p class="text-sm text-gray-600 dark:text-dark-gray_300">{{hashtag.tweets_count | humanNumbers}}
                         Tweets
                     </p>
                 </div>
-
             </div>
             <div routerLink="/explore" class="text-blue-400 p-3 cursor-pointer hover:underline right-trend">Show more
             </div>
