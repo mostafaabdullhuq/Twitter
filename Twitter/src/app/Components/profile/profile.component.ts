@@ -44,7 +44,6 @@ export class ProfileComponent implements OnInit {
     this.myRoute.params.subscribe((res:any)=>{this.username_url = res.user});
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.show = true;
-      // let userName = this.myRoute.snapshot.params['user'];
       this.tweetsClient.getReplies(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
@@ -59,7 +58,6 @@ export class ProfileComponent implements OnInit {
       });
     } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
       this.show = false;
-      // let userName = this.myRoute.snapshot.params['user'];
       this.tweetsClient.getLikes(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
@@ -73,7 +71,6 @@ export class ProfileComponent implements OnInit {
       });
     } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
       this.show = false;
-      // let userName = this.myRoute.snapshot.params['user'];
       this.tweetsClient.getMedia(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
