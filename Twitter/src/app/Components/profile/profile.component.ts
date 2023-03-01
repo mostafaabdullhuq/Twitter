@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
   
   showPopup = false;
-  public username: any="";
+  public username: any = '';
 
   onButtonClick() {
     this.showPopup = true;
@@ -40,20 +40,9 @@ export class ProfileComponent implements OnInit {
   public tweets: any;
   public user: any;
   public viewType = 1;
-  public loggeduser: any;
-  show= false;
+  show = false;
   ngOnInit(): void {
-    
-      // this.Token.getUser().subscribe({
-      //   next: (data:any)=>{this.loggeduser = data},
-      //   error: (err:any)=>{}
-        
-      // })
-    
     this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
-    console.log(this.username);
-    console.log(this.loggeduser);
-
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.show = true;
       this.tweetsClient.getReplies(this.username).subscribe({
@@ -96,7 +85,6 @@ export class ProfileComponent implements OnInit {
       });
     } else {
       this.show = false;
-      // let userName = this.myRoute.snapshot.params['user'];
       this.tweetsClient.getAuthedTweets(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
