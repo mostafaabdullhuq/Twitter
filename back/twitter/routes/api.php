@@ -15,6 +15,7 @@ use App\Http\Controllers\BlockController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
 use App\Http\Controllers\changePasswordSettingController;
+use App\Http\Controllers\Api\ChatController;
 
 Route::group([
     'middleware' => 'api',
@@ -106,6 +107,13 @@ Route::group([
 
 
 
+
+//Chat App
+Route::group([
+    'middleware' => 'api',
+], function () {
+    Route::post('messages', [ChatController::class, 'message']);
+});
 
 
 // Route::group([
