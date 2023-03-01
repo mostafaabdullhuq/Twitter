@@ -105,38 +105,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->bookmarks()->where('tweet_id', $tweet_id)->exists();
     }
 
-    // get the users who follow the current user
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
-    }
 
-    // get the users who is followed by the current user
-    public function followings()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
-    }
-
-    // follow new user
-    public function follow(User $user)
-    {
-        return $this->followings()->save($user);
-    }
-
-    public function unfollow(User $user)
-    {
-        return $this->followings()->detach($user);
-    }
-
-    public function isFollowing(User $user)
-    {
-        return $this->followings()->where('following_id', $user->id)->exists();
-    }
-
-    public function isFollowedBy(User $user)
-    {
-        return $this->followers()->where('follower_id', $user->id)->exists();
-    }
 
     // get all following people tweets and user tweets also, ordered from newest to oldest
     public function hforyou()
