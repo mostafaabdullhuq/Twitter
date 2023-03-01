@@ -15,7 +15,6 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
 use App\Http\Controllers\changePasswordSettingController;
 
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -35,12 +34,10 @@ Route::group([
     Route::Post('changePassword', [changePasswordSettingController::class, 'passwordSetting']);
 });
 
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'user'
 ], function () {
-
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
@@ -59,16 +56,17 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'tweet'
 ], function () {
+    Route::post('{id}/retweet', [TweetController::class, 'retweet']);
+    Route::get('{retweet_id}/retweet/view', [TweetController::class, 'viewsRetweet']);
     Route::post('', [TweetController::class, 'create']);
     Route::get('{username}/me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
     Route::get('following', [TweetController::class, 'homefollowing']);
-    Route::get('media', [TweetController::class, 'get_User_Media']);
-    Route::get('replies', [TweetController::class, 'get_User_Replies']);
-    Route::get('likes', [TweetController::class, 'get_User_Likes']);
+    Route::get('{username}/media', [TweetController::class, 'get_User_Media']);
+    Route::get('{username}/replies', [TweetController::class, 'get_User_Replies']);
+    Route::get('{username}/likes', [TweetController::class, 'get_User_Likes']);
     Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
-    Route::post('{id}/retweet', [TweetController::class, 'retweet']);
     Route::post('{id}/reply', [TweetController::class, 'reply']);
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     Route::delete('{id}/delete', [TweetController::class, 'delete']);
@@ -95,3 +93,13 @@ Route::group([
     Route::post('trending/', [HashtagController::class, 'trends']);
     Route::get('search/{hashtag}', [HashtagController::class, 'search']);
 });
+
+// Route::group([
+//     'middleware' => 'api',
+//     'prefix' => 'tweet'
+// ], function () {
+//     Route::get('{username}/me', [TweetController::class, 'me']);
+//     Route::get('{username}/media', [TweetController::class, 'get_User_Media']);
+//     Route::get('{username}/replies', [TweetController::class, 'get_User_Replies']);
+//     Route::get('{username}/likes', [TweetController::class, 'get_User_Likes']);
+// });

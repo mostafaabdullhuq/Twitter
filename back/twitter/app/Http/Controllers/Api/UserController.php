@@ -55,16 +55,16 @@ class UserController extends Controller
     }
 
     //deleteBookmark
-    public function deleteBookmark($id)
-    {
-        try {
-            $bookmark = Bookmark::find($id);
-            $bookmark->delete();
-            return response()->json(['message' => 'Removed from bookmarks'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'not bookmarked'], 404);
-        }
-    }
+    // public function deleteBookmark($id)
+    // {
+    //     try {
+    //         $bookmark = Bookmark::find($id);
+    //         $bookmark->delete();
+    //         return response()->json(['message' => 'Removed from bookmarks'], 200);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['message' => 'not bookmarked'], 404);
+    //     }
+    // }
     //addTweetBookmark
     public function addBookmark(Request $request)
     {
@@ -147,6 +147,8 @@ class UserController extends Controller
         $tweet->likes_count = $tweet->likes->count();
         // $tweet->views_count = $tweet->views->count();
         $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
+        // $tweet->retweeted = JWTAuth::user()->isRetweeted($tweet->id);
+
         return $tweet;
     }
 
@@ -187,6 +189,16 @@ class UserController extends Controller
     public function get_all_users()
     {
         return User::all();
+        // $user = JWTAuth::user();
+        // $user->f
+
+        // $user = auth()->user();
+        // $user->followers_count = $user->followers()->count();
+        // $user->followings_count = $user->followings()->count();
+        // $user->tweets_count = $user->tweets()->count();
+        // $user->is_following = false;
+
+        // return $user;
     }
 
 
