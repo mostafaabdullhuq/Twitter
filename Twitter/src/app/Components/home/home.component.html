@@ -1,7 +1,8 @@
 <!-- ! -------middle start ------- -->
 <div id="middleRoot" *ngIf="user;else loadingBlock"
     class="pb-20 sm:pb-0 h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-    <app-sticky-header-home></app-sticky-header-home>
+    <app-sticky-header-home
+        class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent"></app-sticky-header-home>
     <!-- new tweet section -->
     <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()" enctype="multipart/form-data">
         <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
