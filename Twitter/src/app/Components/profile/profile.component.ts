@@ -39,8 +39,9 @@ export class ProfileComponent implements OnInit {
   public user: any;
   public viewType = 1;
   show= false;
+  username_url:string ="";
   ngOnInit(): void {
-    this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
+    this.myRoute.params.subscribe((res:any)=>{this.username_url = res.user});
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.show = true;
       // let userName = this.myRoute.snapshot.params['user'];
