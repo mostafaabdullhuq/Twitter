@@ -55,7 +55,7 @@
 
                 <!-- tweet media -->
                 <div *ngIf="tweet.media.length"
-                    class="relative h-[400px] w-auto max-h-[400px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
+                    class="relative bg-white  h-[400px] w-auto max-h-[400px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
                     <div class="controls">
                         <!-- media next -->
                         <div (click)="handleMedia(1, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"

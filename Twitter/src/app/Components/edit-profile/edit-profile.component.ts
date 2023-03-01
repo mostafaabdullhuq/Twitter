@@ -122,7 +122,8 @@ export class EditProfileComponent implements OnInit {
     });
   }
   handleResponse(res: any) {
-    this.router.navigate(['/profile']);
+    this.onClosePopup();
+    window.location.href = '/' + this.user.username;
   }
 
   handleError(error: any) {

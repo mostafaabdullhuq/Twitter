@@ -5,6 +5,9 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class TweetsService {
+  uploadImage(formData: FormData) {
+    throw new Error('Method not implemented.');
+  }
   private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 
@@ -36,14 +39,6 @@ export class TweetsService {
     });
   }
 
-  addView(id: any) {
-    const accessToken = this.token.get();
-    return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  }
   ////////////////
   getTweetById(id: any) {
     const accessToken = this.token.get();
@@ -106,6 +101,36 @@ export class TweetsService {
     });
   }
 
+  //views
+  addView(id: any) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
+  //rewtweets
+  postRetweet(retweet: any, id: any) {
+    const accessToken = this.token.get();
+    return this.httpClient.post(`${this.BASE_URL}/${id}/retweet`, retweet, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
+  //getRetweetsViewsCount
+  retweetView(retweetID: any) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(`${this.BASE_URL}/${retweetID}/retweet/view`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
   getTweetsByMention(mention: any) {
     return this.httpClient.get(`${this.BASE_URL}/mention/${mention}`);
   }
@@ -154,6 +179,15 @@ export class TweetsService {
     return this.httpClient.get(`${this.BASE_URL}/following/${id}`);
   }
 
+  getTrendingTweets(count: number) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + `/trending/${count}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
   // getRetweets() {
   //   const accessToken = this.token.get();
 
@@ -172,7 +206,6 @@ export class TweetsService {
   //   });
   // }
 
-
   getReplies(userName: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${userName}/replies`, {
@@ -182,7 +215,7 @@ export class TweetsService {
     });
   }
 
-  getLikes(username:any) {
+  getLikes(username: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
       headers: {
@@ -191,9 +224,9 @@ export class TweetsService {
     });
   }
 
-  getMedia(username:any){
+  getMedia(username: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
+    return this.httpClient.get(this.BASE_URL + `/${username}/media`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
