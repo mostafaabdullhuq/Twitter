@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
 @Injectable({
@@ -28,16 +27,16 @@ export class TweetsService {
     });
   }
 
-  getAuthedTweets(username:any) {
+  getAuthedTweets(userName: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(`this.BASE_URL + /${username}/me`, {
+    return this.httpClient.get(this.BASE_URL + `/${userName}/me`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
 
-  addView(id:any){
+  addView(id: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
       headers: {
@@ -45,7 +44,7 @@ export class TweetsService {
       },
     });
   }
-////////////////
+  ////////////////
   getTweetById(id: any) {
     const accessToken = this.token.get();
 
@@ -174,9 +173,17 @@ export class TweetsService {
   //   });
   // }
 
-  getReplies(username:any) {
+  // getAuthedTweets(userName: any) {
+  //   const accessToken = this.token.get();
+  //   return this.httpClient.get(this.BASE_URL + `/${userName}/me`, {
+  //     headers: {
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+  // }
+  getReplies(userName: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(`this.BASE_URL + /${username}/replies `, {
+    return this.httpClient.get(this.BASE_URL + `/${userName}/replies`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -184,7 +191,7 @@ export class TweetsService {
   }
   getLikes(username:any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(`this.BASE_URL + /${username}/likes`, {
+    return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -192,10 +199,10 @@ export class TweetsService {
   }
   getMedia(username:any){
     const accessToken = this.token.get();
-    return this.httpClient.get(`this.BASE_URL + /${username}/media` , {
+    return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
       headers: {
-        Authorization : `Bearer ${accessToken}`,
-      }
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
   //Just TEST

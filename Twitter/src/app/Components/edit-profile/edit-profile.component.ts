@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
@@ -6,13 +6,12 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent implements OnInit {
   @Input() showPopup = false;
   @Output() closePopup = new EventEmitter<void>();
   previewUrl: any;
-  username: any;
 
   onClosePopup() {
     this.closePopup.emit();
@@ -26,7 +25,9 @@ export class EditProfileComponent implements OnInit {
       this.reader.onload = () => {
         this.form.profile_picture = this.reader.result as string;
         sessionStorage.setItem('profile_picture', this.form.profile_picture);
-        const img = document.getElementById('profile-image') as HTMLImageElement; // get the image element by id
+        const img = document.getElementById(
+          'profile-image'
+        ) as HTMLImageElement; // get the image element by id
         img.src = this.form.profile_picture; // set the src attribute to the data URL
       };
       this.reader.readAsDataURL(file);
@@ -63,30 +64,32 @@ export class EditProfileComponent implements OnInit {
     phone_number: '',
     location: '',
     website: '',
-    profile_picture:'',
-    cover_picture:'',
+    profile_picture: '',
+    cover_picture: '',
   };
 
   constructor(
-   public tweetsClient: TweetsService,
-   public myActivate:ActivatedRoute,
-   private Auth: AuthService,
-   private router: Router) {}
+    public tweetsClient: TweetsService,
+    public myActivate: ActivatedRoute,
+    private Auth: AuthService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
   public user: any;
 
   ngOnInit(): void {
-    this.myActivate.params.subscribe((res:any)=>{this.username = res.user});
     // retrieve the stored file from localStorage
     const storedProfilePicture = sessionStorage.getItem('profile_picture');
     const storedCoverPicture = sessionStorage.getItem('cover_picture');
-    this.tweetsClient.getAuthedTweets(this.username).subscribe({
+    // let userName;
+    this.authService.getUser().subscribe({
       next: (data: any) => {
-        this.user = data.user;
+        this.user = data;
 
         // set the value of the input field to the stored file
         this.form = {
           email: this.user.email || '',
-          first_name:this.user.first_name || '',
+          first_name: this.user.first_name || '',
           last_name: this.user.last_name || '',
           username: this.user.username || null,
           bio: this.user.bio || null,
@@ -94,8 +97,12 @@ export class EditProfileComponent implements OnInit {
           phone_number: this.user.phone_number || null,
           location: this.user.location || null,
           website: this.user.website || null,
-          profile_picture: storedProfilePicture ||'./../../../assets/images/default_profile.png',
-          cover_picture: storedCoverPicture  || './../../../assets/images/3840x2160-dark-gray-solid-color-background.jpg',
+          profile_picture:
+            storedProfilePicture ||
+            './../../../assets/images/default_profile.png',
+          cover_picture:
+            storedCoverPicture ||
+            './../../../assets/images/3840x2160-dark-gray-solid-color-background.jpg',
         };
       },
       error: (err) => {
@@ -104,19 +111,21 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    this.Auth.updateUser(this.form).subscribe({
+      next: (data) => {
+        this.handleResponse(data);
+      },
+      error: (err) => {
+        this.handleError(err);
+      },
+    });
+  }
+  handleResponse(res: any) {
+    this.router.navigate(['/profile']);
+  }
 
-
-   onSubmit(){
-this.Auth.updateUser(this.form).subscribe({
-  next: (data) => {this.handleResponse(data)},
-  error: (err) => {this.handleError(err);},
-})
- }
- handleResponse(res: any) {
-  this.router.navigate(['/profile']);
-}
-
-handleError(error: any) {
-  this.error = error.error.error;
-}
+  handleError(error: any) {
+    this.error = error.error.error;
+  }
 }

@@ -3,6 +3,7 @@ import { LoggedService } from './Services/logged.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
 import { TweetsService } from './Services/tweets.service';
+import { AuthService } from './Services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,16 +24,15 @@ export class AppComponent implements OnInit {
     private Logged: LoggedService,
     private router: Router,
     private Token: TokenService,
-    public myRoute:ActivatedRoute
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
-    this.tweetsClient.getAuthedTweets(this.username).subscribe({
+    this.authService.getUser().subscribe({
       next: (data: any) => {
-        this.user = data.user;
+        this.user = data;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.log(err);
       },
     });
