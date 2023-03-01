@@ -128,8 +128,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
     }
 
-    // follow new user
-    public function follow(User $user)
+    // follow new user 
+    public function follow(User $user) 
     {
         return $this->followings()->save($user);
     }
@@ -147,7 +147,8 @@ class User extends Authenticatable implements JWTSubject
     public function isFollowedBy(User $user)
     {
         return $this->followers()->where('follower_id', $user->id)->exists();
-    }
+    }    
+
 
     // get all following people tweets and user tweets also, ordered from newest to oldest
     public function hforyou()

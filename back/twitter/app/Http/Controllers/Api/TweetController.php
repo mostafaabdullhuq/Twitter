@@ -84,7 +84,7 @@ class TweetController extends Controller
     public function get_User_Likes($username)
     {
         $user = User::where('username', $username)->first();
-        $likes = $user->likes;
+        $likes = $user->likes()->latest()->get();
         $tweets = [];
         $user->followers_count = $user->followers()->count();
         $user->followings_count = $user->followings()->count();
