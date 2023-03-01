@@ -173,14 +173,7 @@ export class TweetsService {
   //   });
   // }
 
-  // getAuthedTweets(userName: any) {
-  //   const accessToken = this.token.get();
-  //   return this.httpClient.get(this.BASE_URL + `/${userName}/me`, {
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   });
-  // }
+
   getReplies(userName: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${userName}/replies`, {
@@ -189,6 +182,7 @@ export class TweetsService {
       },
     });
   }
+
   getLikes(username:any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
@@ -197,6 +191,7 @@ export class TweetsService {
       },
     });
   }
+  
   getMedia(username:any){
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
