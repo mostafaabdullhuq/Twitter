@@ -15,16 +15,13 @@ return new class extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
+            $table->text('text')->nullable();
             $table->morphs('repliable');
             $table->integer('views_count')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            // $table->unsignedBigInteger('media_id')->nullable();
-
-
-            $table->text('text')->nullable();
             $table->timestamps();
+            // $table->unsignedBigInteger('media_id')->nullable();
         });
     }
 
