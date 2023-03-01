@@ -15,7 +15,6 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent implements OnInit {
-  username: any;
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
@@ -29,6 +28,8 @@ export class TweetComponent implements OnInit {
 
     this.authService.getUser().subscribe({
       next: (data: any) => {
+        console.log(data);
+
         this.user = data;
       },
       error: (err: any) => {

@@ -70,7 +70,7 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AfterLoginService],
   },
-  
+
   {
     path: 'home/:type',
     component: HomeComponent,
