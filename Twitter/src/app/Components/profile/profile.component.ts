@@ -38,7 +38,9 @@ export class ProfileComponent implements OnInit {
   public user: any;
   public viewType = 1;
   show= false;
+  public username:string = "";
   ngOnInit(): void {
+     this.myRoute.params.subscribe( (res:any)=>{this.username = res.user})
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.show=true;
       this.tweetsClient.getReplies().subscribe({
@@ -46,6 +48,7 @@ export class ProfileComponent implements OnInit {
           this.tweets = data.tweets;
           console.log(this.tweets);
           this.user = data.user;
+          
           console.log(this.user);
         },
         error: (err) => {
