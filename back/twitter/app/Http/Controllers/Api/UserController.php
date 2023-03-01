@@ -187,6 +187,16 @@ class UserController extends Controller
     public function get_all_users()
     {
         return User::all();
+        // $user = JWTAuth::user();
+        // $user->f
+
+        // $user = auth()->user();
+        // $user->followers_count = $user->followers()->count();
+        // $user->followings_count = $user->followings()->count();
+        // $user->tweets_count = $user->tweets()->count();
+        // $user->is_following = false;
+
+        // return $user;
     }
 
 
