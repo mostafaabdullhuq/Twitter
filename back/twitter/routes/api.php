@@ -71,6 +71,7 @@ Route::group([
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     Route::delete('{id}/delete', [TweetController::class, 'delete']);
     Route::get('{id}/view', [TweetController::class, 'view']);
+    Route::get('trending/{count}', [TweetController::class, 'highestTweets']);
     Route::get('{id}', [TweetController::class, 'details']);
 });
 
