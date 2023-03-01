@@ -19,7 +19,6 @@ export class UserService {
     });
   }
 
-
   createBokkmarks(tweetID:any){
     const accessToken = this.token.get();
     return this.httpClient.post(`${this.BASE_URL}/bookmarks/create`,{'tweet_id':tweetID},{

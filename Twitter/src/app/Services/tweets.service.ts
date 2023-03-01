@@ -57,7 +57,6 @@ export class TweetsService {
 
   createTweet(tweet: any) {
     const accessToken = this.token.get();
-
     return this.httpClient.post(this.BASE_URL, tweet, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -191,7 +190,7 @@ export class TweetsService {
       },
     });
   }
-  
+
   getMedia(username:any){
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
