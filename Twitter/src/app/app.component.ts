@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
@@ -11,6 +11,8 @@ import { AuthService } from './Services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'Twitter';
+  auth2: any;
+  @ViewChild('loginRef', {static: true }) loginElement!: ElementRef;
   public loggedIn: boolean = true;
   public isInLogin: boolean = false;
   public isInSignup: boolean = false;
@@ -42,6 +44,7 @@ export class AppComponent implements OnInit {
       this.isInSignup = false;
       this.isInRequestReset = false;
       this.isInResponseReset = false;
+      // this.googleAuthSDK();
 
       if (!this.loggedIn) {
         if (this.router.url === '/login') {
@@ -82,4 +85,44 @@ export class AppComponent implements OnInit {
   logoutPopup() {
     this.popup ? (this.popup = false) : (this.popup = true);
   }
+
+  //google
+  // callLoginButton() {
+  //   this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
+  //     (googleAuthUser:any) => {
+  //       let profile = googleAuthUser.getBasicProfile();
+  //       console.log('Token || ' + googleAuthUser.getAuthResponse().id_token);
+  //       console.log('ID: ' + profile.getId());
+  //       console.log('Name: ' + profile.getName());
+  //       console.log('Image URL: ' + profile.getImageUrl());
+  //       console.log('Email: ' + profile.getEmail());
+
+  //      /* Write Your Code Here */
+
+  //     }, (error:any) => {
+  //       alert(JSON.stringify(error, undefined, 2));
+  //     });
+  // }
+
+  // googleAuthSDK() {
+  //   (<any>window)['googleSDKLoaded'] = () => {
+  //     (<any>window)['gapi'].load('auth2', () => {
+  //       this.auth2 = (<any>window)['gapi'].auth2.init({
+  //         client_id: '1032393167493-djg4gqrnejak3b4nope9rol5r7j26h97.apps.googleusercontent.com',
+  //         cookiepolicy: 'single_host_origin',
+  //         scope: 'profile email'
+  //       });
+  //       this.callLoginButton();
+  //     });
+  //   }
+  //   (function(d, s, id){
+  //     var js, fjs = d.getElementsByTagName(s)[0];
+  //     if (d.getElementById(id)) {return;}
+  //     js = d.createElement('script');
+  //     js.id = id;
+  //     js.src = "https://apis.google.com/js/platform.js?onload=googleSDKLoaded";
+  //     fjs?.parentNode?.insertBefore(js, fjs);
+  //   }
+  //   (document, 'script', 'google-jssdk'));
+  // }
 }
