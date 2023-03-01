@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   //   document.body.classList.add('popup-open');
   // }
   showPopup = false;
-  username: any;
+  public username: any="";
 
   onButtonClick() {
     this.showPopup = true;
@@ -40,10 +40,11 @@ export class ProfileComponent implements OnInit {
   public viewType = 1;
   show= false;
   ngOnInit(): void {
+    this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
-      this.show=true;
-      let username = this.myRoute.snapshot.params['username'];
-      this.tweetsClient.getReplies(username).subscribe({
+      // this.show=true;
+      // let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getReplies(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           console.log(this.tweets);
@@ -56,9 +57,9 @@ export class ProfileComponent implements OnInit {
       });
     }
     else if(this.myRoute.snapshot?.url[1]?.path === 'likes'){
-      this.show=false;
-      let username = this.myRoute.snapshot.params['username'];
-      this.tweetsClient.getLikes(username).subscribe({
+      // this.show=false;
+      // let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getLikes(this.username).subscribe({
         next:(data:any)=>{
           this.tweets = data.tweets;
           console.log(this.tweets);
@@ -71,9 +72,9 @@ export class ProfileComponent implements OnInit {
       })
     }
     else if (this.myRoute.snapshot?.url[1]?.path === 'media'){
-      this.show = false ;
-      let username = this.myRoute.snapshot.params['username'];
-      this.tweetsClient.getMedia(username).subscribe({
+      // this.show = false ;
+      // let username = this.myRoute.snapshot.params['username'];
+      this.tweetsClient.getMedia(this.username).subscribe({
         next:(data:any)=>{
           this.tweets = data.tweets;
           console.log(this.tweets);
@@ -87,9 +88,7 @@ export class ProfileComponent implements OnInit {
     }
     else {
       this.show=false;
-      let username = 'adm';
-      this.myRoute.params.subscribe((res:any)=>{this.username = res.user.username});
-      this.tweetsClient.getAuthedTweets(username).subscribe({
+      this.tweetsClient.getAuthedTweets(this.username).subscribe({
         next: (data: any) => {
           this.tweets = data.tweets;
           this.user = data.user;
