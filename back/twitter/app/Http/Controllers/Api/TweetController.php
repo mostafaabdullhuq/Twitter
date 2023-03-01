@@ -52,100 +52,91 @@ class TweetController extends Controller
         ];
     }
 
-    // public function get_User_Replies()
-    // {
-    //     $user = JWTAuth::user();
-    //     $tweets = [];
-    //     $replies = $user->replies()->latest()->get();
-    //     $user->followers_count = $user->followers()->count();
-    //     $user->followings_count = $user->followings()->count();
-    //     $user->tweets_count = $user->tweets()->count();
-    //     unset($user->id);
-    //     unset($user->google_access_token);
-    //     unset($user->facebook_access_token);
-    //     unset($user->email_verified_at);
-    //     unset($user->updated_at);
+    public function get_User_Replies($username)
+    {
+        $user = User::where('username', $username)->first();
+        $tweets = [];
+        $replies = $user->replies()->latest()->get();
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        unset($user->id);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->email_verified_at);
+        unset($user->updated_at);
 
-    //     // $user = $this->formatUser($user);
+        // $user = $this->formatUser($user);
 
-    //     foreach ($replies as $key => $reply) {
-    //         $replyParent = $reply->repliable()->first();
-    //         if ($replyParent) {
-    //             $tweet = $this->formatTweet($replyParent, $user->id);
-    //             $tweets[] = $tweet;
+        foreach ($replies as $key => $reply) {
+            $replyParent = $reply->repliable()->first();
+            if ($replyParent) {
+                $tweet = $this->formatTweet($replyParent, $user->id);
+                $tweets[] = $tweet;
 
-    //             unset($tweet->updated_at);
-    //         }
-    //     }
+                unset($tweet->updated_at);
+            }
+        }
 
-    //     // remove dupplicated tweets and return as indexed array
-    //     $tweets = array_values(array_unique($tweets, SORT_REGULAR));
-
-
-
-    //     $response = [
-    //         'user' => $user,
-    //         'tweets' => $tweets
-    //     ];
-    //     return $response;
-    // }
-
-    // public function get_User_Likes()
-    // {
-    //     $user = JWTAuth::user();
-    //     $likes = $user->likes;
-    //     $tweets = [];
-    //     $user->followers_count = $user->followers()->count();
-    //     $user->followings_count = $user->followings()->count();
-    //     $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
-    //     unset($user->tweetsWithMedia);
-    //     unset($user->google_access_token);
-    //     unset($user->facebook_access_token);
-    //     unset($user->updated_at);
-    //     unset($user->email_verified_at);
-
-    //     foreach ($likes as $key => $like) {
-    //         if ($like->liked_type == Tweet::class) {
-    //             $tweet = Tweet::find($like->liked_id);
-    //             if ($tweet) {
-    //                 $tweets[] = $tweet;
-    //             }
-    //         }
-    //     }
-    //     $tweets = $this->formatTweets($tweets);
-    //     return [
-    //         'user' => $user,
-    //         'tweets' => $tweets
-    //     ];
-    // }
-
-    // public function get_User_Media()
-    // {
-    //     $user = JWTAuth::user();
-    //     $tweets = $user->tweetsWithMedia;
-    //     $user->followers_count = $user->followers()->count();
-    //     $user->followings_count = $user->followings()->count();
-    //     $user->tweets_count = $user->tweetsWithMedia()->count();
-    //     unset($user->tweetsWithMedia);
-    //     unset($user->google_access_token);
-    //     unset($user->facebook_access_token);
-    //     unset($user->updated_at);
+        // remove dupplicated tweets and return as indexed array
+        $tweets = array_values(array_unique($tweets, SORT_REGULAR));
 
 
-    //     // $tweets = [];
 
-    //     // foreach($media as $key => $value){
-    //     //     if($value->parent_type == Tweet::class){
-    //     //         $tweets[] = Tweet::find($value->parent_id);
-    //     //     }
-    //     // }
-    //     // return $tweets;
-    //     $tweets = $this->formatTweets($tweets);
-    //     return [
-    //         'user' => $user,
-    //         'tweets' => $tweets
-    //     ];
-    // }
+        $response = [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
+        return $response;
+    }
+
+    public function get_User_Likes($username)
+    {
+        $user = User::where('username', $username)->first();
+        $likes = $user->likes;
+        $tweets = [];
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->likes()->count(); //get tweets count that was liked
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
+        unset($user->email_verified_at);
+
+        foreach ($likes as $key => $like) {
+            if ($like->liked_type == Tweet::class) {
+                $tweet = Tweet::find($like->liked_id);
+                if ($tweet) {
+                    $tweets[] = $tweet;
+                }
+            }
+        }
+        $tweets = $this->formatTweets($tweets);
+        return [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
+    }
+
+    public function get_User_Media($username)
+    {
+        $user = User::where('username', $username)->first();
+        $tweets = $user->tweetsWithMedia;
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweetsWithMedia()->count();
+        unset($user->tweetsWithMedia);
+        unset($user->google_access_token);
+        unset($user->facebook_access_token);
+        unset($user->updated_at);
+        
+        $tweets = $this->formatTweets($tweets);
+        return [
+            'user' => $user,
+            'tweets' => $tweets
+        ];
+    }
 
     // get logged in user for you tweets (tweets of followings of the followings of the user)
     public function homeforyou()
