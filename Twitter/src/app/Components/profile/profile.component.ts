@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
   //   this.showEdit = true;
   //   document.body.classList.add('popup-open');
   // }
+
+  
   showPopup = false;
   public username: any = '';
 
@@ -40,10 +42,7 @@ export class ProfileComponent implements OnInit {
   public viewType = 1;
   show = false;
   ngOnInit(): void {
-    this.myRoute.params.subscribe((res: any) => {
-      this.username = res.user;
-    });
-
+    this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
       this.show = true;
       this.tweetsClient.getReplies(this.username).subscribe({
@@ -97,6 +96,7 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
+
 
   logout(event: MouseEvent) {
     event.preventDefault();
