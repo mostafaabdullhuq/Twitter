@@ -331,7 +331,7 @@ class TweetController extends Controller
             $reply->replies_count = $reply->replies->count();
             $reply->likes_count = $reply->likes->count();
             $reply->views_count = $reply->views->count();
-            // $reply->retweets_count = $reply->retweets()->count();
+            $reply->retweets_count =0;
         }
         $tweet->replies = $replies;
         $tweet->user->followers_count = $tweet->user->followers()->count();
@@ -423,7 +423,7 @@ class TweetController extends Controller
             $reply->media;
             return $reply;
         }
-
+//create a retweet
         public function retweet(Request $request , $id){
             $user = JWTAuth::user();
             $data = $request->all();
@@ -444,6 +444,36 @@ class TweetController extends Controller
             $tweet = $this->formatTweet($tweet);
             return $tweet;
         }
+
+          //getRetweeed Tweets
+    // public function getRetweets(Request $request)
+    // {
+    //     $user = JWTAuth::user();
+    //     $tweet = Tweet::find($id);
+    //     $retweets = [];
+    //     $retweets = $tweet->retweets;
+    //     foreach ($retweets as $retweet) {
+    //         $retweets[] = $tweet->retweets;
+    //     }
+    //     // $tweets = $this->formatTweets($tweets);
+    //     return [
+    //         'user' => $user,
+    //         'tweets' => $tweet,
+    //         'text'=>$retweets->text,
+    //     ];
+    // }
+    public function getRetweets(Request $request, $id)
+{
+    $user = JWTAuth::user();
+    $tweet = Tweet::find($id);
+    $retweets = $tweet->retweets;
+    return [
+        'user' => $user,
+        'tweet' => $tweet,
+        'retweets' => $retweets,
+    ];
+}
+
 
         public function view($id)
         {
@@ -466,8 +496,6 @@ class TweetController extends Controller
             }
             return "Retweet not found";
         }
-        return "Retweet not found";
-    }
 
         // public function likeRetweet($retweet_id){
         //     $user = JWTAuth::user();
