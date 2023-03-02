@@ -7,8 +7,17 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
-  showChangePassword = false;
-  onButtonClick() {
-    this.showChangePassword = true;
+  // showChangePassword = false;
+  // onButtonClick() {
+  //   this.showChangePassword = true;
+  // }
+  showChangePassword: boolean = false;
+  toggleChangePassword() {
+    this.showChangePassword = !this.showChangePassword;
+  }
+  @Output() onClose = new EventEmitter();
+
+  closePasswordDialog() {
+    this.onClose.emit();
   }
 }

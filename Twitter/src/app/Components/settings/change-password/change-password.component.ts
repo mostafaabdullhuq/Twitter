@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
@@ -9,6 +9,11 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   styleUrls: ['./change-password.component.css'],
 })
 export class ChangePasswordComponent implements OnInit {
+  @Output() closeDialog = new EventEmitter<void>();
+
+  closePasswordDialog() {
+    this.closeDialog.emit();
+  }
   public error: any = null;
   public form = {
     email: null,
