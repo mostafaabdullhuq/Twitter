@@ -148,4 +148,22 @@ class FormatController extends Controller
         }
         return $users;
     }
+
+
+    public function formatHashtags($hashtags)
+    {
+        $formattedHashtags = [];
+
+        foreach ($hashtags as $hashtag) {
+            $formattedHashtags[] = [
+                'id' => $hashtag->id,
+                'name' => $hashtag->name,
+                'tweets_count' => $hashtag->tweets_count,
+            ];
+        }
+
+        return $formattedHashtags;
+    }
+
+
 }

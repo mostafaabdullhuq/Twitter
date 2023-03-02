@@ -13,29 +13,18 @@ use App\Http\Controllers\Api\FormatController;
 
 class SearchController extends Controller
 {
-
-
     public $formatter;
-
-
     public function __construct()
     {
         $this->middleware('auth:api');
         $this->formatter = new FormatController();
     }
 
-
-
-
-
     public function search(SearchRequest $request)
     {
         $data = $request->only(['type', 'query']);
-
         $type = $data['type'];
         $query = $data['query'];
-
-
         // if user want to search for tweets for specific hashtag
         if ($type === 'hashtag_tweets') {
             $tweets = $this->tweetsByHashtag($query);
@@ -48,10 +37,27 @@ class SearchController extends Controller
                 'tweets' => $tweets,
             ];
         }
+
         if ($type == 'users') {
             $users = $this->searchUsers($query);
             $users = $this->formatter->formatUsers($users);
             return $users;
+        }
+
+        if ($type =='tweets') {
+            $tweets = $this->searchTweet($query);
+            $tweets = $this ->formatter->formatTweets($tweets);
+            return $tweets ;
+        }
+        if ($type =='hashtags') {
+            $hashtags = $this->searchHashtags($query);
+            $hashtags = $this->formatter->formatHashtags($hashtags);
+            return $hashtags;
+        }
+        if ($type =='user_tweets'){
+            $tweets = $this->searchTweetsByUser($query);
+            $tweets = $this->formatter->formatTweets($tweets);
+            return $tweets;
         }
     }
 
@@ -64,6 +70,11 @@ class SearchController extends Controller
         return $users;
     }
 
+    public function searchTweet($query)
+    {
+        $tweets = Tweet::where('text', 'like', '%' . $query . '%')->get();
+        return $tweets;
+    }
 
     // get tweets by specific hashtag
     public function tweetsByHashtag($hashtag)
@@ -71,4 +82,17 @@ class SearchController extends Controller
         $tweets =  Tweet::withAnyTags([$hashtag])->get();
         return $this->formatter->formatTweets($tweets);
     }
+
+    public function searchHashtags($query)
+    {
+        $tweets = Tweet::withAnyTags([$query])->get();
+        return $this->formatter->formatTweets($tweets);
+    }
+
+    // public function searchTweetsByUser($query)
+    // {
+    //     $user = User::where('username', $query)->firstOrFail();
+    //     $tweets = $user->tweets;
+    //     return $tweets;
+    // }
 }
