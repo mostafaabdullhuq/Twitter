@@ -15,7 +15,6 @@ import { NotificationComponent } from './Components/notification/notification.co
 import { SettingsComponent } from './Components/settings/settings.component';
 import { SigninComponent } from './Components/signin/signin.component';
 import { SignupComponent } from './Components/signup/signup.component';
-import { MessagesComponent } from './Components/messages/messages.component';
 import { SearchComponent } from './Components/search/search.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { MessagePopupComponent } from './Components/message-popup/message-popup.component';
@@ -50,8 +49,12 @@ import { EditProfileComponent } from './Components/edit-profile/edit-profile.com
 import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
+<<<<<<< HEAD
+import { MessagesComponent } from './Components/messages/messages.component';
+=======
 import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.directive';
 import { AccountInfoComponent } from './Components/settings/account-info/account-info.component';
+>>>>>>> 22f4b188727dfea065d183e822a116d82d1cdfd5
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
@@ -68,7 +71,6 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     SettingsComponent,
     SigninComponent,
     SignupComponent,
-    MessagesComponent,
     SearchComponent,
     FooterComponent,
     MessagePopupComponent,
@@ -93,9 +95,13 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     ChangePasswordComponent,
     PageNotFoundComponent,
     FollowersAndFollowingComponent,
+<<<<<<< HEAD
+    MessagesComponent,
+=======
     InfiniteScrollingDirective,
     AccountInfoComponent,
 
+>>>>>>> 22f4b188727dfea065d183e822a116d82d1cdfd5
     // StickyHeaderFollowingComponent,
   ],
 
