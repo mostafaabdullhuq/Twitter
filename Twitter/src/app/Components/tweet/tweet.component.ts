@@ -100,4 +100,5 @@ export class TweetComponent implements OnInit {
 
   @Input() tweets: any;
   @Input() showReplies: any;
+  @Input() isLoadingDone: any = true;
 }

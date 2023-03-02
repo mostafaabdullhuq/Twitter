@@ -98,7 +98,7 @@
 
     <!-- !------tweets--------- -->
     <div id="tweetsContainer" class="tweets w-full flex flex-col">
-        <app-tweet [tweets]="tweets"></app-tweet>
+        <app-tweet [isLoadingDone]="isLoadingDone" [tweets]="tweets"></app-tweet>
     </div>
     <div id="loading" class="hidden text-center py-4 text-xl dark:text-white"><i
             class="fa-solid fa-spinner animate-spin"></i></div>
