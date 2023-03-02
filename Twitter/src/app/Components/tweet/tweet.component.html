@@ -1,6 +1,5 @@
-<div *ngIf="tweets && tweets.length  > 0;else noTweetBlock">
-
-    <div class="tweet relative " (scroll)="onScroll()" *ngFor="let tweet of tweets">
+<div *ngIf="tweets && tweets.length  > 0;else noTweetBlock" class="scroll-smooth">
+    <div class="tweet relative " *ngFor="let tweet of tweets">
         <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
         <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
             title="More">

@@ -50,6 +50,7 @@ import { EditProfileComponent } from './Components/edit-profile/edit-profile.com
 import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
+import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.directive';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
@@ -91,6 +92,7 @@ import { FollowersAndFollowingComponent } from './followers-and-following/follow
     ChangePasswordComponent,
     PageNotFoundComponent,
     FollowersAndFollowingComponent,
+    InfiniteScrollingDirective,
 
     // StickyHeaderFollowingComponent,
   ],
