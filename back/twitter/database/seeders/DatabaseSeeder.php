@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
                 UserSeeder::class,
                 TweetSeeder::class,
                 FollowSeeder::class,
+                RetweetSeeder::class,
+                LikeSeeder::class,
+                ReplySeeder::class,
             ]
         );
     }
