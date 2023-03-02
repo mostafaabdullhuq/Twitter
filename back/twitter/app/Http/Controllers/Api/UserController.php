@@ -11,17 +11,21 @@ use App\Models\Tweet;
 use JWTAuth;
 use App\Http\Requests\UpdateUserData;
 use App\Http\Controllers\Api\FormatController;
+use App\Models\Follow;
+use App\Http\Controllers\FollowingController;
 
 
 class UserController extends Controller
 {
     public $formatter;
-
+    public $following;
 
     public function __construct()
     {
         $this->middleware('auth:api');
         $this->formatter = new FormatController();
+        $this->following = new FollowingController();
+        
     }
 
 
@@ -137,9 +141,22 @@ class UserController extends Controller
 
     public function get_all_users()
     {
+        $usersList =[];
+        $authUser = JWTAuth::user();
         $users = User::all();
+        $authFollowing = $this->following->get_followings($authUser);
         $users = $this->formatter->formatUsers($users);
-        return $users;
+        foreach($users as $user){
+            if($authUser->id != $user->id ){
+                // foreach ($authFollowing as $key => $value) {
+                //     $usersList[]=$value->following_id;
+                // }
+                // if()
+                $usersList[]=$user;
+            }
+        }
+        return $usersList;
+
     }
 
     // public function get_all_users()

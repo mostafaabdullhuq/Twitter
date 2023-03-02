@@ -95,14 +95,14 @@ class FollowingController extends Controller
         // dd($following);
     }
 
-    public function get_followings(Request $request)
+    public function get_followings($user)
     {
 
         // $request->validate([
         //     'following_id' => 'required',
         // ]);
 
-        $user = $request->user();
+        // $user = $request->user();
 
         $following = Follow::select('following_id')->where('follower_id', $user->id)->get();
 
