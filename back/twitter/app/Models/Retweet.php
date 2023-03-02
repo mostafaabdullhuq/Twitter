@@ -31,6 +31,11 @@ class Retweet extends Model
         return $this->morphTo();
     }
 
+    public function like()
+    {
+        return $this->morphMany(Like::class, 'liked');
+    }
+
     public function viewsRetweet($id)
     {
         return $this->morphMany(View::class, 'viewed');

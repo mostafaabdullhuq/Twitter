@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Retweet;
+use JWTAuth;
 
 class Reply extends Model
 {
@@ -19,7 +21,6 @@ class Reply extends Model
 
     public function user()
     {
-
         return $this->belongsTo(User::class);
     }
 
@@ -28,20 +29,16 @@ class Reply extends Model
         return $this->morphTo();
     }
 
+
+
     public function replies()
     {
-        return $this->morphMany(
-            Reply::class,
-            'repliable'
-        );
+        return $this->morphMany(Reply::class, 'repliable');
     }
 
     public function media()
     {
-        return $this->morphMany(
-            Media::class,
-            'parent'
-        );
+        return $this->morphMany(Media::class, 'parent');
     }
 
     public function likes()
@@ -49,6 +46,14 @@ class Reply extends Model
         return $this->morphMany(Like::class, 'liked');
     }
 
+    public function retweets()
+    {
+        return $this->morphMany(Like::class, 'retweetable');
+    }
+
+    public function retweet()
+    {;
+    }
     public function Views()
     {
         return $this->morphMany(View::class, 'viewed');
@@ -56,16 +61,11 @@ class Reply extends Model
 
     public function replyWithUserID($userID)
     {
-        return $this->morphMany(
-            Reply::class,
-            'repliable'
-        )->get()->where('user_id', $userID);
+        return $this->morphMany(Reply::class, 'repliable')->get()->where('user_id', $userID);
     }
 
     public function likedByUserID($id)
     {
         return $this->likes()->where('user_id', $id)->exists();
     }
-
-
 }
