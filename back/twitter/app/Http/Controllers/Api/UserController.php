@@ -206,40 +206,9 @@ class UserController extends Controller
         return $users;
     }
 
-    // public function get_all_users()
-    // {
-    //     $users =  User::all();
-    //     // $user = JWTAuth::user();
-
-    //     // $users->followers_count = $user->followers()->count();
-    //     // $user->followers_count = $user->followers()->count();
-    //     $arr =[];
-    //     foreach ($users as $user) {
-    //         $user->followers_count = $user->followers()->count();
-    //         $user->followings_count = $user->followings()->count();
-
-    //         $user->is_following = JWTAuth::user()->isFollowing($user);
-
-    //         $arr[] = $user;
-    //     }
-    //     return $arr;
-
-    // }
-
-    // public function get_all_users()
-    // {
-    //     $users = User::all();
-    //     if (auth()->check()) {
-    //         $user = auth()->user();
-    //         $user->isFollowedBy = $user->isFollowedBy();
-    //         $user->isFollowing = $user->isFollowing();
-    //     }
-    //     foreach ($users as $user) {
-    //         $user->isFollowedBy = $user->isFollowedBy();
-    //         $user->isFollowing = $user->isFollowing();
-    //     }
-    //     return $users;
-    // }
+    public function get_user($id){
+        
+    }
 
     public function destroy(Request $request)
     {
