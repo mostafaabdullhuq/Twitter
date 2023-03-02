@@ -85,7 +85,8 @@
 }
 
 .hashtag,
-.mention {
+.mention,
+.url {
   @apply text-main-blue_100 hover:underline cursor-pointer;
 }
 

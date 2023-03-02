@@ -11,23 +11,44 @@ export class TweetsService {
   private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 
-  getForYouTweets() {
+  getForYouTweets(nextCursor: any) {
     const accessToken = this.token.get();
-
-    return this.httpClient.get(this.BASE_URL + '/foryou', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    if (nextCursor) {
+      return this.httpClient.get(
+        this.BASE_URL + `/foryou?cursor=${nextCursor}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    } else {
+      return this.httpClient.get(this.BASE_URL + '/foryou', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    }
   }
 
-  getFollowingTweets() {
+  getFollowingTweets(nextCursor: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + '/following', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    if (nextCursor) {
+      return this.httpClient.get(
+        this.BASE_URL + `/following?cursor=${nextCursor}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    } else {
+      return this.httpClient.get(this.BASE_URL + '/following', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    }
   }
 
   getAuthedTweets(userName: any) {
