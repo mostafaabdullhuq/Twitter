@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\HashtagController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
@@ -14,7 +15,7 @@ use App\Http\Controllers\BlockController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
 use App\Http\Controllers\changePasswordSettingController;
-
+use App\Http\Controllers\Api\ChatController;
 
 Route::group([
     'middleware' => 'api',
@@ -35,12 +36,10 @@ Route::group([
     Route::Post('changePassword', [changePasswordSettingController::class, 'passwordSetting']);
 });
 
-
 Route::group([
     'middleware' => 'api',
     'prefix' => 'user'
 ], function () {
-
     Route::get('index', [UserController::class, 'index']);
     Route::post('update', [UserController::class, 'update']);
     Route::delete('delete', [UserController::class, 'destroy']);
@@ -60,6 +59,8 @@ Route::group([
     'prefix' => 'tweet'
 ], function () {
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
+    Route::get('{retweet_id}/retweet/view', [TweetController::class, 'viewsRetweet']);
+    Route::get('{id}/getretweet', [TweetController::class, 'getRetweets']);
     Route::post('', [TweetController::class, 'create']);
     Route::get('{username}/me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
@@ -73,6 +74,7 @@ Route::group([
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
     Route::delete('{id}/delete', [TweetController::class, 'delete']);
     Route::get('{id}/view', [TweetController::class, 'view']);
+    Route::get('trending/{count}', [TweetController::class, 'highestTweets']);
     Route::get('{id}', [TweetController::class, 'details']);
 });
 
@@ -95,6 +97,25 @@ Route::group([
     Route::post('trending/', [HashtagController::class, 'trends']);
     Route::get('search/{hashtag}', [HashtagController::class, 'search']);
 });
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'search'
+], function () {
+    Route::post('', [SearchController::class, 'search']);
+});
+
+
+
+
+//Chat App
+Route::group([
+    'middleware' => 'api',
+], function () {
+    Route::post('messages', [ChatController::class, 'message']);
+});
+
 
 // Route::group([
 //     'middleware' => 'api',

@@ -211,6 +211,11 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+
+        /*
+         * Laravel Framework Aliases...
+         */
+
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

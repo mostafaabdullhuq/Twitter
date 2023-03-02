@@ -7,12 +7,18 @@ use App\Models\Follow;
 use App\Models\User;
 use JWTAuth;
 use Response;
+use App\Http\Controllers\Api\FormatController;
 
 class FollowingController extends Controller
 {
+
+
+    public $formatter;
+
     public function __construct()
     {
         $this->middleware('auth:api');
+        $this->formatter = new FormatController();
     }
 
 
@@ -73,7 +79,7 @@ class FollowingController extends Controller
         $following = Follow::select('follower_id')->where('following_id', $user->id)->get();
         // $user = User::find(follower_id);
         $user =  JWTAuth::user();
-
+        $user = $this->formatter->formatUser($user);
         if ($following) {
             return response()->json(
                 ['following' => $following, 'user' => $user],

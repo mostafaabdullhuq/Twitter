@@ -28,7 +28,6 @@ class LikeController extends Controller
             $like->delete();
             return response()->json([
                 'message' => 'unliked',
-
             ], 200);
         } else {
             $like = new Like();
