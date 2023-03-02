@@ -40,10 +40,10 @@ export class ProfileComponent implements OnInit {
     // this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
     this.myRoute.params.subscribe((res: any) => {
       this.username = res.user;
+      this.user = null;
       this.userService.index().subscribe({
         next: (data: any) => {
           this.loggedUser = data;
-          console.log(this.loggedUser.username);
         },
         error: (err) => {
           console.log(err);
@@ -54,10 +54,7 @@ export class ProfileComponent implements OnInit {
         this.tweetsClient.getReplies(this.username).subscribe({
           next: (data: any) => {
             this.tweets = data.tweets;
-            console.log(this.tweets);
             this.user = data.user;
-
-            console.log(this.user);
           },
           error: (err) => {
             console.log(err);
@@ -68,9 +65,7 @@ export class ProfileComponent implements OnInit {
         this.tweetsClient.getLikes(this.username).subscribe({
           next: (data: any) => {
             this.tweets = data.tweets;
-            console.log(this.tweets);
             this.user = data.user;
-            console.log(this.user);
           },
           error: (err) => {
             console.log(err);
@@ -81,9 +76,7 @@ export class ProfileComponent implements OnInit {
         this.tweetsClient.getMedia(this.username).subscribe({
           next: (data: any) => {
             this.tweets = data.tweets;
-            console.log(this.tweets);
             this.user = data.user;
-            console.log(this.user);
           },
           error: (err) => {
             console.log(err);
