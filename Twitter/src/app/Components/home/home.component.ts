@@ -55,12 +55,9 @@ export class HomeComponent implements OnInit {
           this.authService.getUser().subscribe({
             next: (data: any) => {
               this.user = data;
-              console.log(this.user);
             },
             error: (err: any) => {
               this.user = this.Token.getUser();
-
-              console.log(err);
             },
           });
         },
@@ -165,8 +162,9 @@ export class HomeComponent implements OnInit {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a href="#" class="hashtag">$&</a>';
-      const mentionTemplate = '<a href="#" class="hashtag">$&</a>';
+
+      const hashtagTemplate = '<a data="$&" class="hashtag">$&</a>';
+      const mentionTemplate = '<a data="$&" class="mention">$&</a>';
 
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
