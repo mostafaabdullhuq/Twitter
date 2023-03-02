@@ -34,6 +34,7 @@ import { ModalComponent } from './Components/modal/modal.component';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
+import { MessagesComponent } from './Components/messages/messages.component';
 import { WebsitePipe } from './Pipes/website.pipe';
 import {
   SocialLoginModule,
@@ -49,7 +50,6 @@ import { EditProfileComponent } from './Components/edit-profile/edit-profile.com
 import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
-import { MessagesComponent } from './Components/messages/messages.component';
 import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.directive';
 import { AccountInfoComponent } from './Components/settings/account-info/account-info.component';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
@@ -81,7 +81,7 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     ModalComponent,
     HashtagPipe,
     SideComponent,
-    NewMessageComponent,
+    MessagesComponent,
     RequestResetComponent,
     ResponseResetComponent,
     ConfirmPasswordComponent,
@@ -92,7 +92,6 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     ChangePasswordComponent,
     PageNotFoundComponent,
     FollowersAndFollowingComponent,
-    MessagesComponent,
     InfiniteScrollingDirective,
     AccountInfoComponent,
 

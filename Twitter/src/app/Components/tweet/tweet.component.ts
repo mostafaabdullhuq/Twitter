@@ -56,23 +56,23 @@ export class TweetComponent implements OnInit {
     });
   }
 
-  ngAfterViewChecked(): void {
-    let lastTweet = document.querySelector('.tweet:last-child');
+  // ngAfterViewChecked(): void {
+  //   let lastTweet = document.querySelector('.tweet:last-child');
 
-    if (this.myRoute.snapshot?.url[1]?.path === 'following') {
-      if (lastTweet && this.nextCursor != null) {
-        this.isLoadingDone = false;
+  //   if (this.myRoute.snapshot?.url[1]?.path === 'following') {
+  //     if (lastTweet && this.nextCursor != null) {
+  //       this.isLoadingDone = false;
 
-        this.observer.observe(lastTweet);
-      }
-    } else {
-      if (lastTweet && this.nextCursor2 != null) {
-        this.isLoadingDone = false;
+  //       this.observer.observe(lastTweet);
+  //     }
+  //   } else {
+  //     if (lastTweet && this.nextCursor2 != null) {
+  //       this.isLoadingDone = false;
 
-        this.observer.observe(lastTweet);
-      }
-    }
-  }
+  //       this.observer.observe(lastTweet);
+  //     }
+  //   }
+  // }
 
   likesCount(tweetID: any) {
     this.httpClient.getLikesCount(tweetID).subscribe({
