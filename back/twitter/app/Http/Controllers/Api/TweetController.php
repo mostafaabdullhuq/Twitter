@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CreateTweetRequest;
 use App\Models\Like;
@@ -12,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
+
 class TweetController extends Controller
 {
     public function __construct()
@@ -47,6 +49,27 @@ class TweetController extends Controller
             'retweets' => $retweets
         ];
     }
+
+
+    public function highestTweets($count)
+    {
+
+        $count = (int) $count ?? 20;
+        // get top tweets with highest likes, replies and views
+        $tweets = Tweet::withCount(['likes', 'replies', 'views'])
+            ->orderBy('replies_count', 'desc')
+            ->orderBy('likes_count', 'desc')
+            ->orderBy('views_count', 'desc')
+            ->take($count)
+            ->get();
+
+        $tweets = $this->formatTweets($tweets);
+
+        return $tweets;
+    }
+
+
+
 
     public function get_User_Replies($username)
     {
@@ -415,6 +438,8 @@ class TweetController extends Controller
             }
             return "Retweet not found";
         }
+        return "Retweet not found";
+    }
 
         // public function likeRetweet($retweet_id){
         //     $user = JWTAuth::user();
