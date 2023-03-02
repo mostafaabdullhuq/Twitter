@@ -25,20 +25,39 @@ export class EditProfileComponent implements OnInit {
   public updateForm: any = new FormGroup({
     first_name: new FormControl(null, [
       Validators.required,
+      Validators.pattern(
+        // name validation
+        '^[a-zA-Z0-9 -.]*$'
+      ),
+    ]),
+    last_name: new FormControl(null, [
+      Validators.required,
       Validators.pattern('^[a-zA-Z0-9 -.]*$'),
     ]),
-    last_name: new FormControl(null, [Validators.pattern('^[a-zA-Z0-9 -.]*$')]),
     username: new FormControl(null, [
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9 _.-]*$'),
+      Validators.pattern(
+        // username validation with maximum 20 char
+        '^[a-zA-Z0-9_.]{5,20}$'
+      ),
     ]),
-    bio: new FormControl(null, []),
+    bio: new FormControl(null, [
+      Validators.pattern(
+        // all unicode characters and limit 250 character
+        '^[\\u0000-\\uFFFF]{0,250}$'
+      ),
+    ]),
     date_of_birth: new FormControl(null, [
       Validators.pattern(
         '^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$'
       ),
     ]),
-    phone_number: new FormControl(null, [Validators.pattern('^[0-9]*$')]),
+    phone_number: new FormControl(null, [
+      Validators.pattern(
+        // phone number validation
+        '^[0-9]{5,20}$'
+      ),
+    ]),
     profile_picture: new FormControl('', []),
     cover_picture: new FormControl('', []),
     location: new FormControl(null, [Validators.pattern('^[a-zA-Z0-9 ,.-]*$')]),
@@ -64,7 +83,7 @@ export class EditProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('in edit')
+    console.log('in edit');
     console.log(this.user);
     // this.updateForm.patchValue(this.user);
     this.updateForm.patchValue({
@@ -113,6 +132,8 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.updateForm.invalid) {
+      console.log('form');
+
       console.log(this.updateForm);
 
       console.log('invalid form');
