@@ -95,7 +95,33 @@ class FollowingController extends Controller
         // dd($following);
     }
 
-    public function get_followings($user)
+    public function get_followings(Request $request)
+    {
+
+        // $request->validate([
+        //     'following_id' => 'required',
+        // ]);
+
+        $user = $request->user();
+
+        $following = Follow::select('following_id')->where('follower_id', $user->id)->get();
+
+        if ($following) {
+            return response()->json(
+                $following,
+                200
+            );
+        } else {
+            return response()->json(
+                ["message' => 'user doesn't have any followings"],
+                500
+            );
+        }
+
+        // dd($following);
+    }
+
+    public function user_followings($user)
     {
 
         // $request->validate([

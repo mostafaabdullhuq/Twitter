@@ -144,7 +144,7 @@ class UserController extends Controller
         $usersList =[];
         $authUser = JWTAuth::user();
         $users = User::all();
-        $authFollowing = $this->following->get_followings($authUser);
+        $authFollowing = $this->following->user_followings($authUser);
         $users = $this->formatter->formatUsers($users);
 
         $listOfFollowings = $authFollowing->getOriginalContent();
