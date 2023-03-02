@@ -33,7 +33,6 @@ export class TweetComponent implements OnInit {
     public httpClient: TweetsService,
     private authService: AuthService
   ) {}
-
   ngOnInit(): void {
     this.isInBookmark =
       this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
