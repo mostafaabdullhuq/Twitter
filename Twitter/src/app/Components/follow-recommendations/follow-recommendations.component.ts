@@ -56,18 +56,5 @@ export class FollowRecommendationsComponent implements OnInit{
   }
   status= false;
 followed(){
-  this.status =true;
-}
-  // toggleClick(){
-  //   let Fol = true;
-  // }
-
-//   toggle = true;
-// status = 'Enable'; 
-
-// enableDisableRule() {
-//     this.toggle = !this.toggle;
-//     this.status = this.toggle ? 'Enable' : 'Disable';
-// }
-// }
+  this.status =true;}
 }
