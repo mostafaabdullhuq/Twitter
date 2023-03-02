@@ -156,7 +156,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function verificationStatus()
     {
-
         return $this->hasOne(Verification::class)
             ->where('user_id', $this->id)
             ->exists();
@@ -187,14 +186,14 @@ class User extends Authenticatable implements JWTSubject
 
         // get the tweets of the users who the current user follow and the users who the users who the current user follow follow
 
-        return Tweet::whereIn('user_id', $totalUsers)
-            ->latest();
+        return Tweet::whereIn('user_id', $totalUsers);
     }
 
     public function hfollowing()
     {
-        return Tweet::whereIn('user_id', $this->followings()->pluck('following_id'))
-            ->latest();
+
+        return Tweet::whereIn('user_id', $this->followings()->pluck('following_id'));
+        // paginate them
     }
     // public function verificationStatus()
     // {

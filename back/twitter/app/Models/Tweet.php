@@ -52,6 +52,11 @@ class Tweet extends Model
         return $this->morphMany(Retweet::class, 'retweetable');
     }
 
+    public function isRetweetedByUser($id)
+    {
+        return $this->retweets()->where('user_id', $id)->exists();
+    }
+
     public function likes()
     {
         return $this->morphMany(Like::class, 'liked');

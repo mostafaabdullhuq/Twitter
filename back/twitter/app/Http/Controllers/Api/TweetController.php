@@ -15,13 +15,12 @@ use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use App\Models\Follow;
 use App\Http\Controllers\Api\FormatController;
-
-
+use Illuminate\Pagination\Cursor;
 
 class TweetController extends Controller
 {
     public $formatter;
-
+    public $nextCursor = null;
 
     public function __construct()
     {
@@ -37,6 +36,9 @@ class TweetController extends Controller
         $user = User::where('username', $username)->first();
         if ($user) {
             $tweets = $user->tweets()->latest()->get();
+            // $cursor = $user->tweets()->latest()->cursorPaginate(15);
+            // $nextCursor = $cursor->nextPageUrl();
+            // $tweets = $cursor->items();
             $tweets = $this->formatter->formatTweets($tweets);
             $user = $this->formatter->formatUser($user);
             $user->followed_by = false;
@@ -155,20 +157,55 @@ class TweetController extends Controller
     }
 
     // get logged in user for you tweets (tweets of followings of the followings of the user)
-    public function homeforyou()
+    public function homeforyou(Request $request)
     {
-        $tweets = JWTAuth::user()->hforyou()->get();
+        $nextCursor = $request->query('cursor') ?? null;
+        $cursor = JWTAuth::user()->hforyou()->cursorPaginate(9, ['*'], 'cursor', Cursor::fromEncoded($nextCursor));
+        $nextCursor = $cursor->nextCursor()?->encode() ?? null;
+        $tweets = $cursor->items();
         $tweets = $this->formatter->formatTweets($tweets);
-        return $tweets;
+        return [
+            'tweets' => $tweets,
+            'nextCursor' => $nextCursor
+        ];
+
+
+
+
+        // $tweets = JWTAuth::user()->hforyou()->get();
+        // $tweets = $this->formatter->formatTweets($tweets);
+        // return $tweets;
     }
 
     // get logged in user for you tweets (followings tweets and user tweets ordered from newest to oldest)
-    public function homefollowing()
+    public function homefollowing(Request $request)
     {
-        $tweets = JWTAuth::user()->hfollowing()->get();
+        // get next cursor from params
+        $nextCursor = $request->query('cursor') ?? null;
+        $cursor = JWTAuth::user()->hfollowing()->cursorPaginate(9, ['*'], 'cursor', Cursor::fromEncoded($nextCursor));
+        $nextCursor = $cursor->nextCursor()?->encode() ?? null;
+        // get cursor only not full url
+        // $nextCursor = $nextCursor ? explode('?cursor=', $nextCursor)[1] ?? null : null;
+        $tweets = $cursor->items();
         $tweets = $this->formatter->formatTweets($tweets);
-        return $tweets;
+        return [
+            'tweets' => $tweets,
+            'nextCursor' => $nextCursor
+        ];
+
+        // // $tweets = JWTAuth::user()->hfollowing()->get();
+        // $cursor = JWTAuth::user()->hfollowing()->cursorPaginate(1, ['*'], 'cursor', Cursor::fromEncoded($next));
+        // $nextCursor = $cursor->nextCursor()->encode();
+        // // get cursor only not full url
+        // $nextCursor = $nextCursor ? explode('?cursor=', $nextCursor)[1] ?? null : null;
+        // $tweets = $cursor->items();
+        // $tweets = $this->formatter->formatTweets($tweets);
+        // return [
+        //     'tweets' => $tweets,
+        //     'nextCursor' => $nextCursor
+        // ];
     }
+
 
     // ----------------- in progress ----------------------
     public function create(CreateTweetRequest $request)
@@ -286,16 +323,19 @@ class TweetController extends Controller
     public function retweet(Request $request, $id)
     {
         $user = JWTAuth::user();
-        $data = $request->all();
         $tweet = Tweet::findOrFail($id);
-        $id = $request->tweet_id;
+        $text = null;
+        if ($request->text) {
+            $text = $request->text;
+        }
+        // $id = $request->tweet_id;
         $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
         if ($retweet) {
             $retweet->delete();
         } else {
             $tweet->retweets()->create([
                 'user_id' => JWTAuth::user()->id,
-                'text' => $data['text'],
+                'text' => $text,
             ]);
             $data = $request->all();
             $tweet = Tweet::find($id);
