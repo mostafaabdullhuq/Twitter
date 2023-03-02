@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -22,7 +23,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewChecked {
   public tweets: any;
   public user: any;
   public tweetForm = new FormGroup({
@@ -46,12 +47,65 @@ export class HomeComponent implements OnInit {
   ) {
     this.user = this.Token.getUser();
   }
+  public nextCursor: any = false;
+  public nextCursor2: any = false;
+  public isCursorLoading: any = false;
+
+  // infinite scrolling logic
+  public observer: any = new IntersectionObserver((entries: any) => {
+    entries.forEach((entry: any) => {
+      if (entry.isIntersecting) {
+        if (this.myRoute.snapshot?.url[1]?.path === 'following') {
+          this.tweetClient.getFollowingTweets(this.nextCursor).subscribe({
+            next: (data: any) => {
+              this.tweets = this.tweets.concat(data.tweets);
+              this.nextCursor = data.nextCursor;
+              if (data.nextCursor == null) {
+                this.observer.disconnect();
+              }
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        } else {
+          this.tweetClient.getForYouTweets(this.nextCursor2).subscribe({
+            next: (data: any) => {
+              this.tweets = this.tweets.concat(data.tweets);
+              this.nextCursor2 = data.nextCursor;
+              if (data.nextCursor2 == null) {
+                this.observer.disconnect();
+              }
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        }
+      }
+    });
+  });
+
+  ngAfterViewChecked(): void {
+    let lastTweet = document.querySelector('.tweet:last-child');
+
+    if (this.myRoute.snapshot?.url[1]?.path === 'following') {
+      if (lastTweet && this.nextCursor != null) {
+        this.observer.observe(lastTweet);
+      }
+    } else {
+      if (lastTweet && this.nextCursor2 != null) {
+        this.observer.observe(lastTweet);
+      }
+    }
+  }
 
   ngOnInit(): void {
     if (this.myRoute.snapshot?.url[1]?.path === 'following') {
-      this.tweetClient.getFollowingTweets().subscribe({
+      this.tweetClient.getFollowingTweets(this.nextCursor).subscribe({
         next: (data: any) => {
-          this.tweets = data;
+          this.tweets = data.tweets;
+          this.nextCursor = data.nextCursor;
           this.authService.getUser().subscribe({
             next: (data: any) => {
               this.user = data;
@@ -66,9 +120,10 @@ export class HomeComponent implements OnInit {
         },
       });
     } else {
-      this.tweetClient.getForYouTweets().subscribe({
+      this.tweetClient.getForYouTweets(this.nextCursor2).subscribe({
         next: (data: any) => {
-          this.tweets = data;
+          this.tweets = data.tweets;
+          this.nextCursor2 = data.nextCursor;
         },
         error: (err) => {
           console.log(err);
@@ -179,7 +234,6 @@ export class HomeComponent implements OnInit {
   }
   handleScroll(event: any) {
     // sync the scroll between text area and pre
-
     this.tweetBox.nativeElement.scrollTop = event.target.scrollTop;
   }
 }

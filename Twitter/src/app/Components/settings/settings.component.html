@@ -49,8 +49,9 @@
             account deactivation options
         </p>
     </div>
-    <div *ngIf="!showChangePassword">
-        <div class="settings-item">
+    <div *ngIf="!showChangePassword  ">
+        <div *ngIf="!showAccountInfo">
+        <div class="settings-item" (click)="toggleAccountInfo()">
             <div class="flex items-center gap-5">
                 <i class="fa-regular fa-user text-xl text-gray-600 dark:text-dark-gray_300"></i>
                 <div>
@@ -61,7 +62,7 @@
             </div>
             <i class="fa-solid fa-chevron-right"></i>
         </div>
-        <div class="settings-item" (click)="onButtonClick()">
+        <div class="settings-item" (click)="toggleChangePassword()">
             <div class="flex items-center gap-5">
                 <i class="fa-solid fa-key text-gray-600 text-xl dark:text-dark-gray_300"></i>
                 <div>
@@ -84,9 +85,12 @@
             <i class="fa-solid fa-chevron-right"></i>
         </div>
     </div>
+    </div>
     <!-- <div class="h-full dark:border-dark-gray_0 border-x md:border-r border-gray-100 overflow-y-scroll scrollbar-hide block relative"> -->
 
-    <app-change-password *ngIf="showChangePassword"></app-change-password>
+    <app-change-password *ngIf="showChangePassword" (closeDialog)="showChangePassword = false"></app-change-password>
+    <app-account-info *ngIf="showAccountInfo" (closeDialog)="showAccountInfo = false"></app-account-info>
+
     <!-- </div> -->
 
 
