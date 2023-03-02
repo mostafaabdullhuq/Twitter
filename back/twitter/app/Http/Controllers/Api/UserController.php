@@ -10,24 +10,26 @@ use App\Models\User;
 use App\Models\Tweet;
 use JWTAuth;
 use App\Http\Requests\UpdateUserData;
+use App\Http\Controllers\Api\FormatController;
 
 
 class UserController extends Controller
 {
+    public $formatter;
+
+
     public function __construct()
     {
         $this->middleware('auth:api');
+        $this->formatter = new FormatController();
     }
+
 
     public function index()
     {
         $user = auth()->user();
-        $user = $this->formatUser($user);
-        $user->followers_count = $user->followers()->count();
-        $user->followings_count = $user->followings()->count();
-        $user->tweets_count = $user->tweets()->count();
+        $user = $this->formatter->formatUser($user);
         $user->is_following = false;
-
         return $user;
     }
 
@@ -38,10 +40,7 @@ class UserController extends Controller
             $data = $request->only([
                 'first_name', 'last_name', 'username', 'bio', 'location', 'website', 'phone_number', 'date_of_birth', 'is_cover_removed'
             ]);
-
-
             // if any input not given, set it as null
-
             $data['first_name'] = $data['first_name'] ?? null;
             $data['last_name'] = $data['last_name'] ?? null;
             $data['username'] = $data['username'] ?? null;
@@ -50,18 +49,14 @@ class UserController extends Controller
             $data['website'] = $data['website'] ?? null;
             $data['phone_number'] = $data['phone_number'] ?? null;
             $data['date_of_birth'] = $data['date_of_birth'] ?? null;
-
             $userProfileImage = $request->file('profile_picture');
             $userCoverImage = $request->file('cover_picture');
             $user = auth()->user();
-
             if ($userProfileImage) {
                 $userProfileImage = $userProfileImage->store('public/profile_pictures') ?? null;
                 $userProfileImage = $userProfileImage ? explode('/', $userProfileImage)[2] : null;
                 $data['profile_picture'] = $userProfileImage;
             }
-
-
             if ($userCoverImage) {
                 $userCoverImage = $userCoverImage->store('public/cover_pictures') ?? null;
                 $userCoverImage = $userCoverImage ? explode('/', $userCoverImage)[2] : null;
@@ -73,46 +68,25 @@ class UserController extends Controller
 
             $user->update($data);
 
-            $user = $this->formatUser($user);
+            $user = $this->formatter->formatUser($user);
             return $user;
         } catch (\Exception $e) {
             return response()->json(['message' => $e], 500);
         }
     }
-    public function formatUser($user)
-    {
-        $user->followers_count = $user->followers()->count();
-        $user->followings_count = $user->followings()->count();
-        $user->tweets_count = $user->tweets()->count();
-        $user->is_following = false;
-        $user->profile_picture = $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : null;
-        $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
-        unset(
-            $user->email_verified_at,
-            $user->password,
-            $user->remember_token,
-            $user->updated_at,
-            $user->facebook_access_token,
-            $user->google_access_token,
-        );
 
-        return $user;
-    }
     //getBookmarked Tweets
     public function bookmarks(Request $request)
     {
         $user = JWTAuth::user();
         $tweets = [];
-        $user->followers_count = $user->followers()->count();
-        $user->followings_count = $user->followings()->count();
-        $user->tweets_count = $user->tweets()->count();
-        $tweets = $this->formatTweets($tweets);
         $bookmarks = $user->bookmarks;
         foreach ($bookmarks as $bookmark) {
             $tweets[] = $bookmark->tweet;
         }
-        $tweets = $this->formatTweets($tweets);
-        $user = $this->formatUser($user);
+
+        $tweets = $this->formatter->formatTweets($tweets);
+        $user = $this->formatter->formatUser($user);
         return [
             'user' => $user,
             'tweets' => $tweets
@@ -131,11 +105,14 @@ class UserController extends Controller
     //     }
     // }
     //addTweetBookmark
+
+
     public function addBookmark(Request $request)
     {
         $request->validate([
             'tweet_id' => 'required'
         ]);
+
         $tweetID = $request->tweet_id;
         $user = JWTAuth::user();
         $tweet = Tweet::findOrFail($tweetID);
@@ -150,118 +127,17 @@ class UserController extends Controller
                     ]
                 );
             }
-            $tweet = $this->formatTweet($tweet);
+            $tweet = $this->formatter->formatTweet($tweet);
             return  $tweet;
         }
         return "Tweet not found";
     }
 
 
-    public function formatTweet($tweet, $userID = 0)
-    {
-        // add user object to the tweet object and delete security sensitive information
-        $tweet->user;
-        $tweet->user = $this->formatUser($tweet->user);
-        unset($tweet->user->google_access_token);
-        unset($tweet->user->facebook_access_token);
-        unset($tweet->user->email_verified_at);
-        unset($tweet->user->updated_at);
-        unset($tweet->user_id);
-
-        $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
-
-        // get the media of the tweet and update it's url values and remove security sensitive info
-        $media = $tweet->media;
-        if ($media->count()) {
-            foreach ($media as $key => $value) {
-                unset($value['parent_id']);
-                unset($value['parent_type']);
-                unset($value['updated_at']);
-                $value->media_url = asset('storage/media/' . $value->media_url);
-            }
-        }
-        $replies = $userID ? $tweet->replyWithUserID($userID) : $tweet->replies;
-        foreach ($replies as $reply) {
-            $reply->user = $this->formatUser($reply->user);
-
-            unset($reply->repliable_type);
-            unset($reply->repliable_id);
-            unset($reply->updated_at);
-            unset($reply->user->google_access_token);
-            unset($reply->user->facebook_access_token);
-            unset($reply->user->email_verified_at);
-            unset($reply->user->updated_at);
-            $replyMedia = $reply->media;
-            foreach ($replyMedia as $key => $value) {
-                unset($value->parent_type);
-                unset($value->parent_id);
-                unset($value->updated_at);
-            }
-
-            $reply->replies;
-            $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
-            $reply->media = $replyMedia;
-            $reply->replies_count = $reply->replies->count();
-            $reply->likes_count = $reply->likes->count();
-            $reply->views_count = $reply->views->count();
-            $reply->retweets_count = random_int(0, 999999999);
-        }
-        $tweet->replies = $replies;
-        $tweet->user->followers_count = $tweet->user->followers()->count();
-        $tweet->user->followings_count = $tweet->user->followings()->count();
-        $tweet->user->tweets_count = $tweet->user->tweets()->count();
-        $tweet->replies_count = $tweet->replies->count();
-        $tweet->likes_count = $tweet->likes->count();
-        // $tweet->views_count = $tweet->views->count();
-        $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
-        // $tweet->retweeted = JWTAuth::user()->isRetweeted($tweet->id);
-
-        return $tweet;
-    }
-
-
-    public function formatTweets($tweets)
-    {
-        foreach ($tweets as $tweet) {
-            // Get the user associated with this tweet
-            $tweet->user;
-            $tweet->user = $this->formatUser($tweet->user);
-            // Remove sensitive information from the user object
-            unset($tweet->user->google_access_token);
-            unset($tweet->user->facebook_access_token);
-            unset($tweet->user->email_verified_at);
-            unset($tweet->user->updated_at);
-            unset($tweet->user_id);
-            // Get the media associated with this tweet
-            $tweet->media;
-            $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
-            // Remove sensitive information from the media objects
-            foreach ($tweet->media as $media) {
-                unset($media['parent_id']);
-                unset($media['parent_type']);
-                unset($media['updated_at']);
-                $media->media_url = $media->media_url ? asset('storage/media/' . $media->media_url) : null;
-            }
-            // Add some additional information to the user object
-            $tweet->user->followers_count = $tweet->user->followers()->count();
-            $tweet->user->followings_count = $tweet->user->followings()->count();
-            $tweet->user->tweets_count = $tweet->user->tweets()->count();
-            $tweet->replies_count = $tweet->replies->count();
-            $tweet->likes_count = $tweet->likes->count();
-            // $tweet->views_count = $tweet->views->count();
-        }
-        return $tweets;
-    }
     public function get_all_users()
     {
-        return User::all();
         $users = User::all();
-
-        foreach ($users as $user) {
-            $user = $this->formatUser($user);
-        }
-
-
+        $users = $this->formatter->formatUsers($users);
         return $users;
     }
 
@@ -286,7 +162,6 @@ class UserController extends Controller
     public function destroy(Request $request)
     {
         $request->user()->delete();
-
         return response()->json(['message' => 'user permanently deleted '], 500);
     }
 }

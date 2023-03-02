@@ -73,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function tweets()
     {
-        return  $this->hasMany(Tweet::class) ;
+        return  $this->hasMany(Tweet::class);
     }
 
     public function tweetsWithMedia()
@@ -107,7 +107,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->retweets()->where('tweet_id', $tweet_id)->exists();
     }
-    
+
     public function bookmarks()
     {
         return $this->hasMany(Bookmark::class);
@@ -132,7 +132,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     // follow new user 
-    public function follow(User $user) 
+    public function follow(User $user)
     {
         return $this->followings()->save($user);
     }
@@ -150,10 +150,18 @@ class User extends Authenticatable implements JWTSubject
     public function isFollowedBy(User $user)
     {
         return $this->followers()->where('follower_id', $user->id)->exists();
-    }    
+    }
 
+    public function verificationStatus()
+    {
+
+        return $this->hasOne(Verification::class)
+            ->where('user_id', $this->id)
+            ->exists();
+    }
 
     // get all following people tweets and user tweets also, ordered from newest to oldest
+
     public function hforyou()
     {
         // get the users who the current user follow
@@ -185,9 +193,5 @@ class User extends Authenticatable implements JWTSubject
     {
         return Tweet::whereIn('user_id', $this->followings()->pluck('following_id'))
             ->latest();
-    }
-    public function verificationStatus()
-    {
-        return $this->hasOne(VerificationStatus::class);
     }
 }
