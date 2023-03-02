@@ -52,6 +52,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
 import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.directive';
 import { AccountInfoComponent } from './Components/settings/account-info/account-info.component';
+import { LoadProfileComponent } from './Components/load-profile/load-profile.component';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
@@ -94,6 +95,7 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     FollowersAndFollowingComponent,
     InfiniteScrollingDirective,
     AccountInfoComponent,
+    LoadProfileComponent,
 
     // StickyHeaderFollowingComponent,
   ],

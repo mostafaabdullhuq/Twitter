@@ -172,10 +172,13 @@
 </div>
 
 <ng-template #loadingBlock>
-    <div
+    <!-- <div
         class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
         <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
             <i class="fa-solid fa-spinner text-2xl animate-spin"></i>
         </div>
-    </div>
+    </div> -->
+    <app-load-profile
+    class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+      ></app-load-profile>
 </ng-template>
