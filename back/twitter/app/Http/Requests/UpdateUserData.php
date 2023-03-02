@@ -35,7 +35,6 @@ class UpdateUserData extends FormRequest
             'phone_number' => 'nullable|string|max:20|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'date_of_birth' => 'nullable|date_format:Y-m-d|before:today|after:1900-01-01',
         ];
-
     }
     public function messages()
     {
