@@ -126,6 +126,8 @@ class FormatController extends Controller
         $user->profile_picture = $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : null;
         $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
         $user->verified = User::find($user->id)->verificationStatus();
+        $user->followers = $user->followers()->get()->pluck('id')->toArray();
+
         unset(
             $user->email_verified_at,
             $user->password,
@@ -136,7 +138,21 @@ class FormatController extends Controller
         );
         return $user;
     }
-
+    // public function get_all_users()
+    // {
+    //     $users = User::all();
+    //     if (auth()->check()) {
+    //         $authUser = auth()->user();
+    //         $authUser->followers_count = $authUser->followers()->count();
+    //         $authUser->followings_count = $authUser->followings()->count();
+    //     }
+    //     foreach ($users as $user) {
+    //         $user->followers_count = $user->followers()->count();
+    //         $user->followings_count = $user->followings()->count();
+    //         $user->followers = $user->followers()->get()->pluck('id')->toArray();
+    //     }
+    //     return $users;
+    // }
 
     public function formatUsers($users)
     {
