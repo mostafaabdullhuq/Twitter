@@ -140,15 +140,15 @@ class UserController extends Controller
 
 
     public function get_all_users()
-    {  // slecet * from users where id == following id having follower != authUserId
+    {  
         $usersList =[];
         $authUser = JWTAuth::user();
         $users = User::all();
         $authFollowing = $this->following->get_followings($authUser);
         $users = $this->formatter->formatUsers($users);
 
-        $newarr = $authFollowing->getOriginalContent();
-        if(count($newarr)==0){
+        $listOfFollowings = $authFollowing->getOriginalContent();
+        if(count($listOfFollowings)==0){
             foreach ($users as $user) {
                 if ($authUser->id != $user->id) {
                     $usersList[]= "test";
@@ -157,21 +157,12 @@ class UserController extends Controller
         }
         else
         {
-            // foreach ($users as $user) {
-            //     if ($authUser->id !== $user->id) {
-            //         foreach ($newarr as $key => $value) {
-            //             if ($value->following_id !== $user->id) {
-            //                 $usersList[]= $user->id;
-            //             }
-            //         }
-            //     }
 
-            // }
             foreach ($users as $user) {
                 // $usersList[] = $user->id;
 
                 $found = false;
-                foreach ($newarr as $value) {
+                foreach ($listOfFollowings as $value) {
                     if ($value->following_id === $user->id) {
                         $found = true;
                         break;
