@@ -15,7 +15,7 @@
                 <div  (click)="router.navigate(['/{{u.username}}']);" class="flex max-w-full w-full -mb-1 mt-1">
                     <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
                         {{u.first_name}} {{u.last_name}}</h5>
-                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="u.is_verified" fill="none" viewBox="0 0 24 24"
+                    <svg xmlns="http://www.w3.org/2000/svg" *ngIf="u.verified" fill="none" viewBox="0 0 24 24"
                         strokeWidth="{1.5}" stroke="currentColor"
                         class="w-6 min-w-[25px] text-white fill-main-blue_100">
                         <path strokeLinecap="round" strokeLinejoin="round"
@@ -27,9 +27,9 @@
             </div>
         </div>
         <!-- ! --------follow button ---- -->
-        <button (click)="follow(u.id); u.followed_by = !u.followed_by"
+        <button (click)="follow(u.id); u.is_followed = !u.is_followed"
             class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">
-            {{u?.followed_by?"UnFollow":"Follow" }}
+            {{u?.is_followed?"UnFollow":"Follow" }}
         </button>
 
         <!-- <button (click)="toggleClick()" class="btn border-t-neutral-700">
