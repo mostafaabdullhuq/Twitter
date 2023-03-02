@@ -458,13 +458,13 @@ class TweetController extends Controller
     //Retweet views count
     public function viewsRetweet($retweet_id)
     {
-        $retweets = Retweet::find($retweet_id);
-        if ($retweets) {
-            $retweets->update([
-                'views_count' => $retweets->views_count + 1
-            ]);
-            return $retweets;
-        }
+    $retweets = Retweet::find($retweet_id);
+    if ($retweets) {
+        $retweets->update([
+            'views_count' => $retweets->views_count + 1
+        ]);
+        return $retweets;
+    }
 
 
     // public function likeRetweet($retweet_id){
@@ -483,7 +483,7 @@ class TweetController extends Controller
     //     $tweet = $this->formatTweet($like);
     //     return $retweet;
     // }
-
+}
 
     public function likeToggle($id)
     {
