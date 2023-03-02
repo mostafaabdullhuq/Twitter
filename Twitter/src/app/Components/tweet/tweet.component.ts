@@ -26,6 +26,7 @@ export class TweetComponent implements OnInit {
   public user: any;
   public popup: boolean = false;
   public isInBookmark: boolean = false;
+  public isInHome: boolean = true;
   // infinite scrolling logic
   public observer: any = new IntersectionObserver((entries: any) => {
     entries.forEach((entry: any) => {
@@ -42,8 +43,11 @@ export class TweetComponent implements OnInit {
     private authService: AuthService
   ) {}
   ngOnInit(): void {
-    this.isInBookmark =
-      this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+    let path = this.myRoute.snapshot?.url[0]?.path;
+    this.isInBookmark = path == 'bookmarks' ? true : false;
+
+    this.isInHome =
+      path == 'home' || !path || path == 'home/following' ? true : false;
 
     this.authService.getUser().subscribe({
       next: (data: any) => {
