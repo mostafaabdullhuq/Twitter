@@ -1,4 +1,10 @@
-import { Component, OnInit , ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { LoggedService } from './Services/logged.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
@@ -12,7 +18,7 @@ import { AuthService } from './Services/auth.service';
 export class AppComponent implements OnInit {
   title = 'Twitter';
   auth2: any;
-  @ViewChild('loginRef', {static: true }) loginElement!: ElementRef;
+  @ViewChild('loginRef', { static: true }) loginElement!: ElementRef;
   public loggedIn: boolean = true;
   public isInLogin: boolean = false;
   public isInSignup: boolean = false;
@@ -84,6 +90,27 @@ export class AppComponent implements OnInit {
 
   logoutPopup() {
     this.popup ? (this.popup = false) : (this.popup = true);
+  }
+
+  @HostListener('document:click', ['$event'])
+  public handleClick(event: Event): void {
+    if (event.target instanceof HTMLAnchorElement) {
+      const element = event.target as HTMLAnchorElement;
+      const elementClass = element.className;
+      if (elementClass == 'hashtag' || element.className === 'mention') {
+        const text = element?.getAttribute('data')?.slice(1);
+        event.preventDefault();
+
+        if (elementClass == 'hashtag') {
+          this.router.navigate(['/search'], {
+            queryParams: { type: 'hashtag_tweets', q: text },
+          });
+        }
+        if (elementClass == 'mention') {
+          this.router.navigate([`/${text}`]);
+        }
+      }
+    }
   }
 
   //google

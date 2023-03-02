@@ -41,7 +41,7 @@
 }
 
 .tweet-control-item-special {
-  @apply hidden sm:flex flex-row justify-start items-center text-medium text-gray-600 dark:text-gray-400;
+  @apply hidden sm:flex flex-row justify-start items-center text-medium text-gray-600 dark:text-gray-400 cursor-pointer;
 }
 
 .sticky-active {
