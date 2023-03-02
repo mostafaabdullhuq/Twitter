@@ -11,13 +11,6 @@ import { UsersService } from 'src/app/Services/users.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  // showEdit = false;
-
-  // onButtonClick() {
-  //   this.showEdit = true;
-  //   document.body.classList.add('popup-open');
-  // }
-
 
   showPopup = false;
   public username: any = '';

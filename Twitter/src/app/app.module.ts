@@ -51,6 +51,7 @@ import { ChangePasswordComponent } from './Components/settings/change-password/c
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
 import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.directive';
+import { AccountInfoComponent } from './Components/settings/account-info/account-info.component';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
@@ -93,6 +94,7 @@ import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.dire
     PageNotFoundComponent,
     FollowersAndFollowingComponent,
     InfiniteScrollingDirective,
+    AccountInfoComponent,
 
     // StickyHeaderFollowingComponent,
   ],
