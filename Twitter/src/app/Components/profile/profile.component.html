@@ -1,5 +1,5 @@
 <!--! -------middle ------- -->
-<app-edit-profile [showPopup]="showPopup" (closePopup)="onClosePopup()"></app-edit-profile>
+<app-edit-profile *ngIf="user" [userDetails]="user" [showPopup]="showPopup" (closePopup)="onClosePopup()"></app-edit-profile>
 
 <div *ngIf="user;else loadingBlock"
     class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">

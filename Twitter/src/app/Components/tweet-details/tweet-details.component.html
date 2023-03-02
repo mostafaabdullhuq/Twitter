@@ -75,7 +75,7 @@
             </p>
             <!-- tweet media -->
             <div *ngIf="tweet.media.length"
-                class="relative h-[500px] z-1 w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
+                class="relative bg-white h-[500px] z-1 w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
                 <div class="controls">
                     <!-- media next -->
                     <div (click)="handleMedia(1, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"
@@ -140,8 +140,8 @@
                     <i class="rounded-full fa-regular text-lg p-2 fa-comment hover:bg-main-blue_0"></i>
                 </div>
                 <!--share-->
-                <div (click)="showBookmark = !showBookmark"
-                class="single-tweet-control-item hover:text-main-retweet"><i
+                <div (click)="retweet = !retweet"
+                class="relative single-tweet-control-item hover:text-main-retweet"><i
                         class="fa-solid text-lg p-2 fa-retweet rounded-full hover:bg-green-100"></i>
                       </div>
                 <div (click)="likesCount();tweet.liked = !tweet.liked; tweet.likes_count = tweet.liked ? tweet.likes_count + 1 :  tweet.likes_count - 1"
@@ -153,9 +153,16 @@
                 <div (click)="showBookmark = !showBookmark"
                     class="relative single-tweet-control-item hover:text-main-blue_100">
                     <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-
+                    <ng-template #unretweetBlock>
+                      <div class="">
+                          <button
+                              class="text-red-500 w-60 py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove
+                              from Bookmarks</button>
+                      </div>
+                  </ng-template>
+              </div>
                     <!-- bookmark tweet popup -->
-                    <div *ngIf="showBookmark" class="absolute z-10 -top-12 right-0  flex overflow-hidden items-center
+                    <!-- <div *ngIf="showBookmark" class="absolute z-10 -top-12 right-0  flex overflow-hidden items-center
                         dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
                         <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="createBokkmarks(tweetID)"
                             class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
@@ -163,16 +170,21 @@
                             <div>Bookmark</div>
 
                         </div>
-                    </div>
+                    </div> -->
+<!--retweet popup-->
+                    <div *ngIf="retweet" class="absolute -top-12 -right-50
+                     flex overflow-hidden items-center
+                    dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
+                    <div *ngIf="!tweet.retweeted;else unretweetBlock" (click)="createBokkmarks(tweetID)"
+                        class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
+                        <i class="fa-solid text-lg p-2 fa-retweet rounded-full "></i>
+                        <div>Retweet</div>
 
-                    <ng-template #unbookmarkBlock>
-                        <div class="">
-                            <button (click)="createBokkmarks(tweetID)"
-                                class="text-red-500 w-60 py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove
-                                from Bookmarks</button>
-                        </div>
-                    </ng-template>
+                    </div>
                 </div>
+
+
+
 
             </div>
             <!-- new reply section -->

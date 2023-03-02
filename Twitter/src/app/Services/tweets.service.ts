@@ -39,7 +39,6 @@ export class TweetsService {
     });
   }
 
-
   ////////////////
   getTweetById(id: any) {
     const accessToken = this.token.get();
@@ -102,7 +101,7 @@ export class TweetsService {
     });
   }
 
-//views
+  //views
   addView(id: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
@@ -133,7 +132,7 @@ getRetweet($tweetId:any){
 }
 
   //getRetweetsViewsCount
-  retweetView(retweetID:any){
+  retweetView(retweetID: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(`${this.BASE_URL}/${retweetID}/retweet/view`, {
       headers: {
@@ -190,23 +189,14 @@ getRetweet($tweetId:any){
     return this.httpClient.get(`${this.BASE_URL}/following/${id}`);
   }
 
-  // getRetweets() {
-  //   const accessToken = this.token.get();
-
-  //   return this.httpClient.get(this.Retweet_URL + '/retweets', {
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   });
-  // }
-  // getAuthedRetweets() {
-  //   const accessToken = this.token.get();
-  //   return this.httpClient.get(this.Retweet_URL + '/retweets', {
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   });
-  // }
+  getTrendingTweets(count: number) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + `/trending/${count}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
 
 
   getReplies(userName: any) {
@@ -218,7 +208,7 @@ getRetweet($tweetId:any){
     });
   }
 
-  getLikes(username:any) {
+  getLikes(username: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
       headers: {
@@ -227,9 +217,9 @@ getRetweet($tweetId:any){
     });
   }
 
-  getMedia(username:any){
+  getMedia(username: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
+    return this.httpClient.get(this.BASE_URL + `/${username}/media`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

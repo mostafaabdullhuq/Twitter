@@ -28,6 +28,7 @@ export class TweetDetailsComponent implements OnInit {
   protected user: any;
   public tweetID = this.activatedRouter.snapshot.params['id'];
   public showBookmark = false;
+  public retweet = false;
   public showControls = false;
   @ViewChild('tweetBox') tweetBox!: ElementRef;
 
@@ -132,6 +133,8 @@ export class TweetDetailsComponent implements OnInit {
       },
     });
   }
+
+
 
   formatTweetText(text: any, type = 0): SafeHtml {
     if (text) {

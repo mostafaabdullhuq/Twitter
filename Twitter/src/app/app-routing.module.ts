@@ -86,6 +86,16 @@ const routes: Routes = [
     component: ExploreComponent,
     canActivate: [AfterLoginService],
   },
+  {
+    path: 'search',
+    component: ExploreComponent,
+    canActivate: [AfterLoginService],
+  },
+  {
+    path: 'search?type=:type&query=:query',
+    component: ExploreComponent,
+    canActivate: [AfterLoginService],
+  },
 
   {
     path: 'notifications',
