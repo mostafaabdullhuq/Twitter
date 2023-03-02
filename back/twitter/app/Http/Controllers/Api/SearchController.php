@@ -3,19 +3,56 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\PostTrendsRequest;
+use App\Http\Requests\Api\SearchRequest;
 use App\Models\Tweet;
+use App\Models\User;
 use Illuminate\Http\Request;
 use JWTAuth;
 
-use function PHPSTORM_META\type;
-
-class HashtagController extends Controller
+class SearchController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
+    public function search(SearchRequest $request)
+    {
+        $data = $request->only(['type', 'query']);
+
+        $type = $data['type'];
+        $query = $data['query'];
+
+
+        // if user want to search for tweets for specific hashtag
+        if ($type === 'hashtag_tweets') {
+            $tweets = $this->tweetsByHashtag($query);
+            return [
+                'hashtag' =>
+                [
+                    'name' => $query,
+                    'tweets_count' => $tweets->count(),
+                ],
+                'tweets' => $tweets,
+            ];
+        }
+        if ($type == 'users') {
+            $users = $this->searchUsers($query);
+            return $users;
+        }
+    }
+
+    public function searchUsers($query)
+    {
+        $users = User::where('first_name', 'like', '%' . $query . '%')
+            ->orWhere('username', 'like', '%' . $query . '%')
+            ->orWhere('last_name', 'like', '%' . $query . '%')
+            ->get();
+        return $users;
+    }
+
+
+    // get tweets by specific hashtag
+    public function tweetsByHashtag($hashtag)
+    {
+        $tweets =  Tweet::withAnyTags([$hashtag])->get();
+        return $this->formatTweets($tweets);
+    }
 
 
     public function formatTweets($tweets)
@@ -48,38 +85,5 @@ class HashtagController extends Controller
             // $tweet->views_count = $tweet->views->count();
         }
         return $tweets;
-    }
-
-    // get top 10 trending hashtags and their tweets count
-    public function trends(PostTrendsRequest $request)
-    {
-
-        $days = $request->days_count;
-        $count = $request->hashtags_count;
-
-
-        $trends = Tweet::selectRaw('tags.name, count(*) as count')
-            ->join('taggables', 'taggables.taggable_id', '=', 'tweets.id')
-            ->join('tags', 'tags.id', '=', 'taggables.tag_id')
-            ->where('taggables.taggable_type', 'App\Models\Tweet')
-            ->where('tweets.created_at', '>=', now()->subDays($days))
-            ->groupBy('tags.name')
-            ->orderBy('count', 'desc')
-            ->limit($count)
-            ->get();
-
-        foreach ($trends as $key => $trend) {
-            $trend->name = json_decode($trend->name)->en;
-            $trend->tweets_count = $trend->count;
-            unset($trend->count);
-        }
-        return $trends;
-    }
-
-    // get tweets by specific hashtag
-    public function search($hashtag)
-    {
-        $tweets =  Tweet::withAnyTags([$hashtag])->get();
-        return $this->formatTweets($tweets);
     }
 }

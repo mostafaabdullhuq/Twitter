@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\HashtagController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\TweetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
@@ -95,6 +96,17 @@ Route::group([
     Route::post('trending/', [HashtagController::class, 'trends']);
     Route::get('search/{hashtag}', [HashtagController::class, 'search']);
 });
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'search'
+], function () {
+    Route::post('', [SearchController::class, 'search']);
+});
+
+
+
 
 //Chat App
 Route::group([
