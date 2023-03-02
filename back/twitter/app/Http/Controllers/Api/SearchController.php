@@ -70,11 +70,13 @@ class SearchController extends Controller
         return $users;
     }
 
+    
     public function searchTweet($query)
     {
         $tweets = Tweet::where('text', 'like', '%' . $query . '%')->get();
         return $tweets;
     }
+
 
     // get tweets by specific hashtag
     public function tweetsByHashtag($hashtag)
@@ -83,11 +85,13 @@ class SearchController extends Controller
         return $this->formatter->formatTweets($tweets);
     }
 
+
     public function searchHashtags($query)
     {
         $tweets = Tweet::withAnyTags([$query])->get();
         return $this->formatter->formatTweets($tweets);
     }
+
 
     public function searchTweetsByUser($query)
     {
