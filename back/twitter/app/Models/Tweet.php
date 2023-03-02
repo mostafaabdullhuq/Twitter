@@ -28,19 +28,12 @@ class Tweet extends Model
 
     public function replies()
     {
-        return $this->morphMany(
-            Reply::class,
-            'repliable'
-        )
-            ->latest();
+        return $this->morphMany( Reply::class,'repliable')->latest();
     }
 
     public function replyWithUserID($userID)
     {
-        return $this->morphMany(
-            Reply::class,
-            'repliable'
-        )->get()->where('user_id', $userID)->latest();
+        return $this->morphMany( Reply::class,'repliable')->get()->where('user_id', $userID)->latest();
     }
 
     public function mentions()
@@ -50,10 +43,7 @@ class Tweet extends Model
 
     public function media()
     {
-        return $this->morphMany(
-            Media::class,
-            'parent'
-        );
+        return $this->morphMany( Media::class,'parent');
     }
 
     public function retweets()
@@ -64,7 +54,6 @@ class Tweet extends Model
     public function likes()
     {
         return $this->morphMany(Like::class, 'liked');
-
     }
 
     public function likedByUserID($id)
@@ -72,18 +61,9 @@ class Tweet extends Model
         return $this->likes()->where('user_id', $id)->exists();
     }
 
-    // public function viewRetweet()
-    // {
-    //     return $this->morphMany(View::class, 'viewed');
-    // }
-
     public function Views()
     {
         return $this->morphMany(View::class, 'viewed');
-    }
-
-    public function isRetweeted ($id){
-        return $this->retweets()->where('user_id', $id)->exists();
     }
 
     public function formatTweet($userID = 0)

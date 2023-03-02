@@ -274,7 +274,6 @@ class TweetController extends Controller
                 unset($value->parent_id);
                 unset($value->updated_at);
             }
-
             $reply->replies;
             $reply->liked = $reply->likedByUserID(JWTAuth::user()->id);
             $reply->media = $replyMedia;
@@ -287,7 +286,6 @@ class TweetController extends Controller
         $tweet->user->followers_count = $tweet->user->followers()->count();
         $tweet->user->followings_count = $tweet->user->followings()->count();
         $tweet->user->tweets_count = $tweet->user->tweets()->count();
-
         $tags = $tweet->tags;
         foreach ($tags as $key => $tag) {
             unset($tag->pivot);
@@ -296,9 +294,7 @@ class TweetController extends Controller
             unset($tag->order_column);
         }
         $tweet->tags = $tags;
-
         $mentions = $tweet->mentions;
-
         foreach ($mentions as $key => $mention) {
             $mention->mentioned_user = $mention->mentionedUser;
             unset($mention->mentioned_user->google_access_token);
@@ -347,88 +343,57 @@ class TweetController extends Controller
         return $tweets;
     }
 
-    // public function formatUser($user )
-    // {
-    //     unset($user->id);
-    //     unset($user->google_access_token);
-    //     unset($user->facebook_access_token);
-    //     unset($user->email_verified_at);
-    //     unset($user->updated_at);
-    // }
-
-    public function reply($id, Request $request)
-    {
-        $request->validate([
-            'text' => 'required |string|max:500',
-        ]);
-        $data = $request->all();
-        $tweet = Tweet::find($id);
-        $reply = $tweet->replies()->create(
-            [
-                'text' => $data['text'],
-                'user_id' => JWTAuth::user()->id,
-            ]
-        );
-        unset($reply->repliable_type);
-        unset($reply->repliable_id);
-        unset($reply->updated_at);
-        unset($reply->user->google_access_token);
-        unset($reply->user->facebook_access_token);
-        unset($reply->user->email_verified_at);
-        unset($reply->user->updated_at);
-        $reply->likes_count = 0;
-        $reply->replies_count = 0;
-        $reply->retweets_count = 0;
-        $reply->views_count = 0;
-        $reply->liked = false;
-        $reply->user;
-        $reply->media;
-        return $reply;
-    }
-
-    // public function retweet(Request $request , $id){
-    // $user = JWTAuth::user();
-    // $data = $request->all();
-    // $tweet = Tweet::findOrFail($id);
-    // $id = $request->tweet_id;
-    // $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
-    //     if ($retweet) {
-    //         $retweet->delete();
-    //     } else {
-    //         $tweet->retweets()->create([
-    //         'user_id' => JWTAuth::user()->id,
-    //         'text' => $data['text'],
-    //         ]);
-    //     }
-    //         $tweet = $this->formatTweet($tweet);
-    //         return $tweet;
-    //         $tweet->update([
-    //             'views_count' => $tweet->views_count + 1
-    //         ]);
-    //     return "Tweet not found";
-    // }
-    public function retweet(Request $request , $id){
-        $user = JWTAuth::user();
-        $data = $request->all();
-        $tweet = Tweet::findOrFail($id);
-        $id = $request->tweet_id;
-        $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
-        if ($retweet) {
-            $retweet->delete();
-        } else {
-            $tweet->retweets()->create([
-                'user_id' => JWTAuth::user()->id,
-                'text' => $data['text'],
+        public function reply($id, Request $request)
+        {
+            $request->validate([
+                'text' => 'required |string|max:500',
             ]);
+            $data = $request->all();
+            $tweet = Tweet::find($id);
+            $reply = $tweet->replies()->create(
+                [
+                    'text' => $data['text'],
+                    'user_id' => JWTAuth::user()->id,
+                ]
+            );
+            unset($reply->repliable_type);
+            unset($reply->repliable_id);
+            unset($reply->updated_at);
+            unset($reply->user->google_access_token);
+            unset($reply->user->facebook_access_token);
+            unset($reply->user->email_verified_at);
+            unset($reply->user->updated_at);
+            $reply->likes_count = 0;
+            $reply->replies_count = 0;
+            $reply->retweets_count = 0;
+            $reply->views_count = 0;
+            $reply->liked = false;
+            $reply->user;
+            $reply->media;
+            return $reply;
         }
-        $tweet->update([
-            'views_count' => $tweet->views_count + 1
-        ]);
-        $tweet = $this->formatTweet($tweet);
-        return $tweet;
-    }
 
-        //Tweet views count
+        public function retweet(Request $request , $id){
+            $user = JWTAuth::user();
+            $data = $request->all();
+            $tweet = Tweet::findOrFail($id);
+            $id = $request->tweet_id;
+            $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
+            if ($retweet) {
+                $retweet->delete();
+            } else {
+                $tweet->retweets()->create([
+                    'user_id' => JWTAuth::user()->id,
+                    'text' => $data['text'],
+                ]);
+            }
+            $tweet->update([
+                'views_count' => $tweet->views_count + 1
+            ]);
+            $tweet = $this->formatTweet($tweet);
+            return $tweet;
+        }
+
         public function view($id)
         {
             $tweet = Tweet::find($id);
@@ -438,7 +403,6 @@ class TweetController extends Controller
             $tweet = $this->formatTweet($tweet);
             return $tweet;
         }
-
         //Retweet views count
         public function viewsRetweet($retweet_id)
         {
@@ -452,26 +416,41 @@ class TweetController extends Controller
             return "Retweet not found";
         }
 
-    public function likeToggle($id)
-    {
-        $user = JWTAuth::user();
-        $tweet = Tweet::find($id);
-        $like = $tweet->likes()->where('user_id', $user->id)->first();
-        if ($like) {
-            $like->delete();
-        } else {
-            $tweet->likes()->create(
-                [
-                    'user_id' => $user->id,
-                ]
-            );
+        // public function likeRetweet($retweet_id){
+        //     $user = JWTAuth::user();
+        //     $retweet = Retweet::find($retweet_id);
+        //     $like = $retweet->likes()->where('user_id', $user->id)->first();
+        //     if ($like) {
+        //         $like->delete();
+        //     } else {
+        //         $like->likes()->create(
+        //             [
+        //                 'user_id' => $user->id,
+        //             ]
+        //         );
+        //     }
+        //     $tweet = $this->formatTweet($like);
+        //     return $retweet;
+        // }
+
+
+        public function likeToggle($id)
+        {
+            $user = JWTAuth::user();
+            $tweet = Tweet::find($id);
+            $like = $tweet->likes()->where('user_id', $user->id)->first();
+            if ($like) {
+                $like->delete();
+            } else {
+                $tweet->likes()->create(
+                    [
+                        'user_id' => $user->id,
+                    ]
+                );
+            }
+            $tweet = $this->formatTweet($tweet);
+            return $tweet;
         }
-        $tweet = $this->formatTweet($tweet);
-        return $tweet;
-    }
-
-
-
 
     public function delete($id)
     {

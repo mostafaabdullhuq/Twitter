@@ -184,22 +184,43 @@ class UserController extends Controller
         }
         return $tweets;
     }
-
-
     public function get_all_users()
     {
-        return User::all();
-        // $user = JWTAuth::user();
-        // $user->f
-
-        // $user = auth()->user();
-        // $user->followers_count = $user->followers()->count();
-        // $user->followings_count = $user->followings()->count();
-        // $user->tweets_count = $user->tweets()->count();
-        // $user->is_following = false;
-
-        // return $user;
+        $users = User::all();
+        if (auth()->check()) {
+            $authUser = auth()->user();
+            $authUser->followers_count = $authUser->followers()->count();
+            $authUser->followings_count = $authUser->followings()->count();
+            $authUserFollowingIds = $authUser->followings()->get()->pluck('id')->toArray();
+        }
+        foreach ($users as $user) {
+            $user->followers_count = $user->followers()->count();
+            $user->followings_count = $user->followings()->count();
+            $user->followers = $user->followers()->get()->pluck('id')->toArray();
+            if (auth()->check()) {
+                $user->followed_by = in_array($authUser->id, $user->followers);
+                $user->following = in_array($user->id, $authUserFollowingIds);
+            }
+        }
+        return $users;
     }
+
+    // public function get_all_users()
+    // {
+    //     $users = User::all();
+    //     if (auth()->check()) {
+    //         $authUser = auth()->user();
+    //         $authUser->followers_count = $authUser->followers()->count();
+    //         $authUser->followings_count = $authUser->followings()->count();
+    //     }
+    //     foreach ($users as $user) {
+    //         $user->followers_count = $user->followers()->count();
+    //         $user->followings_count = $user->followings()->count();
+    //         $user->followers = $user->followers()->get()->pluck('id')->toArray();
+    //     }
+    //     return $users;
+    // }
+
 
 
     public function destroy(Request $request)
