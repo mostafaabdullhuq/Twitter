@@ -17,6 +17,7 @@ export class FollowRecommendationsComponent implements OnInit{
       {
         next:(data)=>{
             this.users = data;
+            console.log(data);
         },
         error:(err)=>{err},
       });
