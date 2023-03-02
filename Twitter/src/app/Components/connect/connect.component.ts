@@ -20,4 +20,19 @@ export class ConnectComponent implements OnInit{
         error:(err)=>{err},
       })
   }
+  follow(id:any){
+    let user_id = +id;
+
+
+    this.myService.postFollow(user_id).subscribe(
+      {
+        next:(data)=>{
+          console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      },
+      }
+    )
+  }
 }
