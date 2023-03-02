@@ -17,6 +17,9 @@ class FormatController extends Controller
         // add user object to the tweet object and delete security sensitive information
         $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
         $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
+        $tweet->retweeted = $tweet->isRetweetedByUser(JWTAuth::user()->id);
+
+        // $tweet->retweeted = $tweet->isRetweeted($tweet->retweets_id);
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
         $tweet->retweets_count = $tweet->retweets->count();

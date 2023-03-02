@@ -274,16 +274,19 @@ class TweetController extends Controller
     public function retweet(Request $request, $id)
     {
         $user = JWTAuth::user();
-        $data = $request->all();
         $tweet = Tweet::findOrFail($id);
-        $id = $request->tweet_id;
+        $text = null;
+        if ($request->text) {
+            $text = $request->text;
+        }
+        // $id = $request->tweet_id;
         $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
         if ($retweet) {
             $retweet->delete();
         } else {
             $tweet->retweets()->create([
                 'user_id' => JWTAuth::user()->id,
-                'text' => $data['text'],
+                'text' => $text,
             ]);
         }
         $tweet->update([
