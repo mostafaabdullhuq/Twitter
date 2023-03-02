@@ -12,7 +12,7 @@
             <!-- <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
                 class="abso1lute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" /> -->
             <div class="ml-3 text-md w-2/3">
-                <div routerLink="/{{u.username}}" class="flex max-w-full w-full -mb-1 mt-1">
+                <div  (click)="router.navigate(['/{{u.username}}']);" class="flex max-w-full w-full -mb-1 mt-1">
                     <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
                         {{u.first_name}} {{u.last_name}}</h5>
                     <svg xmlns="http://www.w3.org/2000/svg" *ngIf="u.is_verified" fill="none" viewBox="0 0 24 24"
@@ -29,7 +29,7 @@
         <!-- ! --------follow button ---- -->
         <button (click)="follow(u.id); u.followed_by = !u.followed_by"
             class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">
-            {{u?.followed_by?"Unfollow":"Follow" }}
+            {{u?.followed_by?"UnFollow":"Follow" }}
         </button>
 
         <!-- <button (click)="toggleClick()" class="btn border-t-neutral-700">
