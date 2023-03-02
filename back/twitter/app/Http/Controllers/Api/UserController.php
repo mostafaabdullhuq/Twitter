@@ -140,23 +140,50 @@ class UserController extends Controller
 
 
     public function get_all_users()
-    {
+    {  // slecet * from users where id == following id having follower != authUserId
         $usersList =[];
         $authUser = JWTAuth::user();
         $users = User::all();
         $authFollowing = $this->following->get_followings($authUser);
         $users = $this->formatter->formatUsers($users);
-        foreach($users as $user){
-            if($authUser->id != $user->id ){
-                // foreach ($authFollowing as $key => $value) {
-                //     $usersList[]=$value->following_id;
-                // }
-                // if()
-                $usersList[]=$user;
+
+        $newarr = $authFollowing->getOriginalContent();
+        if(count($newarr)==0){
+            foreach ($users as $user) {
+                if ($authUser->id != $user->id) {
+                    $usersList[]= "test";
+                }
             }
         }
-        return $usersList;
+        else
+        {
+            // foreach ($users as $user) {
+            //     if ($authUser->id !== $user->id) {
+            //         foreach ($newarr as $key => $value) {
+            //             if ($value->following_id !== $user->id) {
+            //                 $usersList[]= $user->id;
+            //             }
+            //         }
+            //     }
 
+            // }
+            foreach ($users as $user) {
+                // $usersList[] = $user->id;
+
+                $found = false;
+                foreach ($newarr as $value) {
+                    if ($value->following_id === $user->id) {
+                        $found = true;
+                        break;
+                    }
+                }
+                // && !in_array($user->id, $usersList
+                if (!$found) {
+                    $usersList[] = $user;
+                }
+}
+        }   
+        return $usersList;
     }
 
     // public function get_all_users()
