@@ -26,10 +26,13 @@ export class TweetDetailsComponent implements OnInit {
   protected tweet: any;
   protected error: any;
   protected user: any;
+  protected retweets:any;
   public tweetID = this.activatedRouter.snapshot.params['id'];
   public showBookmark = false;
-  public retweet = false;
   public showControls = false;
+  public showRetweet = false;
+  public showRetweetModal= true;
+  public isRetweetPopupShown = false;
   @ViewChild('tweetBox') tweetBox!: ElementRef;
 
   //reply
@@ -80,6 +83,35 @@ export class TweetDetailsComponent implements OnInit {
       },
     });
   }
+
+  shareTweet(tweetID:any, textValue: any = null){
+    this.isRetweetPopupShown = false;
+
+    this.httpClient.postRetweet(tweetID, textValue).subscribe({
+      next: (data) => {
+        this.tweet = data;
+        console.log(this.tweet);
+
+        console.log('Tweet shared successfully');
+      },
+      error: (err) => {
+        this.error = err;
+      },
+    });
+  }
+
+
+  retweet(){
+    this.shareTweet(this.retweets.text, this.tweetID);
+  }
+  openRetweetModal() {
+    this.showRetweetModal = true;
+  }
+
+  closeRetweetModal() {
+    this.showRetweetModal = false;
+  }
+
 
   handleMedia(type: any, container: any, tweet: any) {
     let nextIndex;
@@ -134,14 +166,13 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-
-
   formatTweetText(text: any, type = 0): SafeHtml {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const hashtagTemplate = '<a class="hashtag">$&</a>';
       const mentionTemplate = '<a  class="hashtag">$&</a>';
+
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
         .replace(mentionRegex, mentionTemplate);

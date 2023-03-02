@@ -1,35 +1,46 @@
 <!--! -------middle ------- -->
-<div *ngIf="!error && tweet; else: errorBlock"
-    class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-    <app-sticky-header-pages [title]="tweet.user.first_name+'\'s Tweet'"></app-sticky-header-pages>
-    <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
-    <div class="single-tweet">
-        <!-- tweet right up control -->
-        <div (click)="showControls = !showControls"
-            class="absolute  dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
-            title="More">
-            <i
-                class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
-        </div>
+<div
+  *ngIf="!error && tweet; else errorBlock"
+  class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100"
+>
+  <app-sticky-header-pages
+    [title]="tweet.user.first_name + '\'s Tweet'"
+  ></app-sticky-header-pages>
+  <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
+  <div class="single-tweet">
+    <!-- tweet right up control -->
+    <div
+      (click)="showControls = !showControls"
+      class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
+      title="More"
+    >
+      <i
+        class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"
+      ></i>
+    </div>
 
-        <!-- tweet controls popup -->
-        <div *ngIf="showControls"
-            class="absolute z-10 top-10 right-2  flex flex-col overflow-hidden items-center dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
-            <div (click)="deleteTweet()" *ngIf="tweet.user.id === user.id"
-                class="flex cursor-pointer border-b border-gray-100 dark:border-dark-gray_0 py-2 w-full overflow-hidden gap-3 text-red-500 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
-                <i class="fa-solid fa-trash-can"></i>
-                <div>Delete</div>
-
-            </div>
-            <!-- <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="bookmarkToggle(tweet.id)"
+    <!-- tweet controls popup -->
+    <div
+      *ngIf="showControls"
+      class="absolute z-10 top-10 right-2 flex flex-col overflow-hidden items-center dark:border-dark-gray_0 bg-white dark:bg-black border rounded-md"
+    >
+      <div
+        (click)="deleteTweet()"
+        *ngIf="tweet.user.id === user.id"
+        class="flex cursor-pointer border-b border-gray-100 dark:border-dark-gray_0 py-2 w-full overflow-hidden gap-3 text-red-500 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white items-center px-12"
+      >
+        <i class="fa-solid fa-trash-can"></i>
+        <div>Delete</div>
+      </div>
+      <!-- <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="bookmarkToggle(tweet.id)"
                 class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
                 <i class="fa-regular fa-bookmark"></i>
                 <div>Bookmark</div>
 
             </div> -->
-        </div>
+    </div>
 
-        <!-- <ng-template #unbookmarkBlock>
+    <!-- <ng-template #unbookmarkBlock>
             <div>
                 <button (click)="bookmarkToggle(tweet.id)"
                     class="text-red-500 w-full py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Unbookmark</button>
@@ -37,74 +48,115 @@
             </div>
         </ng-template> -->
 
-        <!-- user info -->
-        <div class="user-info flex gap-2">
-            <!-- user image -->
-            <img class="twitter-user-img"
-                src="{{tweet.user.profile_picture ? tweet.user.profile_picture: './../../../../assets/images/default_profile.png'}}"
-                alt="" />
-            <!-- username and name -->
-            <div class="flex w-full flex-col overflow-hidden">
-                <!--  name -->
-                <div
-                    class="title flex items-center font-bold cursor-pointer text-gray-800 dark:text-white w-auto max-w-[50%]">
-                    <p routerLink="/{{tweet.user.username}}" class="dotted-text h-6 hover:underline">
-                        {{tweet.user.first_name + ' ' +
-                        tweet.user.last_name}}
-                    </p>
-                    <svg *ngIf="tweet?.user?.verified" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" strokeWidth="{1.5}" stroke="currentColor"
-                        class="w-6 min-w-[25px] text-white fill-main-blue_100">
-                        <path strokeLinecap="round" strokeLinejoin="round"
-                            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                    </svg>
-                </div>
-                <!-- other user and tweet info -->
-                <div class="flex items-center w-auto max-w-[45%]">
-                    <!-- username -->
-                    <span
-                        class="username text-md dark:text-dark-gray_300 font-normal dotted-text text-light-gray_100">@{{tweet.user.username}}</span>
-                </div>
-            </div>
+    <!-- user info -->
+    <div class="user-info flex gap-2">
+      <!-- user image -->
+      <img
+        class="twitter-user-img"
+        src="{{
+          tweet.user.profile_picture
+            ? tweet.user.profile_picture
+            : './../../../../assets/images/default_profile.png'
+        }}"
+        alt=""
+      />
+      <!-- username and name -->
+      <div class="flex w-full flex-col overflow-hidden">
+        <!--  name -->
+        <div
+          class="title flex items-center font-bold cursor-pointer text-gray-800 dark:text-white w-auto max-w-[50%]"
+        >
+          <p
+            routerLink="/{{ tweet.user.username }}"
+            class="dotted-text h-6 hover:underline"
+          >
+            {{ tweet.user.first_name + " " + tweet.user.last_name }}
+          </p>
+          <svg
+            *ngIf="tweet?.user?.verified"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="{1.5}"
+            stroke="currentColor"
+            class="w-6 min-w-[25px] text-white fill-main-blue_100"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+            />
+          </svg>
         </div>
-        <div class="content flex flex-col justify-start w-full gap-1 pt-3 max-w-full">
-            <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
-            <!-- ----paragraph----- -->
-            <p class="font-normal dark:text-white text-md text-dark-gray_400" dir="auto">
-                <span [innerHTML]="formatTweetText(tweet.text)"></span>
-            </p>
-            <!-- tweet media -->
-            <div *ngIf="tweet.media.length"
-                class="relative bg-white h-[500px] z-1 w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0  border border-light-gray">
-                <div class="controls">
-                    <!-- media next -->
-                    <div (click)="handleMedia(1, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"
-                        class="absolute right-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
-                        <i class="fa-solid fa-chevron-right text-xl p-2 text-center"></i>
-                    </div>
+        <!-- other user and tweet info -->
+        <div class="flex items-center w-auto max-w-[45%]">
+          <!-- username -->
+          <span
+            class="username text-md dark:text-dark-gray_300 font-normal dotted-text text-light-gray_100"
+            >@{{ tweet.user.username }}</span
+          >
+        </div>
+      </div>
+    </div>
+    <div
+      class="content flex flex-col justify-start w-full gap-1 pt-3 max-w-full"
+    >
+      <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
+      <!-- ----paragraph----- -->
+      <p
+        class="font-normal dark:text-white text-md text-dark-gray_400"
+        dir="auto"
+      >
+        <span [innerHTML]="formatTweetText(tweet.text)"></span>
+      </p>
+      <!-- tweet media -->
+      <div
+        *ngIf="tweet.media.length"
+        class="relative bg-white h-[500px] z-1 w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0 border border-light-gray"
+      >
+        <div class="controls">
+          <!-- media next -->
+          <div
+            (click)="handleMedia(1, mediaContainer, tweet)"
+            *ngIf="tweet.media.length > 1"
+            class="absolute right-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white cursor-pointer rounded-full w-8 h-8 z-10 flex items-center justify-center"
+          >
+            <i class="fa-solid fa-chevron-right text-xl p-2 text-center"></i>
+          </div>
 
-                    <!-- media previous -->
-                    <div (click)="handleMedia(2, mediaContainer, tweet)" *ngIf="tweet.media.length > 1"
-                        class="absolute left-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
-                        <i class="fa-solid fa-chevron-left text-xl p-2 text-center"></i>
-                    </div>
+          <!-- media previous -->
+          <div
+            (click)="handleMedia(2, mediaContainer, tweet)"
+            *ngIf="tweet.media.length > 1"
+            class="absolute left-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white cursor-pointer rounded-full w-8 h-8 z-10 flex items-center justify-center"
+          >
+            <i class="fa-solid fa-chevron-left text-xl p-2 text-center"></i>
+          </div>
+        </div>
+        <div
+          #mediaContainer
+          class="media-container absolute top-0 left-0 bottom-0 right-0 overflow-hidden"
+        >
+          <!-- each media -->
+          <div class="media-item">
+            <img
+              class="object-cover h-full w-full"
+              src="{{ tweet.media[0].media_url }}"
+              *ngIf="tweet.media[0].media_type == 1"
+            />
+            <video
+              controls
+              *ngIf="tweet.media[0].media_type == 2"
+              class="object-cover h-full w-full"
+            >
+              <source src="{{ tweet.media[0].media_url }}" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
 
-                </div>
-                <div #mediaContainer class="media-container absolute top-0 left-0 bottom-0 right-0 overflow-hidden">
-                    <!-- each media -->
-                    <div class="media-item">
-                        <img class="object-cover  h-full w-full" src="{{tweet.media[0].media_url}}"
-                            *ngIf="tweet.media[0].media_type == 1" />
-                        <video controls *ngIf="tweet.media[0].media_type == 2" class="object-cover  h-full w-full">
-                            <source src="{{tweet.media[0].media_url}}" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- <div *ngFor="let media of tweet.media"
+      <!-- <div *ngFor="let media of tweet.media"
                 class="w-auto max-h-[500px] flex overflow-hidden dark:border-dark-gray_0 rounded-xl border border-light-gray my-3 mr-2">
                 <img class="object-cover w-full h-full" src="{{media.media_url}}" *ngIf="media.media_type == 1" />
                 <video controls *ngIf="media.media_type == 2">
@@ -112,136 +164,234 @@
                     Your browser does not support the video tag.
                 </video>
             </div> -->
-            <!-- tweet details -->
-            <div class="w-full flex text-sm pt-1 gap-2 text-gray-600 dark:text-gray-400 items-center">
-                <p>{{tweet.created_at|date: 'shortTime'}}</p>
-                <p class="font-bold text-lg flex -mt-2">.</p>
-                <p>{{tweet.created_at|date: 'mediumDate'}}</p>
-                <p class="font-bold text-lg flex -mt-2">.</p>
-                <p class="text-gray-900 font-bold dark:text-white">
-                    {{(tweet.views_count || 0)|humanNumbers}}
-                    <span class="font-normal text-gray-600 dark:text-gray-400">Views</span>
-                </p>
-            </div>
-            <div
-                class="w-full flex py-4 text-sm mt-3 border-t border-b dark:border-dark-gray_0 border-gray-100 gap-6 dark:text-gray-400 text-gray-600 items-center">
-                <p><span class="text-gray-900 dark:text-white font-bold">{{(tweet.retweets_count ||
-                        0)|humanNumbers}}</span> Retweets
-                </p>
-                <p><span class="text-gray-900 dark:text-white font-bold">{{(tweet.replies_count ||
-                        0)|humanNumbers}}</span> Replies</p>
-                <p><span class="text-gray-900 dark:text-white font-bold">{{(tweet.likes_count ||
-                        0)|humanNumbers}}</span> Likes</p>
-            </div>
-            <!-- ----controls icons ---- -->
-            <div
-                class="w-full justify-center border-b dark:border-dark-gray_0 border-gray-100 py-2 items-center grid grid-cols-4 gap-1">
-                <div class="relative single-tweet-control-item hover:text-main-blue_100">
-                    <i class="rounded-full fa-regular text-lg p-2 fa-comment hover:bg-main-blue_0"></i>
-                </div>
-                <!--share-->
-                <div (click)="retweet = !retweet"
-                class="relative single-tweet-control-item hover:text-main-retweet"><i
-                        class="fa-solid text-lg p-2 fa-retweet rounded-full hover:bg-green-100"></i>
-                      </div>
-                <div (click)="likesCount();tweet.liked = !tweet.liked; tweet.likes_count = tweet.liked ? tweet.likes_count + 1 :  tweet.likes_count - 1"
-                    class="single-tweet-control-item hover:text-main-love"><i
-                        [ngClass]="{'text-main-love fa-solid': tweet.liked == true}"
-                        class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"></i>
-                      </div>
+      <!-- tweet details -->
+      <div
+        class="w-full flex text-sm pt-1 gap-2 text-gray-600 dark:text-gray-400 items-center"
+      >
+        <p>{{ tweet.created_at | date : "shortTime" }}</p>
+        <p class="font-bold text-lg flex -mt-2">.</p>
+        <p>{{ tweet.created_at | date : "mediumDate" }}</p>
+        <p class="font-bold text-lg flex -mt-2">.</p>
+        <p class="text-gray-900 font-bold dark:text-white">
+          {{ tweet.views_count || 0 | humanNumbers }}
+          <span class="font-normal text-gray-600 dark:text-gray-400"
+            >Views</span
+          >
+        </p>
+      </div>
+      <div
+        class="w-full flex py-4 text-sm mt-3 border-t border-b dark:border-dark-gray_0 border-gray-100 gap-6 dark:text-gray-400 text-gray-600 items-center"
+      >
+        <p>
+          <span class="text-gray-900 dark:text-white font-bold">{{
+            tweet.retweets_count || 0 | humanNumbers
+          }}</span>
+          Retweets
+        </p>
+        <p>
+          <span class="text-gray-900 dark:text-white font-bold">{{
+            tweet.replies_count || 0 | humanNumbers
+          }}</span>
+          Replies
+        </p>
+        <p>
+          <span class="text-gray-900 dark:text-white font-bold">{{
+            tweet.likes_count || 0 | humanNumbers
+          }}</span>
+          Likes
+        </p>
+      </div>
+      <!-- ----controls icons ---- -->
+      <div
+        class="w-full justify-center border-b dark:border-dark-gray_0 border-gray-100 py-2 items-center grid grid-cols-4 gap-1"
+      >
+        <div class="single-tweet-control-item hover:text-main-blue_100">
+          <i
+            class="rounded-full fa-regular text-lg p-2 fa-comment hover:bg-main-blue_0"
+          ></i>
+        </div>
 
-                <div (click)="showBookmark = !showBookmark"
-                    class="relative single-tweet-control-item hover:text-main-blue_100">
-                    <i class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
-                    <ng-template #unretweetBlock>
-                      <div class="">
-                          <button
-                              class="text-red-500 w-60 py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white">Remove
-                              from Bookmarks</button>
-                      </div>
-                  </ng-template>
+        <div (click)="showRetweet = !showRetweet">
+          <div
+            class="relative single-tweet-control-item hover:text-main-retweet"
+          >
+            <i
+              class="fa-solid text-lg p-2 fa-retweet rounded-full hover:bg-green-100"
+            ></i>
+            <div
+              *ngIf="showRetweet"
+              class="absolute z-10 -top-12 right-0 flex overflow-hidden items-center dark:border-dark-gray_0 bg-white dark:bg-black border rounded-md"
+            >
+              <div
+                *ngIf="!tweet.retweeted; else unRetweetBlock"
+                (click)="isRetweetPopupShown = true"
+                class="flex cursor-pointer py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white items-center px-12"
+              >
+                <i class="fa-solid text-lg p-2 fa-retweet"></i>
+                <div>Retweet</div>
               </div>
-                    <!-- bookmark tweet popup -->
-                    <!-- <div *ngIf="showBookmark" class="absolute z-10 -top-12 right-0  flex overflow-hidden items-center
-                        dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
-                        <div *ngIf="!tweet.bookmarked;else unbookmarkBlock" (click)="createBokkmarks(tweetID)"
-                            class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
-                            <i class="fa-regular fa-bookmark"></i>
-                            <div>Bookmark</div>
 
-                        </div>
-                    </div> -->
-<!--retweet popup-->
-                    <div *ngIf="retweet" class="absolute -top-12 -right-50
-                     flex overflow-hidden items-center
-                    dark:border-dark-gray_0  bg-white dark:bg-black border rounded-md">
-                    <div *ngIf="!tweet.retweeted;else unretweetBlock" (click)="createBokkmarks(tweetID)"
-                        class="flex cursor-pointer  py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white  items-center px-12">
-                        <i class="fa-solid text-lg p-2 fa-retweet rounded-full "></i>
-                        <div>Retweet</div>
-
-                    </div>
+              <ng-template #unRetweetBlock>
+                <div class="">
+                  <button
+                    (click)="shareTweet(tweetID, null)"
+                    class="text-red-500 w-60 py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white"
+                  >
+                    Remove
+                  </button>
                 </div>
-
-
-
-
+              </ng-template>
             </div>
-            <!-- new reply section -->
-            <form [formGroup]="replyForm" (ngSubmit)="replySubmit()">
-                <div class="flex flex-col w-full">
-                    <div class="flex py-4 h-fit">
-                        <img class="twitter-user-img"
-                            src="{{user.profile_picture ? user.profile_picture: './../../../../assets/images/default_profile.png'}}"
-                            alt="{{user.first_name + ' ' + user.last_name}}" />
+          </div>
+        </div>
 
-                        <div data-before="Add your reply." dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid
-                                    max-w-[100%]">
-                            <pre #tweetBox dir="auto"
-                                class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
-                                [innerHTML]="formatTweetText(replyForm.value.text,1)">
-                                    </pre>
-                            <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
-                                class="font-normal tracking-tight scrollbar-hide  outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0  resize-none overflow-x-hidden    bg-transparent  whitespace-pre-wrap  text-left">
-                                    </textarea>
-                        </div>
+        <div
+          (click)="
+            likesCount();
+            tweet.liked = !tweet.liked;
+            tweet.likes_count = tweet.liked
+              ? tweet.likes_count + 1
+              : tweet.likes_count - 1
+          "
+          class="single-tweet-control-item hover:text-main-love"
+        >
+          <i
+            [ngClass]="{ 'text-main-love fa-solid': tweet.liked == true }"
+            class="fa-regular text-lg p-2 fa-heart rounded-full hover:bg-pink-200"
+          ></i>
+        </div>
 
-                        <!-- <textarea formControlName="text"
+        <div
+          (click)="showBookmark = !showBookmark"
+          class="relative single-tweet-control-item hover:text-main-blue_100"
+        >
+          <i
+            class="hover:bg-blue-100 text-lg p-2 rounded-full fa-solid fa-arrow-up-from-bracket"
+          ></i>
+
+          <!-- bookmark tweet popup -->
+          <div
+            *ngIf="showBookmark"
+            class="absolute z-10 -top-12 right-0 flex overflow-hidden items-center dark:border-dark-gray_0 bg-white dark:bg-black border rounded-md"
+          >
+            <div
+              *ngIf="!tweet.bookmarked; else unbookmarkBlock"
+              (click)="createBokkmarks(tweetID)"
+              class="flex cursor-pointer py-2 w-full overflow-hidden gap-3 text-gray-700 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white items-center px-12"
+            >
+              <i class="fa-regular fa-bookmark"></i>
+              <div>Bookmark</div>
+            </div>
+          </div>
+
+          <ng-template #unbookmarkBlock>
+            <div class="">
+              <button
+                (click)="createBokkmarks(tweetID)"
+                class="text-red-500 w-60 py-2 font-semibold transition-colors hover:bg-red-500 hover:text-white"
+              >
+                Remove from Bookmarks
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <!-- new reply section -->
+      <form [formGroup]="replyForm" (ngSubmit)="replySubmit()">
+        <div class="flex flex-col w-full">
+          <div class="flex py-4 h-fit">
+            <img
+              class="twitter-user-img"
+              src="{{
+                user.profile_picture
+                  ? user.profile_picture
+                  : './../../../../assets/images/default_profile.png'
+              }}"
+              alt="{{ user.first_name + ' ' + user.last_name }}"
+            />
+
+            <div
+              data-before="Add your reply."
+              dir="auto"
+              class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid max-w-[100%]"
+            >
+              <pre
+                #tweetBox
+                dir="auto"
+                class="break-words font-normal scrollbar-hide overflow-x-hidden outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
+                [innerHTML]="formatTweetText(replyForm.value.text, 1)"
+              ></pre>
+              <textarea
+                (scroll)="handleScroll($event)"
+                dir="auto"
+                formControlName="text"
+                class="font-normal tracking-tight scrollbar-hide outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0 resize-none overflow-x-hidden bg-transparent whitespace-pre-wrap text-left"
+              >
+              </textarea>
+            </div>
+
+            <!-- <textarea formControlName="text"
                             class=" form-control px-3 py-2 text-xl tracking-tight text-main-black_0 placeholder:text-gray-500 dark:text-white min-h-[50px] w-full bg-transparent focus:outline-none resize-none overflow-visible dark:placeholder:text-gray-500"
                             name="" id="" placeholder="Add your reply."></textarea> -->
-                    </div>
-                    <!-- tweet button -->
-                    <div class="flex py-2.5 justify-end px-6">
-                        <input type="submit" [disabled]="!replyForm.valid"
-                            class="bg-main-blue_100 cursor-pointer disabled:bg-opacity-60  disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100 "
-                            value="Reply" />
-                    </div>
-                </div>
-            </form>
+          </div>
+          <!-- tweet button -->
+          <div class="flex py-2.5 justify-end px-6">
+            <input
+              type="submit"
+              [disabled]="!replyForm.valid"
+              class="bg-main-blue_100 cursor-pointer disabled:bg-opacity-60 disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100"
+              value="Reply"
+            />
+          </div>
         </div>
+      </form>
     </div>
-    <div class="replies mb-20 md:mb-0">
-        <app-reply [replies]="tweet.replies"></app-reply>
-    </div>
-    <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
+  </div>
+  <div class="replies mb-20 md:mb-0">
+    <app-reply [replies]="tweet.replies"></app-reply>
+  </div>
+  <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
 </div>
 <!--! -----------right---------- -->
-<div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
-    <app-search></app-search>
-    <app-trends-recommendation></app-trends-recommendation>
-    <app-follow-recommendations></app-follow-recommendations>
-    <app-footer></app-footer>
-    <app-message-popup></app-message-popup>
+<div
+  class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative"
+>
+  <app-search></app-search>
+  <app-trends-recommendation></app-trends-recommendation>
+  <app-follow-recommendations></app-follow-recommendations>
+  <app-footer></app-footer>
+  <app-message-popup></app-message-popup>
 </div>
 
 <ng-template #errorBlock>
-    <div
-        class="h-full  w-full items-center justify-center flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-        <div class="flex flex-col gap-6 px-6 items-center">
-            <p class="dark:text-gray-400 w-full text-center text-light-gray_100">Hmm...this page doesn’t exist. Try
-                searching for something else.</p>
-            <a routerLink="/search"
-                class="py-2 px-6 bg-main-blue_100 font-bold cursor-pointer transition-colors rounded-full hover:bg-main-blue_200 text-white">Search</a>
-        </div>
+  <div
+    class="h-full w-full items-center justify-center flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100"
+  >
+    <div class="flex flex-col gap-6 px-6 items-center">
+      <p class="dark:text-gray-400 w-full text-center text-light-gray_100">
+        Hmm...this page doesn’t exist. Try searching for something else.
+      </p>
+      <a
+        routerLink="/search"
+        class="py-2 px-6 bg-main-blue_100 font-bold cursor-pointer transition-colors rounded-full hover:bg-main-blue_200 text-white"
+        >Search</a
+      >
     </div>
+  </div>
 </ng-template>
+
+<!-- retweet popup start -->
+<div
+  *ngIf="isRetweetPopupShown"
+  class="absolute w-full h-full top-0 left-0 bottom-0 right-0 bg-black bg-opacity-30 z-50 flex flex-col items-center justify-center dark:bg-white"
+>
+  <div class="text-white dark:text-black">Hello this is design</div>
+  <input #textInput type="text" placeholder="Whats's Happening?" />
+  <button
+    class="border px-6 py-4 bg-red-500 text-white"
+    (click)="shareTweet(tweetID, textInput?.value)"
+  >
+    Retweet
+  </button>
+</div>
+<!-- retweet popup end -->

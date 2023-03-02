@@ -111,10 +111,12 @@ export class TweetsService {
     });
   }
 
-  //addrRewtweets
-  postRetweet(retweet:any ,id:any){
+  //addrRetweets
+  postRetweet(id:any, text: any){
     const accessToken = this.token.get();
-    return this.httpClient.post(`${this.BASE_URL}/${id}/retweet`, retweet, {
+    return this.httpClient.post(`${this.BASE_URL}/${id}/retweet`, text ? {
+      text : text
+    } : {}, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
