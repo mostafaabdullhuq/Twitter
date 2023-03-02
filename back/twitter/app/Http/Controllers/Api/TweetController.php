@@ -244,6 +244,9 @@ class TweetController extends Controller
         }
     }
 
+
+
+
     public function reply($id, Request $request)
     {
         $request->validate([
@@ -311,27 +314,25 @@ class TweetController extends Controller
             ]);
             return $retweets;
         }
-        return "Retweet not found";
+
+
+        // public function likeRetweet($retweet_id){
+        //     $user = JWTAuth::user();
+        //     $retweet = Retweet::find($retweet_id);
+        //     $like = $retweet->likes()->where('user_id', $user->id)->first();
+        //     if ($like) {
+        //         $like->delete();
+        //     } else {
+        //         $like->likes()->create(
+        //             [
+        //                 'user_id' => $user->id,
+        //             ]
+        //         );
+        //     }
+        //     $tweet = $this->formatTweet($like);
+        //     return $retweet;
+        // }
     }
-
-
-    // public function likeRetweet($retweet_id){
-    //     $user = JWTAuth::user();
-    //     $retweet = Retweet::find($retweet_id);
-    //     $like = $retweet->likes()->where('user_id', $user->id)->first();
-    //     if ($like) {
-    //         $like->delete();
-    //     } else {
-    //         $like->likes()->create(
-    //             [
-    //                 'user_id' => $user->id,
-    //             ]
-    //         );
-    //     }
-    //     $tweet = $this->formatTweet($like);
-    //     return $retweet;
-    // }
-
 
     public function likeToggle($id)
     {

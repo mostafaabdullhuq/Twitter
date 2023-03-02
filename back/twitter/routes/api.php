@@ -60,6 +60,7 @@ Route::group([
 ], function () {
     Route::post('{id}/retweet', [TweetController::class, 'retweet']);
     Route::get('{retweet_id}/retweet/view', [TweetController::class, 'viewsRetweet']);
+    Route::get('{id}/getretweet', [TweetController::class, 'getRetweets']);
     Route::post('', [TweetController::class, 'create']);
     Route::get('{username}/me', [TweetController::class, 'me']);
     Route::get('foryou', [TweetController::class, 'homeforyou']);
