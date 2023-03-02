@@ -15,7 +15,6 @@ import { NotificationComponent } from './Components/notification/notification.co
 import { SettingsComponent } from './Components/settings/settings.component';
 import { SigninComponent } from './Components/signin/signin.component';
 import { SignupComponent } from './Components/signup/signup.component';
-import { MessagesComponent } from './Components/messages/messages.component';
 import { SearchComponent } from './Components/search/search.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { MessagePopupComponent } from './Components/message-popup/message-popup.component';
@@ -50,6 +49,7 @@ import { EditProfileComponent } from './Components/edit-profile/edit-profile.com
 import { ChangePasswordComponent } from './Components/settings/change-password/change-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
+import { MessagesComponent } from './Components/messages/messages.component';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
@@ -66,7 +66,6 @@ import { FollowersAndFollowingComponent } from './followers-and-following/follow
     SettingsComponent,
     SigninComponent,
     SignupComponent,
-    MessagesComponent,
     SearchComponent,
     FooterComponent,
     MessagePopupComponent,
@@ -91,7 +90,7 @@ import { FollowersAndFollowingComponent } from './followers-and-following/follow
     ChangePasswordComponent,
     PageNotFoundComponent,
     FollowersAndFollowingComponent,
-    
+    MessagesComponent,
     // StickyHeaderFollowingComponent,
   ],
 

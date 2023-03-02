@@ -1,31 +1,37 @@
-// import { Component, OnInit } from '@angular/core';
-// import Pusher from 'pusher-js';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit  } from '@angular/core';
+import Pusher from 'pusher-js';
 
-// @Component({
-//   selector: 'app-messages',
-//   templateUrl: './messages.component.html',
-//   styleUrls: ['./messages.component.css']
-// })
-// export class MessagesComponent implements OnInit  {
+@Component({
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.css']
+})
+export class MessagesComponent implements OnInit  {
 
-//   username = 'username';
-//   messages = [];
-//   message = '';
-//   // da:any;
-//   ngOnInit(): void {
-//     Pusher.logToConsole = true;
+  username = 'username';
+  messages:string[]  = [];
+  message = '';
+  // da:any;
+  constructor(private http:HttpClient){}
 
-//     const pusher = new Pusher('9f43a032ae749ed0870b', {
-//       cluster: 'mt1'
-//     });
+  ngOnInit(): void {
+    Pusher.logToConsole = true;
 
-//     const channel = pusher.subscribe('Twitty');
-//     channel.bind('message',(data: any) =>{
-//       this.messages.push(data);
-//     });
-//   }
+    const pusher = new Pusher('9f43a032ae749ed0870b', {
+      cluster: 'mt1'
+    });
 
-//   submit(){
+    const channel = pusher.subscribe('Twitty');
+    channel.bind('message',(data: any) =>{
+      this.messages.push(data);
+    });
+  }
 
-//   }
-// }
+  submit():void{
+    this.http.post('http://localhost:8000/api/messages' , {
+      username:this.username,
+      message:this.message,
+    }).subscribe(()=>this.message = '');
+  }
+}
