@@ -1,5 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { UsersService } from 'src/app/Services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-follow-recommendations',
@@ -7,7 +8,7 @@ import { UsersService } from 'src/app/Services/users.service';
   styleUrls: ['./follow-recommendations.component.css']
 })
 export class FollowRecommendationsComponent implements OnInit{
-  constructor(public myService:UsersService){}
+  constructor(public myService:UsersService, public router:Router){}
   users:any;
   followings:any;
   ngOnInit(): void {
@@ -33,11 +34,13 @@ export class FollowRecommendationsComponent implements OnInit{
   }
 
   // Follow = true;
+  exit() {
+    window.location.reload();
+ }
 
   follow(id:any){
     let user_id = +id;
 
-    // this.Follow = false;‏
 
     this.myService.postFollow(user_id).subscribe(
       {
