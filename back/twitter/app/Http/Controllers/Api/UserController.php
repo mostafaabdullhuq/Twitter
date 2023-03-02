@@ -51,6 +51,8 @@ class UserController extends Controller
             $data['date_of_birth'] = $data['date_of_birth'] ?? null;
             $userProfileImage = $request->file('profile_picture');
             $userCoverImage = $request->file('cover_picture');
+
+
             $user = auth()->user();
             if ($userProfileImage) {
                 $userProfileImage = $userProfileImage->store('public/profile_pictures') ?? null;
@@ -65,7 +67,6 @@ class UserController extends Controller
                 return $data['is_cover_removed'];
                 $data['cover_picture'] = null;
             }
-
             $user->update($data);
 
             $user = $this->formatter->formatUser($user);
