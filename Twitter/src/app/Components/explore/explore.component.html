@@ -37,6 +37,14 @@
                     <p class="dark:text-dark-gray_300 px-2">{{hashtag.tweets_count | humanNumbers}} Tweets</p>
                 </div>
             </div>
+            <!-- ! --------follow button ---- -->
+            <!-- <button (click)="follow(u.id); u.followed_by = !u.followed_by"
+                class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">
+                {{u?.followed_by?"Unfollow":"Follow" }}
+            </button> -->
+            </div>
+        <div class="text-blue-400 p-3 cursor-pointer right-trend">
+            <a class="hashtag" routerLink="/connect">Show more</a>
         </div>
         <!--Follow people-->
         <div *ngIf="users && users.length" class="flex flex-col w-full
@@ -83,7 +91,7 @@
                 </button>
             </div>
             <div class="text-blue-400 p-3 cursor-pointer right-trend">
-                <a class="hashtag" routerLink="/connect">Show more</a>
+                <a class="url" routerLink="/connect">Show more</a>
             </div>
         </div>
         <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1 ">Trending Tweets

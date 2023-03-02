@@ -62,7 +62,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
             </div>
 
             <div>
-                <!-- first name -->
                 <input formControlName="first_name" type="text" autocomplete="current-name"
                     [ngClass]="{'border-red-500': this.updateForm.controls.first_name.errors}" class="mt-14 relative block w-full appearance-none border text-xl
                   border-gray-300 p-4 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
@@ -70,7 +69,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
             </div>
             <div>
 
-                <!-- last name -->
                 <input formControlName="last_name"
                     [ngClass]="{'border-red-500': this.updateForm.controls.last_name.errors}" type="text"
                     autocomplete="current-name" class="relative block w-full appearance-none border text-xl
@@ -79,7 +77,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
             </div>
             <div>
 
-                <!-- username -->
                 <input formControlName="username"
                     [ngClass]="{'border-red-500': this.updateForm.controls.username.errors}" type="text"
                     autocomplete="current-name" class="relative block w-full appearance-none border text-xl
@@ -88,7 +85,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
             </div>
             <div>
 
-                <!-- bio -->
                 <input autocomplete="bio" [ngClass]="{'border-red-500': this.updateForm.controls.bio.errors}"
                     formControlName="bio" type="text"
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
@@ -97,7 +93,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
             </div>
             <div>
 
-                <!-- phone number -->
                 <input autocomplete="phone_number" formControlName="phone_number"
                     [ngClass]="{'border-red-500': this.updateForm.controls.phone_number.errors}"
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
@@ -105,7 +100,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Phone number">
             </div>
             <div>
-                <!-- location -->
                 <input formControlName="location" type="text" autocomplete="location"
                     [ngClass]="{'border-red-500': this.updateForm.controls.location.errors}"
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
@@ -113,7 +107,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Location">
             </div>
             <div>
-                <!-- website -->
                 <input formControlName="website" type="url" autocomplete="website"
                     [ngClass]="{'border-red-500': this.updateForm.controls.website.errors}"
                     class="relative block w-full appearance-none border border-gray-300 p-4 rounded-md
@@ -122,7 +115,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
             </div>
 
             <div>
-                <!-- date of birth -->
                 <input formControlName="date_of_birth" type="date"
                     [ngClass]="{'border-red-500': this.updateForm.controls.date_of_birth.errors}"
                     autocomplete="date_of_birth" [value]="user.date_of_birth"
@@ -130,7 +122,6 @@ bg-white  sm:p-6 py-6 px-3 xl:px-10  absolute shadow-lg rounded-2xl overflow-y-s
                   text-gray-900 placeholder-gray-500 focus:z-10 
                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0 dark:bg-black dark:text-white  text-xl" placeholder="Date of birth">
             </div>
-            <!-- submit button -->
             <button type="submit" id="next" class=" px-8 flex w-auto justify-center border border-transparent bg-black dark:bg-white dark:text-black py-2
             text-xl text-white  focus:outline-none focus:ring-2
              rounded-full focus:ring-offset-2">

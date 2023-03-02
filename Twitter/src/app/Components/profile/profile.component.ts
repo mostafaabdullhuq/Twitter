@@ -4,19 +4,13 @@ import { LoggedService } from 'src/app/Services/logged.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { UsersService } from 'src/app/Services/users.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  // showEdit = false;
-
-  // onButtonClick() {
-  //   this.showEdit = true;
-  //   document.body.classList.add('popup-open');
-  // }
-
 
   showPopup = false;
   public username: any = '';
@@ -34,11 +28,14 @@ export class ProfileComponent implements OnInit {
     public tweetsClient: TweetsService,
     private Logged: LoggedService,
     private router: Router,
-    private Token: TokenService
+    private Token: TokenService,
+    private userService: UsersService
+
   ) {}
   public popup = false;
   public tweets: any;
   public user: any;
+  public loggedUser: any;
   public viewType = 1;
   show = false;
   ngOnInit(): void {
@@ -93,6 +90,7 @@ export class ProfileComponent implements OnInit {
         next: (data: any) => {
           this.tweets = data.tweets;
           this.user = data.user;
+          console.log(this.user);
         },
         error: (err) => {
           console.log(err);
@@ -102,6 +100,20 @@ export class ProfileComponent implements OnInit {
   });
   }
 
+  follow(id:any){
+    let user_id = +id;
+
+    this.userService.postFollow(user_id).subscribe(
+      {
+        next:(data)=>{
+          console.log(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      },
+      }
+    )
+  }
 
   logout(event: MouseEvent) {
     event.preventDefault();

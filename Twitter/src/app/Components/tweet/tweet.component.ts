@@ -2,26 +2,37 @@
 // that can be clicked on. It uses the sanitizer to bypass security restrictions and allows
 // the html to be rendered in the tweet component.
 
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  HostListener,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TweetsService } from 'src/app/Services/tweets.service';
 import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
 import { AuthService } from 'src/app/Services/auth.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent implements OnInit {
+  public user: any;
+  public popup: boolean = false;
+  public isInBookmark: boolean = false;
+
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService,
     private authService: AuthService
   ) {}
-  public user: any;
   ngOnInit(): void {
     this.isInBookmark =
       this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
@@ -29,7 +40,6 @@ export class TweetComponent implements OnInit {
     this.authService.getUser().subscribe({
       next: (data: any) => {
         console.log(data);
-
         this.user = data;
       },
       error: (err: any) => {
@@ -53,9 +63,8 @@ export class TweetComponent implements OnInit {
     if (text) {
       const hashtagRegex = /#([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
-      const hashtagTemplate = '<a routerLink="/hashtag" class="hashtag">$&</a>';
-      const mentionTemplate = '<a routerLink="/{{$&}}" class="mention">$&</a>';
-
+      const hashtagTemplate = '<a data="$&" class="hashtag">$&</a>';
+      const mentionTemplate = '<a data="$&" class="mention">$&</a>';
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
         .replace(mentionRegex, mentionTemplate);
@@ -86,12 +95,8 @@ export class TweetComponent implements OnInit {
       }
     });
   }
-  // ngOnInit() {
-  //   this.isInBookmark =
-  // this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
-  // }
-  popup: boolean = false;
-  isInBookmark: boolean = false;
+
+  // host listner on scrolling
 
   @Input() tweets: any;
   @Input() showReplies: any;

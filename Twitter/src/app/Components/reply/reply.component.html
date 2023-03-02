@@ -5,7 +5,7 @@
             class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
     </div>
     <!-- user image -->
-    <img class="twitter-user-img relative top-4"
+    <img routerLink="/{{reply.user.username}}" class="twitter-user-img relative top-4"
         src="{{reply.user.profile_picture ? reply.user.profile_picture: './../../../../assets/images/default_profile.png'}}"
         alt="" />
     <div class="content ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
@@ -39,7 +39,7 @@
                 <p>Replying to</p>
                 <!--!!!!!!!!!!!!!!!!! to be edited !!!!!!!!!!!!!!!!!!!!!!!!!-->
                 <span routerLink="/{{reply.replied_user.username}}"
-                    class="hashtag dotted-text">@{{reply.replied_user.username}}</span>
+                    class="url dotted-text">@{{reply.replied_user.username}}</span>
             </div>
         </div>
         <!-- ----paragraph----- -->
@@ -67,9 +67,9 @@
                         class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>{{reply.retweets_count|humanNumbers:2}}
                 </div>
                 <div (click)="likesCount(reply.id);reply.liked = !reply.liked; reply.likes_count = reply.liked ? reply.likes_count + 1 :  reply.likes_count - 1"
-                    class="tweet-control-item-special hover:text-main-love"><i
+                    class="cursor-pointer tweet-control-item hover:text-main-love"><i
                         [ngClass]="{'text-main-love fa-solid': reply.liked == true}"
-                        class="fa-regular sm:p-2 p-1 fa-heart rounded-full hover:bg-pink-200"></i>{{reply.likes_count|humanNumbers:2}}
+                        class="fa-regular sm:p-2 p-1  fa-heart rounded-full hover:bg-pink-200"></i>{{reply.likes_count|humanNumbers:2}}
                 </div>
                 <div class="tweet-control-item-special hover:text-main-blue_100"><i
                         class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>{{reply.views_count|humanNumbers:2}}
