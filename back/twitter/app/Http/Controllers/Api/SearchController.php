@@ -89,10 +89,10 @@ class SearchController extends Controller
         return $this->formatter->formatTweets($tweets);
     }
 
-    // public function searchTweetsByUser($query)
-    // {
-    //     $user = User::where('username', $query)->firstOrFail();
-    //     $tweets = $user->tweets;
-    //     return $tweets;
-    // }
+    public function searchTweetsByUser($query)
+    {
+        $user = User::where('username', $query)->firstOrFail();
+        $tweets = $user->tweets;
+        return $tweets;
+    }
 }
