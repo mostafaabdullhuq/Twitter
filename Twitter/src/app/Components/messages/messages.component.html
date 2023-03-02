@@ -1,4 +1,4 @@
-<!-- <p>messages works!</p> -->
+<p>messages works!</p>
 <!--! -------middle ------- -->
 <div class="hidden xl:block relative h-full w-full xl:w-2/5 overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
   <!-- -----sticky header---- -->
@@ -120,7 +120,15 @@
   <!-- -----------large screen sending a message -->
   <div class="sm:flex flex-col h-screen hidden justify-between">
       <div class="flex-grow">
-          <!-- <p class="text-white">Here will be the chat content</p> -->
+        <div *ngFor="let msg of messages">
+          <p class="dark:text-white ml-7 mt-2">{{ msg.username }}</p>
+          <div class="text-black dark:text-white border border-dark-gray_0 ml-7 w-1/2 p-3 rounded-xl bg-dark-gray_0 flex justify-center items-center mt-1">
+            <p>{{ msg.message }}</p>
+          </div>
+          <div class=" text-black dark:text-white border border-dark-gray_0 ml-60 w-1/2 p-3 rounded-xl bg-dark-gray_0 flex justify-center items-center mt-2 ">
+            <p>Here will be the chat content</p>
+          </div>
+        </div>
       </div>
       <!-- !-----input message------ -->
       <div class="relative pt-2 pb-4 px-3 mb-14 mt-10 border-t dark:border-dark-gray_0 border-gray-100 ">
@@ -156,11 +164,15 @@
                   <i class="w-full  fa-solid fa-share text-lg "></i>
               </a> -->
           </div>
+
+          <form (submit)="submit()">
               <input
+              [(ngModel)]="username"
                   type="text"
                   class="w-full h-7 pl-32 border border-gray-100 dark:border-dark-gray_0  bg-gray-100 dark:bg-dark-gray_100 p-5  focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal  text-md rounded-xl dark:text-white placeholder:text-gray-500"
                   placeholder="Start a new message"
               />
+          </form>
           <!-- </div> -->
       </div>
   </div>

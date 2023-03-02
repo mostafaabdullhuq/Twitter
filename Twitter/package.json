@@ -26,6 +26,7 @@
     "angular": "^1.6.10",
     "angular-material": "^0.8.0",
     "fortawesome": "^0.0.1-security",
+    "pusher-js": "^8.0.1",
     "rxjs": "~7.8.0",
     "satellizer": "^0.15.5",
     "tailwind-scrollbar-hide": "^1.1.7",
