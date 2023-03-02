@@ -32,6 +32,7 @@ class TweetController extends Controller
             $user->tweets_count = $user->tweets()->count();
             $tweets = $this->formatTweets($tweets);
             $user->is_following = JWTAuth::user()->isFollowing($user);
+            $user = $this->formatUser($user);
             return [
                 'user' => $user,
                 'tweets' => $tweets
@@ -40,10 +41,33 @@ class TweetController extends Controller
         return response()->json(['error' => 'User not found'], 404);
     }
 
+
+    public function formatUser($user)
+    {
+        $user->followers_count = $user->followers()->count();
+        $user->followings_count = $user->followings()->count();
+        $user->tweets_count = $user->tweets()->count();
+        $user->is_following = false;
+        $user->profile_picture = $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : null;
+        $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
+        unset(
+            $user->email_verified_at,
+            $user->password,
+            $user->remember_token,
+            $user->updated_at,
+            $user->facebook_access_token,
+            $user->google_access_token,
+        );
+
+        return $user;
+    }
+
     public function get_User_Retweets()
     {
         $retweets = JWTAuth::user()->retweets()->latest()->get();
         $user = JWTAuth::user();
+        $user = $this->formatUser($user);
+
         return [
             'user' => $user,
             'retweets' => $retweets
@@ -84,7 +108,7 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->email_verified_at);
         unset($user->updated_at);
-        // $user = $this->formatUser($user);
+        $user = $this->formatUser($user);
         foreach ($replies as $key => $reply) {
             $replyParent = $reply->repliable()->first();
             if ($replyParent) {
@@ -117,6 +141,8 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->updated_at);
         unset($user->email_verified_at);
+        $user = $this->formatUser($user);
+
         foreach ($likes as $key => $like) {
             if ($like->liked_type == Tweet::class) {
                 $tweet = Tweet::find($like->liked_id);
@@ -144,6 +170,8 @@ class TweetController extends Controller
         unset($user->facebook_access_token);
         unset($user->updated_at);
         $tweets = $this->formatTweets($tweets);
+        $user = $this->formatUser($user);
+
         return [
             'user' => $user,
             'tweets' => $tweets
@@ -264,7 +292,7 @@ class TweetController extends Controller
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
         $tweet->retweets_count = $tweet->retweets->count();
-        $tweet->user;
+        $tweet->user = $this->formatUser($tweet->user);
         unset($tweet->user->google_access_token);
         unset($tweet->user->facebook_access_token);
         unset($tweet->user->email_verified_at);
@@ -283,7 +311,7 @@ class TweetController extends Controller
         }
         $replies = $userID ? $tweet->replyWithUserID($userID) : $tweet->replies;
         foreach ($replies as $reply) {
-            $reply->user = $reply->user;
+            $reply->user = $this->formatUser($reply->user);
             unset($reply->repliable_type);
             unset($reply->repliable_id);
             unset($reply->updated_at);
@@ -323,7 +351,7 @@ class TweetController extends Controller
         $mentions = $tweet->mentions;
 
         foreach ($mentions as $key => $mention) {
-            $mention->mentioned_user = $mention->mentionedUser;
+            $mention->mentioned_user = $this->formatUser($mention->mentionedUser);
             unset($mention->mentioned_user->google_access_token);
             unset($mention->mentioned_user->facebook_access_token);
             unset($mention->mentioned_user->email_verified_at);
@@ -342,7 +370,7 @@ class TweetController extends Controller
     {
         foreach ($tweets as $tweet) {
             // Get the user associated with this tweet
-            $tweet->user;
+            $tweet->user = $this->formatUser($tweet->user);
             // Remove sensitive information from the user object
             unset($tweet->user->google_access_token);
             unset($tweet->user->facebook_access_token);
@@ -404,7 +432,8 @@ class TweetController extends Controller
         $reply->retweets_count = 0;
         $reply->views_count = 0;
         $reply->liked = false;
-        $reply->user;
+        $reply->user = $this->formatUser($reply->user);
+
         $reply->media;
         return $reply;
     }
