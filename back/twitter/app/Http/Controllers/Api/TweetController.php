@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use JWTAuth;
+use App\Models\Follow;
 class TweetController extends Controller
 {
     public function __construct()
@@ -21,7 +22,8 @@ class TweetController extends Controller
 
     // get logged in user tweets
     public function me($username)
-    {
+    {   
+        
         $user = User::where('username', $username)->first();
         if ($user) {
             $tweets = $user->tweets()->latest()->get();
@@ -30,6 +32,29 @@ class TweetController extends Controller
             $user->tweets_count = $user->tweets()->count();
             $tweets = $this->formatTweets($tweets);
             $user->is_following = JWTAuth::user()->isFollowing($user);
+            $user->followed_by = false;
+            
+            $following =Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+
+            $arr = [];
+            foreach($following as $k => $v ){
+                if($v->following_id == $user->id){
+                //     $user->followed_by = $k;
+                // }
+                // foreach ($v as $key => $value) {
+                    $user->followed_by = true;
+
+                } 
+            }
+            // return $arr;
+            // $following = Follow::select('following_id')->where('follower_id', $user->id)->get();
+
+            // $user->followed_by = in_array(JWTAuth::user()->id, $user->followers);
+            //  dd($following);
+
+            // dd(in_array($user->id, $username->followers));
+            // dd( $user->followers);
+
             return [
                 'user' => $user,
                 'tweets' => $tweets
