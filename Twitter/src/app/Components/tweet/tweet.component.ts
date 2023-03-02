@@ -2,7 +2,7 @@
 // that can be clicked on. It uses the sanitizer to bypass security restrictions and allows
 // the html to be rendered in the tweet component.
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit ,HostListener } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { TweetsService } from 'src/app/Services/tweets.service';
@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./tweet.component.css'],
 })
 export class TweetComponent implements OnInit {
+
   constructor(
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
@@ -22,6 +23,11 @@ export class TweetComponent implements OnInit {
     private authService: AuthService
   ) {}
   public user: any;
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    console.log("     Increase the view count by one every time the user scrolls");
+
+  }
   ngOnInit(): void {
     this.isInBookmark =
       this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;

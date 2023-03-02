@@ -112,7 +112,7 @@ export class TweetsService {
     });
   }
 
-  //rewtweets
+  //addrRewtweets
   postRetweet(retweet:any ,id:any){
     const accessToken = this.token.get();
     return this.httpClient.post(`${this.BASE_URL}/${id}/retweet`, retweet, {
@@ -121,6 +121,16 @@ export class TweetsService {
       },
     });
   }
+
+//getRetweets
+getRetweet($tweetId:any){
+  const accessToken = this.token.get();
+  return this.httpClient.get(`${this.BASE_URL}/'$tweetId'/getretweet`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+}
 
   //getRetweetsViewsCount
   retweetView(retweetID:any){
@@ -131,8 +141,6 @@ export class TweetsService {
       },
     });
   }
-
-
 
   getTweetsByMention(mention: any) {
     return this.httpClient.get(`${this.BASE_URL}/mention/${mention}`);

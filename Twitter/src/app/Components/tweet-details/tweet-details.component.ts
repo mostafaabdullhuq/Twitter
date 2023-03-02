@@ -139,7 +139,6 @@ export class TweetDetailsComponent implements OnInit {
       const mentionRegex = /@([\p{Pc}\p{N}\p{L}\p{Mn}]+)/gu;
       const hashtagTemplate = '<a class="hashtag">$&</a>';
       const mentionTemplate = '<a  class="hashtag">$&</a>';
-
       const formattedText = text
         .replace(hashtagRegex, hashtagTemplate)
         .replace(mentionRegex, mentionTemplate);
