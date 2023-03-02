@@ -39,8 +39,18 @@ export class ProfileComponent implements OnInit {
   public viewType = 1;
   show = false;
   ngOnInit(): void {
+    // this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
     this.myRoute.params.subscribe((res:any)=>{
-      this.username = res.user;
+    this.username = res.user;
+    this.userService.index().subscribe({
+      next: (data: any) => {
+        this.loggedUser = data;
+        console.log(this.loggedUser.username);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
     if (this.myRoute.snapshot?.url[1]?.path === 'with_replies'){
       this.show = true;
       this.tweetsClient.getReplies(this.username).subscribe({

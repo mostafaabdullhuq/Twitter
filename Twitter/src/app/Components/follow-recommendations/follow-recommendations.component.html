@@ -12,7 +12,7 @@
             <!-- <img *ngIf="user" src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
                 class="abso1lute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" /> -->
             <div class="ml-3 text-md w-2/3">
-                <div  (click)="router.navigate(['/{{u.username}}']);" class="flex max-w-full w-full -mb-1 mt-1">
+                <div  routerLink="/{{u.username}}" class="flex max-w-full w-full -mb-1 mt-1">
                     <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
                         {{u.first_name}} {{u.last_name}}</h5>
                     <svg xmlns="http://www.w3.org/2000/svg" *ngIf="u.verified" fill="none" viewBox="0 0 24 24"
@@ -36,15 +36,15 @@
             {{ Fol?"Follow":"Unfollow" }}
         </button>‏ -->
 
-        <!-- <button 
-    (click)="enableDisableRule()" 
+        <!-- <button
+    (click)="enableDisableRule()"
     [ngClass]="{'green' : toggle, 'red': !toggle}">
     {{status}}
 </button> -->
 
         <!-- <div *ngFor="let f of followings">
             <a *ngIf="u.id == f.following_id;" href="">unfollow</a>
-        </div> 
+        </div>
 
          <div *ngFor="let f of followings">
             <a *ngIf="u.id != f.following_id;"  href="">follow</a>
