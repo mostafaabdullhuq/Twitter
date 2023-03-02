@@ -39,7 +39,6 @@ export class TweetsService {
     });
   }
 
-
   ////////////////
   getTweetById(id: any) {
     const accessToken = this.token.get();
@@ -102,7 +101,7 @@ export class TweetsService {
     });
   }
 
-//views
+  //views
   addView(id: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(`${this.BASE_URL}/${id}/view`, {
@@ -113,7 +112,7 @@ export class TweetsService {
   }
 
   //rewtweets
-  postRetweet(retweet:any ,id:any){
+  postRetweet(retweet: any, id: any) {
     const accessToken = this.token.get();
     return this.httpClient.post(`${this.BASE_URL}/${id}/retweet`, retweet, {
       headers: {
@@ -123,7 +122,7 @@ export class TweetsService {
   }
 
   //getRetweetsViewsCount
-  retweetView(retweetID:any){
+  retweetView(retweetID: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(`${this.BASE_URL}/${retweetID}/retweet/view`, {
       headers: {
@@ -131,8 +130,6 @@ export class TweetsService {
       },
     });
   }
-
-
 
   getTweetsByMention(mention: any) {
     return this.httpClient.get(`${this.BASE_URL}/mention/${mention}`);
@@ -182,6 +179,15 @@ export class TweetsService {
     return this.httpClient.get(`${this.BASE_URL}/following/${id}`);
   }
 
+  getTrendingTweets(count: number) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL + `/trending/${count}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
   // getRetweets() {
   //   const accessToken = this.token.get();
 
@@ -200,7 +206,6 @@ export class TweetsService {
   //   });
   // }
 
-
   getReplies(userName: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${userName}/replies`, {
@@ -210,7 +215,7 @@ export class TweetsService {
     });
   }
 
-  getLikes(username:any) {
+  getLikes(username: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/likes`, {
       headers: {
@@ -219,9 +224,9 @@ export class TweetsService {
     });
   }
 
-  getMedia(username:any){
+  getMedia(username: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL + `/${username}/media` , {
+    return this.httpClient.get(this.BASE_URL + `/${username}/media`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
