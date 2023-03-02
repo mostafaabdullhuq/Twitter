@@ -26,6 +26,14 @@ export class TweetComponent implements OnInit {
   public user: any;
   public popup: boolean = false;
   public isInBookmark: boolean = false;
+  // infinite scrolling logic
+  public observer: any = new IntersectionObserver((entries: any) => {
+    entries.forEach((entry: any) => {
+      if (entry.isIntersecting) {
+        console.log('new tweet');
+      }
+    });
+  });
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -46,6 +54,24 @@ export class TweetComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  ngAfterViewChecked(): void {
+    let lastTweet = document.querySelector('.tweet:last-child');
+
+    if (this.myRoute.snapshot?.url[1]?.path === 'following') {
+      if (lastTweet && this.nextCursor != null) {
+        this.isLoadingDone = false;
+
+        this.observer.observe(lastTweet);
+      }
+    } else {
+      if (lastTweet && this.nextCursor2 != null) {
+        this.isLoadingDone = false;
+
+        this.observer.observe(lastTweet);
+      }
+    }
   }
 
   likesCount(tweetID: any) {

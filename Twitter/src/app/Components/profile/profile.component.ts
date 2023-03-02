@@ -11,7 +11,6 @@ import { UsersService } from 'src/app/Services/users.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-
   showPopup = false;
   public username: any = '';
 
@@ -30,7 +29,6 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private Token: TokenService,
     private userService: UsersService
-
   ) {}
   public popup = false;
   public tweets: any;
@@ -39,80 +37,65 @@ export class ProfileComponent implements OnInit {
   public viewType = 1;
   show = false;
   ngOnInit(): void {
-    this.myRoute.params.subscribe((res:any)=>{
+    this.myRoute.params.subscribe((res: any) => {
       this.username = res.user;
-    if (this.myRoute.snapshot?.url[1]?.path === 'with_replies'){
-      this.show = true;
-      this.tweetsClient.getReplies(this.username).subscribe({
-        next: (data: any) => {
-          this.tweets = data.tweets;
-          console.log(this.tweets);
-          this.user = data.user;
-
-          console.log(this.user);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-    else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
-      this.show = false;
-      this.tweetsClient.getLikes(this.username).subscribe({
-        next: (data: any) => {
-          this.tweets = data.tweets;
-          console.log(this.tweets);
-          this.user = data.user;
-          console.log(this.user);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-    else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
-      this.show = false;
-      this.tweetsClient.getMedia(this.username).subscribe({
-        next: (data: any) => {
-          this.tweets = data.tweets;
-          console.log(this.tweets);
-          this.user = data.user;
-          console.log(this.user);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-    else {
-      this.show = false;
-      this.tweetsClient.getAuthedTweets(this.username).subscribe({
-        next: (data: any) => {
-          this.tweets = data.tweets;
-          this.user = data.user;
-          console.log(this.user);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
-  });
+      if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
+        this.show = true;
+        this.tweetsClient.getReplies(this.username).subscribe({
+          next: (data: any) => {
+            this.tweets = data.tweets;
+            this.user = data.user;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
+        this.show = false;
+        this.tweetsClient.getLikes(this.username).subscribe({
+          next: (data: any) => {
+            this.tweets = data.tweets;
+            this.user = data.user;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
+        this.show = false;
+        this.tweetsClient.getMedia(this.username).subscribe({
+          next: (data: any) => {
+            this.tweets = data.tweets;
+            this.user = data.user;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      } else {
+        this.show = false;
+        this.tweetsClient.getAuthedTweets(this.username).subscribe({
+          next: (data: any) => {
+            this.tweets = data.tweets;
+            this.user = data.user;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      }
+    });
   }
 
-  follow(id:any){
+  follow(id: any) {
     let user_id = +id;
 
-    this.userService.postFollow(user_id).subscribe(
-      {
-        next:(data)=>{
-          console.log(data);
-      },
-      error:(err)=>{
+    this.userService.postFollow(user_id).subscribe({
+      next: (data) => {},
+      error: (err) => {
         console.log(err);
       },
-      }
-    )
+    });
   }
 
   logout(event: MouseEvent) {

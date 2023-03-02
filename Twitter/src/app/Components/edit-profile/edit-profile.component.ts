@@ -83,8 +83,6 @@ export class EditProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('in edit');
-    console.log(this.user);
     // this.updateForm.patchValue(this.user);
     this.updateForm.patchValue({
       is_cover_removed: false,
