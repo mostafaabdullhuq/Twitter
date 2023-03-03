@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use JWTAuth;
 use App\Http\Controllers\Api\FormatController;
-
+use Spatie\Tags\Tag;
 
 class SearchController extends Controller
 {
@@ -44,17 +44,23 @@ class SearchController extends Controller
             return $users;
         }
 
-        if ($type =='tweets') {
+        if ($type == 'tweets') {
             $tweets = $this->searchTweet($query);
-            $tweets = $this ->formatter->formatTweets($tweets);
-            return $tweets ;
+            $tweets = $this->formatter->formatTweets($tweets);
+            return $tweets;
         }
-        if ($type =='hashtags') {
-            $hashtags = $this->searchHashtags($query);
+        if ($type == 'hashtags') {
+
+            // get the text only of hashtag
+            $query = preg_match('/([\p{Pc}\p{N}\p{L}\p{Mn}]+)/u', $query, $hashtagValue);
+            $hashtagValue = $hashtagValue['0'];
+
+            // get the hashtags that contains the given text and format them
+            $hashtags = Tag::containing($hashtagValue)->get();
             $hashtags = $this->formatter->formatHashtags($hashtags);
             return $hashtags;
         }
-        if ($type =='user_tweets'){
+        if ($type == 'user_tweets') {
             $tweets = $this->searchTweetsByUser($query);
             $tweets = $this->formatter->formatTweets($tweets);
             return $tweets;
@@ -85,12 +91,11 @@ class SearchController extends Controller
         return $this->formatter->formatTweets($tweets);
     }
 
-
-    public function searchHashtags($query)
-    {
-        $tweets = Tweet::withAnyTags([$query])->get();
-        return $this->formatter->formatTweets($tweets);
-    }
+    // public function searchHashtags($query)
+    // {
+    //     $tweets = Tweet::withAnyTags([$query])->get();
+    //     return $this->formatter->formatTweets($tweets);
+    // }
 
 
     public function searchTweetsByUser($query)
