@@ -18,9 +18,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'first_name' => substr(preg_replace('/[^A-Za-z0-9\-]/', '', fake()->name()),0,6),
-            'last_name' =>  substr(preg_replace('/[^A-Za-z0-9\-]/', '', fake()->name()),0,6),
-            'username' => 'user_'.Str::random(9),
+            'first_name' => substr(preg_replace('/[^A-Za-z0-9\-]/', '', fake()->name()), 0, 6),
+            'last_name' =>  substr(preg_replace('/[^A-Za-z0-9\-]/', '', fake()->name()), 0, 6),
+            'username' => 'user_' . Str::random(9),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'date_of_birth' => now(),
@@ -29,7 +29,6 @@ class UserFactory extends Factory
             'gender' => true,
             'remember_token' => Str::random(10),
             'phone_number' =>  Str::random(10),
-
         ];
     }
 

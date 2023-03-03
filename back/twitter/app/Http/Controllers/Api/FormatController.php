@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reply;
+use App\Models\Tweet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -174,12 +175,10 @@ class FormatController extends Controller
             $formattedHashtags[] = [
                 'id' => $hashtag->id,
                 'name' => $hashtag->name,
-                'tweets_count' => $hashtag->tweets_count,
+                'tweets_count' => Tweet::withAnyTags($hashtag)->count(),
             ];
         }
 
         return $formattedHashtags;
     }
-
-
 }

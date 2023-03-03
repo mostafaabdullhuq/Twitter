@@ -17,7 +17,7 @@ class LikeFactory extends Factory
     public function definition()
     {
         return [
-            'liked_type' => $this->faker->randomElement(['App\Models\Tweet' , 'App\Models\Reply']),
+            'liked_type' => $this->faker->randomElement(['App\Models\Tweet', 'App\Models\Reply']),
             'liked_id' => $this->faker->numberBetween(1, 1000),
             'user_id' => $this->faker->numberBetween(1, 50),
         ];
