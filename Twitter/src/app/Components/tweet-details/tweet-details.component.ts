@@ -26,12 +26,12 @@ export class TweetDetailsComponent implements OnInit {
   protected tweet: any;
   protected error: any;
   protected user: any;
-  protected retweets:any;
+  protected retweets: any;
   public tweetID = this.activatedRouter.snapshot.params['id'];
   public showBookmark = false;
   public showControls = false;
   public showRetweet = false;
-  public showRetweetModal= true;
+  public showRetweetModal = true;
   public isRetweetPopupShown = false;
   @ViewChild('tweetBox') tweetBox!: ElementRef;
 
@@ -84,7 +84,7 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-  shareTweet(tweetID:any, textValue: any = null){
+  shareTweet(tweetID: any, textValue: any = null) {
     this.isRetweetPopupShown = false;
 
     this.httpClient.postRetweet(tweetID, textValue).subscribe({
@@ -100,7 +100,11 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   retweet(){
+=======
+  retweet() {
+>>>>>>> b77e83a878b8cc664afe03c8ce035a9f93b70cda
     this.shareTweet(this.retweets.text, this.tweetID);
   }
   openRetweetModal() {
@@ -110,7 +114,6 @@ export class TweetDetailsComponent implements OnInit {
   closeRetweetModal() {
     this.showRetweetModal = false;
   }
-
 
   handleMedia(type: any, container: any, tweet: any) {
     let nextIndex;
