@@ -16,7 +16,8 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
 use App\Http\Controllers\changePasswordSettingController;
 use App\Http\Controllers\Api\ChatController;
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -52,6 +53,7 @@ Route::group([
     Route::get('get-followings', [FollowingController::class, 'get_followings']);
     Route::get('get-all', [UserController::class, 'get_all_users']);
     Route::get('get-user/{id}', [UserController::class, 'get_user']);
+    Route::get('send-notification', [NotificationController::class, 'sendOfferNotification']);
 });
 
 Route::group([

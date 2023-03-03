@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Auth;
 use JWTAuth;
 use App\Http\Controllers\Api\FormatController;
 use Illuminate\Pagination\Cursor;
+use App\Http\Controllers\NotificationController;
+use App\Notifications\OffersNotification;
+// use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notification;
 
 class TweetController extends Controller
 {
@@ -301,9 +305,14 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id,
             ]
         );
+
+         // notification
+         $user = Auth::user();
+         $Tweet = Tweet::latest()->first();
+        //  $user->notify(new OffersNotification($Tweet));
+        $user->notify(new OffersNotification($Tweet, 'reply'));
+
         $reply = $this->formatter->formatReply($reply);
-
-
 
         return $reply;
     }
@@ -322,6 +331,10 @@ class TweetController extends Controller
                 'user_id' => JWTAuth::user()->id,
                 'text' => $data['text'],
             ]);
+            // notification
+            $user = Auth::user();
+            $Tweet = Tweet::latest()->first();
+            $user->notify(new OffersNotification($Tweet, 'retweet'));
         }
         $tweet->update([
             'views_count' => $tweet->views_count + 1
@@ -371,23 +384,42 @@ class TweetController extends Controller
         // }
     }
 
+    // public function likeToggle($id)
+    // {
+    //     $user = JWTAuth::user();
+    //     $tweet = Tweet::find($id);
+    //     $like = $tweet->likes()->where('user_id', $user->id)->first();
+    //     if ($like) {
+    //         $like->delete();
+    //     } else {
+    //         $tweet->likes()->create(
+    //             [
+    //                 'user_id' => $user->id,
+    //             ]
+    //         );
+    //     }
+    //     $tweet = $this->formatter->formatTweet($tweet);
+    //     return $tweet;
+    // }
     public function likeToggle($id)
-    {
-        $user = JWTAuth::user();
-        $tweet = Tweet::find($id);
-        $like = $tweet->likes()->where('user_id', $user->id)->first();
-        if ($like) {
-            $like->delete();
-        } else {
-            $tweet->likes()->create(
-                [
-                    'user_id' => $user->id,
-                ]
-            );
-        }
-        $tweet = $this->formatter->formatTweet($tweet);
-        return $tweet;
+{
+    $user = Auth::user();
+    $tweet = Tweet::find($id);
+    $like = $tweet->likes()->where('user_id', $user->id)->first();
+    if ($like) {
+        $like->delete();
+    } else {
+        $tweet->likes()->create([
+            'user_id' => $user->id,
+        ]);
+        $user = Auth::user();
+        $Tweet = Tweet::latest()->first();
+        $user->notify(new OffersNotification($Tweet, 'like'));
     }
+      $tweet = $this->formatter->formatTweet($tweet);
+    return $tweet;
+}
+
 
     public function delete($id)
     {
