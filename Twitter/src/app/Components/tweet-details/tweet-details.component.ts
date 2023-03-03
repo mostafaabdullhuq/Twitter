@@ -100,11 +100,7 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-  retweet(){
-=======
   retweet() {
->>>>>>> b77e83a878b8cc664afe03c8ce035a9f93b70cda
     this.shareTweet(this.retweets.text, this.tweetID);
   }
   openRetweetModal() {
