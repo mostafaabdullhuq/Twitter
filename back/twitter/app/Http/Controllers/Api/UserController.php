@@ -25,7 +25,6 @@ class UserController extends Controller
         $this->middleware('auth:api');
         $this->formatter = new FormatController();
         $this->following = new FollowingController();
-        
     }
 
 
@@ -140,6 +139,42 @@ class UserController extends Controller
 
 
     public function get_all_users()
+    {
+        $usersList = [];
+        $authUser = JWTAuth::user();
+        $users = User::all();
+        $authFollowing = $this->following->user_followings($authUser);
+        $users = $this->formatter->formatUsers($users);
+
+        $listOfFollowings = $authFollowing->getOriginalContent();
+        if (count($listOfFollowings) == 0) {
+            foreach ($users as $user) {
+                if ($authUser->id != $user->id) {
+                    $usersList[]= $user;
+                }
+            }
+        } else {
+
+            foreach ($users as $user) {
+                if($user->id != $authUser->id){
+                    $found = false;
+                    foreach ($listOfFollowings as $value) {
+                        if ($value->following_id === $user->id) {
+                            $found = true;
+                            break;
+                        }
+                    }
+                    // && !in_array($user->id, $usersList
+                    if (!$found) {
+                        $usersList[] = $user;
+                    }
+                }
+            }
+        }   
+        return $usersList;
+    }
+
+    public function get_all_followings()
     {  
         $usersList =[];
         $authUser = JWTAuth::user();
@@ -148,35 +183,65 @@ class UserController extends Controller
         $users = $this->formatter->formatUsers($users);
 
         $listOfFollowings = $authFollowing->getOriginalContent();
-        if(count($listOfFollowings)==0){
-            foreach ($users as $user) {
-                if ($authUser->id != $user->id) {
-                    $usersList[]= "test";
-                }
-            }
-        }
-        else
-        {
+        if(count($listOfFollowings)!==0){
+            // foreach ($users as $user) {
+            //     if ($authUser->id != $user->id) {
+            //         $usersList[]= $user;
+            //     }
+            // }
 
             foreach ($users as $user) {
-                // $usersList[] = $user->id;
-
-                $found = false;
-                foreach ($listOfFollowings as $value) {
-                    if ($value->following_id === $user->id) {
-                        $found = true;
-                        break;
+                if($user->id != $authUser->id){
+                    $found = true;
+                    foreach ($listOfFollowings as $value) {
+                        if ($value->following_id === $user->id) {
+                            $found = false;
+                            break;
+                        }
+                    }
+                    // && !in_array($user->id, $usersList
+                    if (!$found) {
+                        $usersList[] = $user;
                     }
                 }
-                // && !in_array($user->id, $usersList
-                if (!$found) {
-                    $usersList[] = $user;
+            }
+        }   
+        return $usersList;
+    } 
+      public function get_all_followers()
+    {  
+        $usersList =[];
+        $authUser = JWTAuth::user();
+        $users = User::all();
+        $authFollowing = $this->following->user_followers($authUser);
+        $users = $this->formatter->formatUsers($users);
+
+        $listOfFollowings = $authFollowing->getOriginalContent();
+        if(count($listOfFollowings)!=0){
+            // foreach ($users as $user) {
+            //     if ($authUser->id != $user->id) {
+            //         $usersList[]= $user;
+            //     }
+            // }
+
+            foreach ($users as $user) {
+                if($user->id != $authUser->id){
+                    $found = true;
+                    foreach ($listOfFollowings as $value) {
+                        if ($value->follower_id === $user->id) {
+                            $found = false;
+                            break;
+                        }
+                    }
+                    // && !in_array($user->id, $usersList
+                    if (!$found) {
+                        $usersList[] = $user;
+                    }
                 }
-}
+            }
         }   
         return $usersList;
     }
-
     // public function get_all_users()
     // {
     //     $users = User::all();
