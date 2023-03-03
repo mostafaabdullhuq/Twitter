@@ -19,6 +19,7 @@ class Reply extends Model
         'views_count',
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -51,6 +52,13 @@ class Reply extends Model
         return $this->morphMany(Like::class, 'retweetable');
     }
 
+
+    // public function isRetweetedByUser($id)
+    // {
+    //     return $this->retweets()->where('user_id', $id)->exists();
+    // }
+
+
     public function retweet()
     {;
     }
@@ -59,10 +67,12 @@ class Reply extends Model
         return $this->morphMany(View::class, 'viewed');
     }
 
+
     public function replyWithUserID($userID)
     {
         return $this->morphMany(Reply::class, 'repliable')->get()->where('user_id', $userID);
     }
+
 
     public function likedByUserID($id)
     {

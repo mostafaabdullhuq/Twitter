@@ -95,6 +95,34 @@ class FollowingController extends Controller
         // dd($following);
     }
 
+    public function user_followers($user)
+    {
+
+        // $request->validate([
+        //     'following_id' => 'required',
+        // ]);
+
+        // $user = $request->user();
+
+        $following = Follow::select('follower_id')->where('following_id', $user->id)->get();
+        // $user = User::find(follower_id);
+        $user =  JWTAuth::user();
+        $user = $this->formatter->formatUser($user);
+        if ($following) {
+            return response()->json(
+            $following,
+                200
+            );
+        } else {
+            return response()->json(
+                ["message' => 'user doesn't have any followers"],
+                500
+            );
+        }
+
+        // dd($following);
+    }
+
     public function get_followings(Request $request)
     {
 
@@ -105,10 +133,15 @@ class FollowingController extends Controller
         $user = $request->user();
 
         $following = Follow::select('following_id')->where('follower_id', $user->id)->get();
+        
+            // $users = User::select()->where('id',$following->getOriginalContent()->following_id)->get ;
+
+
 
         if ($following) {
             return response()->json(
                 $following,
+                // $users,
                 200
             );
         } else {

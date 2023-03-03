@@ -50,6 +50,8 @@ Route::group([
     Route::post('block-user', [BlockController::class, 'store']);
     Route::get('get-followers', [FollowingController::class, 'get_followers']);
     Route::get('get-followings', [FollowingController::class, 'get_followings']);
+    Route::get('get-all-followers', [UserController::class, 'get_all_followers']);
+    Route::get('get-all-followings', [UserController::class, 'get_all_followings']);
     Route::get('get-all', [UserController::class, 'get_all_users']);
     Route::get('get-user/{id}', [UserController::class, 'get_user']);
 });
