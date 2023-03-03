@@ -133,26 +133,41 @@ export class TweetsService {
   }
 
   //addrRetweets
-  postRetweet(id:any, text: any){
+  postRetweet(id: any, text: any = null) {
     const accessToken = this.token.get();
-    return this.httpClient.post(`${this.BASE_URL}/${id}/retweet`, text ? {
-      text : text
-    } : {}, {
+    if (text) {
+      return this.httpClient.post(
+        `${this.BASE_URL}/${id}/retweet`,
+        {
+          text: text,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    }
+    return this.httpClient.post(
+      `${this.BASE_URL}/${id}/retweet`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  }
+
+  //getRetweets
+  getRetweet($tweetId: any) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(`${this.BASE_URL}/'$tweetId'/getretweet`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
   }
-
-//getRetweets
-getRetweet($tweetId:any){
-  const accessToken = this.token.get();
-  return this.httpClient.get(`${this.BASE_URL}/'$tweetId'/getretweet`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-}
 
   //getRetweetsViewsCount
   retweetView(retweetID: any) {
@@ -220,7 +235,6 @@ getRetweet($tweetId:any){
       },
     });
   }
-
 
   getReplies(userName: any) {
     const accessToken = this.token.get();
