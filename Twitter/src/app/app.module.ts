@@ -53,6 +53,8 @@ import { FollowersAndFollowingComponent } from './followers-and-following/follow
 import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.directive';
 import { AccountInfoComponent } from './Components/settings/account-info/account-info.component';
 import { LoadProfileComponent } from './Components/load-profile/load-profile.component';
+import { TweetPopupComponent } from './Components/tweet-popup/tweet-popup.component';
+import { TweetSharedComponent } from './Components/tweet-shared/tweet-shared.component';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
@@ -96,6 +98,8 @@ import { LoadProfileComponent } from './Components/load-profile/load-profile.com
     InfiniteScrollingDirective,
     AccountInfoComponent,
     LoadProfileComponent,
+    TweetPopupComponent,
+    TweetSharedComponent,
 
     // StickyHeaderFollowingComponent,
   ],

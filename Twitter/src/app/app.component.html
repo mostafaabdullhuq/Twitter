@@ -71,8 +71,8 @@
         </a>
       </div>
       <div class="xl:flex max-w-[225px] hidden justify-start items-center mt-4">
-        <a routerLink="/home"
-          class="w-full text-center py-3 px-3 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
+        <a (click)='isTweetPopupShown = true'
+          class="w-full cursor-pointer text-center py-3 px-3 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white">
           <span class="hidden font-semibold xl:block text-xl"> Tweet </span>
         </a>
       </div>
@@ -257,3 +257,8 @@
     </div>
   </div>
 </ng-template>
+
+
+
+<app-tweet-popup (isClosed)="isTweetPopupShown = false" *ngIf="isTweetPopupShown && user" [popupType]=2 [user]="user">
+</app-tweet-popup>
