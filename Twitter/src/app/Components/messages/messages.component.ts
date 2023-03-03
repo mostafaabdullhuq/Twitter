@@ -10,7 +10,7 @@ import Pusher from 'pusher-js';
 export class MessagesComponent implements OnInit  {
 
   username = 'username';
-  messages:string[]  = [];
+  messages:string[] = [];
   message = '';
   // da:any;
   constructor(private http:HttpClient){}

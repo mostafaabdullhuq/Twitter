@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   public user: any;
   public loggedUser: any;
   public viewType = 1;
+  public notAUser:any;
   show = false;
   ngOnInit(): void {
     // this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
@@ -46,6 +47,7 @@ export class ProfileComponent implements OnInit {
           this.loggedUser = data;
         },
         error: (err) => {
+
           console.log(err);
         },
       });
@@ -91,6 +93,7 @@ export class ProfileComponent implements OnInit {
             console.log(this.user);
           },
           error: (err) => {
+            this.notAUser = true;
             console.log(err);
           },
         });
