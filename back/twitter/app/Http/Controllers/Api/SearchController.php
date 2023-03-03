@@ -70,7 +70,7 @@ class SearchController extends Controller
         return $users;
     }
 
-    
+
     public function searchTweet($query)
     {
         $tweets = Tweet::where('text', 'like', '%' . $query . '%')->get();
