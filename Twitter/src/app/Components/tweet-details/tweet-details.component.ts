@@ -100,7 +100,6 @@ export class TweetDetailsComponent implements OnInit {
     });
   }
 
-
   retweet(){
     this.shareTweet(this.retweets.text, this.tweetID);
   }
