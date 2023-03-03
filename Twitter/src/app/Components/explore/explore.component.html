@@ -19,9 +19,9 @@
         </div>
     </div>
     <div *ngIf="isInExplore; else searchBlock">
-        <div *ngIf="hashtags && hashtags.length" class="text-mediumbg-white relative flex flex-col w-full border-b border-gray-100dark:border-dark-gray_0 cursor-pointer
+        <div *ngIf="hashtags && hashtags.length" class="text-mediumbg-white relative flex flex-col w-full border-b border-gray-100 dark:border-dark-gray_0 cursor-pointer
                              text-black dark:text-white
-                             dark:hover:bg-opacity-50 pt-2 pb-3  ">
+                             dark:hover:bg-opacity-50 pt-2 pb-3">
             <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1 ">
                 Trending Hashtags</h3>
 
@@ -42,10 +42,10 @@
                 class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">
                 {{u?.followed_by?"Unfollow":"Follow" }}
             </button> -->
-            </div>
-        <div class="text-blue-400 p-3 cursor-pointer right-trend">
-            <a class="hashtag" routerLink="/connect">Show more</a>
         </div>
+        <!-- <div class="text-blue-400 p-3 cursor-pointer right-trend">
+            <a class="url" routerLink="/connect">Show more</a>
+        </div> -->
         <!--Follow people-->
         <div *ngIf="users && users.length" class="flex flex-col w-full
                              border-b border-gray-100
