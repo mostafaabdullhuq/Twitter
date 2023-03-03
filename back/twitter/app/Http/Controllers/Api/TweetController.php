@@ -43,11 +43,11 @@ class TweetController extends Controller
             $user = $this->formatter->formatUser($user);
             $user->followed_by = false;
 
-            $following =Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+            $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
 
             $arr = [];
-            foreach($following as $k => $v ){
-                if($v->following_id == $user->id){
+            foreach ($following as $k => $v) {
+                if ($v->following_id == $user->id) {
                     $user->followed_by = true;
                 }
             }
@@ -324,42 +324,28 @@ class TweetController extends Controller
     {
         $user = JWTAuth::user();
         $tweet = Tweet::findOrFail($id);
-        $text = null;
-        if ($request->text) {
-            $text = $request->text;
-        }
+
         // $id = $request->tweet_id;
         $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
         if ($retweet) {
             $retweet->delete();
         } else {
+            $text = null;
+            if ($request->text) {
+                $text = $request->text;
+            }
             $tweet->retweets()->create([
                 'user_id' => JWTAuth::user()->id,
                 'text' => $text,
             ]);
-            $data = $request->all();
-            $tweet = Tweet::find($id);
-            $reply = $tweet->replies()->create(
-                [
-                    'text' => $data['text'],
-                    'user_id' => JWTAuth::user()->id,
-                ]
-            );
-            unset($reply->repliable_type);
-            unset($reply->repliable_id);
-            unset($reply->updated_at);
-            unset($reply->user->google_access_token);
-            unset($reply->user->facebook_access_token);
-            unset($reply->user->email_verified_at);
-            unset($reply->user->updated_at);
-            $reply->likes_count = 0;
-            $reply->replies_count = 0;
-            $reply->retweets_count = 0;
-            $reply->views_count = 0;
-            $reply->liked = false;
-            $reply->user;
-            $reply->media;
-            return $reply;
+            if ($text) {
+                $reply = $tweet->replies()->create(
+                    [
+                        'text' => $text,
+                        'user_id' => JWTAuth::user()->id,
+                    ]
+                );
+            }
         }
         $tweet->update([
             'views_count' => $tweet->views_count + 1
