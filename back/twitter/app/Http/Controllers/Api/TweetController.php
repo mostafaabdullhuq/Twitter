@@ -31,8 +31,8 @@ class TweetController extends Controller
 
     // get logged in user tweets
     public function me($username)
-    {   
-        
+    {
+
         $user = User::where('username', $username)->first();
         if ($user) {
             $tweets = $user->tweets()->latest()->get();
@@ -42,14 +42,14 @@ class TweetController extends Controller
             $tweets = $this->formatter->formatTweets($tweets);
             $user = $this->formatter->formatUser($user);
             $user->followed_by = false;
-            
+
             $following =Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
 
             $arr = [];
             foreach($following as $k => $v ){
                 if($v->following_id == $user->id){
                     $user->followed_by = true;
-                } 
+                }
             }
             return [
                 'user' => $user,
@@ -380,34 +380,17 @@ class TweetController extends Controller
 
 
     //Retweet views count
-    public function viewsRetweet($retweet_id)
-    {
-        $retweets = Retweet::find($retweet_id);
-        if ($retweets) {
-            $retweets->update([
-                'views_count' => $retweets->views_count + 1
-            ]);
-            return $retweets;
-        }
+    // public function viewsRetweet($retweet_id)
+    // {
+    //     $retweets = Retweet::find($retweet_id);
+    //     if ($retweets) {
+    //         $retweets->update([
+    //             'views_count' => $retweets->views_count + 1
+    //         ]);
+    //         return $retweets;
+    //     }
 
-
-        // public function likeRetweet($retweet_id){
-        //     $user = JWTAuth::user();
-        //     $retweet = Retweet::find($retweet_id);
-        //     $like = $retweet->likes()->where('user_id', $user->id)->first();
-        //     if ($like) {
-        //         $like->delete();
-        //     } else {
-        //         $like->likes()->create(
-        //             [
-        //                 'user_id' => $user->id,
-        //             ]
-        //         );
-        //     }
-        //     $tweet = $this->formatTweet($like);
-        //     return $retweet;
-        // }
-    }
+    // }
 
     public function likeToggle($id)
     {
