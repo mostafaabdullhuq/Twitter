@@ -88,10 +88,8 @@ class TweetController extends Controller
         $tweets = $this->formatter->formatTweets($tweets);
         return $tweets;
     }
-
-
-
-
+    
+   //get user tweets and replies
     public function get_User_Replies($username)
     {
         $user = User::where('username', $username)->first();
