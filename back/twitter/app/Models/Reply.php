@@ -51,6 +51,13 @@ class Reply extends Model
         return $this->morphMany(Like::class, 'retweetable');
     }
 
+
+    // public function isRetweetedByUser($id)
+    // {
+    //     return $this->retweets()->where('user_id', $id)->exists();
+    // }
+
+
     public function retweet()
     {;
     }
