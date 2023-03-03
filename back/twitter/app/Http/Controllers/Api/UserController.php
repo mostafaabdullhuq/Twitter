@@ -151,7 +151,7 @@ class UserController extends Controller
         if(count($listOfFollowings)==0){
             foreach ($users as $user) {
                 if ($authUser->id != $user->id) {
-                    $usersList[]= "test";
+                    $usersList[]= $user;
                 }
             }
         }
@@ -159,7 +159,6 @@ class UserController extends Controller
         {
 
             foreach ($users as $user) {
-                // $usersList[] = $user->id;
                 if($user->id != $authUser->id){
                     $found = false;
                     foreach ($listOfFollowings as $value) {
@@ -187,18 +186,14 @@ class UserController extends Controller
         $users = $this->formatter->formatUsers($users);
 
         $listOfFollowings = $authFollowing->getOriginalContent();
-        if(count($listOfFollowings)==0){
-            foreach ($users as $user) {
-                if ($authUser->id != $user->id) {
-                    $usersList[]= "test";
-                }
-            }
-        }
-        else
-        {
+        if(count($listOfFollowings)!==0){
+            // foreach ($users as $user) {
+            //     if ($authUser->id != $user->id) {
+            //         $usersList[]= $user;
+            //     }
+            // }
 
             foreach ($users as $user) {
-                // $usersList[] = $user->id;
                 if($user->id != $authUser->id){
                     $found = true;
                     foreach ($listOfFollowings as $value) {
@@ -225,18 +220,14 @@ class UserController extends Controller
         $users = $this->formatter->formatUsers($users);
 
         $listOfFollowings = $authFollowing->getOriginalContent();
-        if(count($listOfFollowings)==0){
-            foreach ($users as $user) {
-                if ($authUser->id != $user->id) {
-                    $usersList[]= "test";
-                }
-            }
-        }
-        else
-        {
+        if(count($listOfFollowings)!=0){
+            // foreach ($users as $user) {
+            //     if ($authUser->id != $user->id) {
+            //         $usersList[]= $user;
+            //     }
+            // }
 
             foreach ($users as $user) {
-                // $usersList[] = $user->id;
                 if($user->id != $authUser->id){
                     $found = true;
                     foreach ($listOfFollowings as $value) {
