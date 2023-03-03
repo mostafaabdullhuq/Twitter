@@ -207,6 +207,42 @@ class UserController extends Controller
             }
         }   
         return $usersList;
+    }    
+    public function get_a_followings(Request $Request)
+    {  
+        $Request->validate([
+            'fid' => 'required',
+        ]);
+
+
+        $usersList =[];
+        // $authUser = JWTAuth::user();
+        $users = User::all();
+        $users = $this->formatter->formatUsers($users);
+
+        $obj= array("id"=>$Request->fid);
+        $object = json_decode(json_encode($obj), FALSE);
+        $authFollowing = $this->following->user_followings($object);
+        $listOfFollowings = $authFollowing->getOriginalContent();
+
+        if(count($listOfFollowings)!==0){
+
+            foreach ($users as $user) {
+                    $found = true;
+                    foreach ($listOfFollowings as $value) {
+                        if ($value->following_id === $user->id) {
+                            $found = false;
+                            break;
+                        }
+                    }
+                    // && !in_array($user->id, $usersList
+                    if (!$found) {
+                        $usersList[] = $user;
+                    }
+                
+            }
+        }   
+        return $usersList;
     } 
       public function get_all_followers()
     {  

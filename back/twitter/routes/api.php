@@ -52,6 +52,7 @@ Route::group([
     Route::get('get-followings', [FollowingController::class, 'get_followings']);
     Route::get('get-all-followers', [UserController::class, 'get_all_followers']);
     Route::get('get-all-followings', [UserController::class, 'get_all_followings']);
+    Route::post('get-a-followings', [UserController::class, 'get_a_followings']);
     Route::get('get-all', [UserController::class, 'get_all_users']);
     Route::get('get-user/{id}', [UserController::class, 'get_user']);
 });
