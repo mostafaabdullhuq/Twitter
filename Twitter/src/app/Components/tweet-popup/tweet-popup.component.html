@@ -1,7 +1,7 @@
 <div
     class="absolute w-full h-full top-0 left-0 bottom-0 right-0 bg-black bg-opacity-40 dark:bg-opacity-40 z-50 flex flex-col items-center justify-center dark:bg-gray-200">
     <div
-        class="bg-white dark:bg-black p-6 rounded-lg max-w-[700px] flex flex-col w-[90%] scrollbar-hide overflow-auto  max-h-[90%]">
+        class="bg-white dark:bg-black p-6 rounded-2xl max-w-[700px] flex flex-col w-[90%] scrollbar-hide overflow-auto  max-h-[90%]">
         <!-- close popup -->
         <div class="flex justify-start">
             <i (click)="closePopup()" class="fa-solid fa-times cursor-pointer mb-6"></i>
@@ -45,7 +45,7 @@
 
 <ng-template #tweetBlock>
     <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()" enctype="multipart/form-data">
-        <div class="border-b flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
+        <div class=" flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
             <div class="flex p-4 h-fit max-w-full">
                 <img class="twitter-user-img" routerLink="/{{user.username}}"
                     src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
