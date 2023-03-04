@@ -39,6 +39,7 @@ class SearchController extends Controller
         }
 
         if ($type == 'users') {
+
             $users = $this->searchUsers($query);
             $users = $this->formatter->formatUsers($users);
             return $users;
@@ -69,9 +70,12 @@ class SearchController extends Controller
 
     public function searchUsers($query)
     {
+
+        $query = str_replace('@', '', $query);
         $users = User::where('first_name', 'like', '%' . $query . '%')
             ->orWhere('username', 'like', '%' . $query . '%')
             ->orWhere('last_name', 'like', '%' . $query . '%')
+            ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$query}%"])
             ->limit(5)
             ->get();
         return $users;
@@ -79,9 +83,12 @@ class SearchController extends Controller
 
     public function searchTweet($query)
     {
-        $tweets = Tweet::where('text', 'like', '%' . $query . '%')->get();
+        $tweets = Tweet::where('text', 'like', '%' . $query . '%')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return $tweets;
     }
+
 
     // get tweets by specific hashtag
     public function tweetsByHashtag($hashtag)
@@ -95,8 +102,7 @@ class SearchController extends Controller
         $user = User::where('username', $query)->first();
         if ($user) {
             $tweets = $user->tweets;
-        }
-        else {
+        } else {
             $tweets = [];
         }
         return $tweets;

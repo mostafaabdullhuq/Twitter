@@ -190,4 +190,28 @@ class FormatController extends Controller
 
         return $formattedHashtags;
     }
+
+
+    public function formatNotifications($notifications) {
+        foreach ($notifications as $notification) {
+            $data = $notification->data;
+            $tweet = $data["id"] ? Tweet::find($data["id"]) : null;
+            $user = $data["user"]? User::find($data["user"]) : null;
+            if ($tweet) {
+                $tweet = $this->formatTweet($tweet);
+            }
+            if ($user) {
+                $user = $this->formatUser($user);
+            }
+            $data["tweet"] = $tweet;
+            $data["user"] = $user;
+            $notification->data = $data;
+            unset($notification->notifiable_type,
+            $notification->notifiable_id,$notification->type);
+      }
+        return $notifications;
+    }
+
+
 }
+
