@@ -26,7 +26,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
   public isInExplore = true;
   public searchType: any;
   public searchQuery: any;
-
+  public isNoParams: any = false;
   ngOnInit(): void {
     this.myRouter.queryParams.subscribe((queryParams: any) => {
       if (
@@ -61,6 +61,8 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
           // no type or query
         }
         this.isInExplore = false;
+      } else {
+        this.isNoParams = true;
       }
     });
 

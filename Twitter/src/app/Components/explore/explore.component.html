@@ -137,7 +137,7 @@
 
 
   <ng-template #noResults>
-    <div *ngIf="tweets?.length == 0;else loadingBlock" class="flex flex-col w-full items-center mt-20">
+    <div *ngIf="(tweets?.length == 0) || isNoParams;else loadingBlock" class="flex flex-col w-full items-center mt-20">
       <img class="w-full max-w-[600px]" src="./../../../assets/images/search.png" />
       <p class="mt-5 text-lg text-gray-500 dark:text-dark-gray_300 text-center">
         No Search results, try searching for something else.
