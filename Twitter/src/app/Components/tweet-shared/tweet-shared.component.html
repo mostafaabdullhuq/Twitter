@@ -1,4 +1,4 @@
-<div class="tweet-shared relative ">
+<div class="relative" [ngClass]="type == 1 ? 'tweet-shared':'tweet-shared-2'">
     <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
     <!-- user image -->
     <div routerLink="/{{tweet.user.username}}"

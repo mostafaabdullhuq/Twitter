@@ -8,7 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class TweetSharedComponent {
   @Input('tweet') tweet: any;
-
+  // @Input() retweets: any;
   constructor(private sanitizer: DomSanitizer) {}
 
   formatTweetText(text: string): SafeHtml {
@@ -47,4 +47,6 @@ export class TweetSharedComponent {
       }
     });
   }
+  @Input() showRetweets: any;
+  @Input() type: any;
 }

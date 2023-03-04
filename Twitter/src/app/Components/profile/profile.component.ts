@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit {
   public viewType = 1;
   public notAUser = false;
   show = false;
+  showRetweet =false;
   ngOnInit(): void {
     this.notAUser = false;
     // this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
@@ -56,11 +57,14 @@ export class ProfileComponent implements OnInit {
       });
       if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
         this.show = true;
+        // this.showRetweet =false;
         this.notAUser = false;
         this.tweetsClient.getReplies(this.username).subscribe({
           next: (data: any) => {
             this.tweets = data.tweets;
             this.user = data.user;
+            console.log(data);
+
             // console.log(this.tweets);
 
             // this.notAUser = false;
@@ -70,8 +74,10 @@ export class ProfileComponent implements OnInit {
             console.log(err);
           },
         });
+
       } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
         this.show = false;
+        // this.showRetweet =false;
         this.notAUser = false;
         this.tweetsClient.getLikes(this.username).subscribe({
           next: (data: any) => {
@@ -86,6 +92,7 @@ export class ProfileComponent implements OnInit {
         });
       } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
         this.show = false;
+        // this.showRetweet =false;
         this.notAUser = false;
         this.tweetsClient.getMedia(this.username).subscribe({
           next: (data: any) => {
@@ -100,11 +107,20 @@ export class ProfileComponent implements OnInit {
         });
       } else {
         this.show = false;
+        this.showRetweet =true;
         this.notAUser = false;
         this.tweetsClient.getAuthedTweets(this.username).subscribe({
           next: (data: any) => {
             // this.notAUser = false;
-            this.tweets = data.tweets;
+
+            if (this.tweets?.length) {
+              // merge arrays
+              this.tweets = [...data.tweets, ...this.tweets]
+            } else {
+              this.tweets = data.tweets;
+            }
+
+            // this.tweets = data.tweets;
             this.user = data.user;
             // console.log(this.user);
           },
@@ -113,8 +129,29 @@ export class ProfileComponent implements OnInit {
             console.log(err);
           },
         });
+        this.tweetsClient.getRetweets(this.username).subscribe({
+          next: (data: any) => {
+            if (this.tweets?.length) {
+              // merge arrays
+              this.tweets = [...data.retweets, ...this.tweets]
+            } else {
+              this.tweets = data.retweets;
+            }
+            console.log('retweeeets');
+
+            console.log(this.tweets);
+
+            this.user = data.user;
+            // this.notAUser = false;
+          },
+          error: (err) => {
+            this.notAUser = true;
+            console.log(err);
+          },
+        });
       }
     });
+
   }
 
   follow(id: any) {
@@ -138,4 +175,5 @@ export class ProfileComponent implements OnInit {
   logoutPopup() {
     this.popup ? (this.popup = false) : (this.popup = true);
   }
+
 }

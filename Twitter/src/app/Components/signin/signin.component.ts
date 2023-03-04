@@ -33,6 +33,9 @@ export class SigninComponent implements OnInit {
     private authService: SocialAuthService,
     private httpClient: HttpClient
   ) {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   onSubmit() {
     const postData = {
@@ -68,19 +71,19 @@ export class SigninComponent implements OnInit {
   // ngOnInit() {}
 
   //fb
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
-  signOut(): void {
-    this.authService.signOut();
-  }
-  //google
-  private accessToken = '';
-  getAccessToken(): void {
-    this.authService
-      .getAccessToken(GoogleLoginProvider.PROVIDER_ID)
-      .then((accessToken) => (this.accessToken = accessToken));
-  }
+  // signInWithFB(): void {
+  //   this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  // }
+  // signOut(): void {
+  //   this.authService.signOut();
+  // }
+  // //google
+  // private accessToken = '';
+  // getAccessToken(): void {
+  //   this.authService
+  //     .getAccessToken(GoogleLoginProvider.PROVIDER_ID)
+  //     .then((accessToken) => (this.accessToken = accessToken));
+  // }
 
   // getGoogleCalendarData(): void {
   //   if (!this.accessToken) return;
@@ -95,37 +98,37 @@ export class SigninComponent implements OnInit {
   //     });
   // }
 
-  refreshToken(): void {
-    this.authService.refreshAccessToken(GoogleLoginProvider.PROVIDER_ID);
-  }
+  // refreshToken(): void {
+  //   this.authService.refreshAccessToken(GoogleLoginProvider.PROVIDER_ID);
+  // }
 
-  ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
-    });
-  }
+  // ngOnInit() {
+  //   this.authService.authState.subscribe((user) => {
+  //     this.user = user;
+  //     this.loggedIn = user != null;
+  //   });
+  // }
 
-  //signing in events
-  signInWithGoogle(): void {
-    this.authService
-      .signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then((user) => {
-        this.router.navigateByUrl('/home');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // //signing in events
+  // signInWithGoogle(): void {
+  //   this.authService
+  //     .signIn(GoogleLoginProvider.PROVIDER_ID)
+  //     .then((user) => {
+  //       this.router.navigateByUrl('/home');
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
-  signInWithFacebook(): void {
-    this.authService
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((user) => {
-        this.router.navigateByUrl('/home');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  // signInWithFacebook(): void {
+  //   this.authService
+  //     .signIn(FacebookLoginProvider.PROVIDER_ID)
+  //     .then((user) => {
+  //       this.router.navigateByUrl('/home');
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 }
