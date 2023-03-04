@@ -168,13 +168,6 @@ class TweetController extends Controller
             'tweets' => $tweets,
             'nextCursor' => $nextCursor
         ];
-
-
-
-
-        // $tweets = JWTAuth::user()->hforyou()->get();
-        // $tweets = $this->formatter->formatTweets($tweets);
-        // return $tweets;
     }
 
     // get logged in user for you tweets (followings tweets and user tweets ordered from newest to oldest)
