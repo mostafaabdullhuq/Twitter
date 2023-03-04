@@ -262,6 +262,15 @@ export class TweetsService {
       },
     });
   }
+
+  getRetweets(username: any) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL+`/${username}/retweets`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
   //Just TEST
   // createLike(like:any, tweetID:any){
   //   const accessToken = this.token.get();
