@@ -16,6 +16,7 @@ class FormatController extends Controller
     public function formatTweet($tweet, $userID = 0)
     {
 
+        // $tweet->isPopupShown = false;
         // add user object to the tweet object and delete security sensitive information
         $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
         $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
@@ -192,11 +193,12 @@ class FormatController extends Controller
     }
 
 
-    public function formatNotifications($notifications) {
+    public function formatNotifications($notifications)
+    {
         foreach ($notifications as $notification) {
             $data = $notification->data;
             $tweet = $data["id"] ? Tweet::find($data["id"]) : null;
-            $user = $data["user"]? User::find($data["user"]) : null;
+            $user = $data["user"] ? User::find($data["user"]) : null;
             if ($tweet) {
                 $tweet = $this->formatTweet($tweet);
             }
@@ -206,12 +208,12 @@ class FormatController extends Controller
             $data["tweet"] = $tweet;
             $data["user"] = $user;
             $notification->data = $data;
-            unset($notification->notifiable_type,
-            $notification->notifiable_id,$notification->type);
-      }
+            unset(
+                $notification->notifiable_type,
+                $notification->notifiable_id,
+                $notification->type
+            );
+        }
         return $notifications;
     }
-
-
 }
-

@@ -18,6 +18,7 @@ use App\Http\Controllers\changePasswordSettingController;
 use App\Http\Controllers\Api\ChatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
+
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -122,12 +123,14 @@ Route::group([
     Route::post('messages', [ChatController::class, 'message']);
 });
 
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'notifications'
-], function () {
-    Route::get('', [NotificationController::class, 'sendNotification']);
-}
+Route::group(
+    [
+        'middleware' => 'api',
+        'prefix' => 'notifications'
+    ],
+    function () {
+        Route::get('', [NotificationController::class, 'sendNotification']);
+    }
 );
 
 // Route::group([
