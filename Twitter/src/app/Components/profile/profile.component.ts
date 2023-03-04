@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   public user: any;
   public loggedUser: any;
   public viewType = 1;
-  public notAUser=false;
+  public notAUser = false;
   show = false;
   showRetweet =false;
   ngOnInit(): void {
@@ -63,6 +63,8 @@ export class ProfileComponent implements OnInit {
           next: (data: any) => {
             this.tweets = data.tweets;
             this.user = data.user;
+            // console.log(this.tweets);
+
             // this.notAUser = false;
           },
           error: (err) => {

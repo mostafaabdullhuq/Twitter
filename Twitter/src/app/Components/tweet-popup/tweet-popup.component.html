@@ -4,7 +4,7 @@
         class="bg-white dark:bg-black p-6 rounded-2xl max-w-[700px] flex flex-col w-[90%] scrollbar-hide overflow-auto  max-h-[90%]">
         <!-- close popup -->
         <div class="flex justify-start">
-            <i (click)="closePopup()" class="fa-solid fa-times cursor-pointer mb-6 dark:text-white" ></i>
+            <i (click)="closePopup()" class="fa-solid fa-times cursor-pointer mb-6 dark:text-white"></i>
         </div>
         <form *ngIf="popupType == 1; else tweetBlock" [formGroup]="retweetForm" (ngSubmit)="shareTweet()">
             <div class="flex flex-col w-full">
@@ -36,10 +36,7 @@
                 </div>
             </div>
         </form>
-
-
     </div>
-
 </div>
 
 
