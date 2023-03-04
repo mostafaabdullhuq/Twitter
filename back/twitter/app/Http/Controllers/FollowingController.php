@@ -8,6 +8,8 @@ use App\Models\User;
 use JWTAuth;
 use Response;
 use App\Http\Controllers\Api\FormatController;
+use App\Notifications\OffersNotification;
+use App\Models\Tweet;
 
 class FollowingController extends Controller
 {
@@ -42,10 +44,16 @@ class FollowingController extends Controller
             $following->follower_id = $user->id;
 
             if ($following->save()) {
+                       // notification
+                       $user = User::where('id', $following->following_id)->first();
+                       $follow = Follow::latest()->first();
+                        $user->notify(new OffersNotification($follow, 'follow'));
                 return response()->json(
                     ['message' => 'now you are following this user'],
                     200
                 );
+                // return $user;
+              
             } else {
                 return response()->json(
                     ['message' => 'Something went wrong following this user, try again'],
@@ -85,6 +93,7 @@ class FollowingController extends Controller
                 ['following' => $following, 'user' => $user],
                 200
             );
+            
         } else {
             return response()->json(
                 ["message' => 'user doesn't have any followers"],
