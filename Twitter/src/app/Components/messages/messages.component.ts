@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit  } from '@angular/core';
-import Pusher from 'pusher-js';
+// import Pusher from 'pusher-js';
 
 @Component({
   selector: 'app-messages',
@@ -16,16 +16,16 @@ export class MessagesComponent implements OnInit  {
   constructor(private http:HttpClient){}
 
   ngOnInit(): void {
-    Pusher.logToConsole = true;
+  //   // Pusher.logToConsole = true;
 
-    const pusher = new Pusher('9f43a032ae749ed0870b', {
-      cluster: 'mt1'
-    });
+  //   const pusher = new Pusher('9f43a032ae749ed0870b', {
+  //     cluster: 'mt1'
+  //   });
 
-    const channel = pusher.subscribe('Twitty');
-    channel.bind('message',(data: any) =>{
-      this.messages.push(data);
-    });
+  //   const channel = pusher.subscribe('Twitty');
+  //   channel.bind('message',(data: any) =>{
+  //     this.messages.push(data);
+  //   });
   }
 
   submit():void{

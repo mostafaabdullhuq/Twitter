@@ -30,7 +30,30 @@ export class UsersService {
         Authorization: `Bearer ${accessToken}`,
       },
     })
+  }    
+  
+  getAllFollowers(){
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL +'/get-all-followers',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  }    
+  
+  getAllFollowings(){
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL +'/get-all-followings',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
   }  
+
   getFollowings(){
     const accessToken = this.token.get();
 
@@ -51,6 +74,27 @@ export class UsersService {
       },
     })
   }
+
+  userFollowings(username:any){
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL +`/${username}/get-a-followings`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  }  
+  userFollowers(username:any){
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL +`/${username}/get-a-followers`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  }  
   postFollow(id:number){
     const accessToken = this.token.get();
 

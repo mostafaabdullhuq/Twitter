@@ -1,5 +1,112 @@
 <div *ngIf="tweets && tweets.length  > 0;else noTweetBlock" class="scroll-smooth">
     <div class="tweet relative " *ngFor="let tweet of tweets">
+      <div class="tweet-2 w-full" *ngIf="tweet.isARetweet;else tweetBlock">
+        <!-- if tweet is a retweet -->
+        <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
+        <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
+            title="More">
+            <i
+                class="fa-solid fa-ellipsis text-lg dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
+        </div>
+        <!-- user image -->
+        <div routerLink="/{{tweet.user.username}}"
+            class="flex rounded-full relative top-4 overflow-hidden twitter-user-img">
+            <img class="w-full h-full object-cover" *ngIf="tweet.user"
+                src="{{tweet.user.profile_picture ?? './../../../assets/images/default_profile.png'}}" alt="" />
+        </div>
+        <div
+            class="content  relative z-10 ml-3 flex flex-col justify-start w-full gap-1 pt-3 max-w-full overflow-hidden">
+            <div class="flex overflow-hidden mt-1">
+                <!--  name -->
+                <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
+                    <p routerLink="/{{tweet.user.username}}" class="dotted-text h-6 hover:underline">
+                        {{tweet.user.first_name + ' ' + tweet.user.last_name}}
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
+                        *ngIf="tweet.user.verified" stroke="currentColor"
+                        class="w-6 min-w-[25px] text-white fill-main-blue_100">
+                        <path strokeLinecap="round" strokeLinejoin="round"
+                            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                    </svg>
+                </div>
+                <!-- other user and tweet info -->
+                <div class="flex items-center w-auto max-w-[45%]">
+                    <!-- username -->
+                    <span routerLink="/{{tweet.user.username}}"
+                        class="username ml-1 text-md font-normal dark:text-dark-gray_300 dotted-text text-light-gray_100">@{{tweet.user.username}}
+                    </span>
+                    <!-- publish date -->
+                    <p class="mx-1 flex relative bottom-1 font-bold dark:text-dark-gray_300 text-light-gray_100">
+                        .</p>
+                    <p routerLink="/status/{{tweet.id}}"
+                        class="publish_date dark:text-dark-gray_300 text-light-gray_100 dotted-text">{{tweet.created_at
+                        |
+                        humanDates}}</p>
+                </div>
+            </div>
+
+            <!-- ----tweet body----- -->
+            <div class="sm:pr-4">
+                <!-- tweet text -->
+                <div class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto">
+                    <pre class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight  whitespace-pre-wrap overflow-y-auto text-left"
+                        [innerHTML]="formatTweetText(tweet.text)">
+                    </pre>
+                </div>
+
+                <!-- tweet media -->
+                    <div class="mt-2 w-full">
+                      <app-tweet-shared [type]=1  [tweet]="tweet.tweet"></app-tweet-shared>
+
+                    </div>
+
+
+                <!-- ----controls icons ---- -->
+                <div class="w-full justify-start grid sm:grid-cols-5 grid-cols-4 gap-1 mt-4">
+                    <div routerLink="/status/{{tweet.id}}" class="tweet-control-item hover:text-main-blue_100"
+                        title="Reply">
+                        <i class="sm:p-2 p-1 rounded-full fa-regular fa-comment hover:bg-main-blue_0"></i>
+                        {{tweet.replies_count || '0' | humanNumbers: 2}}
+                    </div>
+                    <div class="tweet-control-item hover:text-main-retweet" title="Retweet"><i
+                            class="fa-solid fa-retweet sm:p-2 p-1 rounded-full hover:bg-green-100"></i>
+                        {{tweet.retweets_count
+                        || '0'
+                        | humanNumbers: 2}}
+                    </div>
+                    <div (click)="likesCount(tweet.id);tweet.liked = !tweet.liked; tweet.likes_count = tweet.liked ? tweet.likes_count + 1 :  tweet.likes_count - 1"
+                        class="tweet-control-item hover:text-main-love" title="Like">
+                        <i [ngClass]="{'text-main-love fa-solid': tweet.liked == true}"
+                            class="fa-regular fa-heart  sm:p-2 p-1 rounded-full hover:bg-pink-200"></i>
+                        {{tweet.likes_count
+                        ||
+                        '0' |
+                        humanNumbers: 2}}
+                    </div>
+                    <div class="tweet-control-item-special hover:text-main-blue_100" title="Analytics"><i
+                            class="fa-solid fa-chart-simple hover:bg-blue-100 sm:p-2 p-1 rounded-full"></i>
+                        {{tweet.views_count
+                        || '0'
+                        | humanNumbers: 2}}
+                    </div>
+                    <div class="tweet-control-item hover:text-main-blue_100" title="Share">
+                        <i class="hover:bg-blue-100 sm:p-2 p-1 rounded-full fa-solid fa-arrow-up-from-bracket"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ==================I'm Here ,Replaaay Test Design============ -->
+            <div *ngIf="showReplies">
+                <app-reply [replies]="tweet.replies"></app-reply>
+            </div>
+            <!-- =======================Replay End============== -->
+            <!-- <div *ngIf="showRetweets">
+                <app-tweet-shared  [tweet]="tweet"> </app-tweet-shared>
+            </div> -->
+        </div>
+      </div>
+
+      <!-- if not a retweet -->
+      <ng-template #tweetBlock>
         <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
         <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
             title="More">
@@ -120,9 +227,16 @@
                 <app-reply [replies]="tweet.replies"></app-reply>
             </div>
             <!-- =======================Replay End============== -->
+            <!-- <div *ngIf="showRetweets">
+                <app-tweet-shared  [tweet]="tweet"> </app-tweet-shared>
+            </div> -->
         </div>
+      </ng-template>
     </div>
 </div>
+
+
+
 
 <!-- infinite scroll loading -->
 <div *ngIf="!isLoadingDone && tweets && tweets.length;else loadingFinish">

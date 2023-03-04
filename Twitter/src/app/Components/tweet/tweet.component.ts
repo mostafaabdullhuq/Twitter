@@ -51,7 +51,6 @@ export class TweetComponent implements OnInit {
 
     this.authService.getUser().subscribe({
       next: (data: any) => {
-        console.log(data);
         this.user = data;
       },
       error: (err: any) => {
@@ -131,4 +130,5 @@ export class TweetComponent implements OnInit {
   @Input() tweets: any;
   @Input() showReplies: any;
   @Input() isLoadingDone: any = true;
+  @Input() showRetweets: any;
 }

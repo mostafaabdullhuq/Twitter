@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
+import { EventEmitter, Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
@@ -257,6 +257,15 @@ export class TweetsService {
   getMedia(username: any) {
     const accessToken = this.token.get();
     return this.httpClient.get(this.BASE_URL + `/${username}/media`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
+  getRetweets(username: any) {
+    const accessToken = this.token.get();
+    return this.httpClient.get(this.BASE_URL+`/${username}/retweets`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
