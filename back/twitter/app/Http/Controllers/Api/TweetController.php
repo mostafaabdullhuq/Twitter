@@ -43,6 +43,15 @@ class TweetController extends Controller
             $user = $this->formatter->formatUser($user);
             $user->followed_by = false;
 
+            // $retweets = $user->retweets()->latest()->get();
+            // $retweets = $this->formatter->formatTweets($retweets);
+            // foreach ($retweets as $key => $retweet) {
+            //     $retweetParent = $retweet->retweetable()->get()->first();
+            //     if ($retweetParent) {
+            //         $tweet = $this->formatter->formatTweet($retweetParent, $user->id);
+            //         $tweets[] = $tweet;
+            //     }
+            // }
             $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
 
             $arr = [];
@@ -62,16 +71,18 @@ class TweetController extends Controller
 
 
 
-    public function get_User_Retweets()
+    public function get_User_Retweets($username)
     {
-        $retweets = JWTAuth::user()->retweets()->latest()->get();
-        $user = JWTAuth::user();
+
+        $user = User::where('username', $username)->first();
+        $retweets = $user->retweets()->latest()->get();
         $user = $this->formatter->formatUser($user);
         return [
             'user' => $user,
             'retweets' => $retweets
         ];
     }
+    
 
 
     public function highestTweets($count)
@@ -88,7 +99,7 @@ class TweetController extends Controller
         $tweets = $this->formatter->formatTweets($tweets);
         return $tweets;
     }
-    
+
    //get user tweets and replies
     public function get_User_Replies($username)
     {

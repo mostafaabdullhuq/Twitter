@@ -49,7 +49,7 @@ class Tweet extends Model
 
     public function retweets()
     {
-        return $this->morphMany(Retweet::class, 'retweetable');
+        return $this->morphMany(Retweet::class, 'retweetable')->latest();
     }
 
     public function isRetweetedByUser($id)
