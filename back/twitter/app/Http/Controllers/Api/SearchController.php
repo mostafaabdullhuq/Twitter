@@ -72,6 +72,7 @@ class SearchController extends Controller
         $users = User::where('first_name', 'like', '%' . $query . '%')
             ->orWhere('username', 'like', '%' . $query . '%')
             ->orWhere('last_name', 'like', '%' . $query . '%')
+            ->limit(5)
             ->get();
         return $users;
     }
@@ -89,16 +90,15 @@ class SearchController extends Controller
         return $this->formatter->formatTweets($tweets);
     }
 
-    // public function searchHashtags($query)
-    // {
-    //     $tweets = Tweet::withAnyTags([$query])->get();
-    //     return $this->formatter->formatTweets($tweets);
-    // }
-
     public function searchTweetsByUser($query)
     {
-        $user = User::where('username', $query)->firstOrFail();
-        $tweets = $user->tweets;
+        $user = User::where('username', $query)->first();
+        if ($user) {
+            $tweets = $user->tweets;
+        }
+        else {
+            $tweets = [];
+        }
         return $tweets;
     }
 }
