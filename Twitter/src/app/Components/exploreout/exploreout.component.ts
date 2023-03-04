@@ -72,7 +72,7 @@ export class ExploreoutComponent {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = user != null;
-      this.googleAuthSDK();
+      // this.googleAuthSDK();
     });
 
     this.hashtagService.trending(7, 20).subscribe({
@@ -148,4 +148,4 @@ export class ExploreoutComponent {
 //       fjs?.parentNode?.insertBefore(js, fjs);
 //     })(document, 'script', 'google-jssdk');
 //   }
-// }
+ }

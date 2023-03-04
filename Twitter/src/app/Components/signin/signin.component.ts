@@ -33,6 +33,9 @@ export class SigninComponent implements OnInit {
     private authService: SocialAuthService,
     private httpClient: HttpClient
   ) {}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   onSubmit() {
     const postData = {
