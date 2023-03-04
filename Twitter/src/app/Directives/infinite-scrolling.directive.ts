@@ -9,7 +9,7 @@ export class InfiniteScrollingDirective {
   @HostListener('wheel', ['$event'])
   onScroll(event: any) {
     const element = event;
-    console.log(element);
+    // console.log(element);
 
     // if (element.scrollHeight - element.scrollTop === element.clientHeight) {
     // }

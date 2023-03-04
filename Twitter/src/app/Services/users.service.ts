@@ -4,110 +4,117 @@ import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
-
-  constructor(private httpClient:HttpClient, public token: TokenService) { }
+  constructor(private httpClient: HttpClient, public token: TokenService) {}
 
   private BASE_URL = 'http://127.0.0.1:8000/api/user';
-  index(){
+  index() {
     const accessToken = this.token.get();
 
-    return this.httpClient.get(this.BASE_URL +'/index',
-    {
+    return this.httpClient.get(this.BASE_URL + '/index', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    })
+    });
   }
-  getAllUsers(){
+  getAllUsers() {
     const accessToken = this.token.get();
 
-    return this.httpClient.get(this.BASE_URL +'/get-all',
-    {
+    return this.httpClient.get(this.BASE_URL + '/get-all', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    })
-  }    
-  
-  getAllFollowers(){
-    const accessToken = this.token.get();
-
-    return this.httpClient.get(this.BASE_URL +'/get-all-followers',
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-  }    
-  
-  getAllFollowings(){
-    const accessToken = this.token.get();
-
-    return this.httpClient.get(this.BASE_URL +'/get-all-followings',
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-  }  
-
-  getFollowings(){
-    const accessToken = this.token.get();
-
-    return this.httpClient.get(this.BASE_URL +'/get-followings',
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-  }  
-  getFollowers(){
-    const accessToken = this.token.get();
-
-    return this.httpClient.get(this.BASE_URL +'/get-followers',
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
+    });
   }
 
-  userFollowings(username:any){
+  getAllFollowers() {
     const accessToken = this.token.get();
 
-    return this.httpClient.get(this.BASE_URL +`/${username}/get-a-followings`,
-    {
+    return this.httpClient.get(this.BASE_URL + '/get-all-followers', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    })
-  }  
-  userFollowers(username:any){
+    });
+  }
+
+  getAllFollowings() {
     const accessToken = this.token.get();
 
-    return this.httpClient.get(this.BASE_URL +`/${username}/get-a-followers`,
-    {
+    return this.httpClient.get(this.BASE_URL + '/get-all-followings', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    })
-  }  
-  postFollow(id:number){
+    });
+  }
+
+  getFollowings() {
     const accessToken = this.token.get();
 
-    return this.httpClient.post(this.BASE_URL +'/follow-unfollow',
-    {
-      following_id : id,
-    }
-    ,
-    {
+    return this.httpClient.get(this.BASE_URL + '/get-followings', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    })
+    });
+  }
+  getFollowers() {
+    const accessToken = this.token.get();
 
+    return this.httpClient.get(this.BASE_URL + '/get-followers', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+
+  userFollowings(username: any) {
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(
+      this.BASE_URL + `/${username}/get-a-followings`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  }
+  userFollowers(username: any) {
+    const accessToken = this.token.get();
+
+    return this.httpClient.get(this.BASE_URL + `/${username}/get-a-followers`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
+  postFollow(id: number) {
+    const accessToken = this.token.get();
+
+    return this.httpClient.post(
+      this.BASE_URL + '/follow-unfollow',
+      {
+        following_id: id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  }
+  deleteUser() {
+    const accessToken = this.token.get();
+
+    return this.httpClient.delete(
+      this.BASE_URL + '/delete',
+
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
   }
 }

@@ -106,7 +106,7 @@ export class ProfileComponent implements OnInit {
             // this.notAUser = false;
             this.tweets = data.tweets;
             this.user = data.user;
-            console.log(this.user);
+            // console.log(this.user);
           },
           error: (err) => {
             this.notAUser = true;

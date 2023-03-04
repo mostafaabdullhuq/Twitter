@@ -24,7 +24,7 @@ export class BookmarksComponent {
   ngOnInit(): void {
     this.userService.getBookmarkedTweets().subscribe({
       next: (data: any) => {
-        console.log(data);
+        // console.log(data);
 
         this.tweets = data.tweets;
         this.user = data.user;

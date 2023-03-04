@@ -76,7 +76,7 @@ export class TweetDetailsComponent implements OnInit {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
-        console.log('Added to db successfully');
+        // console.log('Added to db successfully');
       },
       error: (err) => {
         this.error = err;
@@ -90,9 +90,9 @@ export class TweetDetailsComponent implements OnInit {
     this.httpClient.postRetweet(tweetID, textValue).subscribe({
       next: (data) => {
         this.tweet = data;
-        console.log(this.tweet);
+        // console.log(this.tweet);
 
-        console.log('Tweet shared successfully');
+        // console.log('Tweet shared successfully');
       },
       error: (err) => {
         this.error = err;
@@ -122,7 +122,7 @@ export class TweetDetailsComponent implements OnInit {
         } else {
           nextIndex = index - 1 < 0 ? tweet.media.length - 1 : index - 1;
         }
-        console.log(nextIndex);
+        // console.log(nextIndex);
         container.children[0].children[0].src =
           tweet.media[nextIndex].media_url;
 

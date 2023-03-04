@@ -82,18 +82,18 @@ export class SigninComponent implements OnInit {
       .then((accessToken) => (this.accessToken = accessToken));
   }
 
-  getGoogleCalendarData(): void {
-    if (!this.accessToken) return;
+  // getGoogleCalendarData(): void {
+  //   if (!this.accessToken) return;
 
-    this.httpClient
-      .get('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
-        headers: { Authorization: `Bearer ${this.accessToken}` },
-      })
-      .subscribe((events) => {
-        alert('Look at your console');
-        console.log('events', events);
-      });
-  }
+  //   this.httpClient
+  //     .get('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+  //       headers: { Authorization: `Bearer ${this.accessToken}` },
+  //     })
+  //     .subscribe((events) => {
+  //       alert('Look at your console');
+  //       console.log('events', events);
+  //     });
+  // }
 
   refreshToken(): void {
     this.authService.refreshAccessToken(GoogleLoginProvider.PROVIDER_ID);

@@ -31,7 +31,7 @@ export class TweetComponent implements OnInit {
   public observer: any = new IntersectionObserver((entries: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
-        console.log('new tweet');
+        // console.log('new tweet');
       }
     });
   });
@@ -80,7 +80,7 @@ export class TweetComponent implements OnInit {
   likesCount(tweetID: any) {
     this.httpClient.getLikesCount(tweetID).subscribe({
       next: (data: any) => {
-        console.log(data);
+        // console.log(data);
       },
       error: (err) => {
         console.log(err);
@@ -115,13 +115,35 @@ export class TweetComponent implements OnInit {
         } else {
           nextIndex = index - 1 < 0 ? tweet.media.length - 1 : index - 1;
         }
-        console.log(nextIndex);
+        // console.log(nextIndex);
         container.children[0].children[0].src =
           tweet.media[nextIndex].media_url;
 
         container.children[0].children[0].src =
           tweet.media[nextIndex].media_url;
       }
+    });
+  }
+
+  handleTweetPopup(tweet: any) {
+    console.log('clicked');
+
+    // this.popup = true;
+    this.tweets.forEach((element: any, index: any) => {
+      if (element.id != tweet.id) {
+        element.isPopupShown = false;
+      }
+    });
+  }
+
+  deleteTweet(tweet: any) {
+    this.httpClient.deleteTweetById(tweet.id).subscribe({
+      next: (data) => {
+        this.tweets = this.tweets.filter((item: any) => item.id != tweet.id);
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 

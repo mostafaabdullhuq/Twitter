@@ -1,10 +1,25 @@
-<div *ngIf="tweets && tweets.length  > 0;else noTweetBlock" class="scroll-smooth">
+<div *ngIf="tweets && tweets.length > 0;else noTweetBlock" class="scroll-smooth">
     <div class="tweet relative " *ngFor="let tweet of tweets">
         <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
-        <div class="absolute z-10 justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
+        <div (click)="tweet.isPopupShown = !tweet.isPopupShown;handleTweetPopup(tweet)"
+            class="absolute z-50  justify-center items-center  transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
             title="More">
             <i
-                class="fa-solid fa-ellipsis text-lg dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
+                class="fa-solid fa-ellipsis text-lg ove dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
+            <!-- *ngIf="tweet.isPopupShown" -->
+            <div *ngIf="tweet?.isPopupShown"
+                class="absolute top-8 -right-5 bg-white  mt-1  flex-col dark:border-dark-gray_0 border-gray-300 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl overflow-hidden  dark:bg-black min-w-[150px] flex items-center justify-center">
+                <div *ngIf="tweet.user.id == user.id" (click)="tweet.isPopupShown = false; deleteTweet(tweet);"
+                    class="flex cursor-pointer text-md  border-b border-gray-100 dark:border-dark-gray_0 py-3 w-full overflow-hidden gap-3 text-red-500 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white items-center px-4">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <div>Delete</div>
+                </div>
+                <div
+                    class="flex cursor-pointer text-md border-gray-100 dark:border-dark-gray_0 py-3 w-full overflow-hidden gap-3 font-semibold transition-colors hover:bg-gray-400 hover:bg-opacity-20 dark:text-white items-center px-4">
+                    <i class="fa-solid fa-ban"></i>
+                    <div class="dotted-text">Block @{{user.username}}</div>
+                </div>
+            </div>
         </div>
         <!-- user image -->
         <div routerLink="/{{tweet.user.username}}"
