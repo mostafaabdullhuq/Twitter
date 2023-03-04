@@ -132,6 +132,7 @@ export class TweetComponent implements OnInit {
     this.tweets.forEach((element: any, index: any) => {
       if (element.id != tweet.id) {
         element.isPopupShown = false;
+        element.isBookmarkPopupShown = false;
       }
     });
   }

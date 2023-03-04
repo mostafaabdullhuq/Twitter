@@ -156,14 +156,14 @@
         </div>
     </div>
     <div class="tweets">
-        <app-tweet [tweets]="tweets" [showReplies]="show" ></app-tweet>
+        <app-tweet [tweets]="tweets" [showReplies]="show"></app-tweet>
     </div>
     <!-- <app-modal [tweets]="tweets"></app-modal> -->
     <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
 
 </div>
 <!-- <div> -->
-  <!-- <app-tweet-shared  [tweet]="tweet" [showRetweets]="showRetweet" > </app-tweet-shared> -->
+<!-- <app-tweet-shared  [tweet]="tweet" [showRetweets]="showRetweet" > </app-tweet-shared> -->
 <!-- </div> -->
 
 <!--! -----------right---------- -->
@@ -175,7 +175,7 @@
     <app-message-popup></app-message-popup>
 </div>
 
-<ng-template  #loadingBlock>
+<ng-template #loadingBlock>
     <div *ngIf="!notAUser && !user;else loosing"
         class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
         <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
@@ -186,8 +186,8 @@
 </ng-template>
 
 <ng-template #loosing>
-<app-load-profile
-    class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-      >
-</app-load-profile>
+    <app-load-profile
+        class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+        >
+    </app-load-profile>
 </ng-template>

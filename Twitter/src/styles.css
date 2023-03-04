@@ -17,7 +17,7 @@
 }
 
 .tweet-2 {
-  @apply  dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
+  @apply dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
 }
 
 .tweet-shared {

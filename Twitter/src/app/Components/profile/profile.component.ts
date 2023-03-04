@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
   public viewType = 1;
   public notAUser = false;
   show = false;
-  showRetweet =false;
+  showRetweet = false;
   ngOnInit(): void {
     this.notAUser = false;
     // this.myRoute.params.subscribe((res:any)=>{this.username = res.user});
@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit {
         next: (data: any) => {
           this.loggedUser = data;
           // this.notAUser = false;
+          console.log(data);
         },
         error: (err) => {
           // this.notAUser=true;
@@ -74,7 +75,6 @@ export class ProfileComponent implements OnInit {
             console.log(err);
           },
         });
-
       } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
         this.show = false;
         // this.showRetweet =false;
@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
         });
       } else {
         this.show = false;
-        this.showRetweet =true;
+        this.showRetweet = true;
         this.notAUser = false;
         this.tweetsClient.getAuthedTweets(this.username).subscribe({
           next: (data: any) => {
@@ -115,14 +115,15 @@ export class ProfileComponent implements OnInit {
 
             if (this.tweets?.length) {
               // merge arrays
-              this.tweets = [...data.tweets, ...this.tweets]
+              this.tweets = [...data.tweets, ...this.tweets];
             } else {
               this.tweets = data.tweets;
             }
 
             // this.tweets = data.tweets;
             this.user = data.user;
-            // console.log(this.user);
+            console.log('test');
+            console.log(this.user);
           },
           error: (err) => {
             this.notAUser = true;
@@ -133,7 +134,7 @@ export class ProfileComponent implements OnInit {
           next: (data: any) => {
             if (this.tweets?.length) {
               // merge arrays
-              this.tweets = [...data.retweets, ...this.tweets]
+              this.tweets = [...data.retweets, ...this.tweets];
             } else {
               this.tweets = data.retweets;
             }
@@ -151,14 +152,14 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
-
   }
 
   follow(id: any) {
     let user_id = +id;
-
     this.userService.postFollow(user_id).subscribe({
-      next: (data) => {},
+      next: (data) => {
+        console.log(data);
+      },
       error: (err) => {
         console.log(err);
       },
@@ -175,5 +176,4 @@ export class ProfileComponent implements OnInit {
   logoutPopup() {
     this.popup ? (this.popup = false) : (this.popup = true);
   }
-
 }
