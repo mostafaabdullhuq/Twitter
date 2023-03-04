@@ -1,7 +1,7 @@
-import { Component , OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SearchService } from 'src/app/Services/search.service';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/Services/users.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
 import { HashtagService } from 'src/app/Services/hashtag.service';
@@ -12,7 +12,7 @@ import { query } from '@angular/animations';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
   constructor(
@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private tokenService: TokenService,
     private searchService: SearchService,
+    private myRouter: Router
   ) {
     this.user = this.tokenService.getUser();
   }
@@ -28,41 +29,75 @@ export class SearchComponent implements OnInit {
   isFocused: boolean = false;
   public searchResult: any = null;
   public searchType: any = null;
-
+  public searchQuery: any = null;
 
   ngOnInit(): void {}
 
-  onChange(event:any) :void {
+  onChange(event: any): void {
     let value = event.target.value;
-    if (value && value.replace("#","").length){
-    if (value.startsWith('#')) {
-      value = value.replace('#','');
-      this.searchType = 'hashtags';
+    if (
+      value &&
+      value.replace('#', '').length &&
+      value.replace('@', '').length
+    ) {
+      if (value.startsWith('#')) {
+        value = value.replace('#', '');
+        this.searchType = 'hashtags';
+      } else {
+        this.searchType = 'users';
+      }
+      if (this.searchType == 'hashtags' || this.searchType == 'users') {
+        this.searchService.search(this.searchType, value).subscribe({
+          next: (data: any) => {
+            this.searchResult = data;
+          },
+          error: (err: any) => {
+            console.log(err);
+          },
+        });
+      }
+    } else {
+      this.searchResult = null;
     }
-    else {
-      this.searchType = 'users';
-    }
-    this.searchService.search(this.searchType, value ).subscribe({
-      next: (data: any) => {
-        this.searchResult = data;
-        console.log(data);
-
-      },
-      error: (err: any) => {
-        console.log(err);
-
-      },
-    });
-  } else {
-    this.searchResult = null;
   }
-}
 
-onFocus() {
-  this.isFocused = true;
-}
-onBlur(){
-  this.isFocused = false;
+  onFocus() {
+    this.isFocused = true;
+  }
+  // onBlur() {
+  //   this.isFocused = false;
+  // }
 
-}
+  handleSearchEnter(event: any) {
+    this.isFocused = true;
+    this.searchQuery = event.target.value;
+    event.preventDefault();
+    if (event.code == 'NumpadEnter' || event.code == 'Enter') {
+      this.isFocused = false;
+
+      if (
+        this.searchQuery &&
+        this.searchQuery.replace('#', '').length &&
+        this.searchQuery.replace('@', '').length
+      ) {
+        if (this.searchQuery.startsWith('#')) {
+          this.myRouter.navigate(['/search'], {
+            queryParams: {
+              type: 'hashtag_tweets',
+              q: this.searchQuery.replace('#', ''),
+            },
+          });
+        } else {
+          this.myRouter.navigate(['/search'], {
+            queryParams: { type: 'tweets', q: this.searchQuery },
+          });
+        }
+      }
+    }
+    if (event.code == 'Escape') {
+      this.searchResult = null;
+      this.isFocused = false;
+      event.target.value = '';
+    }
+  }
 }

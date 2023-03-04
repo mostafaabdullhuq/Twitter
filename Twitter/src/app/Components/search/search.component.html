@@ -1,63 +1,87 @@
 <!-- !-----search------ -->
 <div class="relative mt-2 mb-2">
-  <i
-    class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"
-  ></i>
-  <input
-    type="text"
-    (input)="onChange($event)"
-    (focus)="onFocus()"
-    (blur)="onBlur()"
+  <i class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"></i>
+  <input (keyup)="handleSearchEnter($event)" type="text" (input)="onChange($event)" (focus)="onFocus()"
     class="w-full bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 p-6 dark:bg-dim-400 focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal h-9 pl-12 text-md rounded-full dark:text-white placeholder:text-gray-500"
-    placeholder="Search Twitter"
-  />
-</div>
-<!-- <div *ngIf="isFocused " >Hi!</div> -->
+    placeholder="Search Twitter" />
+  <!-- !-----search result block------ -->
+  <div *ngIf="searchType == 'users';else searchHashtags">
+    <div *ngIf="searchType && searchResult && searchResult?.length && isFocused;else noResult"
+      class="bg-white absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
+      <div routerLink="/search" [queryParams]="{ type: 'user_tweets', q: u.username }"
+        class="right-follow-search gap-2 w-[100%] px-2 max-w-[100%] overflow-hidden " *ngFor="let u of searchResult">
+        <!--! -----user info block ---- -->
+        <div routerLink="/search" [queryParams]="{ type: 'user_tweets', q: u.username }" class="flex max-w-full w-full">
+          <img routerLink="/{{ u.username }}" src="{{
+                u.profile_picture
+                  ? u.profile_picture
+                  : './../../../../assets/images/default_profile.png'
+              }}" class="twitter-user-img" />
+          <div class="ml-3 text-sm w-full flex flex-col gap-1  max-w-[100%] dotted-text">
+            <div routerLink="/{{ u.username }}" class="flex max-w-full w-full">
+              <h5
+                class="text-gray-800 text-sm h-fit -my-1 dark:text-white font-bold max-w-[100%] hover:underline dotted-text">
+                {{ u.first_name }} {{ u.last_name }}
+              </h5>
+            </div>
 
-<div
-  *ngIf="searchType && searchResult && searchResult?.length"
-  class="bg-white rounded-lg drop-shadow-lg dark:bg-dark-gray_0 flex items-center justify-center dark:bg-opacity-60 mt-0 mb-5 overflow-hidden"
->
-  <div class="w-full" *ngIf="searchType == 'users'">
-    <div
-      routerLink="/search"
-      [queryParams]="{ type: 'user_tweets', q: u.username }"
-      class="right-follow gap-2 w-[100%]"
-      *ngFor="let u of searchResult"
-    >
+            <p routerLink="/search" [queryParams]="{ type: 'user_tweets', q: u.username }"
+              class="text-gray-500 h-fit text-sm -mt-1 dark:text-dark-gray_300 max-w-[100%] dotted-text">
+              @{{ u.username }}
+            </p>
+            <p routerLink="/search" [queryParams]="{ type: 'user_tweets', q: u.username }"
+              class="text-sm break-words -my-1 max-w-[100%]  h-fit  dotted-text dark:text-white">
+              {{ u.bio }}
+            </p>
+          </div>
+        </div>
+        <!-- ! --------follow button ---- -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<ng-template #searchHashtags>
+  <div *ngIf="searchType && searchResult && searchResult?.length && isFocused;else noResult"
+    class="bg-white absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
+    <div routerLink="/search" [queryParams]="{'type':'hashtag_tweets', 'q': hashtag.name}"
+      class="right-follow-search gap-2 w-[100%] px-2 max-w-[100%] overflow-hidden "
+      *ngFor="let hashtag of searchResult">
+      <div routerLink="/search" [queryParams]="{'type':'hashtag_tweets', 'q': hashtag.name}">
+        <div class="right-trend">
+          <h4 dir="auto" class="font-bold text-gray-700 dark:text-white">#{{hashtag.name}}</h4>
+          <p class="text-sm text-gray-600 dark:text-dark-gray_300">{{hashtag.tweets_count | humanNumbers}}
+            Tweets
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+<!-- !-----no result block------ -->
+<ng-template #noResult>
+  <div routerLink="/search" [queryParams]="{ type: 'tweets', q: searchQuery }"
+    *ngIf="searchType && searchResult && !searchResult?.length && isFocused"
+    class="bg-white absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
+    <div routerLink="/search" [queryParams]="{ type: 'tweets', q: searchQuery }"
+      class="right-follow-search gap-2 w-[100%] px-2 max-w-[100%] overflow-hidden ">
       <!--! -----user info block ---- -->
-      <div routerLink="/{{ u.username }}" class="flex">
-        <img
-          src="{{
-            u.profile_picture
-              ? u.profile_picture
-              : './../../../../assets/images/default_profile.png'
-          }}"
-          class="twitter-user-img"
-          alt=""
-        />
-        <div class="ml-3 text-xs w-full">
-          <div class="flex max-w-full w-full -mb-1 mt-1">
-            <h5
-              class="text-gray-800 text-xs h-fit dark:text-white font-bold max-w-[100%] hover:underline dotted-text"
-            >
-              {{ u.first_name }} {{ u.last_name }}
+      <div class="flex max-w-full w-full">
+        <div class="ml-3 text-sm w-full flex flex-col gap-1  max-w-[100%] dotted-text">
+          <div class="flex max-w-full w-full">
+            <h5 class="text-gray-800 py-4 text-sm h-fit -my-1 dark:text-white font-semibold max-w-[100%]  dotted-text">
+              <!-- creative no result text -->
+              Search for {{searchQuery}}
             </h5>
           </div>
-
-          <p
-            class="text-gray-500 h-fit text-xs dark:text-dark-gray_300 max-w-[100%] dotted-text"
-          >
-            @{{ u.username }}
-          </p>
-          <p
-            class="mt-1 text-xs h-fit max-w-[100%] dotted-text dark:text-white"
-          >
-            {{ u.bio }}
-          </p>
         </div>
       </div>
       <!-- ! --------follow button ---- -->
     </div>
   </div>
-</div>
+</ng-template>

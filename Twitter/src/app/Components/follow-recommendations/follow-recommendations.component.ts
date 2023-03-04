@@ -15,9 +15,6 @@ export class FollowRecommendationsComponent implements OnInit {
     this.myService.getAllUsers().subscribe({
       next: (data) => {
         this.users = data;
-        console.log('all users');
-
-        console.log(data);
       },
       error: (err) => {
         err;
@@ -27,7 +24,6 @@ export class FollowRecommendationsComponent implements OnInit {
     this.myService.getFollowings().subscribe({
       next: (data) => {
         this.followings = data;
-        console.log(data);
       },
       error: (err) => {
         err;
@@ -44,9 +40,7 @@ export class FollowRecommendationsComponent implements OnInit {
     let user_id = +id;
 
     this.myService.postFollow(user_id).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
+      next: (data) => {},
       error: (err) => {
         console.log(err);
       },
