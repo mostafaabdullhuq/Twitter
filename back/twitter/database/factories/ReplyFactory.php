@@ -18,7 +18,7 @@ class ReplyFactory extends Factory
     {
         return [
             'text' => $this->faker->sentence,
-            'repliable_type' => 'App\Models\Tweet',
+            'repliable_type' =>  'App\Models\Tweet',
             'repliable_id' => $this->faker->numberBetween(1, 1000),
             'user_id' => $this->faker->numberBetween(1, 50),
         ];

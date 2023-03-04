@@ -15,6 +15,7 @@ class FormatController extends Controller
 
     public function formatTweet($tweet, $userID = 0)
     {
+
         // add user object to the tweet object and delete security sensitive information
         $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
         $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
@@ -38,6 +39,7 @@ class FormatController extends Controller
             }
         }
         $replies = $userID ? $tweet->replyWithUserID($userID) : $tweet->replies;
+        // convert replies to array
         foreach ($replies as $reply) {
             $reply->user = $this->formatUser($reply->user);
             unset($reply->repliable_type);
@@ -81,9 +83,17 @@ class FormatController extends Controller
         unset($tweet->mentions);
         unset($tweet->tags);
         $tweet->mentions = $mentions;
-        $tweet->replies = $replies;
         $tweet->tags = $tags;
-
+        try {
+            $tweet->replies = $replies
+                ->sortByDesc('likes_count')
+                ->sortByDesc('replies_count')
+                ->sortByDesc('views_count')
+                ->sortByDesc('created_at')
+                ->values();
+        } catch (\Exception $e) {
+            $tweet->replies = $replies;
+        }
         return $tweet;
     }
 
@@ -131,7 +141,6 @@ class FormatController extends Controller
         $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
         $user->verified = User::find($user->id)->verificationStatus();
         $user->followers = $user->followers()->get()->pluck('id')->toArray();
-
         unset(
             $user->email_verified_at,
             $user->password,
@@ -181,4 +190,28 @@ class FormatController extends Controller
 
         return $formattedHashtags;
     }
+
+
+    public function formatNotifications($notifications) {
+        foreach ($notifications as $notification) {
+            $data = $notification->data;
+            $tweet = $data["id"] ? Tweet::find($data["id"]) : null;
+            $user = $data["user"]? User::find($data["user"]) : null;
+            if ($tweet) {
+                $tweet = $this->formatTweet($tweet);
+            }
+            if ($user) {
+                $user = $this->formatUser($user);
+            }
+            $data["tweet"] = $tweet;
+            $data["user"] = $user;
+            $notification->data = $data;
+            unset($notification->notifiable_type,
+            $notification->notifiable_id,$notification->type);
+      }
+        return $notifications;
+    }
+
+
 }
+

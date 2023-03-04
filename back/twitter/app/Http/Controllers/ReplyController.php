@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use JWTAuth;
 use App\Http\Controllers\Api\FormatController;
-
+use App\Http\Controllers\NotificationController;
+use App\Notifications\OffersNotification;
+use Illuminate\Notifications\Notification;
 
 
 
@@ -54,6 +56,9 @@ class ReplyController extends Controller
                     'user_id' => $user->id,
                 ]
             );
+            $user = $tweet->user;
+            $tweet = Tweet::latest()->first();
+            $user->notify(new OffersNotification($tweet, 'likeReply'));
         }
         $reply = $this->formatter->formatReply($reply);
         return $reply;
