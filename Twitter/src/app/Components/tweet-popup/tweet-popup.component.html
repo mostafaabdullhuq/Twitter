@@ -1,0 +1,129 @@
+<div
+    class="absolute w-full h-full top-0 left-0 bottom-0 right-0 bg-black bg-opacity-40 dark:bg-opacity-40 z-50 flex flex-col items-center justify-center dark:bg-gray-200">
+    <div
+        class="bg-white dark:bg-black p-6 rounded-2xl max-w-[700px] flex flex-col w-[90%] scrollbar-hide overflow-auto  max-h-[90%]">
+        <!-- close popup -->
+        <div class="flex justify-start">
+            <i (click)="closePopup()" class="fa-solid fa-times cursor-pointer mb-6 dark:text-white"></i>
+        </div>
+        <form *ngIf="popupType == 1; else tweetBlock" [formGroup]="retweetForm" (ngSubmit)="shareTweet()">
+            <div class="flex flex-col w-full">
+                <div class="flex py-4 h-fit">
+                    <img class="twitter-user-img" src="{{
+                      user.profile_picture
+                        ? user.profile_picture
+                        : './../../../../assets/images/default_profile.png'
+                    }}" alt="{{ user.first_name + ' ' + user.last_name }}" />
+
+                    <div data-before="Add your reply." dir="auto"
+                        class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid max-w-[100%]">
+                        <pre #tweetBox dir="auto"
+                            class="break-words font-normal scrollbar-hide overflow-x-hidden outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
+                            [innerHTML]="formatTweetText(retweetForm.value.text)"></pre>
+                        <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
+                            class="font-normal tracking-tight scrollbar-hide outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0 resize-none overflow-x-hidden bg-transparent whitespace-pre-wrap text-left">
+                    </textarea>
+                    </div>
+                </div>
+
+                <app-tweet-shared [tweet]="tweet">
+                </app-tweet-shared>
+                <!-- tweet button -->
+                <div class="flex py-2.5 justify-end px-6">
+                    <input type="submit" [disabled]="!retweetForm.valid"
+                        class="bg-main-blue_100 cursor-pointer disabled:bg-opacity-60 disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100"
+                        value="Tweet" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<ng-template #tweetBlock>
+    <form [formGroup]="tweetForm" (ngSubmit)="tweetSubmit()" enctype="multipart/form-data">
+        <div class=" flex flex-col w-full dark:border-dark-gray_0 border-gray-100">
+            <div class="flex p-4 h-fit max-w-full">
+                <img class="twitter-user-img" routerLink="/{{user.username}}"
+                    src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}" alt="" />
+
+                <!-- custom textarea -->
+                <div data-before="What's happening?" dir="auto" class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg  tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid
+                            max-w-[100%]">
+                    <pre #tweetBox dir="auto"
+                        class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
+                        [innerHTML]="formatTweetText(tweetForm.value.text)">
+                            </pre>
+                    <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
+                        class="font-normal tracking-tight scrollbar-hide  outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0  resize-none overflow-x-hidden    bg-transparent  whitespace-pre-wrap  text-left">
+                            </textarea>
+                </div>
+            </div>
+
+            <!-- new tweet media -->
+            <div *ngIf="tweetMedia.length">
+                <div
+                    class="media border h-[500px] flex  bg-white relative border-light-gray dark:border-dark-gray_0  w-[90%] mb-3 max-h-[500px] mt-2 rounded-xl m-auto overflow-hidden">
+                    <div class="flex  overflow-hidden h-full w-full">
+                        <img #mediaPreview *ngIf="currentMediaType == 1" src="{{currentMediaSrc}}"
+                            class=" dark:border-dark-gray_0  border border-light-gray w-full object-cover object-center"
+                            alt="">
+                        <video #mediaPreview *ngIf="currentMediaType == 2" controls
+                            class="dark:border-dark-gray_0  border border-light-gray  w-full object-cover object-center">
+                            <source src="{{currentMediaSrc}}" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+
+                    <div class="controls">
+                        <div *ngIf="tweetMedia.length > 1" (click)="handleMedia(1)"
+                            class="absolute right-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                            <i class="fa-solid fa-chevron-right text-xl p-2 text-center"></i>
+                        </div>
+                        <div *ngIf="tweetMedia.length > 1" (click)="handleMedia(2)"
+                            class="absolute left-3 top-[50%] translate-y-[-50%] bg-main-black_100 bg-opacity-40 hover:bg-opacity-100 transition-colors text-white  cursor-pointer rounded-full  w-8 h-8  z-10 flex items-center justify-center ">
+                            <i class="fa-solid fa-chevron-left text-xl p-2 text-center"></i>
+                        </div>
+                        <div class="absolute hover:bg-dark-black_100 transition-opacity top-2 left-2 p-2 cursor-pointer rounded-full w-8 h-8 items-center justify-center text-white bg-black bg-opacity-90 flex"
+                            (click)="removeMedia()">
+                            <i class="fa-solid fa-times"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- new tweet controls -->
+            <div class="controls relative w-full grid grid-cols-2">
+                <!-- tweet icons -->
+                <div class="flex p-4 sm:pl-16 pl-6">
+                    <a class="text-main-blue cursor-pointer  relative overflow-hidden  w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20"
+                        title="Media">
+                        <!-- media upload -->
+                        <input type="file" multiple (change)="inputChange($event)" accept="image/*,video/*"
+                            formControlName="media" class="absolute opacity-0 left-0 top-0 bottom-0  right-0">
+                        <i class="w-full fa-regular fa-image text-lg"></i>
+                    </a>
+                    <a href=""
+                        class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
+                        title="Poll">
+                        <i class="fa-solid fa-list-ul w-full text-lg"></i>
+                    </a>
+                    <a href=""
+                        class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0"
+                        title="Schedule a tweet">
+                        <i class="fa-regular fa-calendar w-full"></i>
+                    </a>
+                    <a href="" title="Emojis"
+                        class="text-main-blue dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 w-8 h-8 flex items-center justify-center text-center rounded-full hover:bg-main-blue_0">
+                        <i class="w-full fa-regular fa-face-smile text-lg"></i>
+                    </a>
+                </div>
+                <!-- tweet button -->
+                <div class="flex py-2.5 justify-end px-6">
+                    <input type="submit" value="Tweet" [disabled]="!tweetForm.value.text && !tweetForm.value.media"
+                        class="bg-main-blue_100 mb-1 cursor-pointer disabled:bg-opacity-60  disabled:bg-main-blue_100 create_tweet hover:bg-main-blue_200 text-white px-8 py-2 rounded-full font-semibold hover:bg-main-blue_1 transition-colors dark:bg-main-blue_100 ">
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

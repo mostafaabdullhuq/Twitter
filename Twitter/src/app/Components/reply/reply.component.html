@@ -15,7 +15,7 @@
             <div class="flex overflow-hidden">
                 <div class="title flex items-center font-bold text-gray-800 dark:text-white w-auto max-w-[50%]">
                     <p routerLink="/{{reply.user.username}}" class="cursor-pointer dotted-text h-6 hover:underline">
-                        {{reply.user.username}}</p>
+                        {{reply.user.first_name}} {{reply.user.last_name}}</p>
                     <svg *ngIf="reply.user.verified" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         strokeWidth="{1.5}" stroke="currentColor"
                         class="w-6 min-w-[25px] text-white fill-main-blue_100">

@@ -10,7 +10,7 @@ import { Component, OnInit  } from '@angular/core';
 export class MessagesComponent implements OnInit  {
 
   username = 'username';
-  messages:string[]  = [];
+  messages:string[] = [];
   message = '';
   // da:any;
   constructor(private http:HttpClient){}

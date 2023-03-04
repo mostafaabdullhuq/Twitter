@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   public isInRequestReset: boolean = false;
   public isInResponseReset: boolean = false;
   public popup = false;
+  public isTweetPopupShown = false;
   public user: any;
   username: any;
   constructor(
@@ -100,7 +101,6 @@ export class AppComponent implements OnInit {
       if (elementClass == 'hashtag' || element.className === 'mention') {
         const text = element?.getAttribute('data')?.slice(1);
         event.preventDefault();
-
         if (elementClass == 'hashtag') {
           this.router.navigate(['/search'], {
             queryParams: { type: 'hashtag_tweets', q: text },

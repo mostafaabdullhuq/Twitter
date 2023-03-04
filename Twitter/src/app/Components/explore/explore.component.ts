@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HashtagService } from 'src/app/Services/hashtag.service';
 import { SearchService } from 'src/app/Services/search.service';
@@ -10,7 +10,7 @@ import { UsersService } from 'src/app/Services/users.service';
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.css'],
 })
-export class ExploreComponent implements OnInit {
+export class ExploreComponent implements OnInit, AfterViewChecked {
   constructor(
     private hashtagService: HashtagService,
     public myRouter: ActivatedRoute,
@@ -18,18 +18,56 @@ export class ExploreComponent implements OnInit {
     private usersService: UsersService,
     private searchService: SearchService
   ) {}
+  ngAfterViewChecked(): void {}
 
   public hashtags: any;
-  public tweets: any;
+  public tweets: any = null;
   public users: any;
   public isInExplore = true;
   public searchType: any;
   public searchQuery: any;
-
+  public isNoParams: any = false;
   ngOnInit(): void {
-    console.log('in explore');
+    this.myRouter.queryParams.subscribe((queryParams: any) => {
+      if (
+        queryParams.type &&
+        queryParams.q &&
+        this.myRouter.snapshot.routeConfig?.path?.split('/')[0] == 'search'
+      ) {
+        this.tweets = null;
+        this.users = null;
+        this.hashtags = null;
+        this.searchType = queryParams['type'] || null;
+        let query = queryParams['q'] || null;
+        // if in search page with hashtag param
+        if (this.searchType && query) {
+          this.searchQuery = query;
+          this.searchService.search(this.searchType, query).subscribe({
+            next: (data: any) => {
+              if (this.searchType == 'users') this.users = data?.users;
+              else if (this.searchType == 'hashtags') {
+                this.hashtags = data;
+              } else if (this.searchType == 'tweets') {
+                this.tweets = data;
+              } else if (this.searchType == 'hashtag_tweets')
+                this.tweets = data?.tweets;
+              else if (this.searchType == 'user_tweets') this.tweets = data;
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        } else {
+          // no type or query
+        }
+        this.isInExplore = false;
+      } else {
+        this.isNoParams = true;
+      }
+    });
 
     let urlpath = this.myRouter.snapshot.routeConfig?.path?.split('/')[0];
+
     // if in explore page without any param
     if (urlpath == 'explore') {
       this.isInExplore = true;
@@ -73,11 +111,13 @@ export class ExploreComponent implements OnInit {
         this.searchService.search(this.searchType, query).subscribe({
           next: (data: any) => {
             if (this.searchType == 'users') this.users = data?.users;
-            else if (this.searchType == 'hashtags')
-              this.hashtags = data?.hashtags;
-            else if (this.searchType == 'tweets') this.tweets = data?.tweets;
-            else if (this.searchType == 'hashtag_tweets')
+            else if (this.searchType == 'hashtags') {
+              this.hashtags = data;
+            } else if (this.searchType == 'tweets') {
+              this.tweets = data;
+            } else if (this.searchType == 'hashtag_tweets')
               this.tweets = data?.tweets;
+            else if (this.searchType == 'user_tweets') this.tweets = data;
           },
           error: (err) => {
             console.log(err);
@@ -93,9 +133,7 @@ export class ExploreComponent implements OnInit {
   follow(id: any) {
     let user_id = +id;
     this.usersService.postFollow(user_id).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
+      next: (data) => {},
       error: (err) => {
         console.log(err);
       },
