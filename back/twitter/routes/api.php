@@ -75,7 +75,7 @@ Route::group([
     Route::get('{username}/media', [TweetController::class, 'get_User_Media']);
     Route::get('{username}/replies', [TweetController::class, 'get_User_Replies']);
     Route::get('{username}/likes', [TweetController::class, 'get_User_Likes']);
-    Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
+    Route::get('{username}/retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
     Route::post('{id}/reply', [TweetController::class, 'reply']);
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
