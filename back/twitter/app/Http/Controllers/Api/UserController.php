@@ -208,42 +208,88 @@ class UserController extends Controller
         }   
         return $usersList;
     }    
-    public function get_a_followings(Request $Request)
-    {  
-        $Request->validate([
-            'fid' => 'required',
-        ]);
+    // public function get_a_followings(Request $Request)
+    // {  
+    //     $Request->validate([
+    //         'fid' => 'required',
+    //     ]);
 
 
+    //     $usersList =[];
+    //     // $authUser = JWTAuth::user();
+    //     $users = User::all();
+    //     $users = $this->formatter->formatUsers($users);
+
+    //     $obj= array("id"=>$Request->fid);
+    //     $object = json_decode(json_encode($obj), FALSE);
+    //     $authFollowing = $this->following->user_followings($object);
+    //     $listOfFollowings = $authFollowing->getOriginalContent();
+
+    //     if(count($listOfFollowings)!==0){
+
+    //         foreach ($users as $user) {
+    //                 $found = true;
+    //                 foreach ($listOfFollowings as $value) {
+    //                     if ($value->following_id === $user->id) {
+    //                         $found = false;
+    //                         break;
+    //                     }
+    //                 }
+    //                 // && !in_array($user->id, $usersList
+    //                 if (!$found) {
+    //                     $usersList[] = $user;
+    //                 }
+                
+    //         }
+    //     }   
+    //     return $usersList;
+    // }   
+    
+    public function get_a_followings($username)
+    { 
         $usersList =[];
         // $authUser = JWTAuth::user();
-        $users = User::all();
-        $users = $this->formatter->formatUsers($users);
+        
+        $user = User::where('username', $username)->first();
+        
+        $follow = $user->followings()->get();
+        
+        $followingUsers = $this->formatter->formatUsers($follow);
+        // foreach ($follow as $value) {
+            
+        // }
+            // return $follow;
 
-        $obj= array("id"=>$Request->fid);
-        $object = json_decode(json_encode($obj), FALSE);
-        $authFollowing = $this->following->user_followings($object);
-        $listOfFollowings = $authFollowing->getOriginalContent();
+            return response(
+                ['followList' =>$followingUsers,
+                        "user" => $user],
+                200
+            );
 
-        if(count($listOfFollowings)!==0){
-
-            foreach ($users as $user) {
-                    $found = true;
-                    foreach ($listOfFollowings as $value) {
-                        if ($value->following_id === $user->id) {
-                            $found = false;
-                            break;
-                        }
-                    }
-                    // && !in_array($user->id, $usersList
-                    if (!$found) {
-                        $usersList[] = $user;
-                    }
-                
-            }
-        }   
-        return $usersList;
     } 
+
+    public function get_a_followers($username)
+    {  
+        // $usersList =[];
+        // $authUser = JWTAuth::user();
+        
+        $user = User::where('username', $username)->first();
+        
+        $follow = $user->followers()->get();
+        
+        $userFollowers = $this->formatter->formatUsers($follow);
+        // foreach ($follow as $value) {
+            
+        // }
+            // return $follow;
+
+            return response(
+                ['followList' =>$userFollowers,
+                        "user" => $user],
+                200
+            );
+    } 
+    
       public function get_all_followers()
     {  
         $usersList =[];

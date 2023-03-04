@@ -45,7 +45,8 @@ class FollowingController extends Controller
                 return response()->json(
                     ['message' => 'now you are following this user'],
                     200
-                );
+                );            
+
             } else {
                 return response()->json(
                     ['message' => 'Something went wrong following this user, try again'],
@@ -85,6 +86,7 @@ class FollowingController extends Controller
                 ['following' => $following, 'user' => $user],
                 200
             );
+
         } else {
             return response()->json(
                 ["message' => 'user doesn't have any followers"],
@@ -97,12 +99,6 @@ class FollowingController extends Controller
 
     public function user_followers($user)
     {
-
-        // $request->validate([
-        //     'following_id' => 'required',
-        // ]);
-
-        // $user = $request->user();
 
         $following = Follow::select('follower_id')->where('following_id', $user->id)->get();
         // $user = User::find(follower_id);
