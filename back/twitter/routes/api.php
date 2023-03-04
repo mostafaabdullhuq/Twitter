@@ -16,7 +16,8 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UpdateDataController;
 use App\Http\Controllers\changePasswordSettingController;
 use App\Http\Controllers\Api\ChatController;
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -52,6 +53,9 @@ Route::group([
     Route::get('get-followings', [FollowingController::class, 'get_followings']);
     Route::get('get-all-followers', [UserController::class, 'get_all_followers']);
     Route::get('get-all-followings', [UserController::class, 'get_all_followings']);
+    Route::get('{username}/get-a-followings', [UserController::class, 'get_a_followings']);
+    Route::get('{username}/get-a-followers', [UserController::class, 'get_a_followers']);
+    Route::post('get-a-followers', [UserController::class, 'get_a_followers']);
     Route::get('get-all', [UserController::class, 'get_all_users']);
     Route::get('get-user/{id}', [UserController::class, 'get_user']);
 });
@@ -70,7 +74,7 @@ Route::group([
     Route::get('{username}/media', [TweetController::class, 'get_User_Media']);
     Route::get('{username}/replies', [TweetController::class, 'get_User_Replies']);
     Route::get('{username}/likes', [TweetController::class, 'get_User_Likes']);
-    Route::get('retweets', [TweetController::class, 'get_User_Retweets']);
+    Route::get('{username}/retweets', [TweetController::class, 'get_User_Retweets']);
     Route::post('{id}/edit', [TweetController::class, 'edit']);
     Route::post('{id}/reply', [TweetController::class, 'reply']);
     Route::get('{id}/like', [TweetController::class, 'likeToggle']);
@@ -118,6 +122,13 @@ Route::group([
     Route::post('messages', [ChatController::class, 'message']);
 });
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'notifications'
+], function () {
+    Route::get('', [NotificationController::class, 'sendNotification']);
+}
+);
 
 // Route::group([
 //     'middleware' => 'api',
