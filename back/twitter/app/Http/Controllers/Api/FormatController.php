@@ -112,10 +112,9 @@ class FormatController extends Controller
 
     public function formatRetweet($retweets)
     {
-        foreach ($retweets as $retweet )
-        {
+        foreach ($retweets as $retweet) {
             unset($retweet->retweetable_type);
-            $retweet->isARetweet=true;
+            $retweet->isARetweet = true;
             $retweet->user = $this->formatUser($retweet->user);
             $tweet = $this->formatTweet(Tweet::find($retweet->retweetable_id));
             $retweet->tweet = $tweet;
