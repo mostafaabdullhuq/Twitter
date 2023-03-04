@@ -23,10 +23,6 @@ class HashtagController extends Controller
     {
         $this->formatter = new FormatController();
     }
-
-
-
-
     // get top 10 trending hashtags and their tweets count
     public function trends(PostTrendsRequest $request)
     {

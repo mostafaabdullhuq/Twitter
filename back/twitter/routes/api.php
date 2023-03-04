@@ -53,7 +53,6 @@ Route::group([
     Route::get('get-followings', [FollowingController::class, 'get_followings']);
     Route::get('get-all', [UserController::class, 'get_all_users']);
     Route::get('get-user/{id}', [UserController::class, 'get_user']);
-    Route::get('send-notification', [NotificationController::class, 'sendOfferNotification']);
 });
 
 Route::group([
@@ -118,6 +117,13 @@ Route::group([
     Route::post('messages', [ChatController::class, 'message']);
 });
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'notifications'
+], function () {
+    Route::get('', [NotificationController::class, 'sendNotification']);
+}
+);
 
 // Route::group([
 //     'middleware' => 'api',

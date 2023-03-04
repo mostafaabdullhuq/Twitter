@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reply;
+use App\Models\Tweet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use JWTAuth;
@@ -17,6 +18,9 @@ class FormatController extends Controller
         // add user object to the tweet object and delete security sensitive information
         $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
         $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
+        $tweet->retweeted = $tweet->isRetweetedByUser(JWTAuth::user()->id);
+
+        // $tweet->retweeted = $tweet->isRetweeted($tweet->retweets_id);
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
         $tweet->retweets_count = $tweet->retweets->count();
@@ -126,6 +130,8 @@ class FormatController extends Controller
         $user->profile_picture = $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : null;
         $user->cover_picture = $user->cover_picture ? asset('storage/cover_pictures/' . $user->cover_picture) : null;
         $user->verified = User::find($user->id)->verificationStatus();
+        $user->followers = $user->followers()->get()->pluck('id')->toArray();
+
         unset(
             $user->email_verified_at,
             $user->password,
@@ -136,7 +142,21 @@ class FormatController extends Controller
         );
         return $user;
     }
-
+    // public function get_all_users()
+    // {
+    //     $users = User::all();
+    //     if (auth()->check()) {
+    //         $authUser = auth()->user();
+    //         $authUser->followers_count = $authUser->followers()->count();
+    //         $authUser->followings_count = $authUser->followings()->count();
+    //     }
+    //     foreach ($users as $user) {
+    //         $user->followers_count = $user->followers()->count();
+    //         $user->followings_count = $user->followings()->count();
+    //         $user->followers = $user->followers()->get()->pluck('id')->toArray();
+    //     }
+    //     return $users;
+    // }
 
     public function formatUsers($users)
     {
@@ -145,4 +165,44 @@ class FormatController extends Controller
         }
         return $users;
     }
+
+
+    public function formatHashtags($hashtags)
+    {
+        $formattedHashtags = [];
+
+        foreach ($hashtags as $hashtag) {
+            $formattedHashtags[] = [
+                'id' => $hashtag->id,
+                'name' => $hashtag->name,
+                'tweets_count' => Tweet::withAnyTags($hashtag)->count(),
+            ];
+        }
+
+        return $formattedHashtags;
+    }
+
+
+    public function formatNotifications($notifications) {
+        foreach ($notifications as $notification) {
+            $data = $notification->data;
+            $tweet = $data["id"] ? Tweet::find($data["id"]) : null;
+            $user = $data["user"]? User::find($data["user"]) : null;
+            if ($tweet) {
+                $tweet = $this->formatTweet($tweet);
+            }
+            if ($user) {
+                $user = $this->formatUser($user);
+            }
+            $data["tweet"] = $tweet;
+            $data["user"] = $user;
+            $notification->data = $data;
+            unset($notification->notifiable_type,
+            $notification->notifiable_id,$notification->type);
+      }
+        return $notifications;
+    }
+
+
 }
+

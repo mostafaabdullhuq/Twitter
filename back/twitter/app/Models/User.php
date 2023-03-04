@@ -195,4 +195,9 @@ class User extends Authenticatable implements JWTSubject
         return Tweet::whereIn('user_id', $this->followings()->pluck('following_id'));
         // paginate them
     }
+    // public function verificationStatus()
+    // {
+    //     return $this->hasOne(VerificationStatus::class);
+    // }
 }
+
