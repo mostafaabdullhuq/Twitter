@@ -16,6 +16,10 @@
   @apply border-b    border-gray-100 dark:border-dark-gray_0 dark:hover:bg-transparent flex flex-row sm:px-4 px-2 py-1 cursor-pointer pb-4 hover:bg-gray-100 transition-colors;
 }
 
+.tweet-shared {
+  @apply border-gray-300 dark:border-dark-gray_0  flex flex-row sm:px-4 px-2 py-2 transition-colors pb-4 border rounded-xl max-w-[90%] m-auto;
+}
+
 .reply {
   @apply border-b pr-6    border-gray-100 dark:border-dark-gray_0 hover:bg-gray-100 dark:hover:bg-transparent  flex flex-row sm:px-4 px-2 py-1  pb-4  transition-colors;
 }
@@ -30,6 +34,10 @@
 
 .twitter-user-img {
   @apply w-12 min-w-[3.2rem] min-h-[3.2rem] h-12 rounded-full cursor-pointer;
+}
+
+.twitter-user-img-shared {
+  @apply w-10 min-w-[2.5rem] min-h-[2.5rem] h-10 rounded-full cursor-pointer;
 }
 
 .tweet-control-item {
@@ -143,6 +151,7 @@ router-outlet + trends-recommendation,
 router-outlet + app-new-message,
 router-outlet + app-tweet-details,
 router-outlet + app-followers-and-following,
+router-outlet + app-load-profile,
 router-outlet + *
 /* router-outlet + * */ {
   @apply flex h-screen w-full xl:w-4/5 overflow-hidden;

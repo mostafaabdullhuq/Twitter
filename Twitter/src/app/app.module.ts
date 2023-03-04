@@ -15,7 +15,6 @@ import { NotificationComponent } from './Components/notification/notification.co
 import { SettingsComponent } from './Components/settings/settings.component';
 import { SigninComponent } from './Components/signin/signin.component';
 import { SignupComponent } from './Components/signup/signup.component';
-import { MessagesComponent } from './Components/messages/messages.component';
 import { SearchComponent } from './Components/search/search.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { MessagePopupComponent } from './Components/message-popup/message-popup.component';
@@ -35,6 +34,7 @@ import { ModalComponent } from './Components/modal/modal.component';
 import { RequestResetComponent } from './Components/password/request-reset/request-reset.component';
 import { ResponseResetComponent } from './Components/password/response-reset/response-reset.component';
 import { ConfirmPasswordComponent } from './Components/password/confirm-password/confirm-password.component';
+import { MessagesComponent } from './Components/messages/messages.component';
 import { WebsitePipe } from './Pipes/website.pipe';
 import {
   SocialLoginModule,
@@ -52,6 +52,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FollowersAndFollowingComponent } from './followers-and-following/followers-and-following.component';
 import { InfiniteScrollingDirective } from './Directives/infinite-scrolling.directive';
 import { AccountInfoComponent } from './Components/settings/account-info/account-info.component';
+import { LoadProfileComponent } from './Components/load-profile/load-profile.component';
+import { TweetPopupComponent } from './Components/tweet-popup/tweet-popup.component';
+import { TweetSharedComponent } from './Components/tweet-shared/tweet-shared.component';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
 
 @NgModule({
@@ -68,7 +71,6 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     SettingsComponent,
     SigninComponent,
     SignupComponent,
-    MessagesComponent,
     SearchComponent,
     FooterComponent,
     MessagePopupComponent,
@@ -82,7 +84,7 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     ModalComponent,
     HashtagPipe,
     SideComponent,
-    NewMessageComponent,
+    MessagesComponent,
     RequestResetComponent,
     ResponseResetComponent,
     ConfirmPasswordComponent,
@@ -95,6 +97,9 @@ import { AccountInfoComponent } from './Components/settings/account-info/account
     FollowersAndFollowingComponent,
     InfiniteScrollingDirective,
     AccountInfoComponent,
+    LoadProfileComponent,
+    TweetPopupComponent,
+    TweetSharedComponent,
 
     // StickyHeaderFollowingComponent,
   ],

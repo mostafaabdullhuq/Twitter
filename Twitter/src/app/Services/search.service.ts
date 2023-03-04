@@ -6,6 +6,9 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class SearchService {
+  post(arg0: string, arg1: { query: string; }) {
+    throw new Error('Method not implemented.');
+  }
   private BASE_URL = 'http://127.0.0.1:8000/api/search';
   constructor(
     private httpClient: HttpClient,
@@ -15,7 +18,7 @@ export class SearchService {
   search(type: any, query: any) {
     let accessToken = this.tokenService.get();
     return this.httpClient.post(
-      `${this.BASE_URL}/`,
+      `${this.BASE_URL}`,
       {
         type: type,
         query: query,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HashtagService } from 'src/app/Services/hashtag.service';
 import { SearchService } from 'src/app/Services/search.service';
@@ -10,7 +10,7 @@ import { UsersService } from 'src/app/Services/users.service';
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.css'],
 })
-export class ExploreComponent implements OnInit {
+export class ExploreComponent implements OnInit , AfterViewChecked {
   constructor(
     private hashtagService: HashtagService,
     public myRouter: ActivatedRoute,
@@ -18,6 +18,9 @@ export class ExploreComponent implements OnInit {
     private usersService: UsersService,
     private searchService: SearchService
   ) {}
+  ngAfterViewChecked(): void {
+
+  }
 
   public hashtags: any;
   public tweets: any;
@@ -30,6 +33,7 @@ export class ExploreComponent implements OnInit {
     console.log('in explore');
 
     let urlpath = this.myRouter.snapshot.routeConfig?.path?.split('/')[0];
+
     // if in explore page without any param
     if (urlpath == 'explore') {
       this.isInExplore = true;
@@ -78,6 +82,8 @@ export class ExploreComponent implements OnInit {
             else if (this.searchType == 'tweets') this.tweets = data?.tweets;
             else if (this.searchType == 'hashtag_tweets')
               this.tweets = data?.tweets;
+            else if (this.searchType == 'user_tweets')
+              this.tweets = data
           },
           error: (err) => {
             console.log(err);

@@ -26,6 +26,15 @@ export class TweetComponent implements OnInit {
   public user: any;
   public popup: boolean = false;
   public isInBookmark: boolean = false;
+  public isInHome: boolean = true;
+  // infinite scrolling logic
+  public observer: any = new IntersectionObserver((entries: any) => {
+    entries.forEach((entry: any) => {
+      if (entry.isIntersecting) {
+        console.log('new tweet');
+      }
+    });
+  });
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -34,8 +43,11 @@ export class TweetComponent implements OnInit {
     private authService: AuthService
   ) {}
   ngOnInit(): void {
-    this.isInBookmark =
-      this.myRoute.snapshot?.url[0]?.path == 'bookmarks' ? true : false;
+    let path = this.myRoute.snapshot?.url[0]?.path;
+    this.isInBookmark = path == 'bookmarks' ? true : false;
+
+    this.isInHome =
+      path == 'home' || !path || path == 'home/following' ? true : false;
 
     this.authService.getUser().subscribe({
       next: (data: any) => {
@@ -47,6 +59,24 @@ export class TweetComponent implements OnInit {
       },
     });
   }
+
+  // ngAfterViewChecked(): void {
+  //   let lastTweet = document.querySelector('.tweet:last-child');
+
+  //   if (this.myRoute.snapshot?.url[1]?.path === 'following') {
+  //     if (lastTweet && this.nextCursor != null) {
+  //       this.isLoadingDone = false;
+
+  //       this.observer.observe(lastTweet);
+  //     }
+  //   } else {
+  //     if (lastTweet && this.nextCursor2 != null) {
+  //       this.isLoadingDone = false;
+
+  //       this.observer.observe(lastTweet);
+  //     }
+  //   }
+  // }
 
   likesCount(tweetID: any) {
     this.httpClient.getLikesCount(tweetID).subscribe({
@@ -100,4 +130,5 @@ export class TweetComponent implements OnInit {
 
   @Input() tweets: any;
   @Input() showReplies: any;
+  @Input() isLoadingDone: any = true;
 }

@@ -1,7 +1,63 @@
 <!-- !-----search------ -->
-<div class="relative mb-4 mt-2">
-    <i class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"></i>
-    <input type="text"
-        class="w-full bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 p-6 dark:bg-dim-400 focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal h-9 pl-12 text-md rounded-full dark:text-white placeholder:text-gray-500"
-        placeholder="Search Twitter" />
+<div class="relative mt-2 mb-2">
+  <i
+    class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"
+  ></i>
+  <input
+    type="text"
+    (input)="onChange($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    class="w-full bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 p-6 dark:bg-dim-400 focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal h-9 pl-12 text-md rounded-full dark:text-white placeholder:text-gray-500"
+    placeholder="Search Twitter"
+  />
+</div>
+<!-- <div *ngIf="isFocused " >Hi!</div> -->
+
+<div
+  *ngIf="searchType && searchResult && searchResult?.length"
+  class="bg-white rounded-lg drop-shadow-lg dark:bg-dark-gray_0 flex items-center justify-center dark:bg-opacity-60 mt-0 mb-5 overflow-hidden"
+>
+  <div class="w-full" *ngIf="searchType == 'users'">
+    <div
+      routerLink="/search"
+      [queryParams]="{ type: 'user_tweets', q: u.username }"
+      class="right-follow gap-2 w-[100%]"
+      *ngFor="let u of searchResult"
+    >
+      <!--! -----user info block ---- -->
+      <div routerLink="/{{ u.username }}" class="flex">
+        <img
+          src="{{
+            u.profile_picture
+              ? u.profile_picture
+              : './../../../../assets/images/default_profile.png'
+          }}"
+          class="twitter-user-img"
+          alt=""
+        />
+        <div class="ml-3 text-xs w-full">
+          <div class="flex max-w-full w-full -mb-1 mt-1">
+            <h5
+              class="text-gray-800 text-xs h-fit dark:text-white font-bold max-w-[100%] hover:underline dotted-text"
+            >
+              {{ u.first_name }} {{ u.last_name }}
+            </h5>
+          </div>
+
+          <p
+            class="text-gray-500 h-fit text-xs dark:text-dark-gray_300 max-w-[100%] dotted-text"
+          >
+            @{{ u.username }}
+          </p>
+          <p
+            class="mt-1 text-xs h-fit max-w-[100%] dotted-text dark:text-white"
+          >
+            {{ u.bio }}
+          </p>
+        </div>
+      </div>
+      <!-- ! --------follow button ---- -->
+    </div>
+  </div>
 </div>

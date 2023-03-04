@@ -26,16 +26,21 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 export class HomeComponent implements OnInit, AfterViewChecked {
   public tweets: any;
   public user: any;
-  public tweetForm = new FormGroup({
-    text: new FormControl(null, [Validators.max(1000)]),
-    media: new FormControl(null, []),
-  });
   public tweetMedia: any = [];
   public currentMediaSrc: any;
   public currentMediaType: any;
   public currentMediaIndex: any = 0;
   public tweetMediaFiles: any = [];
   public tweetMediaTypes: any = [];
+  public isLoadingDone = true;
+  public nextCursor: any = false;
+  public nextCursor2: any = false;
+  public isCursorLoading: any = false;
+  public tweetForm = new FormGroup({
+    text: new FormControl(null, [Validators.max(1000)]),
+    media: new FormControl(null, []),
+  });
+
   @ViewChild('tweetBox') tweetBox!: ElementRef;
 
   constructor(
@@ -47,9 +52,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   ) {
     this.user = this.Token.getUser();
   }
-  public nextCursor: any = false;
-  public nextCursor2: any = false;
-  public isCursorLoading: any = false;
 
   // infinite scrolling logic
   public observer: any = new IntersectionObserver((entries: any) => {
@@ -62,6 +64,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
               this.nextCursor = data.nextCursor;
               if (data.nextCursor == null) {
                 this.observer.disconnect();
+                this.isLoadingDone = true;
               }
             },
             error: (err) => {
@@ -74,6 +77,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
               this.tweets = this.tweets.concat(data.tweets);
               this.nextCursor2 = data.nextCursor;
               if (data.nextCursor2 == null) {
+                this.isLoadingDone = true;
+
                 this.observer.disconnect();
               }
             },
@@ -91,10 +96,14 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
     if (this.myRoute.snapshot?.url[1]?.path === 'following') {
       if (lastTweet && this.nextCursor != null) {
+        this.isLoadingDone = false;
+
         this.observer.observe(lastTweet);
       }
     } else {
       if (lastTweet && this.nextCursor2 != null) {
+        this.isLoadingDone = false;
+
         this.observer.observe(lastTweet);
       }
     }
