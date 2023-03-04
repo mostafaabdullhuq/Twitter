@@ -25,6 +25,7 @@ class FormatController extends Controller
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
         $tweet->retweets_count = $tweet->retweets->count();
+        $tweet->isARetweet = false;
         $tweet->user = $this->formatUser($tweet->user);
         unset($tweet->user_id);
 
@@ -82,6 +83,7 @@ class FormatController extends Controller
         unset($tweet->replies);
         unset($tweet->mentions);
         unset($tweet->tags);
+        unset($tweet->retweets);
         $tweet->mentions = $mentions;
         $tweet->tags = $tags;
         try {
@@ -105,6 +107,20 @@ class FormatController extends Controller
         return $tweets;
     }
 
+
+
+    public function formatRetweet($retweets)
+    {
+        foreach ($retweets as $retweet )
+        {
+            unset($retweet->retweetable_type);
+            $retweet->isARetweet=true;
+            $retweet->user = $this->formatUser($retweet->user);
+            $tweet = $this->formatTweet(Tweet::find($retweet->retweetable_id));
+            $retweet->tweet = $tweet;
+        }
+        return $retweets;
+    }
 
 
     public function formatReply($reply)

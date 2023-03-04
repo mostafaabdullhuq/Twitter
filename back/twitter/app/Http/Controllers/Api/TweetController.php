@@ -39,12 +39,16 @@ class TweetController extends Controller
         $user = User::where('username', $username)->first();
         if ($user) {
             $tweets = $user->tweets()->latest()->get();
+            $retweets = $user->retweets()->latest()->get();
             // $cursor = $user->tweets()->latest()->cursorPaginate(15);
             // $nextCursor = $cursor->nextPageUrl();
             // $tweets = $cursor->items();
             $tweets = $this->formatter->formatTweets($tweets);
+
             $user = $this->formatter->formatUser($user);
             $user->followed_by = false;
+
+
 
             // $retweets = $user->retweets()->latest()->get();
             // $retweets = $this->formatter->formatTweets($retweets);
@@ -79,13 +83,21 @@ class TweetController extends Controller
 
         $user = User::where('username', $username)->first();
         $retweets = $user->retweets()->latest()->get();
+        $retweets=$this->formatter->formatRetweet($retweets);
+        // $retweets->isARetweet = true;
+
+        // foreach($retweets as $retweet){
+        //     unset($retweet->retweetable_type);
+        //     unset($retweet->updated_at);
+        //     $retweet->isARetweet=true;
+        // }
         $user = $this->formatter->formatUser($user);
         return [
             'user' => $user,
             'retweets' => $retweets
         ];
     }
-    
+
 
 
     public function highestTweets($count)
@@ -261,7 +273,7 @@ class TweetController extends Controller
         }
         // find users with mentions
         $users = User::whereIn('username', $tweetMentions)->get();
-        foreach ($users as $key => $user) {      
+        foreach ($users as $key => $user) {
             $tweet->mentions()->create([
                 'mentioned_user_id' => $user->id
             ]);
@@ -363,14 +375,14 @@ class TweetController extends Controller
             $user = $tweet->user;
             $tweet = Tweet::latest()->first();
             $user->notify(new OffersNotification($tweet, 'retweet'));
-            if ($text) {
-                $reply = $tweet->replies()->create(
-                    [
-                        'text' => $text,
-                        'user_id' => JWTAuth::user()->id,
-                    ]
-                );
-            }
+            // if ($text) {
+            //     $reply = $tweet->replies()->create(
+            //         [
+            //             'text' => $text,
+            //             'user_id' => JWTAuth::user()->id,
+            //         ]
+            //     );
+            // }
         }
         $tweet->update([
             'views_count' => $tweet->views_count + 1
