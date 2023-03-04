@@ -48,4 +48,5 @@ export class TweetSharedComponent {
     });
   }
   @Input() showRetweets: any;
+  @Input() type: any;
 }
