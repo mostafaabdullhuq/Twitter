@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->morphs('mentionable');
             $table->unsignedBigInteger('mentioned_user_id');
-            $table->foreign('mentioned_user_id')->references('id')->on('users');
+            $table->foreign('mentioned_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
