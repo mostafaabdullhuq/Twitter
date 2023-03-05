@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('topic_id');
-            $table->foreign('topic_id')->references('id')->on('trending_topics');
+            $table->foreign('topic_id')->references('id')->on('trending_topics')->onDelete('cascade');
 
             $table->unsignedBigInteger('tweet_id');
-            $table->foreign('tweet_id')->references('id')->on('tweets');
+            $table->foreign('tweet_id')->references('id')->on('tweets')->onDelete('cascade');
 
             $table->timestamps();
         });
