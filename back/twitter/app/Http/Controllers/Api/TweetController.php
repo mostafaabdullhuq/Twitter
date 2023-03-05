@@ -80,32 +80,42 @@ class TweetController extends Controller
 
     public function get_User_Retweets($username)
     {
+        try {
+            $user = User::where('username', $username)->first();
+            if ($user) {
+                $retweets = $user->retweets()->latest()->get();
+                if ($retweets) {
+                    $retweets = $this->formatter->formatRetweet($retweets);
+                    // $retweets->isARetweet = true;
 
-        $user = User::where('username', $username)->first();
-        $retweets = $user->retweets()->latest()->get();
-        $retweets = $this->formatter->formatRetweet($retweets);
-        // $retweets->isARetweet = true;
+                    // foreach($retweets as $retweet){
+                    //     unset($retweet->retweetable_type);
+                    //     unset($retweet->updated_at);
+                    //     $retweet->isARetweet=true;
+                    // }
 
-        // foreach($retweets as $retweet){
-        //     unset($retweet->retweetable_type);
-        //     unset($retweet->updated_at);
-        //     $retweet->isARetweet=true;
-        // }
-        $user = $this->formatter->formatUser($user);
-        $user->followed_by = false;
-        $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+                } else {
+                    $retweets = [];
+                }
+                $user = $this->formatter->formatUser($user);
+                $user->followed_by = false;
+                $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+                $arr = [];
+                foreach ($following as $k => $v) {
+                    if ($v->following_id == $user->id) {
+                        $user->followed_by = true;
+                    }
+                }
 
-        $arr = [];
-        foreach ($following as $k => $v) {
-            if ($v->following_id == $user->id) {
-                $user->followed_by = true;
+                return [
+                    'user' => $user,
+                    'retweets' => $retweets
+                ];
             }
+            return response()->json(['error' => 'User not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Unkonown error, please try again!'], 500);
         }
-
-        return [
-            'user' => $user,
-            'retweets' => $retweets
-        ];
     }
 
 

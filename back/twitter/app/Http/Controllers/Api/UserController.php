@@ -350,6 +350,24 @@ class UserController extends Controller
 
     public function destroy(Request $request)
     {
+        // delete all user data
+
+        $user = $request->user();
+        $user->tweets()->delete();
+        $user->likes()->delete();
+        $user->replies()->delete();
+        $user->followers()->delete();
+        $user->notifications()->delete();
+        $user->retweets()->delete();
+        $user->verification()->delete();
+        $user->bookmarks()->delete();
+        try {
+            $user->followings()->delete();
+        } catch (\Exception $e) {
+            // do nothing
+        }
+
+
         $request->user()->delete();
         return response()->json(['message' => 'user permanently deleted '], 200);
     }
