@@ -92,6 +92,16 @@ class TweetController extends Controller
         //     $retweet->isARetweet=true;
         // }
         $user = $this->formatter->formatUser($user);
+        $user->followed_by = false;
+        $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+
+            $arr = [];
+            foreach ($following as $k => $v) {
+                if ($v->following_id == $user->id) {
+                    $user->followed_by = true;
+                }
+            }
+
         return [
             'user' => $user,
             'retweets' => $retweets
@@ -123,6 +133,14 @@ class TweetController extends Controller
             $tweets = [];
             $replies = $user->replies()->latest()->get();
             $user = $this->formatter->formatUser($user);
+            $user->followed_by = false;
+            $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+            $arr = [];
+            foreach ($following as $k => $v) {
+                if ($v->following_id == $user->id) {
+                    $user->followed_by = true;
+                }
+            }
             foreach ($replies as $key => $reply) {
                 $replyParent = $reply->repliable()->get()->first();
                 if ($replyParent) {
@@ -149,6 +167,14 @@ class TweetController extends Controller
             $likes = $user->likes()->latest()->get();
             $tweets = [];
             $user = $this->formatter->formatUser($user);
+            $user->followed_by = false;
+            $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+            $arr = [];
+            foreach ($following as $k => $v) {
+                if ($v->following_id == $user->id) {
+                    $user->followed_by = true;
+                }
+            }
             $user->tweets_count = $user->likes()->count();
             foreach ($likes as $key => $like) {
                 if ($like->liked_type == Tweet::class) {
@@ -173,6 +199,14 @@ class TweetController extends Controller
         if ($user) {
             $tweets = $user->tweetsWithMedia;
             $user = $this->formatter->formatUser($user);
+            $user->followed_by = false;
+            $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
+            $arr = [];
+            foreach ($following as $k => $v) {
+                if ($v->following_id == $user->id) {
+                    $user->followed_by = true;
+                }
+            }
             $user->tweets_count = $user->tweetsWithMedia()->count();
             $tweets = $this->formatter->formatTweets($tweets);
             return [
@@ -271,9 +305,9 @@ class TweetController extends Controller
                 'mentioned_user_id' => $user->id
             ]);
                   // notification
-                  $user = $tweet->user;
-                  $tweet = Tweet::latest()->first();
-                  $user->notify(new OffersNotification($tweet, 'mention'));
+                $user = $tweet->user;
+                $tweet = Tweet::latest()->first();
+                $user->notify(new OffersNotification($tweet, 'mention'));
         }
         if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
