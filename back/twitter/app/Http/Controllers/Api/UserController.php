@@ -13,10 +13,12 @@ use App\Http\Requests\UpdateUserData;
 use App\Http\Controllers\Api\FormatController;
 use App\Models\Follow;
 use App\Http\Controllers\FollowingController;
+use App\Http\Controllers\AuthController;
 
 
 class UserController extends Controller
 {
+    public $auth;
     public $formatter;
     public $following;
 
@@ -25,6 +27,7 @@ class UserController extends Controller
         $this->middleware('auth:api');
         $this->formatter = new FormatController();
         $this->following = new FollowingController();
+        $this->auth = new AuthController();
     }
 
 
@@ -150,13 +153,13 @@ class UserController extends Controller
         if (count($listOfFollowings) == 0) {
             foreach ($users as $user) {
                 if ($authUser->id != $user->id) {
-                    $usersList[]= $user;
+                    $usersList[] = $user;
                 }
             }
         } else {
 
             foreach ($users as $user) {
-                if($user->id != $authUser->id){
+                if ($user->id != $authUser->id) {
                     $found = false;
                     foreach ($listOfFollowings as $value) {
                         if ($value->following_id === $user->id) {
@@ -170,20 +173,20 @@ class UserController extends Controller
                     }
                 }
             }
-        }   
+        }
         return $usersList;
     }
 
     public function get_all_followings()
-    {  
-        $usersList =[];
+    {
+        $usersList = [];
         $authUser = JWTAuth::user();
         $users = User::all();
         $authFollowing = $this->following->user_followings($authUser);
         $users = $this->formatter->formatUsers($users);
 
         $listOfFollowings = $authFollowing->getOriginalContent();
-        if(count($listOfFollowings)!==0){
+        if (count($listOfFollowings) !== 0) {
             // foreach ($users as $user) {
             //     if ($authUser->id != $user->id) {
             //         $usersList[]= $user;
@@ -191,7 +194,7 @@ class UserController extends Controller
             // }
 
             foreach ($users as $user) {
-                if($user->id != $authUser->id){
+                if ($user->id != $authUser->id) {
                     $found = true;
                     foreach ($listOfFollowings as $value) {
                         if ($value->following_id === $user->id) {
@@ -205,9 +208,9 @@ class UserController extends Controller
                     }
                 }
             }
-        }   
+        }
         return $usersList;
-    }    
+    }
     // public function get_a_followings(Request $Request)
     // {  
     //     $Request->validate([
@@ -239,67 +242,70 @@ class UserController extends Controller
     //                 if (!$found) {
     //                     $usersList[] = $user;
     //                 }
-                
+
     //         }
     //     }   
     //     return $usersList;
     // }   
-    
+
     public function get_a_followings($username)
-    { 
-        $usersList =[];
+    {
+        $usersList = [];
         // $authUser = JWTAuth::user();
-        
+
         $user = User::where('username', $username)->first();
-        
+
         $follow = $user->followings()->get();
-        
+
         $followingUsers = $this->formatter->formatUsers($follow);
         // foreach ($follow as $value) {
-            
+
         // }
-            // return $follow;
+        // return $follow;
 
-            return response(
-                ['followList' =>$followingUsers,
-                        "user" => $user],
-                200
-            );
-
-    } 
+        return response(
+            [
+                'followList' => $followingUsers,
+                "user" => $user
+            ],
+            200
+        );
+    }
 
     public function get_a_followers($username)
-    {  
+    {
         // $usersList =[];
         // $authUser = JWTAuth::user();
-        
+
         $user = User::where('username', $username)->first();
-        
+
         $follow = $user->followers()->get();
-        
+
         $userFollowers = $this->formatter->formatUsers($follow);
         // foreach ($follow as $value) {
-            
-        // }
-            // return $follow;
 
-            return response(
-                ['followList' =>$userFollowers,
-                        "user" => $user],
-                200
-            );
-    } 
-    
-      public function get_all_followers()
-    {  
-        $usersList =[];
+        // }
+        // return $follow;
+
+        return response(
+            [
+                'followList' => $userFollowers,
+                "user" => $user
+            ],
+            200
+        );
+    }
+
+    public function get_all_followers()
+    {
+        $usersList = [];
         $authUser = JWTAuth::user();
         $users = User::all();
         $authFollowing = $this->following->user_followers($authUser);
         $users = $this->formatter->formatUsers($users);
 
         $listOfFollowings = $authFollowing->getOriginalContent();
-        if(count($listOfFollowings)!=0){
+        if (count($listOfFollowings) != 0) {
             // foreach ($users as $user) {
             //     if ($authUser->id != $user->id) {
             //         $usersList[]= $user;
@@ -307,7 +313,7 @@ class UserController extends Controller
             // }
 
             foreach ($users as $user) {
-                if($user->id != $authUser->id){
+                if ($user->id != $authUser->id) {
                     $found = true;
                     foreach ($listOfFollowings as $value) {
                         if ($value->follower_id === $user->id) {
@@ -321,7 +327,7 @@ class UserController extends Controller
                     }
                 }
             }
-        }   
+        }
         return $usersList;
     }
     // public function get_all_users()
@@ -345,6 +351,6 @@ class UserController extends Controller
     public function destroy(Request $request)
     {
         $request->user()->delete();
-        return response()->json(['message' => 'user permanently deleted '], 500);
+        return response()->json(['message' => 'user permanently deleted '], 200);
     }
 }

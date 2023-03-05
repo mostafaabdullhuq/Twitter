@@ -56,8 +56,8 @@ class ReplyController extends Controller
                     'user_id' => $user->id,
                 ]
             );
-            $user = $tweet->user;
-            $tweet = Tweet::latest()->first();
+            $user = $reply->user;
+            $tweet = $reply->repliable;
             $user->notify(new OffersNotification($tweet, 'likeReply'));
         }
         $reply = $this->formatter->formatReply($reply);

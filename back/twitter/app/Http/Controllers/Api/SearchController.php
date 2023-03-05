@@ -68,6 +68,11 @@ class SearchController extends Controller
         }
     }
 
+    // This function searches the users table for users with a first name,
+    // last name, or username that matches the query. It also searches for
+    // users whose full name matches the query. It then returns the first
+    // 5 results.
+
     public function searchUsers($query)
     {
 
