@@ -17,6 +17,7 @@ import { RouterModule, RouterLink, ActivatedRoute } from '@angular/router';
 import { TokenService } from 'src/app/Services/token.service';
 import { AuthService } from 'src/app/Services/auth.service';
 import { Observable } from 'rxjs';
+import { UserService } from 'src/app/Services/user.service';
 @Component({
   selector: 'app-tweet',
   templateUrl: './tweet.component.html',
@@ -27,6 +28,9 @@ export class TweetComponent implements OnInit {
   public popup: boolean = false;
   public isInBookmark: boolean = false;
   public isInHome: boolean = true;
+  public retweetPopupShown: boolean = false;
+  public retweetTweet: any = null;
+
   // infinite scrolling logic
   public observer: any = new IntersectionObserver((entries: any) => {
     entries.forEach((entry: any) => {
@@ -40,7 +44,8 @@ export class TweetComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {}
   ngOnInit(): void {
     let path = this.myRoute.snapshot?.url[0]?.path;
@@ -54,6 +59,17 @@ export class TweetComponent implements OnInit {
         this.user = data;
       },
       error: (err: any) => {
+        console.log(err);
+      },
+    });
+  }
+
+  deleteRetweet(tweetID: any, retweetID: any) {
+    this.httpClient.postRetweet(tweetID, null).subscribe({
+      next: (data) => {
+        this.tweets = this.tweets.filter((item: any) => item.id != retweetID);
+      },
+      error: (err) => {
         console.log(err);
       },
     });
@@ -126,13 +142,12 @@ export class TweetComponent implements OnInit {
   }
 
   handleTweetPopup(tweet: any) {
-    console.log('clicked');
-
     // this.popup = true;
     this.tweets.forEach((element: any, index: any) => {
       if (element.id != tweet.id) {
         element.isPopupShown = false;
         element.isBookmarkPopupShown = false;
+        element.isRetweetPopupShown;
       }
     });
   }
@@ -142,6 +157,15 @@ export class TweetComponent implements OnInit {
       next: (data) => {
         this.tweets = this.tweets.filter((item: any) => item.id != tweet.id);
       },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  createBokkmarks(tweetID: any) {
+    this.userService.createBokkmarks(tweetID).subscribe({
+      next: (data) => {},
       error: (err) => {
         console.log(err);
       },
