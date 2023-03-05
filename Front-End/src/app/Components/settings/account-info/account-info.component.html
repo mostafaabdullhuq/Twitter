@@ -1,0 +1,53 @@
+<div class="p-3">
+    <div class="cursor-pointer justify-between m-0 dark:text-white">
+        <a (click)="closePasswordDialog()" class="col-span-1">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+    </div>
+    <h1 class="text-xl font-extrabold mb-3 dark:text-white">Account Info</h1>
+    <div>
+        <div>
+            <label class="text-lg font-bold dark:text-white">Email</label>
+            <input type="text" value="{{ user ? user.email : 'Loading...' }}" class="mt-1 mb-2  relative block w-full appearance-none border text-lg
+                  border-gray-300 p-3 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
+                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" readonly>
+        </div>
+        <div>
+            <label class="text-lg font-bold dark:text-white">Name</label>
+            <input type="text" value="{{ user ? user.first_name + ' ' + user.last_name : 'Loading...' }}" class="mt-1 mb-2  relative block w-full appearance-none border text-lg
+                  border-gray-300 p-3 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
+                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" readonly>
+        </div>
+        <div>
+            <label class="text-lg font-bold dark:text-white">User name</label>
+            <input type="text" value="{{ user ? user.username : 'Loading...' }}" class="mt-1 mb-2  relative block w-full appearance-none border text-lg
+                  border-gray-300 p-3 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
+                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" readonly>
+        </div>
+        <div *ngIf="user && user.phone_number">
+            <label class="text-lg font-bold dark:text-white">Phone number</label>
+            <input type="text" value="{{ user ? user.phone_number: 'Loading...' }}" class="mt-1 mb-2  relative block w-full appearance-none border text-lg
+                  border-gray-300 p-3 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
+                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" readonly>
+        </div>
+        <div *ngIf="user && user.website">
+            <label class="text-lg font-bold dark:text-white">Website</label>
+            <input type="text" value="{{ user ? user.website: 'Loading...' }}" class="mt-1 mb-2  relative block w-full appearance-none border text-lg
+                  border-gray-300 p-3 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
+                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" readonly>
+        </div>
+        <div *ngIf="user && user.location">
+            <label class="text-lg font-bold dark:text-white">Location</label>
+            <input type="text" value="{{ user ? user.location: 'Loading...' }}" class="mt-1 mb-2  relative block w-full appearance-none border text-lg
+                  border-gray-300 p-3 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
+                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" readonly>
+        </div>
+        <div *ngIf="user && user.date_of_birth">
+            <label class="text-lg font-bold dark:text-white">Date of birth</label>
+            <input type="text" value="{{ user ? user.date_of_birth: 'Loading...' }}" class="mt-1 mb-2 relative block w-full appearance-none border text-lg
+                  border-gray-300 p-3 dark:bg-black dark:text-white rounded-md text-gray-900 placeholder-gray-500 focus:z-10
+                   focus:outline-none dark:placeholder-gray-200 dark:border-dark-gray_0" readonly>
+        </div>
+    </div>
+
+</div>

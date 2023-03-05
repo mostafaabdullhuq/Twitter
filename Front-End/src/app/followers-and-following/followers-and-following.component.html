@@ -1,0 +1,73 @@
+
+<div class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+    <!-- -----sticky header---- -->
+    <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
+        <!-- overlay div -->
+        <div class="absolute w-full  h-full bg-white dark:bg-black sticky-nav-scroll -z-100"></div>
+        <!-- content of fixed nav -->
+        <div class="content z-0">
+            <!-- <div class="py-2 w-8 h-8 flex items-center ml-4 text-xl justify-center dark:text-white rounded-full hover:bg-gray-100 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50">
+                <a href="./index.html"><i class="fa-solid fa-arrow-left"></i></a>
+            </div> -->
+            <h4 class="text-gray-800 pl-6 mt-3 text-xl dark:text-white font-bold">{{user?.first_name}} {{user?.last_name}}</h4>
+            <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text ml-6">@{{user?.username}}
+
+            <!-- ----Setting icon ---- -->
+            <!-- <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 right-1 xl:top-2 top-0 " title="Settings">
+                <i class="fa-solid fa-gear text-black dark:text-white cursor-pointer"></i>
+            </div> -->
+            <!-- content of fixed nav -->
+            <div class="grid grid-cols-2 w-full z-0 border-b border-gray-100 dark:border-dark-gray_0">
+                <div [routerLinkActiveOptions]="{exact:true}" routerLinkActive="sticky-active" class="w-full hover:bg-gray-100 transition-colors text-gray-500‏
+                  dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50">
+                    <button routerLink="/{{user?.username}}/following" class="w-full font-semibold sm:py-4 py-6 text-black dark:text-white  ">Following</button>
+                </div>
+                <div [routerLinkActiveOptions]="{exact:true}" routerLinkActive="sticky-active" class="w-full hover:bg-gray-100 transition-colors text-gray-500‏
+                relative  dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50">
+                    <button routerLink="/{{user?.username}}/followers" class="w-full font-semibold sm:py-4 py-6  text-gray-500">Followers</button>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+        <!--! -------following  ---- -->
+    <!-- <h3 class="text-gray-900 dark:text-white font-extrabold p-4 text-xl dark:border-dim-200 mb-1">Suggested
+        for you</h3> --> 
+         <div class="right-follow gap-2 " *ngFor="let following of followings"> 
+            <!--! -----user info block ---- -->
+            <div routerLink="/{{following?.username}}" class="flex items-center gap-1 w-3/4">
+                <img src="{{following.profile_picture ? following.profile_picture: './../../../../assets/images/default_profile.png'}}"
+                    class="twitter-user-img" alt="" />
+                <div class="ml-3 text-md w-2/3">
+                    <div class="flex max-w-full w-full -mb-1 mt-1">
+                        <h5 class="text-gray-800 h-fit dark:text-white font-bold max-w-[70%] hover:underline dotted-text">
+                            {{following.first_name}} {{following.last_name}}</h5>
+                    </div>
+    
+                    <p class="text-gray-500 h-fit dark:text-dark-gray_300 max-w-[70%] dotted-text">@{{following?.username}}
+                    </p>
+                    <p class="mt-1 h-fit max-w-[70%] dotted-text dark:text-white">
+                        {{following.bio}}
+                    </p>
+                </div>
+            </div>
+            <!-- ! --------follow button ---- -->
+            <button (click)="follow(following?.id); following.is_followed = !following.is_followed"
+                class="w-1/4 dark:hover:bg-main-white_100 text-sm font-bold bg-black text-white items-center flex justify-center px-4 py-2 rounded-full hover:bg-light-black dark:bg-white dark:text-black">
+                {{following?.is_followed?"UnFollow":"Follow" }}
+            </button>
+        </div>
+  </div>
+    <!-- !!!!!!!!!! start your code here !!!!!!!!!! -->
+
+
+    <!-- !!!!!!!!!! end your code here !!!!!!!!!! -->
+  <!-- -----------right---------- -->
+  <div class="hidden xl:w-2/4 lg:w-3/6 h-full overflow-y-scroll scrollbar-hide lg:block pl-5 relative">
+    <app-search></app-search>
+    <app-trends-recommendation></app-trends-recommendation>
+    <app-follow-recommendations></app-follow-recommendations>
+    <app-footer></app-footer>
+    <!-- <app-message-popup></app-message-popup> -->
+</div>

@@ -1,0 +1,73 @@
+<!--! -------middle ------- -->
+<div class="relative h-full w-full xl:w-2/5 overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+  <!-- -----sticky header---- -->
+  <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
+    <!-- content of fixed nav -->
+      <div class="z-0 flex py-2">
+          <h4 class="text-gray-800 pl-6 py-1 text-xl dark:text-white font-bold">Messages</h4>
+          <!-- ----Setting icon ---- -->
+          <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 right-11 xl:top-2 top-0 " title="Settings">
+              <i class="fa-solid fa-gear text-black dark:text-white cursor-pointer"></i>
+          </div>
+          <!-- ----Message icon ---- -->
+          <div class="absolute hidden sm:flex justify-center items-center dark:text-white xl:w-fit xl:h-fit w-14 h-14 xl:px-4 xl:py-3 rounded-full hover:bg-gray-200 dark:hover:bg-dark-gray_200 dark:hover:bg-opacity-50 right-1 xl:top-2 top-0 " title="New message">
+              <i class="fa-solid fa-envelope text-black dark:text-white cursor-pointer"></i>
+          </div>
+      </div>
+  </div>
+  <div class=" dark:text-white flex flex-col justify-center items-center mt-9 w-3/5 lg:w-4/5 m-auto">
+      <h1 class="text-3xl font-bold ">Welcome to your inbox!</h1>
+      <p class="mt-1 text-light-gray_100 dark:text-gray-500 ">Drop a line, share Tweets and more with private conversations between you and others on Twitter.</p>
+
+  </div>
+  <div class="lg:flex  justify-center items-center mt-11 w-3/5 lg:w-4/5 lg:ml-0 m-auto">
+      <button (click)="toggleModal()" class=" text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white"
+      >
+          <span class="font-semibold text-lg"> Write a message </span>
+  </button>
+  <!-- <button (click)="toggleClick()" class="mt-2 text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white cursor-pointer">
+    <span class="font-semibold text-lg">{{ Follow?"Follow":"Unfollow" }}</span>
+  </button>
+  <button (click)="toggleClick()" class="mt-2 text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white cursor-pointer">
+    <span class="font-semibold text-lg">{{ Follow?"Follow":"Unfollow" }}</span>
+  </button> -->
+  </div>
+</div>
+<!--! -----------right---------- -->
+<div class="hidden w-full lg:w-2/3 h-full lg:block  dark:border-dark-gray_0 border-x border-gray-100">
+  <div class=" dark:text-white  justify-center items-center mt-72 w-3/6   m-auto">
+      <h1 class="text-3xl font-bold ">Select a message</h1>
+      <p class="mt-1 text-light-gray_100 dark:text-gray-500 ">Choose from your existing conversations, start a new one, or just keep swimming.</p>
+
+  </div>
+  <div class=" mt-11 w-3/6  m-auto">
+      <a (click)="toggleModal()" class=" text-center py-4  px-9 rounded-full bg-main-blue_100 hover:bg-main-blue_200 transition-colors text-white cursor-pointer">
+          <span class="font-semibold text-lg"> New message </span>
+      </a>
+  </div>
+
+</div>
+
+<!-- -------------POPUP------------------------ -->
+
+<div *ngIf="showModal" class="mt-10  w-4/5 lg:w-2/5 m-auto overflow-x-hidden overflow-y-auto fixed inset-0 z-50 ">
+  <app-modal></app-modal>
+</div>
+<div *ngIf="showModal" class="bg-opacity-50 fixed inset-0 z-40 bg-gray-700"></div>
+
+
+<!-- <jw-modal id="modal-1">
+    <h1>A custom modal popup</h1>
+    <p>Home page text: <input type="text" [(ngModel)]="bodyText" /></p>
+    <button (click)="modalService.close();">Close</button>
+  </jw-modal> -->
+
+<!-- <ng-template #dialogRef let-mydata>
+  <div class="relative h-full w-full xl:w-2/5 overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
+
+  <h5>I am Template POPUP</h5>
+  <button mat-button mat-dialog-close="closeig ">close</button>
+</div>
+</ng-template>  -->
+
+
