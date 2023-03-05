@@ -33,7 +33,6 @@ class LikeController extends Controller
             $like = new Like();
             $like->user_id = $user->id;
             $like->tweet_id = $request->tweet_id;
-
             if ($like->save()) {
                 return response()->json([
                     'message' => 'Liked this post',

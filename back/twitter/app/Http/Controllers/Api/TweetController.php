@@ -83,7 +83,7 @@ class TweetController extends Controller
 
         $user = User::where('username', $username)->first();
         $retweets = $user->retweets()->latest()->get();
-        $retweets=$this->formatter->formatRetweet($retweets);
+        $retweets = $this->formatter->formatRetweet($retweets);
         // $retweets->isARetweet = true;
 
         // foreach($retweets as $retweet){
@@ -95,12 +95,12 @@ class TweetController extends Controller
         $user->followed_by = false;
         $following = Follow::select('following_id')->where('follower_id', JWTAuth::user()->id)->get();
 
-            $arr = [];
-            foreach ($following as $k => $v) {
-                if ($v->following_id == $user->id) {
-                    $user->followed_by = true;
-                }
+        $arr = [];
+        foreach ($following as $k => $v) {
+            if ($v->following_id == $user->id) {
+                $user->followed_by = true;
             }
+        }
 
         return [
             'user' => $user,
@@ -125,7 +125,7 @@ class TweetController extends Controller
         return $tweets;
     }
 
-   //get user tweets and replies
+    //get user tweets and replies
     public function get_User_Replies($username)
     {
         $user = User::where('username', $username)->first();
@@ -304,10 +304,10 @@ class TweetController extends Controller
             $tweet->mentions()->create([
                 'mentioned_user_id' => $user->id
             ]);
-                  // notification
-                $user = $tweet->user;
-                $tweet = Tweet::latest()->first();
-                $user->notify(new OffersNotification($tweet, 'mention'));
+            // notification
+            $user = $tweet->user;
+            $tweet = Tweet::latest()->first();
+            $user->notify(new OffersNotification($tweet, 'mention'));
         }
         if ($tweetMedia) {
             foreach ($tweetMedia as $key => $media) {
@@ -370,10 +370,10 @@ class TweetController extends Controller
             ]
         );
 
-         // notification
-         $user = $tweet->user;
-         $tweet = Tweet::latest()->first();
-         $user->notify(new OffersNotification($tweet, 'reply'));
+        // notification
+        $user = $tweet->user;
+        $tweet = Tweet::latest()->first();
+        $user->notify(new OffersNotification($tweet, 'reply'));
 
         $reply = $this->formatter->formatReply($reply);
 
@@ -384,7 +384,6 @@ class TweetController extends Controller
     {
         $user = JWTAuth::user();
         $tweet = Tweet::findOrFail($id);
-
         // $id = $request->tweet_id;
         $retweet = $tweet->retweets()->where('user_id', $user->id)->first();
         if ($retweet) {
@@ -460,24 +459,24 @@ class TweetController extends Controller
     //     return $tweet;
     // }
     public function likeToggle($id)
-{
-    $user = Auth::user();
-    $tweet = Tweet::find($id);
-    $like = $tweet->likes()->where('user_id', $user->id)->first();
-    if ($like) {
-        $like->delete();
-    } else {
-        $tweet->likes()->create([
-            'user_id' => $user->id,
-        ]);
-        // notification
-        $user = $tweet->user;
-        $tweet = Tweet::latest()->first();
-        $user->notify(new OffersNotification($tweet, 'like'));
+    {
+        $user = Auth::user();
+        $tweet = Tweet::find($id);
+        $like = $tweet->likes()->where('user_id', $user->id)->first();
+        if ($like) {
+            $like->delete();
+        } else {
+            $tweet->likes()->create([
+                'user_id' => $user->id,
+            ]);
+            // notification
+            $user = $tweet->user;
+            $tweet = Tweet::latest()->first();
+            $user->notify(new OffersNotification($tweet, 'like'));
+        }
+        $tweet = $this->formatter->formatTweet($tweet);
+        return $tweet;
     }
-      $tweet = $this->formatter->formatTweet($tweet);
-    return $tweet;
-}
 
 
     public function delete($id)

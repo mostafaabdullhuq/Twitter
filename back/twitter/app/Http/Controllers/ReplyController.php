@@ -64,7 +64,6 @@ class ReplyController extends Controller
         return $reply;
     }
 
-
     public function delete($id)
     {
         try {
