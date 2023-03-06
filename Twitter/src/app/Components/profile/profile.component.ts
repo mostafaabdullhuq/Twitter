@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
   public loggedUser: any;
   public viewType = 1;
   public notAUser = false;
+  public profileAspect = 1;
   show = false;
   showRetweet = false;
   ngOnInit(): void {
@@ -176,5 +177,20 @@ export class ProfileComponent implements OnInit {
 
   logoutPopup() {
     this.popup ? (this.popup = false) : (this.popup = true);
+  }
+
+  imageAspect(picture: any) {
+    if (picture) {
+      // detect aspect ratio of photo
+      let aspect = picture.height / picture.width;
+      // if aspect ratio is greater than 1, it's a portrait
+      if (aspect > 1) {
+        this.profileAspect = 1;
+      }
+      // if aspect ratio is less than 1, it's a landscape
+      else if (aspect < 1) {
+        this.profileAspect = 2;
+      }
+    }
   }
 }

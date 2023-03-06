@@ -22,6 +22,7 @@ export class EditProfileComponent implements OnInit {
   @Input('userDetails') user: any;
   @Output() closePopup = new EventEmitter<void>();
 
+  public profileAspect = 1;
   // public user: any;
   public updateForm: any = new FormGroup({
     first_name: new FormControl(null, [
@@ -193,5 +194,19 @@ export class EditProfileComponent implements OnInit {
 
   onClosePopup() {
     this.closePopup.emit();
+  }
+  imageAspect(picture: any) {
+    if (picture) {
+      // detect aspect ratio of photo
+      let aspect = picture.height / picture.width;
+      // if aspect ratio is greater than 1, it's a portrait
+      if (aspect > 1) {
+        this.profileAspect = 1;
+      }
+      // if aspect ratio is less than 1, it's a landscape
+      else if (aspect < 1) {
+        this.profileAspect = 2;
+      }
+    }
   }
 }

@@ -58,8 +58,13 @@
                 class="object-cover object-center w-full h-full" alt="" srcset="" />
         </div>
         <!-- profile picture -->
-        <img src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
-            class="absolute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />
+        <div
+            class="absolute top-20 rounded-full w-40 h-40 border-[4px] left-3 dark:border-black  bg-white dark:bg-black border-white shadow-sm overflow-hidden">
+            <img #profileImage [ngClass]="{'scale-[200%]': profileAspect == 2}"
+                src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+                (load)="imageAspect(profileImage)"
+                class="max-w-full w-full h-auto  object-contain absolute top-[50%] translate-y-[-50%]" />
+        </div>
 
         <!-- profile controls -->
         <div class="flex items-center sm:mt-4 mt-12  px-4 float-right gap-4 w-full justify-end">
