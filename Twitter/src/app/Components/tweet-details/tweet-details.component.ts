@@ -23,6 +23,7 @@ export class TweetDetailsComponent implements OnInit {
     private tokenService: TokenService,
     private sanitizer: DomSanitizer
   ) {
+    this.user = this.tokenService.getUser();
     this.authService.getUser().subscribe({
       next: (data: any) => {
         this.user = data;

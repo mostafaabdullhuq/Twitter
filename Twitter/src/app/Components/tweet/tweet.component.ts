@@ -45,7 +45,8 @@ export class TweetComponent implements OnInit {
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private Token: TokenService
   ) {}
   ngOnInit(): void {
     let path = this.myRoute.snapshot?.url[0]?.path;
@@ -54,11 +55,13 @@ export class TweetComponent implements OnInit {
     this.isInHome =
       path == 'home' || !path || path == 'home/following' ? true : false;
 
+    this.user = this.Token.getUser();
     this.authService.getUser().subscribe({
       next: (data: any) => {
         this.user = data;
       },
       error: (err: any) => {
+        this.user = this.Token.getUser();
         // console.log(err);
       },
     });

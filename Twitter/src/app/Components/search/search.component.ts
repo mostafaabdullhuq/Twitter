@@ -25,6 +25,7 @@ export class SearchComponent implements OnInit {
     private myRouter: Router,
     private authService: AuthService
   ) {
+    this.user = this.tokenService.getUser();
     this.authService.getUser().subscribe({
       next: (data: any) => {
         this.user = data;

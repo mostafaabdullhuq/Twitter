@@ -45,6 +45,7 @@ export class ProfileComponent implements OnInit {
     this.myRoute.params.subscribe((res: any) => {
       this.username = res.user;
       this.user = null;
+      // this.loggedUser = this.Token.getUser();
       this.userService.index().subscribe({
         next: (data: any) => {
           this.loggedUser = data;

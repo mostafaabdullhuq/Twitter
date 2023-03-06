@@ -38,15 +38,19 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe({
-      next: (data: any) => {
-        this.user = data;
-      },
-      error: (err: any) => {
-        // console.log(err);
-      },
-    });
     this.Logged.authStatus.subscribe((value) => (this.loggedIn = value));
+    if (this.loggedIn) {
+      this.user = this.Token.getUser();
+      this.authService.getUser().subscribe({
+        next: (data: any) => {
+          this.user = data;
+        },
+        error: (err: any) => {
+          this.user = this.Token.getUser();
+          // console.log(err);
+        },
+      });
+    }
     this.router.events.subscribe((value) => {
       this.isInLogin = false;
       this.isInSignup = false;
@@ -77,6 +81,7 @@ export class AppComponent implements OnInit {
           this.isInRequestReset = false;
         }
       } else {
+        this.user = this.Token.getUser();
         this.authService.getUser().subscribe({
           next: (data: any) => {
             this.user = data;

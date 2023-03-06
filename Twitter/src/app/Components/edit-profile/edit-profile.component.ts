@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -177,9 +178,13 @@ export class EditProfileComponent implements OnInit {
   handleResponse(res: any) {
     this.onClosePopup();
 
-    // refresh all components
+    //refresh component
 
-    window.location.href = '/' + this.user.username;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([this.user.username]);
+    });
+
+    // window.location.href = environment.editURL + this.user.username;
   }
 
   handleError(error: any) {

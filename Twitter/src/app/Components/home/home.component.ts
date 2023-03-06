@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     private authService: AuthService,
     private sanitizer: DomSanitizer
   ) {
+    this.user = this.Token.getUser();
     this.authService.getUser().subscribe({
       next: (data: any) => {
         this.user = data;

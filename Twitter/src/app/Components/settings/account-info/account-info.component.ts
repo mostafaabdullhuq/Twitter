@@ -11,6 +11,7 @@ export class AccountInfoComponent implements OnInit {
   @Input('userDetails') user: any;
   constructor(private auth: AuthService, private token: TokenService) {}
   ngOnInit(): void {
+    this.user = this.token.getUser();
     this.auth.getUser().subscribe({
       next: (data) => {
         this.user = data;

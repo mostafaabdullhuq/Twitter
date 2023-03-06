@@ -17,6 +17,7 @@ export class BookmarksComponent {
     private authService: AuthService,
     private tokenService: TokenService
   ) {
+    this.user = this.tokenService.getUser();
     this.authService.getUser().subscribe({
       next: (data: any) => {
         this.user = data;

@@ -1,8 +1,8 @@
 <!--! -------middle ------- -->
-<app-edit-profile *ngIf="user" [userDetails]="user" [showPopup]="showPopup"
+<app-edit-profile *ngIf="user && loggedUser" [userDetails]="user" [showPopup]="showPopup"
     (closePopup)="onClosePopup()"></app-edit-profile>
 
-<div *ngIf="user; else loadingBlock "
+<div *ngIf="user && loggedUser; else loadingBlock "
     class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
     <!-- -----sticky header---- -->
     <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
@@ -178,7 +178,7 @@
 </div>
 
 <ng-template #loadingBlock>
-    <div *ngIf="!notAUser && !user;else loosing"
+    <div *ngIf="!notAUser  && (!user || !loggedUser);else loosing"
         class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
         <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
             <i class="fa-solid fa-spinner text-2xl animate-spin"></i>
@@ -190,6 +190,6 @@
 <ng-template #loosing>
     <app-load-profile
         class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-        >
+
     </app-load-profile>
 </ng-template>
