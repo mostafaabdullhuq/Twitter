@@ -29,10 +29,14 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
   public isNoParams: any = false;
   ngOnInit(): void {
     this.myRouter.queryParams.subscribe((queryParams: any) => {
+      console.log('here');
+
+      console.log(this.myRouter.snapshot.routeConfig?.path);
+
       if (
         queryParams.type &&
         queryParams.q &&
-        this.myRouter.snapshot.routeConfig?.path?.split('/')[0] == 'search'
+        this.myRouter.snapshot.routeConfig?.path == 'search'
       ) {
         this.tweets = null;
         this.users = null;
@@ -66,7 +70,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
       }
     });
 
-    let urlpath = this.myRouter.snapshot.routeConfig?.path?.split('/')[0];
+    let urlpath = this.myRouter.snapshot.routeConfig?.path;
 
     // if in explore page without any param
     if (urlpath == 'explore') {
