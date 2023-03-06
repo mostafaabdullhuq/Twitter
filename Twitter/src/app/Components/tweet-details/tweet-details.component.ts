@@ -6,6 +6,7 @@ import { TweetsService } from 'src/app/Services/tweets.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { UserService } from 'src/app/Services/user.service';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-tweet-details',
@@ -18,10 +19,18 @@ export class TweetDetailsComponent implements OnInit {
     private userService: UserService,
     private activatedRouter: ActivatedRoute,
     private router: Router,
+    private authService: AuthService,
     private tokenService: TokenService,
     private sanitizer: DomSanitizer
   ) {
-    this.user = this.tokenService.getUser();
+    this.authService.getUser().subscribe({
+      next: (data: any) => {
+        this.user = data;
+      },
+      error: (err: any) => {
+        this.user = this.tokenService.getUser();
+      },
+    });
   }
   protected tweet: any;
   protected error: any;
@@ -64,7 +73,10 @@ export class TweetDetailsComponent implements OnInit {
   likesCount() {
     this.httpClient.getLikesCount(this.tweetID).subscribe({
       next: (data: any) => {
+        // console.log(data);
+
         this.tweet.likes_count = data.likes_count;
+        this.tweet.liked = data.liked;
       },
       error: (err) => {
         this.error = err;
@@ -76,7 +88,7 @@ export class TweetDetailsComponent implements OnInit {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {
         this.tweet = data;
-        // console.log('Added to db successfully');
+        // // console.log('Added to db successfully');
       },
       error: (err) => {
         this.error = err;
@@ -90,9 +102,9 @@ export class TweetDetailsComponent implements OnInit {
     this.httpClient.postRetweet(tweetID, textValue).subscribe({
       next: (data) => {
         this.tweet = data;
-        // console.log(this.tweet);
+        // // console.log(this.tweet);
 
-        // console.log('Tweet shared successfully');
+        // // console.log('Tweet shared successfully');
       },
       error: (err) => {
         this.error = err;
@@ -122,7 +134,7 @@ export class TweetDetailsComponent implements OnInit {
         } else {
           nextIndex = index - 1 < 0 ? tweet.media.length - 1 : index - 1;
         }
-        // console.log(nextIndex);
+        // // console.log(nextIndex);
         container.children[0].children[0].src =
           tweet.media[nextIndex].media_url;
 
@@ -159,7 +171,7 @@ export class TweetDetailsComponent implements OnInit {
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

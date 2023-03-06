@@ -130,11 +130,11 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.updateForm.invalid) {
-      // console.log('form');
+      // // console.log('form');
 
-      // console.log(this.updateForm);
+      // // console.log(this.updateForm);
 
-      // console.log('invalid form');
+      // // console.log('invalid form');
 
       return;
     }
@@ -164,13 +164,13 @@ export class EditProfileComponent implements OnInit {
     this.Auth.updateUser(postData).subscribe({
       next: (data) => {
         this.user = data;
-        // console.log(this.user);
+        // // console.log(this.user);
 
         this.tokenService.setUser(this.user);
         this.handleResponse(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

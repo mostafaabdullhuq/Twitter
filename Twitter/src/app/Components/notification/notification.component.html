@@ -58,8 +58,9 @@
                     <i class="text-3xl fa-sharp fa-solid fa-bell"></i>
                 </a>
             </div>
-            <img class="twitter-notify-img" src="{{notification.data.user.profile_picture}}" alt=""
-                routerLink="/{{notification.data.user.username}}" />
+            <img class="twitter-notify-img"
+                src="{{notification.data.user.profile_picture ? notification.data.user.profile_picture :  './../../../assets/images/default_profile.png'}}"
+                alt="" routerLink="/{{notification.data.user.username}}" />
         </div>
         <div class="ml-20 mr-7" [ngSwitch]="notification.data.title">
             <p class="my-2 dark:text-white text-dark-gray_400" *ngSwitchCase="'You followed by'"

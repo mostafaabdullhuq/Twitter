@@ -94,7 +94,7 @@ export class SigninComponent implements OnInit {
   //     })
   //     .subscribe((events) => {
   //       alert('Look at your console');
-  //       console.log('events', events);
+  //       // console.log('events', events);
   //     });
   // }
 
@@ -117,7 +117,7 @@ export class SigninComponent implements OnInit {
   //       this.router.navigateByUrl('/home');
   //     })
   //     .catch((err) => {
-  //       console.log(err);
+  //       // console.log(err);
   //     });
   // }
 
@@ -128,7 +128,7 @@ export class SigninComponent implements OnInit {
   //       this.router.navigateByUrl('/home');
   //     })
   //     .catch((err) => {
-  //       console.log(err);
+  //       // console.log(err);
   //     });
   // }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TokenService } from 'src/app/Services/token.service';
 
 @Component({
   selector: 'app-account-info',
@@ -8,11 +9,14 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class AccountInfoComponent implements OnInit {
   @Input('userDetails') user: any;
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private token: TokenService) {}
   ngOnInit(): void {
     this.auth.getUser().subscribe({
       next: (data) => {
         this.user = data;
+      },
+      error: (err) => {
+        this.token.getUser();
       },
     });
   }

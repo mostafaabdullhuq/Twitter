@@ -2,12 +2,13 @@
 <div class="relative mt-2 mb-2">
   <i class="fa-solid fa-magnifying-glass text-gray-600 absolute left-4 top-1/2 -translate-y-1/2"></i>
   <input (keyup)="handleSearchEnter($event)" type="text" (input)="onChange($event)" (focus)="onFocus()"
+    (blur)="onBlur($event)" [value]="this.searchQuery"
     class="w-full bg-light-gray_100 dark:bg-dark-gray_0 dark:bg-opacity-60 p-6 dark:bg-dim-400 focus:border focus:border-main-blue_100 text-gray-900 focus:outline-none font-normal h-9 pl-12 text-md rounded-full dark:text-white placeholder:text-gray-500"
     placeholder="Search Twitter" />
   <!-- !-----search result block------ -->
   <div *ngIf="searchType == 'users';else searchHashtags">
     <div *ngIf="searchType && searchResult && searchResult?.length && isFocused;else noResult"
-      class="bg-white absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
+      class="bg-white search-result absolute mt-1 z-50   top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
       <div routerLink="/search" [queryParams]="{ type: 'user_tweets', q: u.username }"
         class="right-follow-search gap-2 w-[100%] px-2 max-w-[100%] overflow-hidden " *ngFor="let u of searchResult">
         <!--! -----user info block ---- -->
@@ -45,7 +46,7 @@
 
 <ng-template #searchHashtags>
   <div *ngIf="searchType && searchResult && searchResult?.length && isFocused;else noResult"
-    class="bg-white absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
+    class="bg-white search-result absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
     <div routerLink="/search" [queryParams]="{'type':'hashtag_tweets', 'q': hashtag.name}"
       class="right-follow-search gap-2 w-[100%] px-2 max-w-[100%] overflow-hidden "
       *ngFor="let hashtag of searchResult">
@@ -67,7 +68,7 @@
 <ng-template #noResult>
   <div routerLink="/search" [queryParams]="{ type: 'tweets', q: searchQuery }"
     *ngIf="searchType && searchResult && !searchResult?.length && isFocused"
-    class="bg-white absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
+    class="bg-white search-result absolute mt-1  top-full flex-col   max-w-full left-0 dark:border-dark-gray_0 border-gray-300  right-0 rounded-2xl drop-shadow-lg border border-opacity-30 shadow-xl dark:bg-black flex items-center justify-center  overflow-hidden">
     <div routerLink="/search" [queryParams]="{ type: 'tweets', q: searchQuery }"
       class="right-follow-search gap-2 w-[100%] px-2 max-w-[100%] overflow-hidden ">
       <!--! -----user info block ---- -->

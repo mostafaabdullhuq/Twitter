@@ -1,10 +1,10 @@
 const tweetsContainer = document.getElementById("tweetsContainer"),
-    observerRoot = document.getElementById("middleRoot"),
-    tweetsContainerBoundaries = tweetsContainer.getBoundingClientRect(),
-    loadingSpinner = document.getElementById("loading");
+  observerRoot = document.getElementById("middleRoot"),
+  tweetsContainerBoundaries = tweetsContainer.getBoundingClientRect(),
+  loadingSpinner = document.getElementById("loading");
 let tweets = document.querySelectorAll(".tweet"),
-    lastTweet = tweets[tweets.length - 1];
-console.log(tweetsContainerBoundaries);
+  lastTweet = tweets[tweets.length - 1];
+// console.log(tweetsContainerBoundaries);
 
 const tweetsToAdd = `
                         <div class="tweet relative">
@@ -340,37 +340,37 @@ const tweetsToAdd = `
             `;
 
 async function fetchTweets() {
-    await fetch("https://api.escuelajs.co/api/v1/products").then((response) => {
-        tweetsContainer.insertAdjacentHTML("beforeend", tweetsToAdd);
-        console.log("%ctweets fetched and added successfully", "color:red;");
-    });
+  await fetch("https://api.escuelajs.co/api/v1/products").then((response) => {
+    tweetsContainer.insertAdjacentHTML("beforeend", tweetsToAdd);
+    // console.log("%ctweets fetched and added successfully", "color:red;");
+  });
 }
 
 function observerHandler(entries, observer) {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            loadingSpinner.classList.remove("hidden");
-            console.log("%cend of tweets", "color:cyan");
-            fetchTweets()
-                .then((_) => {
-                    observer.unobserve(lastTweet);
-                    tweets = document.querySelectorAll(".tweet");
-                    lastTweet = tweets[tweets.length - 1];
-                    observer.observe(lastTweet);
-                    loadingSpinner.classList.add("hidden");
-                })
-                .catch((err) => {
-                    console.log("error");
-                });
-        } else {
-            console.log("not intersecting");
-        }
-    });
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      loadingSpinner.classList.remove("hidden");
+      // console.log("%cend of tweets", "color:cyan");
+      fetchTweets()
+        .then((_) => {
+          observer.unobserve(lastTweet);
+          tweets = document.querySelectorAll(".tweet");
+          lastTweet = tweets[tweets.length - 1];
+          observer.observe(lastTweet);
+          loadingSpinner.classList.add("hidden");
+        })
+        .catch((err) => {
+          // console.log("error");
+        });
+    } else {
+      // console.log("not intersecting");
+    }
+  });
 }
 let observer = new IntersectionObserver(observerHandler, {
-    root: observerRoot,
-    rootMargin: "0px",
-    threshold: 0.7,
+  root: observerRoot,
+  rootMargin: "0px",
+  threshold: 0.7,
 });
 
 observer.observe(lastTweet);

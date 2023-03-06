@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
         this.user = data;
       },
       error: (err: any) => {
-        console.log(err);
+        // console.log(err);
       },
     });
     this.Logged.authStatus.subscribe((value) => (this.loggedIn = value));
@@ -76,7 +76,14 @@ export class AppComponent implements OnInit {
           this.isInRequestReset = false;
         }
       } else {
-        this.user = this.Token.getUser();
+        this.authService.getUser().subscribe({
+          next: (data: any) => {
+            this.user = data;
+          },
+          error: (err: any) => {
+            this.user = this.Token.getUser();
+          },
+        });
       }
     });
   }
@@ -118,11 +125,11 @@ export class AppComponent implements OnInit {
   //   this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
   //     (googleAuthUser:any) => {
   //       let profile = googleAuthUser.getBasicProfile();
-  //       console.log('Token || ' + googleAuthUser.getAuthResponse().id_token);
-  //       console.log('ID: ' + profile.getId());
-  //       console.log('Name: ' + profile.getName());
-  //       console.log('Image URL: ' + profile.getImageUrl());
-  //       console.log('Email: ' + profile.getEmail());
+  //       // console.log('Token || ' + googleAuthUser.getAuthResponse().id_token);
+  //       // console.log('ID: ' + profile.getId());
+  //       // console.log('Name: ' + profile.getName());
+  //       // console.log('Image URL: ' + profile.getImageUrl());
+  //       // console.log('Email: ' + profile.getEmail());
 
   //      /* Write Your Code Here */
 

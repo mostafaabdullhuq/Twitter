@@ -10,7 +10,7 @@ export class TokenService {
   constructor() {}
   handel(token: any) {
     this.set(token);
-    //  console.log(this.isValid());
+    //  // console.log(this.isValid());
   }
 
   set(token: any) {

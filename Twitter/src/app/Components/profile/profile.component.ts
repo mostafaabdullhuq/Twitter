@@ -49,11 +49,11 @@ export class ProfileComponent implements OnInit {
         next: (data: any) => {
           this.loggedUser = data;
           // this.notAUser = false;
-          console.log(data);
+          // console.log(data);
         },
         error: (err) => {
           // this.notAUser=true;
-          console.log(err);
+          // console.log(err);
         },
       });
       if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
@@ -64,15 +64,15 @@ export class ProfileComponent implements OnInit {
           next: (data: any) => {
             this.tweets = data.tweets;
             this.user = data.user;
-            console.log(data);
+            // console.log(data);
 
-            // console.log(this.tweets);
+            // // console.log(this.tweets);
 
             // this.notAUser = false;
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
@@ -102,7 +102,7 @@ export class ProfileComponent implements OnInit {
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       } else {
@@ -122,12 +122,12 @@ export class ProfileComponent implements OnInit {
 
             // this.tweets = data.tweets;
             this.user = data.user;
-            console.log('test');
-            console.log(this.user);
+            // console.log('test');
+            // console.log(this.user);
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
         this.tweetsClient.getRetweets(this.username).subscribe({
@@ -138,16 +138,16 @@ export class ProfileComponent implements OnInit {
             } else {
               this.tweets = data.retweets;
             }
-            console.log('retweeeets');
+            // console.log('retweeeets');
 
-            console.log(this.tweets);
+            // console.log(this.tweets);
 
             this.user = data.user;
             // this.notAUser = false;
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       }
@@ -158,10 +158,10 @@ export class ProfileComponent implements OnInit {
     let user_id = +id;
     this.userService.postFollow(user_id).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

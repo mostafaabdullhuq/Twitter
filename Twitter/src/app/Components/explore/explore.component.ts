@@ -54,7 +54,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
               else if (this.searchType == 'user_tweets') this.tweets = data;
             },
             error: (err) => {
-              console.log(err);
+              // console.log(err);
             },
           });
         } else {
@@ -77,7 +77,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
           this.hashtags = data;
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       });
 
@@ -87,7 +87,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
           this.tweets = data;
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       });
 
@@ -120,7 +120,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
             else if (this.searchType == 'user_tweets') this.tweets = data;
           },
           error: (err) => {
-            console.log(err);
+            // console.log(err);
           },
         });
       } else {
@@ -135,7 +135,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
     this.usersService.postFollow(user_id).subscribe({
       next: (data) => {},
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

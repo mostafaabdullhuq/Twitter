@@ -129,7 +129,7 @@ export class TweetPopupComponent {
           this.tweetMediaFiles = [];
         },
         error: (err: any) => {
-          console.log(err);
+          // console.log(err);
         },
       });
       this.closePopup();

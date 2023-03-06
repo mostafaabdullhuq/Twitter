@@ -8,6 +8,7 @@ import { HashtagService } from 'src/app/Services/hashtag.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { UserService } from 'src/app/Services/user.service';
 import { query } from '@angular/animations';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-search',
@@ -21,9 +22,17 @@ export class SearchComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private tokenService: TokenService,
     private searchService: SearchService,
-    private myRouter: Router
+    private myRouter: Router,
+    private authService: AuthService
   ) {
-    this.user = this.tokenService.getUser();
+    this.authService.getUser().subscribe({
+      next: (data: any) => {
+        this.user = data;
+      },
+      error: (err: any) => {
+        this.user = this.tokenService.getUser();
+      },
+    });
   }
   protected user: any;
   isFocused: boolean = false;
@@ -31,7 +40,11 @@ export class SearchComponent implements OnInit {
   public searchType: any = null;
   public searchQuery: any = null;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.myRouter.url.split('?')[0] == '/search') {
+      this.searchQuery = this.activatedRouter.snapshot.queryParams['q'];
+    }
+  }
 
   onChange(event: any): void {
     let value = event.target.value;
@@ -52,7 +65,7 @@ export class SearchComponent implements OnInit {
             this.searchResult = data;
           },
           error: (err: any) => {
-            console.log(err);
+            // console.log(err);
           },
         });
       }
@@ -64,9 +77,13 @@ export class SearchComponent implements OnInit {
   onFocus() {
     this.isFocused = true;
   }
-  // onBlur() {
-  //   this.isFocused = false;
-  // }
+  onBlur(event: any) {
+    // if (!event?.relatedTarget?.closest('.search-result')) {
+    // }
+    setTimeout(() => {
+      this.isFocused = false;
+    }, 200);
+  }
 
   handleSearchEnter(event: any) {
     this.isFocused = true;

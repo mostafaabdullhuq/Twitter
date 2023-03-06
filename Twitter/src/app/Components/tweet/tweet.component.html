@@ -4,7 +4,7 @@
             <!-- if tweet is a retweet -->
             <div routerLink="/status/{{tweet.tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
             <div (click)="tweet.isPopupShown = !tweet.isPopupShown;handleTweetPopup(tweet); tweet.isBookmarkPopupShown = false;tweet.isRetweetPopupShown=false"
-                class="absolute z-50  justify-center items-center  transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
+                class="absolute z-30  justify-center items-center  transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
                 title="More">
                 <i
                     class="fa-solid fa-ellipsis text-lg ove dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
@@ -143,7 +143,7 @@
         <ng-template #tweetBlock>
             <div routerLink="/status/{{tweet.id}}" class="absolute top-0 left-0 right-0 bottom-0"></div>
             <div (click)="tweet.isPopupShown = !tweet.isPopupShown;handleTweetPopup(tweet); tweet.isBookmarkPopupShown = false;tweet.isRetweetPopupShown=false"
-                class="absolute z-50  justify-center items-center  transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
+                class="absolute z-30  justify-center items-center  transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0 dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex"
                 title="More">
                 <i
                     class="fa-solid fa-ellipsis text-lg ove dark:hover:text-main-blue_100 dark:text-white items-center text-gray-500 cursor-pointer"></i>
