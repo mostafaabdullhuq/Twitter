@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg" alt="Twitter Logo">
+  <img src="https://commons.wikimedia.org/wiki/File:Twitter-logo.svg" alt="Twitter Logo">
 <h1>Twitter Clone</h1>
 </p>
 
