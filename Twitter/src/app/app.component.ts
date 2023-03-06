@@ -6,10 +6,11 @@ import {
   HostListener,
 } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
 import { TweetsService } from './Services/tweets.service';
 import { AuthService } from './Services/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { TokenService } from './token.service';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(private http: HttpClient, private tokenService: TokenService) {}
-  private baseUrl = 'http://127.0.0.1:8000/api/auth';
+  private baseUrl = `${environment.apiURL}/auth`;
 
   signup(data: any) {
     return this.http.post(`${this.baseUrl}/signup`, data);
@@ -36,7 +37,7 @@ export class AuthService {
     //     Authorization: `Bearer ${accessToken}`,
     //   },
     // });
-    return this.http.post(`http://127.0.0.1:8000/api/user/update`, data, {
+    return this.http.post(`${environment.apiURL}/user/update`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -49,7 +50,7 @@ export class AuthService {
 
   getUser() {
     let accessToken = this.tokenService.get();
-    return this.http.get(`http://127.0.0.1:8000/api/user/index`, {
+    return this.http.get(`${environment.apiURL}/user/index`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

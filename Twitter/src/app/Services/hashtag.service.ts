@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HashtagService {
-  private BASE_URL = 'http://127.0.0.1:8000/api/hashtag';
+  private BASE_URL = `${environment.apiURL}/hashtag`;
   constructor(
     private httpClient: HttpClient,
     private tokenService: TokenService

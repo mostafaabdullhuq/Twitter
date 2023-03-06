@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { environment } from './../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
   private iss = {
-    login: 'http://127.0.0.1:8000/api/auth/login',
-    signup: 'http://127.0.0.1:8000/api/auth/signup',
+    login: `${environment.apiURL}/auth/login`,
+    signup: `${environment.apiURL}/auth/signup`,
   };
   constructor() {}
   handel(token: any) {
