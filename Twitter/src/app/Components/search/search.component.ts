@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.myRouter.url.split('?')[0] == '/search') {
-      this.searchQuery = this.activatedRouter.snapshot.queryParams['q'];
+      this.searchQuery = this.activatedRouter.snapshot.queryParams['q'] ?? '';
     }
   }
 
