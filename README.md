@@ -48,7 +48,7 @@ php artisan jwt:secret
 
 Create a database in phpMyAdmin with any name you like, but remember to name it the same in your laravel .env file and then write
 ```
-php artisan migrate:fresh —seed
+php artisan migrate:fresh --seed
 ```
 
 Create a symbolic link between the public directory in your Laravel application and the storage/app/public directory in your application's file system.
