@@ -21,10 +21,10 @@ export class ReplyComponent {
   likesCount(replyID: any) {
     this.httpClient.getLikesCount(replyID).subscribe({
       next: (data: any) => {
-        // console.log(data);
+        // // console.log(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

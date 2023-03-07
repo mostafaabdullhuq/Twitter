@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
   public loggedUser: any;
   public viewType = 1;
   public notAUser = false;
+  public profileAspect = 1;
   show = false;
   showRetweet = false;
   ngOnInit(): void {
@@ -45,15 +46,16 @@ export class ProfileComponent implements OnInit {
     this.myRoute.params.subscribe((res: any) => {
       this.username = res.user;
       this.user = null;
+      // this.loggedUser = this.Token.getUser();
       this.userService.index().subscribe({
         next: (data: any) => {
           this.loggedUser = data;
           // this.notAUser = false;
-          console.log(data);
+          // console.log(data);
         },
         error: (err) => {
           // this.notAUser=true;
-          console.log(err);
+          // console.log(err);
         },
       });
       if (this.myRoute.snapshot?.url[1]?.path === 'with_replies') {
@@ -64,15 +66,15 @@ export class ProfileComponent implements OnInit {
           next: (data: any) => {
             this.tweets = data.tweets;
             this.user = data.user;
-            console.log(data);
+            // console.log(data);
 
-            // console.log(this.tweets);
+            // // console.log(this.tweets);
 
             // this.notAUser = false;
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       } else if (this.myRoute.snapshot?.url[1]?.path === 'likes') {
@@ -87,7 +89,7 @@ export class ProfileComponent implements OnInit {
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       } else if (this.myRoute.snapshot?.url[1]?.path === 'media') {
@@ -102,7 +104,7 @@ export class ProfileComponent implements OnInit {
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       } else {
@@ -122,12 +124,12 @@ export class ProfileComponent implements OnInit {
 
             // this.tweets = data.tweets;
             this.user = data.user;
-            console.log('test');
-            console.log(this.user);
+            // console.log('test');
+            // console.log(this.user);
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
         this.tweetsClient.getRetweets(this.username).subscribe({
@@ -138,16 +140,16 @@ export class ProfileComponent implements OnInit {
             } else {
               this.tweets = data.retweets;
             }
-            console.log('retweeeets');
+            // console.log('retweeeets');
 
-            console.log(this.tweets);
+            // console.log(this.tweets);
 
             this.user = data.user;
             // this.notAUser = false;
           },
           error: (err) => {
             this.notAUser = true;
-            console.log(err);
+            // console.log(err);
           },
         });
       }
@@ -158,10 +160,10 @@ export class ProfileComponent implements OnInit {
     let user_id = +id;
     this.userService.postFollow(user_id).subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }
@@ -175,5 +177,20 @@ export class ProfileComponent implements OnInit {
 
   logoutPopup() {
     this.popup ? (this.popup = false) : (this.popup = true);
+  }
+
+  imageAspect(picture: any) {
+    if (picture) {
+      // detect aspect ratio of photo
+      let aspect = picture.height / picture.width;
+      // if aspect ratio is greater than 1, it's a portrait
+      if (aspect > 1) {
+        this.profileAspect = 1;
+      }
+      // if aspect ratio is less than 1, it's a landscape
+      else if (aspect < 1) {
+        this.profileAspect = 2;
+      }
+    }
   }
 }

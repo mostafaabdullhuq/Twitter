@@ -35,7 +35,7 @@ export class TweetComponent implements OnInit {
   public observer: any = new IntersectionObserver((entries: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
-        // console.log('new tweet');
+        // // console.log('new tweet');
       }
     });
   });
@@ -45,7 +45,8 @@ export class TweetComponent implements OnInit {
     public myRoute: ActivatedRoute,
     public httpClient: TweetsService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private Token: TokenService
   ) {}
   ngOnInit(): void {
     let path = this.myRoute.snapshot?.url[0]?.path;
@@ -54,12 +55,14 @@ export class TweetComponent implements OnInit {
     this.isInHome =
       path == 'home' || !path || path == 'home/following' ? true : false;
 
+    this.user = this.Token.getUser();
     this.authService.getUser().subscribe({
       next: (data: any) => {
         this.user = data;
       },
       error: (err: any) => {
-        console.log(err);
+        this.user = this.Token.getUser();
+        // console.log(err);
       },
     });
   }
@@ -70,7 +73,7 @@ export class TweetComponent implements OnInit {
         this.tweets = this.tweets.filter((item: any) => item.id != retweetID);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }
@@ -96,10 +99,10 @@ export class TweetComponent implements OnInit {
   likesCount(tweetID: any) {
     this.httpClient.getLikesCount(tweetID).subscribe({
       next: (data: any) => {
-        // console.log(data);
+        // // console.log(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }
@@ -131,7 +134,7 @@ export class TweetComponent implements OnInit {
         } else {
           nextIndex = index - 1 < 0 ? tweet.media.length - 1 : index - 1;
         }
-        // console.log(nextIndex);
+        // // console.log(nextIndex);
         container.children[0].children[0].src =
           tweet.media[nextIndex].media_url;
 
@@ -158,7 +161,7 @@ export class TweetComponent implements OnInit {
         this.tweets = this.tweets.filter((item: any) => item.id != tweet.id);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }
@@ -167,7 +170,7 @@ export class TweetComponent implements OnInit {
     this.userService.createBokkmarks(tweetID).subscribe({
       next: (data) => {},
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

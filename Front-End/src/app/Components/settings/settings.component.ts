@@ -45,13 +45,13 @@ export class SettingsComponent {
 
     this.userService.deleteUser().subscribe({
       next: (data) => {
-        console.log(data);
+        // console.log(data);
         this.Token.remove();
         this.Logged.changeAuthStatus(false);
         this.router.navigateByUrl('/login');
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

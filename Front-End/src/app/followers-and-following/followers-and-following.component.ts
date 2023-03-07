@@ -26,17 +26,17 @@ export class FollowersAndFollowingComponent {
     this.myRoute.params.subscribe((res: any) => {
       this.username = res.user;
     });
-    // console.log(this.username);
+    // // console.log(this.username);
 
     // this.tweetsClient.getReplies(this.username).subscribe({
     //   next: (data: any) => {
     //     // this.tweets = data.tweets;
     //     this.userId = data.user.id;
     //     this.user = data.user;
-    //     console.log(this.username);
+    //     // console.log(this.username);
     //   },
     //   error: (err) => {
-    //     console.log(err);
+    //     // console.log(err);
     //   },
     // });
 
@@ -46,8 +46,8 @@ export class FollowersAndFollowingComponent {
           this.followings = data.followList;
           this.user = data.user;
 
-          // console.log('followings : ');
-          // console.log(this.followings);
+          // // console.log('followings : ');
+          // // console.log(this.followings);
         },
         error: (err) => {
           err;
@@ -59,8 +59,8 @@ export class FollowersAndFollowingComponent {
           this.followings = data.followList;
           this.user = data.user;
 
-          // console.log('followings : ');
-          // console.log(this.followings);
+          // // console.log('followings : ');
+          // // console.log(this.followings);
         },
         error: (err) => {
           err;
@@ -72,7 +72,7 @@ export class FollowersAndFollowingComponent {
     //   {
     //     next:(data:any)=>{
     //         this.user = data.user;
-    //         console.log(data.user.id);
+    //         // console.log(data.user.id);
     //     },
     //     error:(err)=>{err},
     //   })
@@ -81,7 +81,7 @@ export class FollowersAndFollowingComponent {
     //   {
     //     next:(data:any)=>{
     //         this.user = data.user;
-    //         console.log(data.user.id);
+    //         // console.log(data.user.id);
     //     },
     //     error:(err)=>{err},
     //   })
@@ -91,10 +91,10 @@ export class FollowersAndFollowingComponent {
 
     this.myService.postFollow(user_id).subscribe({
       next: (data: any) => {
-        // console.log(data);
+        // // console.log(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

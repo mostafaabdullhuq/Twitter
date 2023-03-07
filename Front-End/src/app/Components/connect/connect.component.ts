@@ -24,10 +24,10 @@ export class ConnectComponent implements OnInit {
 
     this.myService.postFollow(user_id).subscribe({
       next: (data) => {
-        // console.log(data);
+        // // console.log(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

@@ -40,10 +40,10 @@ import {
   SocialLoginModule,
   SocialAuthServiceConfig,
 } from '@abacritt/angularx-social-login';
-import {
-  GoogleLoginProvider,
-  FacebookLoginProvider,
-} from '@abacritt/angularx-social-login';
+// import {
+//   GoogleLoginProvider,
+//   FacebookLoginProvider,
+// } from '@abacritt/angularx-social-login';
 import { TweetDetailsComponent } from './Components/tweet-details/tweet-details.component';
 import { ReplyComponent } from './Components/reply/reply.component';
 import { EditProfileComponent } from './Components/edit-profile/edit-profile.component';
@@ -56,6 +56,7 @@ import { LoadProfileComponent } from './Components/load-profile/load-profile.com
 import { TweetPopupComponent } from './Components/tweet-popup/tweet-popup.component';
 import { TweetSharedComponent } from './Components/tweet-shared/tweet-shared.component';
 // import { StickyHeaderFollowingComponent } from './sticky-header-following/sticky-header-following.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -115,22 +116,23 @@ import { TweetSharedComponent } from './Components/tweet-shared/tweet-shared.com
     ReactiveFormsModule,
   ],
   providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AuthService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
         providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '1032393167493-djg4gqrnejak3b4nope9rol5r7j26h97.apps.googleusercontent.com'
-            ),
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('1249243529000381'),
-          },
+          // {
+          //   id: GoogleLoginProvider.PROVIDER_ID,
+          //   provider: new GoogleLoginProvider(
+          //     '1032393167493-djg4gqrnejak3b4nope9rol5r7j26h97.apps.googleusercontent.com'
+          //   ),
+          // },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('1249243529000381'),
+          // },
         ],
         onError: (err) => {
           console.error(err);

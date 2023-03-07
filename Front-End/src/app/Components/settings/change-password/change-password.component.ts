@@ -40,7 +40,7 @@ export class ChangePasswordComponent implements OnInit {
         };
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

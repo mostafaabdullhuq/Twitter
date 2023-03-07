@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-  post(arg0: string, arg1: { query: string; }) {
+  post(arg0: string, arg1: { query: string }) {
     throw new Error('Method not implemented.');
   }
-  private BASE_URL = 'http://127.0.0.1:8000/api/search';
+  private BASE_URL = `${environment.apiURL}/search`;
   constructor(
     private httpClient: HttpClient,
     private tokenService: TokenService

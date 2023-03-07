@@ -1,8 +1,8 @@
 <!--! -------middle ------- -->
-<app-edit-profile *ngIf="user" [userDetails]="user" [showPopup]="showPopup"
+<app-edit-profile *ngIf="user && loggedUser" [userDetails]="user" [showPopup]="showPopup"
     (closePopup)="onClosePopup()"></app-edit-profile>
 
-<div *ngIf="user; else loadingBlock "
+<div *ngIf="user && loggedUser; else loadingBlock "
     class="h-full w-full flex flex-col overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
     <!-- -----sticky header---- -->
     <div class="flex flex-col sticky top-0 left-0 right-0 z-50 bg-transparent">
@@ -16,9 +16,11 @@
                 class="py-2 w-8 h-8 flex items-center ml-4 text-xl justify-center dark:text-white rounded-full hover:bg-gray-100 dark:hover:bg-dark-gray_0 dark:hover:bg-opacity-50">
                 <a routerLink="/home"><i class="fa-solid fa-arrow-left"></i></a>
             </div>
-            <div class="flex flex-col">
-                <div class="flex items-center">
-                    <h4 class="text-gray-800 pl-6 text-2xl dark:text-white font-bold">{{user ? user.first_name + ' ' +
+            <div class="flex flex-col  w-full">
+                <div class="flex items-center ">
+                    <h4 class="text-gray-800  max-w-[80%] dotted-text pl-6 text-2xl dark:text-white font-bold">
+                        {{user ?
+                        user.first_name + ' ' +
                         user.last_name :
                         'Loading...'}}</h4>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="{1.5}"
@@ -56,8 +58,13 @@
                 class="object-cover object-center w-full h-full" alt="" srcset="" />
         </div>
         <!-- profile picture -->
-        <img src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
-            class="absolute top-24 rounded-full w-36 h-36 border-[4px] ml-3 dark:border-black border-white" />
+        <div
+            class="absolute top-20 rounded-full w-40 h-40 border-[4px] left-3 dark:border-black  bg-white dark:bg-black border-white shadow-sm overflow-hidden">
+            <img #profileImage [ngClass]="{'scale-[200%]': profileAspect == 2}"
+                src="{{user.profile_picture || './../../../assets/images/default_profile.png'}}"
+                (load)="imageAspect(profileImage)"
+                class="max-w-full w-full h-auto  object-contain absolute top-[50%] translate-y-[-50%]" />
+        </div>
 
         <!-- profile controls -->
         <div class="flex items-center sm:mt-4 mt-12  px-4 float-right gap-4 w-full justify-end">
@@ -176,7 +183,7 @@
 </div>
 
 <ng-template #loadingBlock>
-    <div *ngIf="!notAUser && !user;else loosing"
+    <div *ngIf="!notAUser  && (!user || !loggedUser);else loosing"
         class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
         <div class=" my-2 mt-20 flex flex-col text-center gap-4 px-4 py-2 dark:text-white">
             <i class="fa-solid fa-spinner text-2xl animate-spin"></i>
@@ -188,6 +195,6 @@
 <ng-template #loosing>
     <app-load-profile
         class="h-full w-full flex flex-col items-center justify-center overflow-y-auto scrollbar-hide scroll-smooth dark:border-dark-gray_0 border-x border-gray-100">
-        >
+
     </app-load-profile>
 </ng-template>

@@ -6,7 +6,7 @@
   <div class="single-tweet">
     <!-- tweet right up control -->
     <div (click)="showControls = !showControls"
-      class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 hidden sm:flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
+      class="absolute dark:hover:bg-main-blue_100 dark:hover:bg-opacity-20 flex justify-center items-center transition-colors right-5 top-3 w-8 h-8 rounded-full hover:bg-main-blue_0"
       title="More">
       <i
         class="fa-solid fa-ellipsis text-lg items-center text-gray-500 dark:hover:text-main-blue_100 dark:text-white cursor-pointer"></i>
@@ -68,9 +68,12 @@
     <div class="content flex flex-col justify-start w-full gap-1 pt-3 max-w-full">
       <!-- flex flex-col sm:flex-row justify-start pb-0 leading-5 sm:items-center -->
       <!-- ----paragraph----- -->
-      <p class="font-normal dark:text-white text-md text-dark-gray_400" dir="auto">
-        <span [innerHTML]="formatTweetText(tweet.text)"></span>
-      </p>
+      <!-- tweet text -->
+      <div class="font-normal pr-2 w-full dark:text-white text-md text-dark-gray_400 break-words" dir="auto"></div>
+      <pre
+        class="break-words  font-normal scrollbar-hide overflow-x-hidden  outline-none tracking-tight  whitespace-pre-wrap overflow-y-auto text-left"
+        [innerHTML]="formatTweetText(tweet.text)">
+                                        </pre>
       <!-- tweet media -->
       <div *ngIf="tweet.media.length"
         class="relative bg-white h-[500px] z-1 w-auto max-h-[500px] my-3 mr-2 rounded-xl overflow-hidden flex items-center justify-center dark:border-dark-gray_0 border border-light-gray">
@@ -217,7 +220,7 @@
             <div data-before="Add your reply." dir="auto"
               class="after:hidden tweet-editor scrollbar-hide md:after:text-2xl after:text-lg after:w-fit focus:after:hidden empty:after:block px-3 py-3 relative after:content-[attr(data-before)] after:top-2 after:text-gray-500 after:h-10 md:text-xl text-lg tracking-tight font-normal not-italic text-main-black_0 placeholder:text-gray-500 dark:text-white w-full max-h-[500px] bg-transparent focus:outline-none overflow-y-hidden break-words overflow-x-hidden grid max-w-[100%]">
               <pre #tweetBox dir="auto"
-                class="break-words font-normal scrollbar-hide overflow-x-hidden outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left"
+                class="break-words font-normal scrollbar-hide overflow-x-hidden outline-none tracking-tight md:text-xl text-lg whitespace-pre-wrap overflow-y-auto text-left "
                 [innerHTML]="formatTweetText(replyForm.value.text, 1)"></pre>
               <textarea (scroll)="handleScroll($event)" dir="auto" formControlName="text"
                 class="font-normal tracking-tight scrollbar-hide outline-none break-words md:text-xl text-lg overflow-y-auto text-white text-opacity-0 resize-none overflow-x-hidden bg-transparent whitespace-pre-wrap text-left">

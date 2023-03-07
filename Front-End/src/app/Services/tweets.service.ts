@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { EventEmitter, Injectable } from '@angular/core';
+import { environment } from './../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -8,7 +10,7 @@ export class TweetsService {
   uploadImage(formData: FormData) {
     throw new Error('Method not implemented.');
   }
-  private BASE_URL = 'http://127.0.0.1:8000/api/tweet';
+  private BASE_URL = `${environment.apiURL}/tweet`;
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 
   getForYouTweets(nextCursor: any) {
@@ -265,7 +267,7 @@ export class TweetsService {
 
   getRetweets(username: any) {
     const accessToken = this.token.get();
-    return this.httpClient.get(this.BASE_URL+`/${username}/retweets`, {
+    return this.httpClient.get(this.BASE_URL + `/${username}/retweets`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

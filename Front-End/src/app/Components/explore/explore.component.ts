@@ -29,10 +29,14 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
   public isNoParams: any = false;
   ngOnInit(): void {
     this.myRouter.queryParams.subscribe((queryParams: any) => {
+      console.log('here');
+
+      console.log(this.myRouter.snapshot.routeConfig?.path);
+
       if (
         queryParams.type &&
         queryParams.q &&
-        this.myRouter.snapshot.routeConfig?.path?.split('/')[0] == 'search'
+        this.myRouter.snapshot.routeConfig?.path == 'search'
       ) {
         this.tweets = null;
         this.users = null;
@@ -54,7 +58,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
               else if (this.searchType == 'user_tweets') this.tweets = data;
             },
             error: (err) => {
-              console.log(err);
+              // console.log(err);
             },
           });
         } else {
@@ -66,7 +70,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
       }
     });
 
-    let urlpath = this.myRouter.snapshot.routeConfig?.path?.split('/')[0];
+    let urlpath = this.myRouter.snapshot.routeConfig?.path;
 
     // if in explore page without any param
     if (urlpath == 'explore') {
@@ -77,7 +81,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
           this.hashtags = data;
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       });
 
@@ -87,7 +91,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
           this.tweets = data;
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       });
 
@@ -120,7 +124,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
             else if (this.searchType == 'user_tweets') this.tweets = data;
           },
           error: (err) => {
-            console.log(err);
+            // console.log(err);
           },
         });
       } else {
@@ -135,7 +139,7 @@ export class ExploreComponent implements OnInit, AfterViewChecked {
     this.usersService.postFollow(user_id).subscribe({
       next: (data) => {},
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }

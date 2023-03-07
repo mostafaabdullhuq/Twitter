@@ -51,6 +51,14 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     private sanitizer: DomSanitizer
   ) {
     this.user = this.Token.getUser();
+    this.authService.getUser().subscribe({
+      next: (data: any) => {
+        this.user = data;
+      },
+      error: (err: any) => {
+        this.user = this.Token.getUser();
+      },
+    });
   }
 
   // infinite scrolling logic
@@ -68,7 +76,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
               }
             },
             error: (err) => {
-              console.log(err);
+              // console.log(err);
             },
           });
         } else {
@@ -83,7 +91,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
               }
             },
             error: (err) => {
-              console.log(err);
+              // console.log(err);
             },
           });
         }
@@ -125,7 +133,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
           });
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       });
     } else {
@@ -135,7 +143,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
           this.nextCursor2 = data.nextCursor;
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       });
     }
@@ -160,7 +168,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
           this.tweetMediaFiles = [];
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
         },
       });
     } else {

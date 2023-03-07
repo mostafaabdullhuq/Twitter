@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { TokenService } from 'src/app/Services/token.service';
 import { TweetsService } from 'src/app/Services/tweets.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -21,6 +22,7 @@ export class EditProfileComponent implements OnInit {
   @Input('userDetails') user: any;
   @Output() closePopup = new EventEmitter<void>();
 
+  public profileAspect = 1;
   // public user: any;
   public updateForm: any = new FormGroup({
     first_name: new FormControl(null, [
@@ -130,11 +132,11 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.updateForm.invalid) {
-      // console.log('form');
+      // // console.log('form');
 
-      // console.log(this.updateForm);
+      // // console.log(this.updateForm);
 
-      // console.log('invalid form');
+      // // console.log('invalid form');
 
       return;
     }
@@ -164,22 +166,26 @@ export class EditProfileComponent implements OnInit {
     this.Auth.updateUser(postData).subscribe({
       next: (data) => {
         this.user = data;
-        // console.log(this.user);
+        // // console.log(this.user);
 
         this.tokenService.setUser(this.user);
         this.handleResponse(data);
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
       },
     });
   }
   handleResponse(res: any) {
     this.onClosePopup();
 
-    // refresh all components
+    //refresh component
 
-    window.location.href = '/' + this.user.username;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([this.user.username]);
+    });
+
+    // window.location.href = environment.editURL + this.user.username;
   }
 
   handleError(error: any) {
@@ -188,5 +194,19 @@ export class EditProfileComponent implements OnInit {
 
   onClosePopup() {
     this.closePopup.emit();
+  }
+  imageAspect(picture: any) {
+    if (picture) {
+      // detect aspect ratio of photo
+      let aspect = picture.height / picture.width;
+      // if aspect ratio is greater than 1, it's a portrait
+      if (aspect > 1) {
+        this.profileAspect = 1;
+      }
+      // if aspect ratio is less than 1, it's a landscape
+      else if (aspect < 1) {
+        this.profileAspect = 2;
+      }
+    }
   }
 }

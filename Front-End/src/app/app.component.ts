@@ -6,10 +6,11 @@ import {
   HostListener,
 } from '@angular/core';
 import { LoggedService } from './Services/logged.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TokenService } from './Services/token.service';
 import { TweetsService } from './Services/tweets.service';
 import { AuthService } from './Services/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -37,15 +38,19 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe({
-      next: (data: any) => {
-        this.user = data;
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
     this.Logged.authStatus.subscribe((value) => (this.loggedIn = value));
+    if (this.loggedIn) {
+      this.user = this.Token.getUser();
+      this.authService.getUser().subscribe({
+        next: (data: any) => {
+          this.user = data;
+        },
+        error: (err: any) => {
+          this.user = this.Token.getUser();
+          // console.log(err);
+        },
+      });
+    }
     this.router.events.subscribe((value) => {
       this.isInLogin = false;
       this.isInSignup = false;
@@ -77,6 +82,14 @@ export class AppComponent implements OnInit {
         }
       } else {
         this.user = this.Token.getUser();
+        this.authService.getUser().subscribe({
+          next: (data: any) => {
+            this.user = data;
+          },
+          error: (err: any) => {
+            this.user = this.Token.getUser();
+          },
+        });
       }
     });
   }
@@ -118,11 +131,11 @@ export class AppComponent implements OnInit {
   //   this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
   //     (googleAuthUser:any) => {
   //       let profile = googleAuthUser.getBasicProfile();
-  //       console.log('Token || ' + googleAuthUser.getAuthResponse().id_token);
-  //       console.log('ID: ' + profile.getId());
-  //       console.log('Name: ' + profile.getName());
-  //       console.log('Image URL: ' + profile.getImageUrl());
-  //       console.log('Email: ' + profile.getEmail());
+  //       // console.log('Token || ' + googleAuthUser.getAuthResponse().id_token);
+  //       // console.log('ID: ' + profile.getId());
+  //       // console.log('Name: ' + profile.getName());
+  //       // console.log('Image URL: ' + profile.getImageUrl());
+  //       // console.log('Email: ' + profile.getEmail());
 
   //      /* Write Your Code Here */
 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Token } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { TokenService } from './token.service';
 export class UsersService {
   constructor(private httpClient: HttpClient, public token: TokenService) {}
 
-  private BASE_URL = 'http://127.0.0.1:8000/api/user';
+  private BASE_URL = `${environment.apiURL}/user`;
   index() {
     const accessToken = this.token.get();
 

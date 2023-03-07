@@ -17,7 +17,7 @@ export class TrendsRecommendationComponent implements OnInit {
         this.hashtags = response;
       },
       error: (error) => {
-        console.log(error);
+        // console.log(error);
       },
     });
   }
