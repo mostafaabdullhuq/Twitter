@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiURL: 'https://api.twiter.tech/api',
+  apiURL: 'PRODUCTION_BASE_URL',
   editURL: '/#/',
 };
