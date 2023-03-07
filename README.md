@@ -88,10 +88,31 @@ php artisan serve
 
 
 ## Screenshots
+Screenshots are in dark mode and the <a href="https://drive.google.com/file/d/1i_RWNFFNxRbUe5soyjw46cM_kYVc_JN1/view?usp=share_link" >User Guide Video</a> is in light mode
 <div>
-
-<!-- ![Alt Text]([https://drive.google.com/uc?id=1nMdlaZcDG-vUSMxgs9NvxStOs2zxnAU3](https://doc-0c-b0-docs.googleusercontent.com/docs/securesc/qo5j80jt26rqjiplvt4cja4lcgt8ru2q/4la44kpj1gs02720anuvdveu9jtmilot/1678156425000/10426043050020320387/14553766456838316239/1nMdlaZcDG-vUSMxgs9NvxStOs2zxnAU3?ax=AB85Z1DeoV-EtKINJY94X5b2E9oYsDuVYrKkhl7ngWWOoXKM-TwDFIXC8Un1fIQsPrXRU-f-46UxZjXCLz21d9j03fpFCffWwYSUAdD14sT9vG5MtiRak-TUsHp7qerJNq7vD9_6o2u3u62C2mMU4G204sRFME3cUeo3vwh2LhCZtvUl-u2CerN3lOrF7pc_R0VuaD9Ml3SFsgY_XJ12Gv86obx8kF28N_f1Jr2tbpZnITBhypOUPLj5DEnidO2vucXouKkyTZszK3Uff1MtMDOkdbBh7c6DQ-Ulk4llghx1U3y2xfekStpNdSy2Hc1w7AdfCNIOQoOKEco1OV9-S4GjorjVb-THIVGlzY03lIi27vIPBWax-X2QevC5VmIac2LSm0OZ2fEMXpAXk_tBu8LZxkuSfj5ovY21V__0KcHiF5Pd_0bUTvZtN-eVlALJ-V6juGfCvDfYswiuKyj-LuHbBYSxuk2NIFX4jMIn-bz11JFZfOeTNn8-j4XItBxqDF7WcffLk3hT1eCKQW1JjjoXpkUngvXb_0-7kgwopXLLMmBARmeO8N7E2DOcrjmws7szkAhYaLA8SLJ1nhCSA6lSR3v5LtxQWFESfDc5V7Kcaxs_lutnZqY3l3XfQoGKCMOVnmwmUvxI2Gn1Vasb90oRRnfr9Ox2Y25XWhZna7gIp-WWoXxMwt98rWK0z20LSs1vD3n1WwM2nzaBAbIX3DnnLLM5BUyzIOi7-YuROCEHs2DQEYFS3YKJ7MS1-vnjScUTVu3V0ti6wZo6F5N_BHGnw-FeSXhYBBWveOkRICYTbKdxH79OLCuNXYDf34e6ZofDTYkRqRb67jx1jm5opq_xS1uBEx84aQiRjCTSdBfovj0nspX_Z_Oo7_0&uuid=0d8bb7d8-5d2f-4199-8d4f-6f8a083da1c5&authuser=0&nonce=8e9ki9bt7665m&user=14553766456838316239&hash=fib8rk56fs1q1gh089dsh6a7v54rlcs0)) -->
-
+<img src = "https://user-images.githubusercontent.com/117679026/223306023-1613b5fc-9b3b-467b-8fcd-37b472636677.jpeg" />
 </div> 
-
-
+<img src= "https://user-images.githubusercontent.com/117679026/223306622-bc9f7c20-3fe7-4a38-972d-b9ace3ab7208.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223306712-c1280698-e2f9-4541-b858-c23827aed833.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223306780-48470b04-c6c6-484a-8ae4-9c19dd23ec9e.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223306896-954f7a8a-296d-43ac-a5d5-8243ed56f0ae.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307001-9a20c664-3866-4a82-b42d-74860b5806d0.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307159-376a87a8-693f-4fb2-93af-39c035c99ccd.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307143-11bafb76-86eb-4dc6-a45d-f9c3131dbefb.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307260-eacbc80e-d2ef-4b33-8ec8-892faede7b81.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307522-66e2ac65-2fc4-43f8-ae24-92629ff5f032.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307603-ce3b2841-3508-4c5f-81a4-d17f7cce2f2c.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307695-47072aaf-fc32-4780-bde6-02643fc3f524.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307791-59b28521-a24c-46f5-b1c2-490629d60475.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307877-8fdeb1da-35e5-4a97-aed6-34b79824a74d.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307986-bbf2ebb5-500c-4ec4-8d80-defe4151ba4b.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223307963-d0100406-e2f3-4cdd-8329-d57e266c6c6b.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223308449-53775dab-e70e-4693-9020-67f01d641004.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223308570-0afec021-04e0-4bae-bec6-1645adfc9d82.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223308720-38c3bd75-9738-40a1-adbf-c341f99424b6.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223308815-77d1f9da-2fd3-4a5d-92bd-00d0aea82974.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223308923-0dc60956-e1ea-43f8-9a0e-627e72db7cc3.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223309035-f982a967-cf5a-4ef0-9078-c4fb9c6b36d2.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223309143-fd20b6c3-dae5-45d3-8b57-4fb1cd4c378b.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223309236-6b0baaa4-29e5-4ec4-a57d-ab7bfeff9e70.jpeg" />
+<img src="https://user-images.githubusercontent.com/117679026/223309345-362a2fe5-4fc4-4b34-9e5f-b3fc805a9321.jpeg" />
