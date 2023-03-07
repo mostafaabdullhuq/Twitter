@@ -316,7 +316,7 @@ class TweetController extends Controller
             ]);
             // notification
             $user = $tweet->user;
-            $tweet = Tweet::latest()->first();
+            // $tweet = Tweet::latest()->first();
             $user->notify(new OffersNotification($tweet, 'mention'));
         }
         if ($tweetMedia) {
@@ -382,7 +382,7 @@ class TweetController extends Controller
 
         // notification
         $user = $tweet->user;
-        $tweet = Tweet::latest()->first();
+        // $tweet = Tweet::latest()->first();
         $user->notify(new OffersNotification($tweet, 'reply'));
 
         $reply = $this->formatter->formatReply($reply);
@@ -409,7 +409,7 @@ class TweetController extends Controller
             ]);
             // notification
             $user = $tweet->user;
-            $tweet = Tweet::latest()->first();
+            // $tweet = Tweet::latest()->first();
             $user->notify(new OffersNotification($tweet, 'retweet'));
             // if ($text) {
             //     $reply = $tweet->replies()->create(
@@ -481,7 +481,7 @@ class TweetController extends Controller
             ]);
             // notification
             $user = $tweet->user;
-            $tweet = Tweet::latest()->first();
+            // $tweet = Tweet::latest()->first();
             $user->notify(new OffersNotification($tweet, 'like'));
         }
         $tweet = $this->formatter->formatTweet($tweet);

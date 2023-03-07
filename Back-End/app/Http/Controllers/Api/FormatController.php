@@ -21,7 +21,6 @@ class FormatController extends Controller
         $tweet->liked = $tweet->likedByUserID(JWTAuth::user()->id);
         $tweet->bookmarked = JWTAuth::user()->isBookmarked($tweet->id);
         $tweet->retweeted = $tweet->isRetweetedByUser(JWTAuth::user()->id);
-
         // $tweet->retweeted = $tweet->isRetweeted($tweet->retweets_id);
         $tweet->replies_count = $tweet->replies->count();
         $tweet->likes_count = $tweet->likes->count();
