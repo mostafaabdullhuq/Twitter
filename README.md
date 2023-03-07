@@ -18,10 +18,49 @@ Clone the project
  ```
  git clone https://github.com/mostafaabdullhuq/Twitter
  ``` 
+ ### For Client-side 
+ 
 Install all project packages
 ```
 npm install
 ```
+Run the project 
+```
+ng serve -o
+```
+
+### For server-side
+
+Install all project packages
+```
+composer install
+```
+
+Generate a new application key for your Laravel application
+```
+php artisan key:generate
+```
+
+Generate a new secret key for your JSON Web Tokens (JWTs)
+```
+php artisan jwt:secret
+```
+
+Create a database in phpMyAdmin with any name you like, but remember to name it the same in your laravel .env file and then write
+```
+php artisan migrate:fresh —seed
+```
+
+Create a symbolic link between the public directory in your Laravel application and the storage/app/public directory in your application's file system.
+```
+php artisan storage:link
+```
+
+Then run your server
+```
+php artisan serve
+```
+
 
 ## Features
 ### User can
@@ -46,4 +85,8 @@ npm install
   <li>	JWT Package.</li>
   <li>	Laravel-tags (spatie).</li>
 </ul>
+
+
+
+
 
