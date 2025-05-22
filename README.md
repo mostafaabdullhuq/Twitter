@@ -3,8 +3,6 @@
  </h1>
 </p>
 
-User Guide Video: https://drive.google.com/file/d/1i_RWNFFNxRbUe5soyjw46cM_kYVc_JN1/view?usp=share_link
-
 
 ## Introduction
 
